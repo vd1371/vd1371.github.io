@@ -45,6 +45,9 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
+                        "Title": "Hello from Notion",
+                        "Priority": "urgent",
+                        "Tags": "warning,skull"
                     },
                     body: "This is a CALL from Notion Board. Please check the systems ASAP!"
                 })
