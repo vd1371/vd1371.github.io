@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST Request Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin: 50px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button class="call-button" data-url="https://ntfy.sh/amir-KW4DXU6Kb389Q84Z" style="background-color: darkgreen">Call Amir</button>
+        <button class="call-button" data-url="https://ntfy.sh/pouya-P1SJnsaFNDI46cz9" style="background-color: darkblue">Call Pouya</button>
+        <button class="call-button" data-url="https://ntfy.sh/vahid-DGtrqiOq2mJIFM4c" style="background-color: darkred">Call Vahid</button>
+    </div>
+
+
+    <script>
+        document.querySelectorAll('.call-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const url = this.getAttribute('data-url');
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: "This is a CALL from Notion Board. Please check the systems ASAP!"
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Success:', data);
+                    alert('POST request successful!');
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                    alert('Error making POST request');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
