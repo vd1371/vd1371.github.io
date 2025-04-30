@@ -4,32 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Me</title>
+    <link rel="icon" type="image/x-icon" href="public/favicon.ico">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="posts.html">Posts</a></li>
-            </ul>
-        </nav>
-    </header>
+    <header></header>
+
+    <section class="linkedin-preview">
+        <div class="linkedin-card">
+            <div class="linkedin-header">
+                <img src="public/Vahid2024-Square.jpg" alt="Profile Photo" class="profile-photo">
+                <div class="linkedin-info">
+                    <h3>Vahid Asghari</h3>
+                    <p class="title">Quant AI Specialist at Premialab</p>
+                    <p class="location">Hong Kong</p>
+                </div>
+            </div>
+            <a href="https://linkedin.com/in/asgharivahid/" class="linkedin-button" target="_blank" rel="noopener noreferrer">
+                View Full Profile
+            </a>
+        </div>
+    </section>
 
     <div class="social-icons">
         <a href="https://github.com/vd1371" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-github"></i>
+            <span class="icon-text">GitHub</span>
         </a>
         <a href="https://linkedin.com/in/asgharivahid" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-linkedin"></i>
+            <span class="icon-text">LinkedIn</span>
         </a>
         <a href="https://www.meetup.com/hong-kong-machine-learning-meetup" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-meetup"></i>
+            <span class="icon-text">Meetup</span>
         </a>
         <a href="https://scholar.google.com/citations?user=eUlLuc8AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">
             <i class="fas fa-graduation-cap"></i>
+            <span class="icon-text">Google Scholar</span>
+        </a>
+        <a href="mailto:contact@vahidasghari.me" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-envelope"></i>
+            <span class="icon-text">Email</span>
+        </a>
+        <a href="https://forms.gle/isrRxsD94VtHXNKx5" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-newspaper"></i>
+            <span class="icon-text">Subscribe</span>
         </a>
     </div>
 
@@ -38,13 +59,13 @@
         <p>
             I'm a quantitative developer and researcher with experience in
             equity space and equity derivatives. Currently, I'm working as a
-            Quant AI Specialist at Premialb and responsible for enriching
-            the firm's products with AI and developing in house computational
-            tools.
+            Quant AI Specialist at Premialab and responsible for developing
+            in house computational/quantitative tools and enriching
+            the firm's products with AI and ML.
          </br></br>
 
-            I have mostly been responsible with tight deadlines and high stakes.
-            Interested in and good at building scalable and efficient systems
+            Tight deadlines and high stakes projects are my bread and butter.
+            Interested in building scalable and efficient quantitative systems
             that can handle large amounts of data and complex computations.
 
 
@@ -54,13 +75,16 @@
             replicate academic papers, build small full-stack applications, and
             cook for my family and friends.
 
-
-
         </p>
     </main>
-
-    <footer>
-        <p>&copy; 2024 My Website. All rights reserved.</p>
-    </footer>
+    <script src="header.js"></script>
+    <script src="footer.js"></script>
+    <script>
+        // Wait for DOM to be fully loaded before running scripts
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHeader();
+            loadFooter();
+        });
+    </script>
 </body>
 </html> 
