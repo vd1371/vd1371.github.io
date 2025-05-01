@@ -1,0 +1,11 @@
+{
+  "name": "vd1371.github.io",
+  "version": "1.0.0",
+  "description": "Personal blog and portfolio",
+  "scripts": {
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.5.3"
+  }
+}

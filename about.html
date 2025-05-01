@@ -1,91 +1,139 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>About Me</title>
-    <link rel="icon" type="image/x-icon" href="public/favicon.ico">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
-<body>
+    <link rel="icon" type="image/x-icon" href="public/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-light">
     <header></header>
 
-    <section class="linkedin-preview">
-        <div class="linkedin-card">
-            <div class="linkedin-header">
-                <img src="public/Vahid2024-Square.jpg" alt="Profile Photo" class="profile-photo">
-                <div class="linkedin-info">
-                    <h3>Vahid Asghari</h3>
-                    <p class="title">Quant AI Specialist at Premialab</p>
-                    <p class="location">Hong Kong</p>
+    <main class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="card shadow-sm mb-4">
+            <div class="card-body justify-content-center">
+              <div class="d-flex justify-content-center align-items-center mb-4">
+                <img
+                  src="public/Vahid2024-Square.jpg"
+                  alt="Profile Photo"
+                  class="rounded-circle me-4"
+                  style="width: 120px; height: 120px; object-fit: cover"
+                />
+                <div>
+                  <h3 class="card-title mb-1">Vahid Asghari</h3>
+                  <p class="text-muted mb-1">Quant AI Specialist at Premialab</p>
+                  <p class="text-muted"><i class="fas fa-map-marker-alt me-2"></i>Hong Kong</p>
                 </div>
+              </div>
+              <div class="d-flex justify-content-center">
+                <a
+                  href="https://linkedin.com/in/asgharivahid/"
+                  class="btn btn-primary align-self-center"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fab fa-linkedin me-2"></i>Connect on LinkedIn
+                </a>
+              </div>
             </div>
-            <a href="https://linkedin.com/in/asgharivahid/" class="linkedin-button" target="_blank" rel="noopener noreferrer">
-                View Full Profile
-            </a>
+          </div>
+
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title h4 text-primary mb-4">About Me</h2>
+              <p class="card-text">
+                I'm a quantitative developer and researcher with experience in equity space and equity derivatives.
+                Currently, I'm working as a Quant AI Specialist at Premialab and responsible for developing in house
+                computational/quantitative tools and enriching the firm's products with AI and ML.
+              </p>
+              <p class="card-text">
+                Tight deadlines and high stakes projects are my bread and butter. Interested in building scalable and
+                efficient quantitative systems that can handle large amounts of data and complex computations.
+              </p>
+              <p class="card-text">
+                In my free time, I run bi-monthly Hong Kong Machine Learning Meetups, replicate academic papers, build
+                small full-stack applications, and cook for my family and friends.
+              </p>
+            </div>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <main>
-        <h1>About Me</h1>
-        <p>
-            I'm a quantitative developer and researcher with experience in
-            equity space and equity derivatives. Currently, I'm working as a
-            Quant AI Specialist at Premialab and responsible for developing
-            in house computational/quantitative tools and enriching
-            the firm's products with AI and ML.
-         </br></br>
-
-            Tight deadlines and high stakes projects are my bread and butter.
-            Interested in building scalable and efficient quantitative systems
-            that can handle large amounts of data and complex computations.
-
-
-         </br></br>
-
-            In my free time, I run bi-monthly Hong Kong Machine Learning Meetups,
-            replicate academic papers, build small full-stack applications, and
-            cook for my family and friends.
-
-        </p>
+      <div class="row justify-content-center mt-4">
+        <div class="col-md-8">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <div class="d-flex justify-content-center flex-wrap gap-3">
+                <a
+                  href="https://github.com/vd1371"
+                  class="btn btn-outline-dark"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fab fa-github me-2"></i>GitHub
+                </a>
+                <a
+                  href="https://linkedin.com/in/asgharivahid"
+                  class="btn btn-outline-primary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fab fa-linkedin me-2"></i>LinkedIn
+                </a>
+                <a
+                  href="https://www.meetup.com/hong-kong-machine-learning-meetup"
+                  class="btn btn-outline-danger"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fab fa-meetup me-2"></i>Meetup
+                </a>
+                <a
+                  href="https://scholar.google.com/citations?user=eUlLuc8AAAAJ&hl=en"
+                  class="btn btn-outline-info"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fas fa-graduation-cap me-2"></i>Google Scholar
+                </a>
+                <a
+                  href="mailto:contact@vahidasghari.me"
+                  class="btn btn-outline-secondary"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fas fa-envelope me-2"></i>Email
+                </a>
+                <a
+                  href="https://forms.gle/isrRxsD94VtHXNKx5"
+                  class="btn btn-outline-success"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fas fa-newspaper me-2"></i>Subscribe
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
 
-    <div class="social-icons">
-        <a href="https://github.com/vd1371" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-github"></i>
-            <span class="icon-text">GitHub</span>
-        </a>
-        <a href="https://linkedin.com/in/asgharivahid" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-linkedin"></i>
-            <span class="icon-text">LinkedIn</span>
-        </a>
-        <a href="https://www.meetup.com/hong-kong-machine-learning-meetup" target="_blank" rel="noopener noreferrer">
-            <i class="fab fa-meetup"></i>
-            <span class="icon-text">Meetup</span>
-        </a>
-        <a href="https://scholar.google.com/citations?user=eUlLuc8AAAAJ&hl=en" target="_blank" rel="noopener noreferrer">
-            <i class="fas fa-graduation-cap"></i>
-            <span class="icon-text">Google Scholar</span>
-        </a>
-        <a href="mailto:contact@vahidasghari.me" target="_blank" rel="noopener noreferrer">
-            <i class="fas fa-envelope"></i>
-            <span class="icon-text">Email</span>
-        </a>
-        <a href="https://forms.gle/isrRxsD94VtHXNKx5" target="_blank" rel="noopener noreferrer">
-            <i class="fas fa-newspaper"></i>
-            <span class="icon-text">Subscribe</span>
-        </a>
-    </div>
-    
+    <footer></footer>
+
     <script src="header.js"></script>
     <script src="footer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Wait for DOM to be fully loaded before running scripts
-        document.addEventListener('DOMContentLoaded', function() {
-            loadHeader();
-            loadFooter();
-        });
+      document.addEventListener('DOMContentLoaded', function () {
+        loadHeader();
+        loadFooter();
+      });
     </script>
-</body>
-</html> 
+  </body>
+</html>

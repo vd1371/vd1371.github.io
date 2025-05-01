@@ -1,0 +1,16 @@
+{
+ "editor.defaultFormatter": "esbenp.prettier-vscode",
+ "editor.formatOnSave": true,
+ "[html]": {
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
+ },
+ "prettier.requireConfig": true,
+ "editor.tabSize": 2,
+ "editor.insertSpaces": true,
+ "editor.detectIndentation": false,
+ "editor.formatOnSaveMode": "modifications",
+ "editor.formatOnSaveOptions": {
+  "tabSize": 2
+ },
+ "editor.rulers": [120]
+}
