@@ -26,16 +26,13 @@
       title: 'Quant Strategies',
       link: 'projects/quant-strategies.html',
       icon: 'bi-code-slash',
+      date: 'To be updated',
     },
     {
       title: 'Crypto News Sentiment',
-      link: 'projects/crypto-news-sentiment.html',
+      date: 'May 2, 2025',
+      link: 'posts/projects/2025-05-02-crypto-news-sentiment.html',
       icon: 'bi-tools',
-    },
-    {
-      title: 'Project Archive',
-      link: 'projects/archive.html',
-      icon: 'bi-archive',
     },
   ];
 

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An analysis of value and momentum factors across global markets and their implications for portfolio construction"
+    />
+    <meta
+      name="keywords"
+      content="value investing, momentum investing, factor investing, portfolio construction, asset allocation"
+    />
+    <meta name="author" content="Vahid Asghari" />
+    <title>Value and Momentum Everywhere</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <!-- Add syntax highlighting for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+  </head>
+  <body class="bg-light">
+    <header id="main-header"></header>
+
+    <main class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <article class="card shadow-sm p-4">
+            <header class="post-header mb-4">
+              <h1 class="card-title h4 text-primary pb-2">Crypto News Sentiment</h1>
+              <small class="text-muted">May 2, 2025</small>
+            </header>
+
+            <div>
+              <img src="../../images/projects/2025-05-02-crypto-news-sentiment-Image1.jpg" alt="Crypto News Sentiment" class="img-fluid">
+            </div>
+      
+            <div class="table-of-contents mb-4">
+              <h5 class="mb-3">Table of Contents</h5>
+              <ol class="list-unstyled">
+                <li class="mb-2"><a href="#motivation">Motivation</a></li>
+                <li class="mb-2"><a href="#data-collection">Data Collection</a></li>
+                <li class="mb-2"><a href="#challenges">Challenges</a></li>
+                <li class="mb-2"><a href="#methodology">Methodology</a></li>
+                <li class="mb-2"><a href="#code-structure">Code Structure</a></li>
+                <li class="mb-2"><a href="#next-steps">Next Steps</a></li>
+              </ol>
+            </div>
+      
+            <div>
+              <!-- Start with the motivation -->
+              <section class="mb-4" id="motivation">
+                <h5 class="mb-3">Motivation</h5>
+
+                <p>
+                  Alternative data is a rich source of information that can be used to make
+                  investment decisions. It can provide insights that are not available in the
+                  market data and any type of factors or indicators. The faster you get the
+                  information, the better you can make the investment decisions. The Covid
+                  vaccine, Brexit, tarrifs, etc. are some examples of the events that
+                  moved the market and had a significant impact on the price of the stocks.
+                </p>
+
+                <p>
+                  In 2024, I started a project to programatically read the news online,
+                  clean the text, and then find the sentiment of the news with the hope of
+                  using it for trading cryptocurrencies.
+                </p>
+
+                <p>
+                  The data sources are the publicly available news websites which I will 
+                  list in the data collection section. The sentiment analysis is done as 
+                  a combination of classical and modern NLP techniques with a touch of
+                  proprietary techniques.
+                </p>
+
+                <p>
+                  The project is ongoing and the results will be updated here.
+                </p>
+              </section>
+
+              <!-- Data Collection -->
+              <section class="pt-4 border-top mb-4" id="data-collection">
+                <h5 class="mb-3">Data Collection</h5>
+
+                <p>
+                  The following is the list of the news websites that I have used to collect
+                  the data.
+                </p>
+
+                <ul>
+                  <li><a href="https://www.beincrypto.com/" target="_blank">BeinCrypto</a></li>
+                  <li><a href="https://www.bitcoinmagazine.com/" target="_blank">Bitcoin Magazine</a></li>
+                  <li><a href="https://www.blockworks.co/" target="_blank">Blockworks</a></li>
+                  <li><a href="https://coinbureau.com/" target="_blank">Coin Bureau</a></li>
+                  <li><a href="https://www.coindesk.com/" target="_blank">CoinDesk</a></li>
+                  <li><a href="https://www.cointelegraph.com/" target="_blank">Coin Telegraph</a></li>
+                  <li><a href="https://www.decrypt.co/" target="_blank">Decrypt</a></li>
+                  <li><a href="https://www.theblock.co/" target="_blank">The Block</a></li>
+                  <li><a href="https://u.today/" target="_blank">U.Today</a></li>
+                </ul>
+              </section>
+
+              <!-- Challenges -->
+              <section class="pt-4 border-top mb-4" id="challenges">
+                <h5 class="mb-3">Challenges and Lessons Learned</h5>
+
+                <h6>Challenge 1: Being detected by the websites as a bot</h6>
+
+                <p>
+                  The first challenge was being detected by the websites as a bot. One of the
+                  most simple solutions is to rotate the headers of the headless browsers 
+                  frequently.
+                </p>
+
+                <h6>Challenge 2: The headless browser and selenium left infant processes</h6>
+
+                <p>
+                  This cause the EC2 or the server to run out of memory and crash. The hack for
+                  this is to restart the code every day to prevent the memory from being used up.
+                </p>
+
+                <h6>Challenge 3: How to get the sentiment of the news</h6>
+
+                <p>
+                  The sentiment of the news is a very important part of the project. The
+                  challenge is to identify which coins are mentioned in the news. Then, 
+                  what's the sentiment of the news for each coin. Also, there could be
+                  several aspects of a news that can be positive or negative for a coin.
+                  For example, security issues, market related news, etc.
+                </p>
+                
+              </section>
+
+              
+              <!-- Methodology -->
+              <section class="mb-4" id="methodology">
+                <h5 class="mb-3">Methodology</h5>
+
+                <p>
+                  To be updated
+                </p>
+              </section>
+
+
+              <!-- Code structure -->
+              <section class="mb-4" id="code-structure">
+                <h5 class="mb-3">Code Structure</h5>
+
+                <p>
+                  To be updated
+                </p>
+              </section>
+
+
+              <!-- Next Steps -->
+              <section class="mb-4" id="next-steps">
+                <h5 class="mb-3">Next Steps</h5>
+
+                <p>
+                  To be updated
+                </p>
+              </section>
+
+            </div>
+          </article>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../components/header.js"></script>
+    <script src="../../components/footer.js"></script>
+    <script src="../../data/content.js"></script>
+    <script src="../../components/content_menu.js"></script>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        loadHeader();
+      });
+    </script>
+  </body>
+</html>

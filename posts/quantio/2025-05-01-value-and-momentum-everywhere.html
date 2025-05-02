@@ -32,7 +32,7 @@
             </header>
       
             <div class="table-of-contents mb-4">
-              <h2 class="h5 mb-3">Table of Contents</h2>
+              <h5 class="mb-3">Table of Contents</h5>
               <ol class="list-unstyled">
                 <li class="mb-2"><a href="#research-basis">Research Basis</a></li>
                 <li class="mb-2"><a href="#data-collection">Data Collection</a></li>
@@ -44,7 +44,7 @@
               </ol>
             </div>
       
-            <div class="post-body">
+            <div>
               <section class="mb-4">
                 <h2 id="research-basis" class="h5 mb-3">Research Basis</h2>
                 <p>
@@ -268,7 +268,7 @@ model = sm.OLS(y, X)
 results = model.fit()</code></pre>
       
                 <div class="d-flex justify-content-center">
-                  <img src="../../images/2025-05-01-ValueAndMomentum-Image1.png" alt="Value and Momentum Everywhere" class="img-fluid">
+                  <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image1.png" alt="Value and Momentum Everywhere" class="img-fluid">
                 </div>
       
                 <code style="color: #000;">
@@ -489,6 +489,80 @@ Kurtosis:                      11.051   Cond. No.                         1.65
                   </p>
                 </div>
               </section>
+
+              <section class="mb-4">
+                <h3 class="h5 mb-3">Analysis of the Results</h3>
+                <p class="mb-3">
+                  Although the p-value is not significant statistically, we can see a positive relationship between the rolling 12 months return and next month return on the tails.
+                </p>
+                <p class="mb-3">
+                  That's a good sign, it means we can trade momentum factor cross sectionally. At least we can give it a shot.
+                </p>
+
+                <pre><code class="language-python">dates_holder = []
+strategy_monthly_return_holder = []
+
+for date, long_symbols, short_symbols in zip(long_df.index, long_df_symbols, short_df_symbols):
+
+    monthly_return_tmp_holder = []
+
+    for symbol in long_symbols:
+        if date not in next_month_return_df.index:
+            continue
+        monthly_return_tmp_holder.append(next_month_return_df.loc[date, symbol])
+
+    for symbol in short_symbols:
+        if date not in next_month_return_df.index:
+            continue
+        monthly_return_tmp_holder.append(-next_month_return_df.loc[date, symbol])
+
+    if len(monthly_return_tmp_holder) == 0:
+        continue
+
+    dates_holder.append(date)
+    strategy_monthly_return_holder.append(np.mean(monthly_return_tmp_holder))
+
+# Skipping the first 12 months because of the rolling 12 months return
+n_cut = 12
+dates_holder = dates_holder[n_cut:]
+strategy_monthly_return_holder = strategy_monthly_return_holder[n_cut:]
+
+# Find the cumsum of the strategy return
+strategy_monthly_return_holder_cum = np.array(strategy_monthly_return_holder)
+strategy_monthly_return_holder_cum = strategy_monthly_return_holder_cum + 1
+strategy_monthly_return_holder_cum = np.cumprod(strategy_monthly_return_holder_cum)
+
+sharpe = np.mean(strategy_monthly_return_holder) / np.std(strategy_monthly_return_holder) * np.sqrt(12)
+
+print(f'Sharpe ratio: {sharpe:4f}')
+
+plt.plot(dates_holder, strategy_monthly_return_holder_cum)
+plt.title('Cumulative return')
+plt.show()</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section implements the core momentum trading strategy:
+                    <ol>
+                      <li>Portfolio Construction:
+                        <ul>
+                          <li>Iterates through each date to build long and short positions</li>
+                          <li>For long positions: Takes positive returns from stocks with positive momentum</li>
+                          <li>For short positions: Takes negative returns from stocks with negative momentum</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image2.png" alt="Cumulative return" class="img-fluid">
+                </div>
+
+
+
+              </section>
       
               <section class="mb-4">
                 <h3 id="post-crisis-analysis" class="h5 mb-3">Post-Financial Crisis Analysis</h3>
@@ -519,7 +593,7 @@ plt.title('Cumulative return after 2010')
 plt.show()</code></pre>
       
                 <div class="d-flex justify-content-center">
-                  <img src="../../images/2025-05-01-ValueAndMomentum-Image3.png" alt="Post-2010 Momentum Strategy Returns" class="img-fluid">
+                  <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image3.png" alt="Post-2010 Momentum Strategy Returns" class="img-fluid">
                 </div>
       
                 <div class="alert alert-info mt-3">
@@ -612,7 +686,7 @@ plt.show()
 </code></pre>
       
                  <div class="d-flex justify-content-center">
-                   <img src="../../images/2025-05-01-ValueAndMomentum-Image4.png" alt="Post-2010 Momentum Strategy Returns with Optimization" class="img-fluid">
+                   <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image4.png" alt="Post-2010 Momentum Strategy Returns with Optimization" class="img-fluid">
                  </div>
       
                  <div class="alert alert-info mt-3">
@@ -660,7 +734,6 @@ plt.show()
       
             </div>
           </article>
-
         </div>
       </div>
     </main>

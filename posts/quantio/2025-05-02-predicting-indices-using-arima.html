@@ -22,7 +22,7 @@
   <body class="bg-light">
     <header id="main-header"></header>
 
-    <main class="container post-body py-4">
+    <main class="container py-4">
       <div class="row justify-content-center">
         <div class="col-md-6">
           <article class="card shadow-sm">
@@ -33,7 +33,7 @@
               </header>
     
               <div class="table-of-contents mb-4">
-                <h2 class="h5 mb-3">Table of Contents</h2>
+                <h5 class="mb-3">Table of Contents</h5>
                 <ul class="list-unstyled">
                   <li><a href="#strategy-details">Strategy Details</a></li>
                   <li><a href="#my-2-cents">My 2 cents on the matter</a></li>
@@ -47,9 +47,9 @@
                 </ul>
               </div>
     
-              <div class="post-body">
+              <div>
                 <section class="mb-4">
-                  <h2 class="h5 mb-3" id="strategy-details">Strategy Details</h2>
+                  <h5 class="mb-3" id="strategy-details">Strategy Details</h5>
                   <p>
                     Reference: Sahil Teymurzade & Robert Ślepaczuk, 2023. "Predicting DJIA, NASDAQ and NYSE index prices using ARIMA and VAR models," Working Papers 2023-27, Faculty of Economic Sciences, University of Warsaw.
                   </p>
@@ -59,12 +59,12 @@
                   <p>
                     The main idea: Stock forecasting with ARIMA or VAR models.
                   </p>
-                  <h2 class="h5 mb-3" id="my-2-cents">My 2 cents on the matter</h2>
+                  <h5 class="mb-3" id="my-2-cents">My 2 cents on the matter</h5>
                   <p>
                     Personally, I have never seen ARIMA or VAR models work. They usually work on stationary data. But the stock market prices is highly non-stationary and even differencing wouldn't help much. In the lower quality papers, specially the ones in the engineering area, some authors use r-squared, mean squared errors, or similar metrics to claim they have a good model. Well, if you use a simple moving average, you get an r-squared of more than 95% for the prices, not the returns. A more advanced model would be using LSTM to do such thing, but again, the problem
                   </p>
     
-                  <h2 class="h5 mb-3" id="what-i-wont-do">What I won't do as what the paper has done?</h2>
+                  <h5 class="mb-3" id="what-i-wont-do">What I won't do as what the paper has done?</h5>
                   <ul>
                     <li>The paper does an optimization on the p, q, d of ARIMA model. I won't do it, because based on my personal experience, it won't change the results that much. I will simply use ARIMA (2,2,2)</li>
                     <li>The paper tries to find the optimal lag by using AIC to find the best VAR model. I will simply use 5 days, 10 days, 22 days, and 66 days. We can see the results for all of them.</li>
@@ -77,7 +77,7 @@
                 </section>
     
                 <section class="mb-4">
-                  <h2 class="h5 mb-3" id="initial-setup">Initial Setup</h2>
+                  <h5 class="mb-3" id="initial-setup">Initial Setup</h5>
                   <p>First, let's import the necessary libraries and set up our data parameters:</p>
                   <pre><code class="language-python">import os
 import pandas as pd
@@ -117,7 +117,7 @@ tickers = ['^DJI', '^IXIC', '^NYA']</code></pre>
                 </section>
     
                 <section class="mb-4">
-                  <h2 class="h5 mb-3" id="data-download">Data Download and Processing</h2>
+                  <h5 class="mb-3" id="data-download">Data Download and Processing</h5>
                   <p>Let's create functions to download and process the data:</p>
                   <pre><code class="language-python"># Load the data
 def download_data(symbol):
@@ -202,7 +202,7 @@ for i, symbol in enumerate(tickers):
                 </section>
     
                 <section class="mb-4">
-                  <h2 class="h5 mb-3" id="var-model">Vector Autoregression (VAR) Model Implementation</h2>
+                  <h5 class="mb-3" id="var-model">Vector Autoregression (VAR) Model Implementation</h5>
                   <p>Now we'll implement the VAR model using different lag periods to analyze their predictive power:</p>
                   <pre><code class="language-python"># Doing the VAR model first
     look_back_period = 500
@@ -264,7 +264,7 @@ holder[symbol] = df</code></pre>
                 </section>
     
                 <section class="mb-4">
-                  <h2 class="h5 mb-3" id="arima-model">ARIMA Model Implementation</h2>
+                  <h5 class="mb-3" id="arima-model">ARIMA Model Implementation</h5>
                   <p>Now we'll implement the ARIMA model to predict future stock prices:</p>
                   <pre><code class="language-python"># Doing the ARIMA model
 import warnings
@@ -326,7 +326,7 @@ for symbol, df in holder.items():
                 </section>
     
                 <section class="mb-4">
-                  <h2 class="h5 mb-3" id="results-analysis">Results Analysis</h2>
+                  <h5 class="mb-3" id="results-analysis">Results Analysis</h5>
                   <p>Let's analyze the results of our VAR and ARIMA models:</p>
                   <pre><code class="language-python">
 for symbol, df in holder.items():
@@ -418,15 +418,15 @@ print (results_holder)</code></pre>
                   </div>
     
                   <div class="d-flex justify-content-center">
-                    <img src="../../images/2025-05-02-predictingindices-Image1.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
+                    <img src="../../images/quantio/2025-05-02-predictingindices-Image1.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
                   </div>
     
                   <div class="d-flex justify-content-center">
-                    <img src="../../images/2025-05-02-predictingindices-Image2.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
+                    <img src="../../images/quantio/2025-05-02-predictingindices-Image2.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
                   </div>
                   
                   <div class="d-flex justify-content-center">
-                    <img src="../../images/2025-05-02-predictingindices-Image3.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
+                    <img src="../../images/quantio/2025-05-02-predictingindices-Image3.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
                   </div>
     
                   <h3 class="h5 mb-3">Sharpe Ratios</h3>

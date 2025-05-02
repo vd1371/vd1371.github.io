@@ -12,43 +12,28 @@
   <body class="bg-light">
     <header></header>
 
-    <main class="container py-5" style="max-width: 800px; margin: 0 auto">
-      <div class="row g-4">
-        <div class="col-12">
-          <div class="card card-body shadow-sm h-100 border-0">
+    <main class="container py-5">
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-6">
+          <div class="card card-body shadow-sm border-0">
             <h2 class="card-title h4 text-primary pb-2 d-flex align-items-center">
               <i class="bi bi-journal-text me-2"></i>
               Quant Notebooks
             </h2>
-            <ul id="quant-notebooks" class="list-unstyled">
-              <!-- List items will be dynamically added here -->
-            </ul>
-          </div>
-        </div>
+            <ul id="quant-notebooks" class="list-unstyled"></ul>
 
-        <div class="col-12">
-          <div class="card card-body shadow-sm h-100 border-0">
-            <h2 class="card-title h4 text-primary pb-2 d-flex align-items-center">
+            <h2 class="card-title h4 text-primary pb-2 d-flex align-items-center pt-4 border-top">
               <i class="bi bi-code-square me-2"></i>
               Projects
             </h2>
-            <ul id="projects" class="list-unstyled">
-              <!-- List items will be dynamically added here -->
-            </ul>
-          </div>
-        </div>
+            <ul id="projects" class="list-unstyled"></ul>
 
-        <div class="col-12">
-          <div class="card shadow-sm h-100 border-0">
-            <div class="card-body">
-              <h2 class="card-title h4 text-primary pb-2 d-flex align-items-center">
-                <i class="bi bi-book me-2"></i>
-                Research Papers
-              </h2>
-              <ul id="research-papers" class="list-unstyled">
-                <!-- List items will be dynamically added here -->
-              </ul>
-            </div>
+
+            <h2 class="card-title h4 text-primary pb-2 d-flex align-items-center pt-4 border-top">
+              <i class="bi bi-book me-2"></i>
+              Research Papers
+            </h2>
+            <ul id="research-papers" class="list-unstyled"></ul>
           </div>
         </div>
       </div>
@@ -104,13 +89,13 @@
 
         if (projectsList) {
           projects.forEach(item => {
-            projectsList.appendChild(createListItem(item));
+            projectsList.appendChild(createListItem(item, true));
           });
         }
 
         if (researchPapersList) {
           researchPapers.forEach(item => {
-            researchPapersList.appendChild(createListItem(item));
+            researchPapersList.appendChild(createListItem(item, true));
           });
         }
       }
