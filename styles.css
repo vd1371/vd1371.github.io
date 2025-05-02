@@ -5,4 +5,86 @@
 .hover-effect:hover {
   background-color: rgba(0, 123, 255, 0.1);
   transform: translateX(5px);
-} 
+}
+
+.table-of-contents {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.container {
+  max-width: 100vw;
+  margin: 0 auto;
+}
+
+/* Menu Section Styles */
+.menu-section {
+  background-color: #ffffff;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.menu-section h6 {
+  color: #2c3e50;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9rem;
+}
+
+.menu-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.menu-section li {
+  margin-bottom: 0.25rem;
+}
+
+.menu-section li:last-child {
+  margin-bottom: 0;
+}
+
+.menu-section a {
+  display: flex;
+  align-items: center;
+  padding: 0.4rem 0.6rem;
+  color: #4a5568;
+  text-decoration: none;
+  border-radius: 0.25rem;
+  transition: all 0.15s ease-in-out;
+  font-size: 0.85rem;
+}
+
+.menu-section a:hover {
+  background-color: #f8fafc;
+  color: #2d3748;
+}
+
+.menu-section i {
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+  color: #4a5568;
+}
+
+.menu-section small {
+  margin-left: auto;
+  color: #718096;
+  font-size: 0.75rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .menu-section {
+    padding: 0.5rem;
+  }
+  
+  .menu-section a {
+    padding: 0.3rem 0.5rem;
+  }
+}

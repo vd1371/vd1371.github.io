@@ -3,10 +3,8 @@ function loadHeader() {
 
   // Determine if we're on GitHub Pages or local
   const isInPosts = window.location.pathname.includes('posts');
-  const basePath = isInPosts ? '../' : ''
-
-  console.log(basePath);
-
+  const basePath = isInPosts ? '../../' : ''
+  
   header.innerHTML = `
         <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm" >
             <div class="container" style="max-width: 800px; margin: 0 auto">
@@ -27,4 +25,6 @@ function loadHeader() {
             </div>
         </nav>
     `;
-} 
+}
+
+document.addEventListener('DOMContentLoaded', loadHeader);

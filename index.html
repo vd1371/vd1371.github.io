@@ -6,86 +6,47 @@
     <link rel="icon" type="image/x-icon" href="public/favicon.ico" />
     <title>Vahid Asghari's Blog</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body class="bg-light">
     <header></header>
 
-    <main class="container py-4" style="max-width: 800px; margin: 0 auto">
+    <main class="container py-5" style="max-width: 800px; margin: 0 auto">
       <div class="row g-4">
         <div class="col-12">
-          <div class="card shadow-sm h-100">
-            <div class="card-body">
-              <h2 class="card-title h4 text-primary pb-2">Quant Notebooks</h2>
-              <ul class="list-unstyled">
-                <li class="d-flex mt-2 justify-content-between">
-                  <a
-                    href="posts/2025-05-01-valueandmomentumeverywhere.html"
-                    class="text-decoration-none text-dark p-2 rounded hover-effect"
-                    >Value and Momentum Everywhere</a
-                  >
-                  <small class="text-muted align-self-center">May 1, 2025</small>
-                </li>
-
-                <li class="d-flex mt-2 justify-content-between">
-                  <a
-                    href="posts/2025-05-01-stockreturnsaftershock.html"
-                    class="text-decoration-none text-dark p-2 rounded hover-effect"
-                    >Stock Returns After Extreme Loss Events</a
-                  >
-                  <small class="text-muted align-self-center">May 1, 2025</small>
-                </li>
-
-                <li class="d-flex mt-2 justify-content-between">
-                  <a
-                    href="posts/2025-05-02-predictingindicesusingarima.html"
-                    class="text-decoration-none text-dark p-2 rounded hover-effect"
-                    >Predicting Indices Using ARIMA</a
-                  >
-                  <small class="text-muted align-self-center">May 2, 2025</small>
-                </li>
-              </ul>
-            </div>
+          <div class="card card-body shadow-sm h-100 border-0">
+            <h2 class="card-title h4 text-primary pb-2 d-flex align-items-center">
+              <i class="bi bi-journal-text me-2"></i>
+              Quant Notebooks
+            </h2>
+            <ul id="quant-notebooks" class="list-unstyled">
+              <!-- List items will be dynamically added here -->
+            </ul>
           </div>
         </div>
 
         <div class="col-12">
-          <div class="card shadow-sm h-100">
-            <div class="card-body">
-              <h2 class="card-title h4 text-primary">Projects</h2>
-              <ul class="list-unstyled">
-                <li class="mb-2">
-                  <a href="posts/post1.html" class="text-decoration-none text-dark p-2 rounded hover-effect"
-                    >Latest Post</a
-                  >
-                </li>
-                <li class="mb-2">
-                  <a href="posts/post2.html" class="text-decoration-none text-dark p-2 rounded hover-effect"
-                    >Previous Post</a
-                  >
-                </li>
-                <li class="mb-2">
-                  <a href="posts/post3.html" class="text-decoration-none text-dark p-2 rounded hover-effect">Archive</a>
-                </li>
-              </ul>
-            </div>
+          <div class="card card-body shadow-sm h-100 border-0">
+            <h2 class="card-title h4 text-primary pb-2 d-flex align-items-center">
+              <i class="bi bi-code-square me-2"></i>
+              Projects
+            </h2>
+            <ul id="projects" class="list-unstyled">
+              <!-- List items will be dynamically added here -->
+            </ul>
           </div>
         </div>
 
         <div class="col-12">
-          <div class="card shadow-sm h-100">
+          <div class="card shadow-sm h-100 border-0">
             <div class="card-body">
-              <h2 class="card-title h4 text-primary">Research Papers</h2>
-              <ul class="list-unstyled">
-                <li class="mb-2">
-                  <a href="resources/tutorials.html" class="text-decoration-none text-dark">Tutorials</a>
-                </li>
-                <li class="mb-2">
-                  <a href="resources/books.html" class="text-decoration-none text-dark">Recommended Books</a>
-                </li>
-                <li class="mb-2">
-                  <a href="resources/tools.html" class="text-decoration-none text-dark">Useful Tools</a>
-                </li>
+              <h2 class="card-title h4 text-primary pb-2 d-flex align-items-center">
+                <i class="bi bi-book me-2"></i>
+                Research Papers
+              </h2>
+              <ul id="research-papers" class="list-unstyled">
+                <!-- List items will be dynamically added here -->
               </ul>
             </div>
           </div>
@@ -95,15 +56,71 @@
 
     <footer></footer>
 
-    <script src="header.js"></script>
-    <script src="footer.js"></script>
-    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="components/header.js"></script>
+    <script src="components/footer.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="data/content.js"></script>
     <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        loadHeader();
-        loadFooter();
-      });
+      // Function to create list items
+      function createListItem(item, hasDate = false) {
+        const li = document.createElement('li');
+        li.className = hasDate ? 'd-flex mt-2 justify-content-between align-items-center' : 'mb-2';
+        
+        const link = document.createElement('a');
+        link.href = item.link;
+        link.className = 'text-decoration-none text-dark p-2 rounded hover-effect d-flex align-items-center';
+        
+        const icon = document.createElement('i');
+        icon.className = `bi ${item.icon} me-2`;
+        
+        link.appendChild(icon);
+        link.appendChild(document.createTextNode(item.title));
+        
+        li.appendChild(link);
+        
+        if (hasDate) {
+          const date = document.createElement('small');
+          date.className = 'text-muted';
+          date.textContent = item.date;
+          li.appendChild(date);
+        }
+        
+        return li;
+      }
+
+      // Function to populate lists
+      function populateLists() {
+        const quantNotebooksList = document.getElementById('quant-notebooks');
+        const projectsList = document.getElementById('projects');
+        const researchPapersList = document.getElementById('research-papers');
+
+        console.log('Found elements:', { quantNotebooksList, projectsList, researchPapersList });
+
+        if (quantNotebooksList) {
+          quantNotebooks.forEach(item => {
+            quantNotebooksList.appendChild(createListItem(item, true));
+          });
+        }
+
+        if (projectsList) {
+          projects.forEach(item => {
+            projectsList.appendChild(createListItem(item));
+          });
+        }
+
+        if (researchPapersList) {
+          researchPapers.forEach(item => {
+            researchPapersList.appendChild(createListItem(item));
+          });
+        }
+      }
+
+      // Wait for the DOM to be fully loaded
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', populateLists);
+      } else {
+        populateLists();
+      }
     </script>
   </body>
 </html>

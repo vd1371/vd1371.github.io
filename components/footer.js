@@ -1,4 +1,4 @@
-function injectFooter() {
+function loadFooter() {
     const footer = `
         <footer class="bg-white shadow-sm mt-auto py-3">
             <div class="container text-center">
@@ -19,5 +19,4 @@ function injectFooter() {
     }
 }
 
-// Call the function when the DOM is fully loaded
-document.addEventListener('DOMContentLoaded', injectFooter); 
+document.addEventListener('DOMContentLoaded', loadFooter); 
