@@ -4,33 +4,33 @@
     {
       title: 'Value and Momentum Everywhere',
       link: 'posts/quantio/2025-05-01-value-and-momentum-everywhere.html',
-      date: 'May 1, 2024',
-      icon: 'bi-arrow-right-circle',
+      date: 'May 1, 2025',
+      icon: 'bi-graph-up',
     },
     {
       title: 'Stock Returns After Extreme Loss Events',
       link: 'posts/quantio/2025-05-01-stock-returns-after-shock.html',
-      date: 'May 1, 2024',
-      icon: 'bi-arrow-right-circle',
+      date: 'May 1, 2025',
+      icon: 'bi-bar-chart',
     },
     {
       title: 'Predicting Indices Using ARIMA',
       link: 'posts/quantio/2025-05-02-predicting-indices-using-arima.html',
-      date: 'May 2, 2024',
-      icon: 'bi-arrow-right-circle',
+      date: 'May 2, 2025',
+      icon: 'bi-calculator',
     },
   ];
 
   const projects = [
     {
-      title: 'Latest Project',
-      link: 'projects/latest-project.html',
-      icon: 'bi-github',
+      title: 'Quant Strategies',
+      link: 'projects/quant-strategies.html',
+      icon: 'bi-code-slash',
     },
     {
-      title: 'Previous Project',
-      link: 'projects/previous-project.html',
-      icon: 'bi-github',
+      title: 'Crypto News Sentiment',
+      link: 'projects/crypto-news-sentiment.html',
+      icon: 'bi-tools',
     },
     {
       title: 'Project Archive',
@@ -41,19 +41,30 @@
 
   const researchPapers = [
     {
-      title: 'Tutorials',
+      // Expediting life cycle cost analysis of infrastructure assets under multiple uncertainties by deep neural networks
+      title: 'Estimating Monte Carlo Simulation results with ML',
       link: 'resources/tutorials.html',
-      icon: 'bi-mortarboard',
+      icon: 'bi-cpu',
     },
     {
-      title: 'Recommended Books',
+      // Machine learning modeling for spectral transient-based leak detection
+      // Upscaling complex project-level infrastructure intervention planning to network assets
+      title: 'Estimating Optimization Results with ML',
       link: 'resources/books.html',
-      icon: 'bi-book',
+      icon: 'bi-journal-text',
     },
     {
-      title: 'Useful Tools',
+      // An open-source and extensible platform for general infrastructure asset management system
+      title: 'An open-source and extensible platform for general infrastructure asset management system',
       link: 'resources/tools.html',
-      icon: 'bi-tools',
+      icon: 'bi-layers',
+    },
+    {
+      // The Network Level Multiagent reinforcement learning for project-level intervention planning under multiple uncertainties
+      title:
+        'The Network Level Multiagent reinforcement learning for project-level intervention planning under multiple uncertainties',
+      link: 'resources/tools.html',
+      icon: 'bi-cpu',
     },
   ];
 
