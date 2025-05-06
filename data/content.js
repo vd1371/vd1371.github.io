@@ -19,6 +19,12 @@
       date: 'May 2, 2025',
       icon: 'bi-calculator',
     },
+    {
+      title: 'Revisiting Momentum',
+      link: 'posts/quantio/2025-05-03-revisiting-momentum.html',
+      date: 'May 3, 2025',
+      icon: 'bi-graph-up',
+    },
   ];
 
   const projects = [

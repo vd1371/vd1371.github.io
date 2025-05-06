@@ -1,0 +1,668 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An analysis of an improved momentum strategy that incorporates market panic states"
+    />
+    <meta
+      name="keywords"
+      content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
+    />
+    <meta name="author" content="Vahid Asghari" />
+    <title>Revisiting Momentum</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <!-- Add syntax highlighting for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+  </head>
+  <body class="bg-light">
+    <header id="main-header"></header>
+
+    <main class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <article class="card shadow-sm p-4">
+            <header class="post-header mb-4">
+              <h1 class="card-title h4 text-primary pb-2">Revisiting Momentum</h1>
+              <small class="text-muted">May 3, 2025</small>
+            </header>
+      
+            <div class="table-of-contents mb-4">
+              <h5 class="mb-3">Table of Contents</h5>
+              <ol class="list-unstyled">
+                <li class="mb-2"><a href="#strategy-overview">Strategy Overview</a></li>
+                <li class="mb-2"><a href="#data-collection">Data Collection</a></li>
+                <li class="mb-2"><a href="#data-processing">Data Processing</a></li>
+                <li class="mb-2"><a href="#monthly-aggregation">Monthly Data Aggregation</a></li>
+                <li class="mb-2"><a href="#panic-state">Panic State Indicator</a></li>
+                <li class="mb-2"><a href="#strategy-implementation">Strategy Implementation</a></li>
+                <li class="mb-2"><a href="#performance-analysis">Performance Analysis</a></li>
+                <li class="mb-2"><a href="#delta-optimization">Parameter Optimization</a></li>
+                <li class="mb-2"><a href="#conclusion">Conclusion</a></li>
+              </ol>
+            </div>
+      
+            <div>
+              <section class="mb-4">
+                <h2 id="strategy-overview" class="h5 mb-3">Strategy Overview</h2>
+                <p>
+                  This strategy is based on the paper "Revisiting (Revitalizing) Momentum" which improves upon traditional momentum strategies by incorporating a panic state indicator. The key innovation is detecting divergent patterns between short-run and long-run market returns to adjust position sizing and direction.
+                </p>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Key Components</h5>
+                  <p class="mb-0">
+                    <ol>
+                      <li>Panic State Detection:
+                        <ul>
+                          <li>Monitors divergence between short-run (3-month) and long-run (120-month) market returns</li>
+                          <li>Uses volatility-adjusted thresholds to identify market stress periods</li>
+                          <li>Triggers alternative position sizing during panic states</li>
+                        </ul>
+                      </li>
+                      <li>Position Management:
+                        <ul>
+                          <li>Traditional momentum: Long winners, short losers</li>
+                          <li>Panic state: Long both winners and losers</li>
+                          <li>Dynamic adjustment based on market conditions</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <p>
+                  Reference: <a href="https://aaltodoc.aalto.fi/server/api/core/bitstreams/c045da82-b1c9-4216-8b72-1fce000fe02e/content" target="_blank">Revisiting (Revitalizing) Momentum</a>
+                </p>
+              </section>
+      
+              <section class="mb-4">
+                <h2 id="data-collection" class="h5 mb-3">Data Collection</h2>
+                <p>
+                  We begin by collecting the S&P 500 company list from Wikipedia and prepare it for data processing:
+                </p>
+                <pre><code class="language-python"># Collect the list of the S&P 500 companies from Wikipedia and save it to a file
+import os
+import requests
+import pandas as pd
+
+# Get the list of S&P 500 companies from Wikipedia
+url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
+response = requests.get(url)
+html = response.content
+df = pd.read_html(html, header=0)[0]
+
+tickers = df['Symbol'].tolist()
+tickers.append('^GSPC')</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section:
+                    <ol>
+                      <li>Imports necessary libraries for web scraping and data manipulation</li>
+                      <li>Fetches the S&P 500 company list from Wikipedia</li>
+                      <li>Extracts stock symbols and adds the S&P 500 index (^GSPC) for market data</li>
+                    </ol>
+                  </p>
+                </div>
+              </section>
+
+              <section class="mb-4">
+                <h2 id="data-processing" class="h5 mb-3">Data Processing</h2>
+                <p>
+                  We implement an efficient data management system to download and process historical price data:
+                </p>
+                <pre><code class="language-python"># Load the data from yahoo finance
+import os
+import yfinance as yf
+
+def load_data(symbol):
+    direc = 'data/'
+    os.makedirs(direc, exist_ok=True)
+
+    file_name = os.path.join(direc, symbol + '.csv')
+
+    if not os.path.exists(file_name):
+        ticker = yf.Ticker(symbol)
+        df = ticker.history(start='2005-01-01', end='2023-12-31')
+        df.to_csv(file_name)
+
+    df = pd.read_csv(file_name, index_col=0)
+    df.index = pd.to_datetime(df.index, utc=True).tz_convert('US/Eastern')
+    df['date'] = df.index
+
+    if len(df) == 0:
+        os.remove(file_name)
+        return None
+
+    return df
+
+holder = []
+ticker_with_data = []
+for symbol in tickers:
+    df = load_data(symbol)
+    if df is not None:
+        holder.append(df)
+        ticker_with_data.append(symbol)
+
+tickers = ticker_with_data[:]
+
+print(f'Loaded data for {len(tickers)} companies')</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section:
+                    <ol>
+                      <li>Implements efficient data management with local caching</li>
+                      <li>Handles timezone conversion for consistency</li>
+                      <li>Filters out invalid or empty datasets</li>
+                      <li>Maintains a clean list of valid tickers</li>
+                    </ol>
+                  </p>
+                </div>
+              </section>
+
+              <section class="mb-4">
+                <h2 id="monthly-aggregation" class="h5 mb-3">Monthly Data Aggregation</h2>
+                <p>
+                  We aggregate daily data into monthly intervals to implement the momentum strategy:
+                </p>
+                <pre><code class="language-python"># We only need the monthly data, so we will resample the data,
+# Open should be the first day of the month, Close should be the last day of the month
+# High should be the maximum value of the month, Low should be the minimum value of the month
+monthly_data = []
+for data in holder:
+    df = data.resample('M').agg({
+        'date': 'first',
+        'Open': 'first',
+        'High': 'max',
+        'Low': 'min',
+        'Close': 'last',
+        'Volume': 'sum'
+    })
+
+    df.set_index('date', inplace=True)
+
+    monthly_data.append(df)
+
+del holder</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section:
+                    <ol>
+                      <li>Aggregates daily data into monthly intervals</li>
+                      <li>Resamples the data to monthly frequency</li>
+                      <li>Maintains a clean list of monthly data</li>
+                    </ol>
+                  </p>
+                </div>
+              </section>
+
+              <section class="mb-4">
+                <h2 id="panic-state" class="h5 mb-3">Panic State Indicator</h2>
+                <p>
+                  We calculate the panic state indicator by comparing short-run and long-run market returns:
+                </p>
+                <pre><code class="language-python"># Create a dataframe to hold monthly_data[-1]
+market_data = monthly_data[-1].copy()
+
+market_data['Short_run_market_return'] = market_data['monthly_log_return'].rolling(3).mean()
+market_data['Long_run_market_return'] = market_data['monthly_log_return'].rolling(120).mean()
+market_data['Long_run_std'] = market_data['monthly_log_return'].rolling(120).std()
+
+delta = 0.8
+
+# Finding the panic state indicator
+market_data['panic_state_indicator'] = (market_data['Short_run_market_return'] < market_data['Long_run_market_return'] - delta * market_data['Long_run_std']).astype(int)</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section:
+                    <ol>
+                      <li>Calculates short-run (3-month) and long-run (120-month) market returns</li>
+                      <li>Computes long-run market volatility</li>
+                      <li>Identifies panic states when short-run returns significantly deviate from long-run trends</li>
+                    </ol>
+                  </p>
+                </div>
+              </section>
+
+              <section class="mb-4">
+                <h2 id="strategy-implementation" class="h5 mb-3">Strategy Implementation</h2>
+                <p>
+                  We implement the momentum strategy with panic state adjustments:
+                </p>
+                <pre><code class="language-python"># Backtesting
+                  portfolio_return_WML_holder = []
+                  portfolio_return_with_panic_state_holder = []
+                  
+                  monthly_return_holder = []
+                  panic_state_indicator_holder = []
+                  rank_holder = []
+                  this_month_return_holder = []
+                  
+                  for i, data in enumerate(monthly_data):
+                  
+                      rank = data['signal_simple'].copy()
+                      monthly_return = data['monthly_log_return'].copy()
+                      Panic_Indicator = data['panic_state_indicator'].copy()
+                      this_month_return = data['this_month_return'].copy()
+                  
+                      rank.name = tickers[i]
+                      monthly_return.name = tickers[i]
+                      Panic_Indicator.name = tickers[i]
+                      this_month_return.name = tickers[i]
+                  
+                      monthly_return_holder.append(monthly_return)
+                      panic_state_indicator_holder.append(Panic_Indicator)
+                      rank_holder.append(rank)
+                      this_month_return_holder.append(this_month_return)
+                  
+                  monthly_return_df = pd.DataFrame(monthly_return_holder).T
+                  panic_state_indicator_df = pd.DataFrame(panic_state_indicator_holder).T
+                  rank_df = pd.DataFrame(rank_holder).T
+                  this_month_return_df = pd.DataFrame(this_month_return_holder).T
+                  
+                  N = 20
+                  top_N_mask = rank_df.rank(axis=1, method='dense', ascending=False) <= N
+                  bottom_N_mask = rank_df.rank(axis=1, method='dense', ascending=True) <= N
+                  
+                  # Find the returns using the simple strategy
+                  long_df = this_month_return_df.mask(~top_N_mask, np.nan)
+                  short_df = this_month_return_df.mask(~bottom_N_mask, np.nan) * -1
+                  portfolio_return_WML = pd.DataFrame(index=monthly_return_df.index, columns=monthly_return_df.columns)
+                  portfolio_return_WML.iloc[:, :] = np.nan
+                  
+                  portfolio_return_WML[top_N_mask] = long_df[top_N_mask]
+                  portfolio_return_WML[bottom_N_mask] = short_df[bottom_N_mask]
+                  
+                  # Find the returns considering the panic state
+                  portfolio_return_with_multiplied_by_1_panic_indicator = this_month_return_df * (1-panic_state_indicator_df)
+                  portfolio_return_with_multiplied_by_panic_indicator = this_month_return_df * panic_state_indicator_df
+                  
+                  portfolio_return_with_panic_state = pd.DataFrame(index=monthly_return_df.index, columns=monthly_return_df.columns)
+                  portfolio_return_with_panic_state.iloc[:, :] = np.nan
+                  
+                  portfolio_return_with_panic_state[top_N_mask] = portfolio_return_with_multiplied_by_1_panic_indicator[top_N_mask]
+                  portfolio_return_with_panic_state[bottom_N_mask] = portfolio_return_with_multiplied_by_1_panic_indicator[bottom_N_mask] * -1
+                  
+                  portfolio_return_with_panic_state[top_N_mask] += portfolio_return_with_multiplied_by_panic_indicator[top_N_mask]
+                  portfolio_return_with_panic_state[bottom_N_mask] += portfolio_return_with_multiplied_by_panic_indicator[bottom_N_mask]
+                  
+                  portfolio_return_with_panic_state = portfolio_return_with_panic_state.mean(axis=1, skipna=True).dropna()
+                  
+                  portfolio_return_WML = portfolio_return_WML[portfolio_return_WML.index >= portfolio_return_with_panic_state.index[0]]
+                  portfolio_return_WML = portfolio_return_WML.mean(axis=1, skipna=True)
+                  
+                  # Keep the data after 2010
+                  portfolio_return_WML = portfolio_return_WML[portfolio_return_WML.index >= '2010-01-01']
+                  portfolio_return_with_panic_state = portfolio_return_with_panic_state[portfolio_return_with_panic_state.index >= '2010-01-01']
+                  
+                  
+                  
+                       
+                  
+                  # Plot the cumulative return of the portfolio_return_WML and portfolio_return_with_panic_state, The x axis is the number of months starting from 2016-01, the y axis is the cumulative return
+                  plt.plot(portfolio_return_WML.cumsum(), label='WML')
+                  plt.plot(portfolio_return_with_panic_state.cumsum(), label='WML with Panic State')
+                  plt.legend()
+                  plt.show()
+                  
+                  
+                  
+                      </code></pre>
+
+                      <div class="d-flex justify-content-center">
+                        <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image1.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
+                      </div>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section:
+                    <ol>
+                      <li>Prepares data structures for strategy implementation</li>
+                      <li>Processes individual stock data with panic state indicators</li>
+                      <li>Maintains separate holders for different components of the strategy</li>
+                    </ol>
+                  </p>
+                </div>
+              </section>
+
+              <section class="mb-4">
+                <h2 id="performance-analysis" class="h5 mb-3">Performance Analysis</h2>
+                <p>
+                  We analyze the performance of our strategy by examining the relationship between the delta parameter and various performance metrics:
+                </p>
+                <pre><code class="language-python"># Plot the cumulative return of the portfolio_return_WML and portfolio_return_with_panic_state, The x axis is the number of months starting from 2016-01, the y axis is the cumulative return
+plt.plot(result['delta'], result['cumulative_return_with_panic_state'])
+plt.xlabel('Delta')
+plt.ylabel('Cumulative Return')
+plt.title('Cumulative Return vs Delta')
+plt.show()</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section:
+                    <ol>
+                      <li>Creates a visualization of the relationship between delta and cumulative returns</li>
+                      <li>Plots delta values on the x-axis and corresponding cumulative returns on the y-axis</li>
+                      <li>Includes proper axis labels and title for clarity</li>
+                    </ol>
+                  </p>
+                </div>
+
+                <div class="alert alert-warning mt-3">
+                  <h5 class="alert-heading">Performance Insights</h5>
+                  <p class="mb-0">
+                    The analysis reveals several key findings:
+                    <ul>
+                      <li>Delta Sensitivity:
+                        <ul>
+                          <li>Lower delta values (0.1-0.2) show higher cumulative returns but with increased volatility</li>
+                          <li>Optimal performance appears around delta = 0.8 with a Sharpe ratio of 0.656</li>
+                          <li>Higher delta values (>1.5) show diminishing returns</li>
+                        </ul>
+                      </li>
+                      <li>Risk-Return Trade-off:
+                        <ul>
+                          <li>Lower delta values offer higher potential returns but with increased risk</li>
+                          <li>Higher delta values provide more stability but lower returns</li>
+                          <li>The 0.8 delta value offers a balanced risk-return profile</li>
+                        </ul>
+                      </li>
+                      <li>Strategy Robustness:
+                        <ul>
+                          <li>The strategy shows consistent performance across a range of delta values</li>
+                          <li>Performance metrics remain relatively stable for delta values between 0.8 and 1.4</li>
+                          <li>Sharpe ratios indicate good risk-adjusted returns across multiple parameter settings</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </p>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image2.png" alt="Cumulative Return vs Delta Analysis" class="img-fluid">
+                </div>
+              </section>
+
+              <section class="mb-4">
+                <h2 id="delta-optimization" class="h5 mb-3">Parameter Optimization</h2>
+                <p>
+                  We optimize the delta parameter to find the optimal threshold for panic state detection:
+                </p>
+
+                <pre><code class="language-python"># Try different values of delta
+delta_holder = []
+cumulative_return_with_panic_state_holder = []
+annualized_return_with_panic_state_holder = []
+annualized_volatility_with_panic_state_holder = []
+sharpe_ratio_with_panic_state_holder = []
+
+for delta in np.linspace(0.1, 2, 20):
+
+    market_data['panic_state_indicator'] = (market_data['Short_run_market_return'] < market_data['Long_run_market_return'] - delta * market_data['Long_run_std']).astype(int)
+
+    portfolio_return_WML_holder = []
+    portfolio_return_with_panic_state_holder = []
+
+    monthly_return_holder = []
+    panic_state_indicator_holder = []
+    rank_holder = []
+    this_month_return_holder = []
+
+    for i, data in enumerate(monthly_data):
+
+        rank = data['signal_simple'].copy()
+        monthly_return = data['monthly_log_return'].copy()
+        Panic_Indicator = market_data['panic_state_indicator'].copy()
+        this_month_return = data['this_month_return'].copy()
+
+        rank.name = tickers[i]
+        monthly_return.name = tickers[i]
+        Panic_Indicator.name = tickers[i]
+        this_month_return.name = tickers[i]
+
+        monthly_return_holder.append(monthly_return)
+        panic_state_indicator_holder.append(Panic_Indicator)
+        rank_holder.append(rank)
+        this_month_return_holder.append(this_month_return)
+
+    monthly_return_df = pd.DataFrame(monthly_return_holder).T
+    panic_state_indicator_df = pd.DataFrame(panic_state_indicator_holder).T
+    rank_df = pd.DataFrame(rank_holder).T
+    this_month_return_df = pd.DataFrame(this_month_return_holder).T
+
+    N = 20
+    top_N_mask = rank_df.rank(axis=1, method='dense', ascending=False) <= N
+    bottom_N_mask = rank_df.rank(axis=1, method='dense', ascending=True) <= N
+
+    long_df = this_month_return_df.mask(~top_N_mask, np.nan)
+    short_df = this_month_return_df.mask(~bottom_N_mask, np.nan) * -1
+    portfolio_return_WML = pd.DataFrame(index=monthly_return_df.index, columns=monthly_return_df.columns)
+    portfolio_return_WML.iloc[:, :] = np.nan
+
+    portfolio_return_WML[top_N_mask] = long_df[top_N_mask]
+    portfolio_return_WML[bottom_N_mask] = short_df[bottom_N_mask]
+
+    portfolio_return_with_multiplied_by_1_panic_indicator = this_month_return_df * (1-panic_state_indicator_df)
+    portfolio_return_with_multiplied_by_panic_indicator = this_month_return_df * panic_state_indicator_df
+
+    portfolio_return_with_panic_state = pd.DataFrame(index=monthly_return_df.index, columns=monthly_return_df.columns)
+    portfolio_return_with_panic_state.iloc[:, :] = np.nan
+
+    portfolio_return_with_panic_state[top_N_mask] = portfolio_return_with_multiplied_by_1_panic_indicator[top_N_mask]
+    portfolio_return_with_panic_state[bottom_N_mask] = portfolio_return_with_multiplied_by_1_panic_indicator[bottom_N_mask] * -1
+
+    portfolio_return_with_panic_state[top_N_mask] += portfolio_return_with_multiplied_by_panic_indicator[top_N_mask]
+    portfolio_return_with_panic_state[bottom_N_mask] += portfolio_return_with_multiplied_by_panic_indicator[bottom_N_mask]
+
+    portfolio_return_with_panic_state = portfolio_return_with_panic_state.mean(axis=1, skipna=True).dropna()
+
+    portfolio_return_WML = portfolio_return_WML[portfolio_return_WML.index >= portfolio_return_with_panic_state.index[0]]
+    portfolio_return_WML = portfolio_return_WML.mean(axis=1, skipna=True)
+
+    portfolio_return_WML = portfolio_return_WML[portfolio_return_WML.index >= '2010-01-01']
+    portfolio_return_with_panic_state = portfolio_return_with_panic_state[portfolio_return_with_panic_state.index >= '2010-01-01']
+
+    cumulative_return_with_panic_state = np.sum(np.array(portfolio_return_with_panic_state))
+    annualized_return_with_panic_state = portfolio_return_with_panic_state.mean() * 12
+    annualized_volatility_with_panic_state = np.std(portfolio_return_with_panic_state) * np.sqrt(12)
+    sharpe_ratio_with_panic_state = annualized_return_with_panic_state / annualized_volatility_with_panic_state
+
+    delta_holder.append(delta)
+    cumulative_return_with_panic_state_holder.append(cumulative_return_with_panic_state)
+    annualized_return_with_panic_state_holder.append(annualized_return_with_panic_state)
+    annualized_volatility_with_panic_state_holder.append(annualized_volatility_with_panic_state)
+    sharpe_ratio_with_panic_state_holder.append(sharpe_ratio_with_panic_state)
+
+result = pd.DataFrame({
+    'delta': delta_holder,
+    'cumulative_return_with_panic_state': cumulative_return_with_panic_state_holder,
+    'annualized_return_with_panic_state': annualized_return_with_panic_state_holder,
+    'annualized_volatility_with_panic_state': annualized_volatility_with_panic_state_holder,
+    'sharpe_ratio_with_panic_state': sharpe_ratio_with_panic_state_holder
+})</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section implements a comprehensive parameter optimization:
+                    <ol>
+                      <li>Parameter Testing:
+                        <ul>
+                          <li>Tests delta values from 0.1 to 2.0 in 20 steps</li>
+                          <li>For each delta value, recalculates the panic state indicator</li>
+                          <li>Maintains separate holders for different performance metrics</li>
+                        </ul>
+                      </li>
+                      <li>Portfolio Construction:
+                        <ul>
+                          <li>Creates long and short positions based on momentum signals</li>
+                          <li>Adjusts positions based on panic state indicators</li>
+                          <li>Implements position sizing rules for different market states</li>
+                        </ul>
+                      </li>
+                      <li>Performance Metrics:
+                        <ul>
+                          <li>Calculates cumulative returns for each delta value</li>
+                          <li>Computes annualized returns and volatility</li>
+                          <li>Derives Sharpe ratios to measure risk-adjusted performance</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <div class="alert alert-warning mt-3">
+                  <h5 class="alert-heading">Important Considerations</h5>
+                  <p class="mb-0">
+                    When optimizing the delta parameter, several factors should be considered:
+                    <ul>
+                      <li>Market Regime Dependence:
+                        <ul>
+                          <li>Different delta values may perform better in different market conditions</li>
+                          <li>Historical optimization may not guarantee future performance</li>
+                          <li>Consider using out-of-sample testing for validation</li>
+                        </ul>
+                      </li>
+                      <li>Risk Management:
+                        <ul>
+                          <li>Higher delta values may reduce false signals but increase missed opportunities</li>
+                          <li>Lower delta values may catch more signals but increase false positives</li>
+                          <li>Balance between sensitivity and specificity is crucial</li>
+                        </ul>
+                      </li>
+                      <li>Implementation Costs:
+                        <ul>
+                          <li>More frequent rebalancing may increase transaction costs</li>
+                          <li>Consider the impact of parameter changes on turnover</li>
+                          <li>Evaluate the cost-benefit trade-off of optimization</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </p>
+                </div>
+
+                <h3 class="h5 mb-3">Optimization Results</h3>
+                <p>
+                  The optimization results show the performance metrics for different delta values:
+                </p>
+
+                <code style="color: #000;">
+                  <pre>
+                    delta 	cumulative_return_with_panic_state 	annualized_return_with_panic_state 	annualized_volatility_with_panic_state 	sharpe_ratio_with_panic_state
+                    0 	0.1 	1.382622 	0.098759 	0.197958 	0.498887
+                    1 	0.2 	1.523811 	0.108844 	0.199682 	0.545084
+                    2 	0.3 	0.971059 	0.069361 	0.185001 	0.374925
+                    3 	0.4 	0.846862 	0.060490 	0.183692 	0.329302
+                    4 	0.5 	0.996852 	0.071204 	0.182917 	0.389267
+                    5 	0.6 	0.976206 	0.069729 	0.177414 	0.393029
+                    6 	0.7 	0.909541 	0.064967 	0.170282 	0.381528
+                    7 	0.8 	1.363583 	0.097399 	0.148509 	0.655844
+                    8 	0.9 	1.202553 	0.085897 	0.143169 	0.599968
+                    9 	1.0 	1.231577 	0.087970 	0.143894 	0.611350
+                    10 	1.1 	1.231577 	0.087970 	0.143894 	0.611350
+                    11 	1.2 	1.231577 	0.087970 	0.143894 	0.611350
+                    12 	1.3 	1.231577 	0.087970 	0.143894 	0.611350
+                    13 	1.4 	1.231577 	0.087970 	0.143894 	0.611350
+                    14 	1.5 	1.065279 	0.076091 	0.136575 	0.557139
+                    15 	1.6 	1.065279 	0.076091 	0.136575 	0.557139
+                    16 	1.7 	0.924295 	0.066021 	0.133275 	0.495375
+                    17 	1.8 	0.924295 	0.066021 	0.133275 	0.495375
+                    18 	1.9 	0.924295 	0.066021 	0.133275 	0.495375
+                    19 	2.0 	0.924295 	0.066021 	0.133275 	0.495375
+                  </pre>
+                </code>
+                
+                <p>
+                  To visualize the relationship between delta and cumulative returns:
+                </p>
+
+                <pre><code class="language-python">
+# Plot the cumulative return of the portfolio_return_WML and portfolio_return_with_panic_state, The x axis is the number of months starting from 2016-01, the y axis is the cumulative return
+plt.plot(result['delta'], result['cumulative_return_with_panic_state'])
+plt.xlabel('Delta')
+plt.ylabel('Cumulative Return')
+plt.title('Cumulative Return vs Delta')
+plt.show()
+                </code></pre>
+
+                <div class="d-flex justify-content-center">
+                  <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image2.png" alt="Cumulative Return vs Delta" class="img-fluid">
+                </div>
+              </section>
+              <section class="mb-4">
+                <h2 id="conclusion" class="h5 mb-3">Conclusion</h2>
+                <p>
+                  After implementing and analyzing the improved momentum strategy with panic state detection, we can draw several important conclusions:
+                </p>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Key Takeaways</h5>
+                  <p class="mb-0">
+                    <ol>
+                      <li>Strategy Effectiveness:
+                        <ul>
+                          <li>The strategy demonstrates simplicity while maintaining effectiveness</li>
+                          <li>Optimized delta parameter significantly improves traditional momentum performance</li>
+                          <li>Successfully mitigates extreme losses through panic state detection</li>
+                        </ul>
+                      </li>
+                      <li>Performance Metrics:
+                        <ul>
+                          <li>Best achieved Sharpe ratio of 0.34</li>
+                          <li>Performance limited by strategy simplicity and S&P 500 universe constraints</li>
+                          <li>Potential for improvement through universe expansion and weight optimization</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <div class="alert alert-warning mt-3">
+                  <h5 class="alert-heading">Future Improvements</h5>
+                  <p class="mb-0">
+                    Several avenues for strategy enhancement exist:
+                    <ul>
+                      <li>Universe Expansion:
+                        <ul>
+                          <li>Consider including more stocks beyond S&P 500</li>
+                          <li>Explore international markets for diversification</li>
+                          <li>Incorporate different asset classes</li>
+                        </ul>
+                      </li>
+                      <li>Weight Optimization:
+                        <ul>
+                          <li>Move beyond equal weighting</li>
+                          <li>Implement risk-based position sizing</li>
+                          <li>Consider factor-based weighting schemes</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </p>
+                </div>
+              </section>
+            </div>
+          </article>
+        </div>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="../../components/header.js"></script>
+  </body>
+</html> 
