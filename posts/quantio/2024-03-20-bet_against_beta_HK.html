@@ -1,0 +1,710 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An analysis of an improved momentum strategy that incorporates market panic states"
+    />
+    <meta
+      name="keywords"
+      content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
+    />
+    <meta name="author" content="Vahid Asghari" />
+    <title>Bet Against Beta in HK Market</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <!-- Add syntax highlighting for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+  </head>
+  <body class="bg-light">
+    <header id="main-header"></header>
+
+    <main class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <article class="card shadow-sm p-4">
+            <header class="post-header mb-4">
+              <h1 class="card-title h4 text-primary pb-2">Bet Against Beta in HK Market</h1>
+              <small class="text-muted">March 20, 2024</small>
+            </header>
+
+            <div>
+              <img src="../../images/quantio/2024-03-20-betagainstbetain HKmarket-Image0.png" alt="Day and Night Returns Analysis" class="img-fluid">
+            </div>
+
+            <div class="table-of-contents mb-4">
+              <h2 class="h5 mb-3">Table of Contents</h2>
+              <ul class="list-unstyled">
+                <li><a href="#strategy-overview">Strategy Overview</a>
+                  <ul class="list-unstyled ms-3">
+                    <li><a href="#key-components">Key Components</a></li>
+                    <li><a href="#code-explanation">Code Explanation</a></li>
+                  </ul>
+                </li>
+                <li><a href="#implementation-differences">Implementation Differences from Original Paper</a></li>
+                <li><a href="#data-collection">Data Collection and Processing</a></li>
+                <li><a href="#beta-calculation">Beta Calculation</a></li>
+                <li><a href="#strategy-implementation">Strategy Implementation</a>
+                  <ul class="list-unstyled ms-3">
+                    <li><a href="#non-beta-neutral">Non-Beta Neutral Strategy</a></li>
+                    <li><a href="#equal-weight-beta-neutral">Equal Weight Beta Neutral Strategy</a></li>
+                    <li><a href="#beta-weighted">Beta Weighted Strategy</a></li>
+                  </ul>
+                </li>
+                <li><a href="#results">Results and Analysis</a>
+                  <ul class="list-unstyled ms-3">
+                    <li><a href="#performance-metrics">Performance Metrics</a></li>
+                    <li><a href="#risk-analysis">Risk Analysis</a></li>
+                  </ul>
+                </li>
+                <li><a href="#conclusion">Conclusion</a>
+                  <ul class="list-unstyled ms-3">
+                    <li><a href="#key-considerations">Key Considerations</a></li>
+                    <li><a href="#implementation-challenges">Implementation Challenges</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+
+          <div>
+            <section class="mb-4">
+              <h2 id="strategy-overview" class="h5 mb-3">Strategy Overview</h2>
+              <p>
+                This strategy investigates the "Bet Against Beta" anomaly in the Hong Kong market. The core concept involves:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Key Components</h5>
+                <p class="mb-0">
+                  <ol>
+                    <li>Beta Calculation:
+                      <ul>
+                        <li>Uses 12-month rolling regression to calculate stock betas</li>
+                        <li>Groups stocks into quintiles based on their beta values</li>
+                        <li>Excludes stocks with negative beta values</li>
+                      </ul>
+                    </li>
+                    <li>Portfolio Construction:
+                      <ul>
+                        <li>Long positions in low beta stocks</li>
+                        <li>Short positions in high beta stocks</li>
+                        <li>Beta-neutral strategy implementation</li>
+                      </ul>
+                    </li>
+                    <li>Data Sources:
+                      <ul>
+                        <li>Stock price data from Yahoo Finance</li>
+                        <li>Risk-free rate from HKMA API (1-month HIBOR)</li>
+                        <li>Analysis period: 2005-01-01 to 2024-06-30</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">import pandas as pd
+import numpy as np 
+import os
+import yfinance as yf
+import requests
+import datetime
+import time
+import matplotlib.pyplot as plt
+import sys
+import warnings
+warnings.simplefilter('ignore')
+from scipy import stats
+
+try:
+    data = pd.read_csv("data/hibor.csv")
+    data['Date'] = pd.to_datetime(data["end_of_date"])
+    data.set_index('Date', inplace=True)
+    data = data.drop_duplicates(subset="end_of_date", keep ='last')
+    data = data.sort_index()
+except:
+    start_date = "2005-01-01"
+    end_date = "2024-06-30"
+
+    start_date_dt=datetime.datetime.strptime(start_date, '%Y-%m-%d')
+    end_date_dt=datetime.datetime.strptime(end_date, '%Y-%m-%d')
+
+    curr_start_date_dt = start_date_dt
+    curr_end_date_dt = curr_start_date_dt + datetime.timedelta(days=120)
+
+    data_list=[]
+    while curr_start_date_dt <= end_date_dt:
+        if curr_start_date_dt + datetime.timedelta(days=120) > end_date_dt:
+            curr_end_date_dt = end_date_dt
+
+        curr_start_date_str = curr_start_date_dt.strftime('%Y-%m-%d')
+        curr_end_date_str = curr_end_date_dt.strftime('%Y-%m-%d')
+
+        curr_start_date_dt += datetime.timedelta(days=120)
+        curr_end_date_dt += datetime.timedelta(days=120)
+
+        url = "https://api.hkma.gov.hk/public/market-data-and-statistics/daily-monetary-statistics/daily-figures-interbank-liquidity"
+        url += "?choose=end_of_date&from=" +curr_start_date_str+ "&to=" +curr_end_date_str
+
+  response = requests.get(url)
+  data = response.json()
+  data = pd.json_normalize(data['result']['records'])
+  data_list.append(data)
+  time.sleep(1)
+
+data = pd.concat(data_list)
+data.to_csv("data/hibor.csv")    
+data['Date'] = pd.to_datetime(data["end_of_date"])
+data.set_index('Date', inplace = True)
+data = data.drop_duplicates(subset="end_of_date", keep = 'last')
+data = data.sort_index()
+
+tickers = [
+"0001.Hk", "0002.HK", "0003.HK", "0004.HK", "0005.HK", "0006.HK", "0011.HK", "0012.HK", "0014.HK", "0016.HK", "0017.HK", "0019.HK",
+"0023.HK", "0027.HK", "0066.HK", "0101.HK", "0175.HK", "0241.HK", "0267.HK", "0285.HK", "0288.HK", "0291.HK", "0316.HK", "0322.HK",
+"0358.HK", "0384.HK", "0386.HK", "0388.HK", "0522.HK", "0546.HK", "0548.HK", "0552.HK", "0669.HK", "0688.HK", "0700.HK", "0728.HK",
+"0762.HK", "0763.HK", "0777.HK", "0788.HK", "0823.HK", "0836.HK", "0857.HK", "0868.HK", "0883.HK", "0902.HK", "0914.HK", "0939.HK",
+"0941.HK", "0960.HK", "0966.HK", "0968.HK", "0981.HK", "0992.HK", "1024.HK", "1038.HK", "1044.HK", "1088.HK", "1093.HK", "1099.HK",
+"1109.HK", "1113.HK", "1177.HK", "1209.HK", "1211.HK", "1299.HK", "1308.HK", "1313.HK", "1336.HK", "1339.HK", "1378.HK", "1398.HK",
+"1658.HK", "1800.HK", "1810.HK", "1818.HK", "1876.HK", "1928.HK", "1972.HK", "1929.HK", "1997.HK", "2013.HK", "2015.HK", "2018.HK",
+"2020.HK", "2057.HK", "2269.HK", "2313.HK", "2314.HK", "2318.HK", "2319.Hk", "2328.HK", "2331.HK", "2359.HK", "2382.HK", "2388.HK",
+"2600.HK", "2601.HK", "2618.HK", "2628.HK", "2688.HK", "2883.HK", "2899.HK", "3323.HK", "3328.HK", "3690.HK", "3692.HK", "3988.HK",
+"3993.HK", "6618.HK", "6690.HK", "6862.HK", "9618.HK", "9626.HK", "9633.HK", "9666.HK", "9866.HK", "9868.HK", "9888.HK", "9961.HK",
+"9988.HK", "9999.HK"
+]
+def load_data(symbol):
+
+    direc = 'data/'
+    os.makedirs(direc, exist_ok=True)
+
+    file_name = os.path.join(direc, symbol + '.csv')
+
+    if not os.path.exists(file_name):
+
+        ticker = yf.Ticker(symbol)
+        df = ticker.history(start='2005-01-01', end='2024-06-30')
+
+        df.to_csv(file_name)
+
+    df = pd.read_csv(file_name)
+    df["Date"] = df["Date"].astype("string")
+    df["Date"] = df["Date"].str[:10]
+    df['Date'] = pd.to_datetime(df["Date"])
+    df.set_index(df["Date"], inplace=True, drop=True)
+
+    df['Risk_free_rate'] = data["hibor_fixing_1m"]
+    df = df.resample('M').agg({
+        "Open":'first',                       
+        "Close":"last",                       
+        'Risk_free_rate':"last",
+        "Date":"last"
+        })
+        # We will open position at the first day open price every month
+        # We will close position at the last day close price every month
+
+    df['this_month_return'] = (df["Close"] - df["Open"]) / df["Open"]
+    df["next_month_return"] = df['this_month_return'].shift(-1)
+    df['symbol'] = symbol
+    if len(df) == 0:
+        os.remove(file_name)
+        return None
+
+    return df
+
+holder = []
+ticker_with_data = []
+for symbol in tickers:
+    df = load_data(symbol)
+    if df is not None:
+        holder.append(df)
+        ticker_with_data.append(symbol)
+            
+hsi = load_data("^HSI")
+tickers = ticker_with_data[:]
+
+print (f'Loaded data for {len(tickers)} companies')
+
+#Loaded data for 122 companies
+trade = pd.DataFrame()
+ngroup = 5
+# We group and rank stocks based on their rolling beta into 5 groups 
+for stock in holder:
+    stock["market_return"] = hsi['this_month_return']
+    stock["rolling_12_month_beta"] = 0
+    for a in range(0, len(stock)-12 ):
+        res = stats.mstats.linregress(stock["this_month_return"][(a):(a+12)],
+                                        stock['market_return'][(a):(a+12)])
+        stock["rolling_12_month_beta"][(a+11)] = res[0]
+    stock['rolling_12_month_beta'] = stock['rolling_12_month_beta'].fillna(0)
+    stock = stock[12:-1]          #drop last row as we don't have next month return for July 2024
+    stock=stock.loc[stock["rolling_12_month_beta"] >= 0] #idrop negative beta stocks
+    trade=pd.concat([trade,stock])
+    
+trade=trade.sort_index()
+
+trade["rank"] = 0
+trade["rank"] = trade.groupby(trade['Date'])["rolling_12_month_beta"].transform(lambda x: 
+                                pd.qcut(x.rank(method='first'), q=ngroup, labels=range(1, ngroup + 1)))</code></pre>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements the core strategy components:
+                  <ol>
+                    <li>Data Collection:
+                      <ul>
+                        <li>Downloads HIBOR data from HKMA API</li>
+                        <li>Retrieves stock price data from Yahoo Finance</li>
+                        <li>Implements efficient data caching</li>
+                      </ul>
+                    </li>
+                    <li>Data Processing:
+                      <ul>
+                        <li>Calculates monthly returns</li>
+                        <li>Computes 12-month rolling betas</li>
+                        <li>Groups stocks into quintiles</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="strategy-implementation" class="h5 mb-3">Strategy Implementation</h2>
+              <p>
+                In this section, we implement the strategy without beta neutralization to analyze its performance:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Strategy Components</h5>
+                <p class="mb-0">
+                  <ol>
+                    <li>Portfolio Construction:
+                      <ul>
+                        <li>Monthly ranking of stocks into quintile groups</li>
+                        <li>Long positions in lowest beta stocks (Quintile 1)</li>
+                        <li>Short positions in highest beta stocks (Quintile 5)</li>
+                        <li>Exclusion of negative beta stocks</li>
+                      </ul>
+                    </li>
+                    <li>Performance Metrics:
+                      <ul>
+                        <li>Cumulative returns for long and short positions</li>
+                        <li>Strategy's overall cumulative return</li>
+                        <li>Market return comparison</li>
+                        <li>Sharpe ratio calculation</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">## Without beta neutral strategy:
+
+Each month we rank and divide stocks into quintile groups to long lowest beta stocks (Quintile group 1) and short sell highest beta stocks (Quintile group 5)
+
+<b>Negative beta stocks are not considered.
+
+  short_position = trade.loc[trade["rank"]==5, "next_month_return"].cumsum()
+long_position = trade.loc[trade["rank"]==1, "next_month_return"].cumsum()
+
+fig, ax1 = plt.subplots(figsize=(12, 8))
+ax1.plot(long_position, label = "Monthly Lowest Beta Stocks", color ="blue")
+ax1.plot(short_position, label = "Monthly Highest Beta Stocks", color ="red")
+cumculative_return = long_position - short_position
+ax1.plot(cumculative_return, label = "Strategy Cumculative Return ", color= "green")
+ax1.legend()
+
+ax2 = ax1.twinx()
+market_return = hsi["this_month_return"].cumsum()
+ax2.plot(market_return,label = "Market Return", color="fuchsia")
+ax2.set_ylabel("Market Return",color="fuchsia")
+ax2.tick_params(axis='y', labelcolor='fuchsia')
+ax2.legend()
+plt.title("Long Monthly Lowest Beta Stocks and Short Monthly Highest Beta Stocks not using beta neutral strategy")
+risk = pd.concat([trade.loc[trade["rank"]==5, "next_month_return"],
+                  trade.loc[trade["rank"]==1, "next_month_return"]]).std()
+sharpe = (trade.loc[trade["rank"]==1, "next_month_return"] - trade.loc[trade["rank"]==5, "next_month_return"]).mean() / risk *np.sqrt(12)
+print(f"Sharpe Ratio is : {sharpe}")</code></pre>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements the non-beta-neutral strategy:
+                  <ol>
+                    <li>Portfolio Construction:
+                      <ul>
+                        <li>Creates separate series for long and short positions</li>
+                        <li>Calculates cumulative returns for each position</li>
+                        <li>Computes the strategy's overall cumulative return</li>
+                      </ul>
+                    </li>
+                    <li>Visualization:
+                      <ul>
+                        <li>Plots long and short position returns</li>
+                        <li>Shows strategy's cumulative return</li>
+                        <li>Includes market return comparison</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <div class="d-flex justify-content-center">
+                <img src="../../images/quantio/2024-03-20-betagainstbetain HKmarket-Image1.png" alt="Strategy Performance Analysis" class="img-fluid">
+              </div>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Performance Analysis</h5>
+                <p class="mb-0">
+                  The results show:
+                  <ol>
+                    <li>Strategy Performance:
+                      <ul>
+                        <li>Sharpe ratio of 0.265 indicates moderate risk-adjusted returns</li>
+                        <li>Long positions in low beta stocks show consistent performance</li>
+                        <li>Short positions in high beta stocks contribute to strategy returns</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="equal-weight-beta-neutral" class="h5 mb-3">Equal Weight Beta Neutral Strategy</h2>
+              
+              <div class="strategy-overview mb-4">
+                <p>
+                  This strategy implements a beta-neutral approach by dividing stocks into quintile groups each month. The strategy takes long positions in the lowest beta stocks (Quintile 1) and short positions in the highest beta stocks (Quintile 5). The position sizes are adjusted based on each stock's beta to achieve a zero-beta portfolio.
+                </p>
+              </div>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Strategy Components</h5>
+                <p class="mb-0">
+                  <ol>
+                    <li>Portfolio Construction:
+                      <ul>
+                        <li>Monthly quintile grouping based on beta values</li>
+                        <li>Long positions in lowest beta stocks (Quintile 1)</li>
+                        <li>Short positions in highest beta stocks (Quintile 5)</li>
+                      </ul>
+                    </li>
+                    <li>Position Sizing:
+                      <ul>
+                        <li>Adjusts position sizes based on stock betas</li>
+                        <li>Aims for zero-beta portfolio exposure</li>
+                        <li>Uses multiplier to balance long and short positions</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">
+long_positions = pd.DataFrame(trade.loc[trade["rank"]==1])
+short_positions = pd.DataFrame(trade.loc[trade["rank"]==5])
+
+total_long_beta = long_positions.groupby(long_positions["Date"])["rolling_12_month_beta"].sum()
+total_short_beta = short_positions.groupby(short_positions["Date"])["rolling_12_month_beta"].sum()
+
+multi = total_short_beta / total_long_beta          
+total_long_return = long_positions.groupby(long_positions["Date"])["next_month_return"].sum() *multi
+total_short_return = short_positions.groupby(short_positions["Date"])["next_month_return"].sum()
+
+cumculative_return_low_beta = total_long_return.cumsum()
+cumculative_return_high_beta = total_short_return.cumsum()
+
+fig, ax1 = plt.subplots(figsize=(12, 8))
+
+ax1.plot( cumculative_return_low_beta, label="Monthly Lowest Beta Stocks", color='blue')
+ax1.set_ylabel('Cumulative Return Low Beta', color='blue')
+ax1.tick_params(axis='y', labelcolor='blue')
+
+ax2 = ax1.twinx()
+ax2.plot( cumculative_return_high_beta, label="Monthly Highest Beta Stocks", color='orange')
+ax2.set_ylabel('Cumulative Return High Beta', color='orange')
+ax2.tick_params(axis='y', labelcolor='orange')
+
+ax3 = ax1.twinx()
+ax3.spines['right'].set_position(('axes', 1.1))
+ax3.plot( cumculative_return, label="Cumulative Return Strategy", color='green')
+ax3.set_ylabel('Cumulative Return Strategy', color='green')
+ax3.tick_params(axis='y', labelcolor='green')
+
+ax4=ax1.twinx()
+ax4.spines['right'].set_position(('axes', 1.2))
+ax4.plot( market_return, label="Market Return ", color='red')
+ax4.set_ylabel('Cumulative Market Return', color='red')
+ax4.tick_params(axis='y', labelcolor='red')
+
+plt.title("Equal weight beta neutral strategy")
+ax1.legend(loc='upper left')
+ax2.legend(loc='upper center')
+ax3.legend(loc='upper right')
+ax4.legend(loc='lower right')
+
+risk = pd.concat([pd.Series(total_long_return), pd.Series(total_short_return)]).std()
+sharpe = (pd.Series(total_long_return) - pd.Series(total_short_return)).mean() / risk * np.sqrt(12)
+print(f'Sharpe Ratio is {sharpe}')
+
+plt.show()
+
+Sharpe Ratio is 0.872005424739978</code></pre>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements the beta-neutral strategy:
+                  <ol>
+                    <li>Portfolio Construction:
+                      <ul>
+                        <li>Creates separate DataFrames for long and short positions</li>
+                        <li>Calculates total beta exposure for each position</li>
+                        <li>Computes position multiplier to achieve beta neutrality</li>
+                      </ul>
+                    </li>
+                    <li>Return Calculations:
+                      <ul>
+                        <li>Calculates weighted returns for long and short positions</li>
+                        <li>Computes cumulative returns for each position</li>
+                        <li>Derives strategy's overall performance</li>
+                      </ul>
+                    </li>
+                    <li>Visualization:
+                      <ul>
+                        <li>Creates multi-axis plot for different return series</li>
+                        <li>Shows cumulative returns for long and short positions</li>
+                        <li>Includes market return comparison</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <div class="d-flex justify-content-center">
+                <img src="../../images/quantio/2024-03-20-betagainstbetain HKmarket-Image2.png" alt="Equal Weight Beta Neutral Strategy Performance" class="img-fluid">
+              </div>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Performance Analysis</h5>
+                <p class="mb-0">
+                  The results demonstrate:
+                  <ol>
+                    <li>Strategy Performance:
+                      <ul>
+                        <li>Sharpe ratio of 0.872 indicates strong risk-adjusted returns</li>
+                        <li>Long positions in low beta stocks show consistent performance</li>
+                        <li>Short positions in high beta stocks contribute to strategy returns</li>
+                      </ul>
+                    </li>
+                    <li>Risk Management:
+                      <ul>
+                        <li>Beta-neutral approach reduces market exposure</li>
+                        <li>Diversification across quintiles helps manage stock-specific risk</li>
+                        <li>Monthly rebalancing maintains strategy consistency</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="beta-weighted-strategy" class="h5 mb-3">Beta Weighted Strategy in Beta Neutral Trading</h2>
+              
+              <div class="strategy-overview mb-4">
+                <p>
+                  This strategy enhances the beta-neutral approach by incorporating beta-weighted position sizing. While maintaining the core concept of long positions in lowest beta stocks and short positions in highest beta stocks, the weighting scheme is adjusted based on the magnitude of beta values.
+                </p>
+              </div>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Strategy Components</h5>
+                <p class="mb-0">
+                  <ol>
+                    <li>Position Weighting:
+                      <ul>
+                        <li>For lowest quintile stocks: Lower beta receives higher weight</li>
+                        <li>For highest quintile stocks: Higher beta receives higher weight</li>
+                        <li>Beta values are capped to prevent extreme weights</li>
+                      </ul>
+                    </li>
+                    <li>Risk Management:
+                      <ul>
+                        <li>Beta clipping between 0.1 and 10 to prevent extreme positions</li>
+                        <li>Inverse beta weighting for balanced exposure</li>
+                        <li>Normalized weights for portfolio stability</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">
+long_position_beta_weighted = pd.DataFrame(trade.loc[trade["rank"]==1])
+short_positions_beta_weighted = pd.DataFrame(trade.loc[trade["rank"]==5])
+
+# If date in columns, drop it
+if "Date" in long_position_beta_weighted.columns:
+    long_position_beta_weighted = long_position_beta_weighted.drop(columns="Date")
+if "Date" in short_positions_beta_weighted.columns:
+    short_positions_beta_weighted = short_positions_beta_weighted.drop(columns="Date")
+
+long_position_betas_df = long_position_beta_weighted.pivot_table(index="Date", columns="symbol", values="rolling_12_month_beta")
+short_position_betas_df = short_positions_beta_weighted.pivot_table(index="Date", columns="symbol", values="rolling_12_month_beta")
+
+this_month_return_long = long_position_beta_weighted.pivot_table(index="Date", columns="symbol", values="this_month_return")
+this_month_return_short = short_positions_beta_weighted.pivot_table(index="Date", columns="symbol", values="this_month_return")
+
+# Cap the beta 1t 10 and 0.1 to prevent extreme beta from dominating the portfolio
+long_position_betas_df = long_position_betas_df.clip(0.1, 10)
+short_position_betas_df = short_position_betas_df.clip(0.1, 10)
+
+long_betas_inverse = 1 / long_position_betas_df
+short_betas_inverse = 1 / short_position_betas_df
+
+weights_long = long_betas_inverse / (long_betas_inverse.sum() + short_betas_inverse.sum())
+weights_short = short_betas_inverse / (long_betas_inverse.sum() + short_betas_inverse.sum())
+
+long_returns = (this_month_return_long * weights_long).sum(axis=1, skipna=True)
+short_returns = (this_month_return_short * weights_short).sum(axis=1, skipna=True)
+
+total_returns = long_returns - short_returns
+
+cumculative_return_low_beta = long_returns.cumsum()
+cumculative_return_high_beta = short_returns.cumsum()
+cumculative_return_strategy = total_returns.cumsum()
+market_return = hsi["this_month_return"].loc[total_returns.index].cumsum()
+dates = total_returns.index
+
+fig, ax1 = plt.subplots(figsize=(12, 8))
+ax1.plot(dates, cumculative_return_low_beta, label="Monthly Lowest Beta Stocks",color="darkgreen")
+ax1.plot(dates, cumculative_return_high_beta, label="Monthly Highest Beta Stocks",color="red")
+ax1.plot(dates, cumculative_return_strategy, label="Cumulative Return Strategy",color="black")
+
+ax2 = ax1.twinx()
+ax2.plot(dates, market_return, label="Market Return",color="orange")
+ax2.set_ylabel('Market Return', color='orange')
+ax2.tick_params(axis='y', labelcolor='orange')
+
+plt.title("Beta Weighted Beta Neutral Strategy")
+ax1.legend()
+ax2.legend()
+
+# Calculating risk and Sharpe ratio
+sharpe = total_returns.mean() / total_returns.std() * np.sqrt(12)
+print(f'Sharpe Ratio is {sharpe}')
+plt.title("Beta Weighted Beta neutral strategy")
+plt.show()
+              </code></pre>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements the beta-weighted strategy:
+                  <ol>
+                    <li>Data Preparation:
+                      <ul>
+                        <li>Creates separate DataFrames for long and short positions</li>
+                        <li>Removes date columns for pivot table creation</li>
+                        <li>Organizes beta and return data into pivot tables</li>
+                      </ul>
+                    </li>
+                    <li>Position Weighting:
+                      <ul>
+                        <li>Clips beta values to prevent extreme weights</li>
+                        <li>Calculates inverse beta weights</li>
+                        <li>Normalizes weights for portfolio balance</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <div class="d-flex justify-content-center">
+                <img src="../../images/quantio/2024-03-20-betagainstbetain HKmarket-Image3.png" alt="Beta Weighted Strategy Performance" class="img-fluid">
+              </div>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Performance Analysis</h5>
+                <p class="mb-0">
+                  The results show:
+                  <ol>
+                    <li>Strategy Performance:
+                      <ul>
+                        <li>Sharpe ratio of 0.842 indicates strong risk-adjusted returns</li>
+                        <li>Beta-weighted approach enhances strategy returns</li>
+                        <li>Market-neutral positioning reduces systematic risk</li>
+                      </ul>
+                    </li>
+                    <li>Implementation Considerations:
+                      <ul>
+                        <li>Higher position sizes required for beta neutrality</li>
+                        <li>Transaction costs may impact actual returns</li>
+                        <li>Market liquidity constraints in Hong Kong</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="conclusion" class="h5 mb-3">Personal Thoughts and Conclusion</h2>
+              
+              <div class="alert alert-warning mt-3">
+                <h5 class="alert-heading">Key Considerations</h5>
+                <p class="mb-0">
+                  <ol>
+                    <li>Selection Bias:
+                      <ul>
+                        <li>Exclusion of negative beta stocks limits strategy scope</li>
+                        <li>Most remaining stocks follow market trends</li>
+                        <li>Limited short-selling opportunities in HK market</li>
+                      </ul>
+                    </li>
+                    <li>Implementation Challenges:
+                      <ul>
+                        <li>Lot size requirements affect position sizing</li>
+                        <li>High transaction costs (0.1% stamp duty)</li>
+                        <li>Short-selling interest costs not accounted for</li>
+                      </ul>
+                    </li>
+                    <li>Risk Considerations:
+                      <ul>
+                        <li>Larger position sizes required for beta neutrality</li>
+                        <li>Multiplied risk exposure in low beta positions</li>
+                        <li>Recent performance decline since 2021</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <p>
+                While the Bet Against Beta strategy demonstrates effectiveness in the Hong Kong market, practical implementation faces significant challenges. The strategy's performance, particularly in recent years, suggests the need for further research and optimization. Key areas for improvement include:
+              </p>
+
+              <ul>
+                <li>Incorporating negative beta stocks in the analysis</li>
+                <li>Expanding the universe of tradable securities</li>
+                <li>Developing more sophisticated position sizing methods</li>
+                <li>Accounting for market-specific constraints and costs</li>
+              </ul>
+            </section>
+          </div>
+        </article>
+      </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="../../components/header.js"></script>
+  </body>
+</html>

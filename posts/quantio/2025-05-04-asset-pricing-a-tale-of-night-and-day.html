@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An analysis of day and night returns in asset pricing based on the research paper by Hendershott et al."
+    />
+    <meta
+      name="keywords"
+      content="asset pricing, day returns, night returns, beta investing, trading strategy, market efficiency"
+    />
+    <meta name="author" content="Vahid Asghari" />
+    <title>Asset Pricing: A Tale of Night and Day</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <!-- Add syntax highlighting for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+  </head>
+  <body class="bg-light">
+    <header id="main-header"></header>
+
+    <main class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <article class="card shadow-sm p-4">
+            <header class="post-header mb-4">
+              <h1 class="card-title h4 text-primary pb-2">Asset Pricing: A Tale of Night and Day</h1>
+              <small class="text-muted">May 4, 2025</small>
+            </header>
+
+            <div>
+              <img src="../../images/quantio/2025-05-04-assetpricingaleofnightandday-Image0.png" alt="Day and Night Returns Analysis" class="img-fluid">
+            </div>
+            
+            <div class="table-of-contents mb-4">
+              <h2 class="h5 mb-3">Table of Contents</h2>
+              <ul class="list-unstyled">
+                <li><a href="#introduction">Strategy Details</a>
+                <ul class="list-unstyled ms-3">
+          <li><a href="#strategy-overview">Strategy Overview</a></li>
+                </ul>
+                </li>
+                <li><a href="#implementation-differences">Implementation Differences from Original Paper</a></li>
+                <li><a href="#data-collection">Data Collection and Processing</a></li>
+                <li><a href="#beta-calculation">Beta Calculation</a></li>
+                <li><a href="#strategy-implementation">Strategy Implementation</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <section id="introduction" class="mb-4">
+                <h2>Strategy Details</h2>
+                
+                <div class="metadata mb-3">
+                  <p><strong>Code Author:</strong> Karl Ngan</p>
+                  <p><strong>Reference Paper:</strong> "Asset pricing: A tale of night and day"</p>
+                  <p><strong>Authors:</strong> Terrence Hendershott, Dmitry Livdan, Dominik Rösch</p>
+                  <p><strong>Journal:</strong> Journal of Financial Economics, Volume 138, Issue 3, 2020</p>
+                  <p><strong>DOI:</strong> <a href="https://www.sciencedirect.com/science/article/abs/pii/S0304405X20301732" target="_blank">10.1016/j.jfineco.2020.05.001</a></p>
+                </div>
+
+                <div class="strategy-overview">
+                  <h3>Strategy Overview</h3>
+                  <p>This strategy builds upon the classic "bet against beta" approach by incorporating an innovative dimension: the distinction between night and day returns. The paper demonstrates that the traditional beta anomaly is primarily driven by overnight returns, while daytime returns show a positive relation with beta. This insight leads to a more sophisticated trading strategy that can potentially generate superior risk-adjusted returns.</p>
+                </div>
+              </section>
+
+              <section class="mb-4">
+                <h2 id="implementation-differences" class="h5 mb-3">Implementation Differences from Original Paper</h2>
+                <p>
+                  While we aim to replicate the core methodology of the original paper, there are several key differences in our implementation:
+                </p>
+                <ul>
+                  <li><strong>Data Source:</strong> Using Yahoo Finance (yfinance) instead of CRSP data for stock returns</li>
+                  <li><strong>Market Scope:</strong> Focusing on US equity market only, compared to the paper's analysis of 39 countries</li>
+                  <li><strong>Time Period:</strong> Analysis from 2014-2023, versus the paper's 1992-2016 period</li>
+                </ul>
+
+                <h2 id="data-collection" class="h5 mb-3">Data Collection and Processing</h2>
+                <p>
+                  Our implementation begins with setting up the data collection environment and processing stock returns. Here's how we approach it:
+                </p>
+
+                <pre><code class="language-python">import os
+import requests
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import yfinance as yf
+import statsmodels.api as sm
+
+# Define analysis period
+start_date = '2014-01-01'
+end_date = '2023-12-31'
+
+# Fetch S&P 500 constituents from Wikipedia
+url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
+response = requests.get(url)
+html = response.content
+df = pd.read_html(html, header=0)[0]
+
+# Prepare ticker list including S&P 500 index
+tickers = df['Symbol'].tolist()
+tickers.append('^GSPC')  # Add S&P 500 index
+
+def load_data(symbol):
+    """
+    Load and cache historical stock data for a given symbol.
+    Returns None if data is invalid or unavailable.
+    """
+    direc = 'data/'
+    os.makedirs(direc, exist_ok=True)
+    file_name = os.path.join(direc, symbol + '.csv')
+
+    if not os.path.exists(file_name):
+        ticker = yf.Ticker(symbol)
+        df = ticker.history(start=start_date, end=end_date)
+        df.to_csv(file_name)
+
+    df = pd.read_csv(file_name, index_col=0)
+    df.index = pd.to_datetime(df.index, utc=True).tz_convert('US/Eastern')
+    df['date'] = df.index
+
+    if len(df) == 0:
+        os.remove(file_name)
+        return None
+
+    return df
+
+# Load data for all tickers
+holder = []
+ticker_with_data = []
+for symbol in tickers:
+    df = load_data(symbol)
+    if df is not None:
+        holder.append(df)
+        ticker_with_data.append(symbol)
+
+tickers = ticker_with_data[:]
+print(f'Successfully loaded data for {len(tickers)} companies')</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Data Collection Implementation</h5>
+                  <p class="mb-0">
+                    The data collection process is implemented with efficiency and reliability in mind:
+                    <ol>
+                      <li><strong>Environment Setup:</strong>
+                        <ul>
+                          <li>Essential Python libraries for financial analysis</li>
+                          <li>Modern data processing tools (pandas, numpy)</li>
+                          <li>Financial data access (yfinance)</li>
+                        </ul>
+                      </li>
+                      <li><strong>Data Management:</strong>
+                        <ul>
+                          <li>Local caching system to minimize API calls</li>
+                          <li>Automatic timezone handling for consistency</li>
+                          <li>Robust error handling for missing data</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Calculate different types of returns
+for stocks in holder:
+    # Day returns (Open-to-Close)
+    stocks['Open_to_Close'] = (stocks['Close'] - stocks['Open']) / stocks['Open']
+    
+    # Total returns (Close-to-Close)
+    stocks['Close_to_Close'] = stocks['Close'].pct_change()
+    
+    # Night returns (derived from day and total returns)
+    stocks['Night_returns'] = (1 + stocks['Close_to_Close']) / (1 + stocks['Open_to_Close']) - 1</code></pre>
+
+                
+              </section>
+
+              <section class="mb-4">
+                <h2 id="beta-calculation" class="h5 mb-3">Beta Calculation</h2>
+                <p>
+                  We calculate the beta for each stock using night returns, which is a key component of our strategy. The beta calculation is performed using a rolling window approach to capture the dynamic nature of market sensitivity.
+                </p>
+
+                <pre><code class="language-python">def calculate_beta(stock_returns, market_returns):
+    model = sm.OLS(stock_returns, sm.add_constant(market_returns))
+    results = model.fit()
+    beta = results.params.values[1]
+    return beta
+
+def add_beta(ticker_data, market_data):
+    period = 252
+    beta_holder = {}
+
+    merged_df = pd.merge(
+        ticker_data['Night_returns'],
+        market_data['Night_returns'],
+        how = 'left',
+        left_index=True, right_index=True,
+        suffixes=('_stock', '_market')
+        )
+    merged_df.dropna(inplace=True)
+
+    for i, date in enumerate(merged_df.index):
+        if i < period:
+            continue
+        
+#for the day i-period to i-1 , we calculate the beta based on the past 252 days
+stock_returns = merged_df.iloc[i-period:i]['Night_returns_stock']
+market_returns = merged_df.iloc[i-period:i]['Night_returns_market']
+
+        beta = calculate_beta(stock_returns, market_returns)
+        beta_holder[date] = beta
+
+    beta_holder = pd.Series(beta_holder)
+    beta_holder.name = 'Beta'
+    beta_holder.index = pd.to_datetime(beta_holder.index, utc=True)
+    beta_holder.index = beta_holder.index.tz_convert('US/Eastern')
+
+# Merge the beta with the original data
+ticker_data = pd.merge(ticker_data, beta_holder, how='left', left_index=True, right_index=True)
+
+    return ticker_data
+
+tickers_data = holder[0:-1]
+market_data = holder[-1]
+
+for ticker_index in range(len(tickers_data)):
+    tickers_data[ticker_index] = add_beta(tickers_data[ticker_index] , market_data)
+    print (tickers[ticker_index], "is about to be processed.")</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Beta Calculation Implementation</h5>
+                  <p class="mb-0">
+                    This code section implements the beta calculation methodology:
+                    <ol>
+                      <li>Beta Calculation Function:
+                        <ul>
+                          <li>Uses Ordinary Least Squares (OLS) regression</li>
+                          <li>Calculates beta as the slope coefficient</li>
+                          <li>Includes constant term for proper regression specification</li>
+                        </ul>
+                      </li>
+                      <li>Rolling Window Implementation:
+                        <ul>
+                          <li>Uses 252-day (trading year) window for beta estimation</li>
+                          <li>Merges stock and market night returns for analysis</li>
+                          <li>Handles missing data appropriately</li>
+                        </ul>
+                      </li>
+                      </ol>
+                  </p>
+                </div>
+              </section>
+
+              <section id="results" class="mb-4">
+                <h2 class="h5 mb-3">Trading Strategy Implementation</h2>
+                <p>
+                  In this section, we implement a trading strategy based on the paper's findings about the relationship between beta and returns during different market sessions. The strategy involves:
+                </p>
+                <ul>
+                  <li>Long low-beta stocks by shorting high-beta stocks when markets open (Day returns)</li>
+                  <li>Long high-beta stocks by shorting low-beta stocks when markets close (Night returns)</li>
+                </ul>
+
+                <pre><code class="language-python">period = 252
+beta_df = pd.DataFrame()
+for i in range(len(tickers_data)):
+    beta_df = pd.concat([beta_df, tickers_data[i]['Beta']], axis=1)
+beta_df.columns = tickers[:-1]
+beta_df = beta_df[period+1:] 
+
+Night_returns_df = pd.DataFrame()
+for i in range(len(tickers_data)):
+    Night_returns_df = pd.concat([Night_returns_df, tickers_data[i]['Night_returns']], axis=1)
+Night_returns_df.columns = tickers[:-1]
+Night_returns_df = Night_returns_df[period+1:]
+
+Day_returns_df = pd.DataFrame()
+for i in range(len(tickers_data)):
+    Day_returns_df = pd.concat([Day_returns_df, tickers_data[i]['Open_to_Close']], axis=1)
+Day_returns_df.columns = tickers[:-1]
+Day_returns_df = Day_returns_df[period+1:]
+
+def get_extreme_beta_stocks(beta_df , i):
+    row = beta_df.iloc[i]
+    #select stocks only if they have positive betas top 10 and bottom 10
+    top_10 = row[row>0].sort_values(ascending=False).head(10)
+    bottom_10 = row[row>0].sort_values(ascending=True).head(10)
+
+    top_10_stocks = top_10.index.tolist()
+    bottom_10_stocks = bottom_10.index.tolist()
+
+    return top_10_stocks, bottom_10_stocks
+
+def get_daily_return(beta_df):
+    Day_returns_holder = []
+    Night_returns_holder = []
+    monthflag = 0
+    for i in range(len(beta_df)):
+#Checking if this is the new month, if yes, extract the top 10 and bottom 10 stocks again
+if beta_df.index[i].month != monthflag:
+daily_top10, daily_bottom10 = get_extreme_beta_stocks(beta_df , i)
+monthflag = beta_df.index[i].month
+
+daily_average_beta = beta_df.loc[beta_df.index[i], daily_top10 + daily_bottom10].mean()
+
+high_beta_amount = (beta_df.loc[beta_df.index[i], daily_top10] - daily_average_beta)/daily_average_beta
+low_beta_amount = (beta_df.loc[beta_df.index[i], daily_bottom10] - daily_average_beta)/daily_average_beta
+
+#Day returns
+high_beta_day_returns = (Day_returns_df.loc[Day_returns_df.index[i], daily_top10]* -high_beta_amount).sum()
+low_beta_day_returns = (Day_returns_df.loc[Day_returns_df.index[i], daily_bottom10]* -low_beta_amount).sum()
+Day_returns_holder.append(high_beta_day_returns + low_beta_day_returns)    
+
+#Night returns
+high_beta_night_returns = (Night_returns_df.loc[Night_returns_df.index[i], daily_top10] * high_beta_amount).sum()
+low_beta_night_returns = (Night_returns_df.loc[Night_returns_df.index[i], daily_bottom10] * low_beta_amount).sum()
+Night_returns_holder.append(high_beta_night_returns + low_beta_night_returns)
+
+return Day_returns_holder, Night_returns_holder
+
+Day_returns_holder, Night_returns_holder = get_daily_return(beta_df)</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section implements the core trading strategy:
+                    <ol>
+                      <li>Data Preparation:
+                        <ul>
+                          <li>Creates separate DataFrames for beta, night returns, and day returns</li>
+                          <li>Uses a 252-day period for beta calculation</li>
+                          <li>Aligns all time series for consistent analysis</li>
+                        </ul>
+                      </li>
+                      <li>Portfolio Construction:
+                        <ul>
+                          <li>Selects top and bottom 10 stocks based on beta values</li>
+                          <li>Calculates position sizes based on beta deviations from mean</li>
+                          <li>Rebalances positions monthly to maintain strategy consistency</li>
+                        </ul>
+                      </li>
+                      </ol>
+                  </p>
+                </div>
+              </section>
+
+              <section id="results" class="mb-4">
+                <h2 class="h5 mb-3">Results Analysis</h2>
+                <p>
+                  Let's analyze the performance of our day and night trading strategy:
+                </p>
+
+                <pre><code class="language-python">Returns_df = pd.DataFrame(Day_returns_holder)
+Returns_df.index = beta_df.index
+Returns_df.columns = ['Day_returns']
+Returns_df['Night_returns'] = Night_returns_holder
+Returns_df['Total_returns'] = Returns_df['Day_returns'] + Returns_df['Night_returns']
+
+#The returns are not based on the initial investment amount
+Returns_df['Cumulative_returns'] = Returns_df['Total_returns'].cumsum() 
+
+#Sharpe
+Day_Sharpe = (Returns_df['Day_returns'].mean()*(252**0.5)) / Returns_df['Day_returns'].std()
+Night_Sharpe = (Returns_df['Night_returns'].mean()*(252**0.5)) / Returns_df['Night_returns'].std()
+Total_Sharpe = (Returns_df['Total_returns'].mean()*(252**0.5)) / Returns_df['Total_returns'].std()
+print(f"Day Sharpe: {Day_Sharpe}")
+print(f"Night Sharpe: {Night_Sharpe}")
+print(f"Total Sharpe: {Total_Sharpe}")
+
+Day Sharpe: 0.03793448554306334
+Night Sharpe: 0.9338312006946446
+Total Sharpe: 0.5691650458099002
+
+plt.figure(figsize=(10, 5))
+plt.plot(Returns_df['Cumulative_returns'], label='Day + Night returns')
+plt.title(f'Cumulative returns for the strategy')
+plt.legend()
+plt.show()
+plt.close()</code></pre>
+
+                <div class="d-flex justify-content-center">
+                  <img src="../../images/quantio/2025-05-04-assetpricingaleofnightandday-Image1.png" alt="Day and Night Returns Analysis" class="img-fluid">
+                </div>
+                <pre><code class="language-python">
+#plot the returns
+plt.figure(figsize=(10, 5))
+plt.plot(Returns_df['Day_returns'], label='Day returns')
+plt.title(f'Day returns')
+plt.legend()
+plt.show()
+plt.close()
+
+#plot the returns
+plt.figure(figsize=(10, 5))
+plt.plot(Returns_df['Night_returns'], label='Night returns')
+plt.title(f'Night returns')
+plt.legend()
+plt.show()
+plt.close()</code></pre>
+
+                
+
+                <div class="d-flex justify-content-center">
+                  <img src="../../images/quantio/2025-05-04-assetpricingaleofnightandday-Image2.png" alt="Day and Night Returns Analysis" class="img-fluid">
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <img src="../../images/quantio/2025-05-04-assetpricingaleofnightandday-Image3.png" alt="Day and Night Returns Analysis" class="img-fluid">
+                </div>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Performance Analysis</h5>
+                  <p class="mb-0">
+                    The results reveal several key insights:
+                    <ol>
+                      <li>Return Components:
+                        <ul>
+                          <li>Day returns show minimal Sharpe ratio (0.038)</li>
+                          <li>Night returns demonstrate strong performance (Sharpe ratio of 0.934)</li>
+                          <li>Combined strategy achieves moderate Sharpe ratio (0.569)</li>
+                        </ul>
+                      </li>
+                      <li>Strategy Characteristics:
+                        <ul>
+                          <li>Night trading dominates overall performance</li>
+                          <li>Day trading shows minimal impact on returns</li>
+                          <li>Combined strategy benefits from diversification</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+              </section>
+
+              <section id="conclusion" class="mb-4">
+                <h2 class="h5 mb-3">Trading Strategy Overview</h2>
+                <p>
+                  This strategy implements a sophisticated approach to beta-based trading by distinguishing between day and night returns. The key components are:
+                </p>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Strategy Components</h5>
+                  <p class="mb-0">
+                    <ol>
+                      <li>Day Trading Strategy:
+                        <ul>
+                          <li>Long low-beta stocks</li>
+                          <li>Short high-beta stocks</li>
+                          <li>Executed during market open hours</li>
+                        </ul>
+                      </li>
+                      <li>Night Trading Strategy:
+                        <ul>
+                          <li>Long high-beta stocks</li>
+                          <li>Short low-beta stocks</li>
+                          <li>Executed during market close hours</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <pre><code class="language-python">
+def get_extreme_beta_stocks(beta_df , i):
+row = beta_df.iloc[i]
+#select stocks only if they have positive betas top 10 and bottom 10
+top_10 = row[row>0].sort_values(ascending=False).head(10)
+bottom_10 = row[row>0].sort_values(ascending=True).head(10)
+
+top_10_stocks = top_10.index.tolist()
+bottom_10_stocks = bottom_10.index.tolist()
+
+return top_10_stocks, bottom_10_stocks
+
+def get_daily_return(beta_df):
+Day_returns_holder = []
+Night_returns_holder = []
+monthflag = 0
+for i in range(len(beta_df)):
+    #Checking if this is the new month, if yes, extract the top 10 and bottom 10 stocks again
+    if beta_df.index[i].month != monthflag:
+        daily_top10, daily_bottom10 = get_extreme_beta_stocks(beta_df , i)
+        monthflag = beta_df.index[i].month
+
+        daily_high_average_beta = beta_df.loc[beta_df.index[i], daily_top10].mean()
+        daily_low_average_beta = beta_df.loc[beta_df.index[i], daily_bottom10].mean()
+
+        high_beta_amount = (beta_df.loc[beta_df.index[i], daily_top10] )/daily_high_average_beta
+        low_beta_amount = -(beta_df.loc[beta_df.index[i], daily_bottom10] )/daily_low_average_beta
+
+
+    #Day returns
+    high_beta_day_returns = (Day_returns_df.loc[Day_returns_df.index[i], daily_top10]* -high_beta_amount).sum()
+    low_beta_day_returns = (Day_returns_df.loc[Day_returns_df.index[i], daily_bottom10]* -low_beta_amount).sum()
+    Day_returns_holder.append(high_beta_day_returns + low_beta_day_returns)    
+
+    #Night returns
+    high_beta_night_returns = (Night_returns_df.loc[Night_returns_df.index[i], daily_top10] * high_beta_amount).sum()
+    low_beta_night_returns = (Night_returns_df.loc[Night_returns_df.index[i], daily_bottom10] * low_beta_amount).sum()
+    Night_returns_holder.append(high_beta_night_returns + low_beta_night_returns)
+
+return Day_returns_holder, Night_returns_holder
+
+
+Day_returns_holder, Night_returns_holder = get_daily_return(beta_df)
+
+Returns_df = pd.DataFrame(Day_returns_holder)
+Returns_df.index = beta_df.index
+Returns_df.columns = ['Day_returns']
+Returns_df['Night_returns'] = Night_returns_holder
+Returns_df['Total_returns'] = Returns_df['Day_returns'] + Returns_df['Night_returns']
+
+#The returns are not based on the initial investment amount
+Returns_df['Cumulative_returns'] = Returns_df['Total_returns'].cumsum() 
+
+#Sharpe
+Day_Sharpe = (Returns_df['Day_returns'].mean()*(252**0.5)) / Returns_df['Day_returns'].std()
+Night_Sharpe = (Returns_df['Night_returns'].mean()*(252**0.5)) / Returns_df['Night_returns'].std()
+Total_Sharpe = (Returns_df['Total_returns'].mean()*(252**0.5)) / Returns_df['Total_returns'].std()
+print(f"Day Sharpe: {Day_Sharpe}")
+print(f"Night Sharpe: {Night_Sharpe}")
+print(f"Total Sharpe: {Total_Sharpe}")</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section implements the core trading strategy:
+                    <ol>
+                      <li>Portfolio Selection:
+                        <ul>
+                          <li>Identifies top and bottom 10 stocks by beta</li>
+                          <li>Filters for positive beta stocks only</li>
+                          <li>Rebalances portfolio monthly</li>
+                        </ul>
+                      </li>
+                      <li>Position Sizing:
+                        <ul>
+                          <li>Calculates average beta for high and low beta portfolios</li>
+                          <li>Scales positions inversely to portfolio beta</li>
+                          <li>Implements long-short strategy for both day and night</li>
+                        </ul>
+                      </li>
+                  
+                    </ol>
+                  </p>
+                </div>
+
+                
+                <p>
+                  Based on the analysis, the strategy demonstrates that focusing on night trading would yield superior risk-adjusted returns compared to day trading or a combined approach. This finding aligns with the paper's hypothesis about the different behavior of beta during market and non-market hours.
+                </p>
+              </section>
+
+              <section class="mb-4">
+                <h2 id="final-thought" class="h5 mb-3">Final Thought</h2>
+                <p>
+                  Our analysis reveals that the Day returns show negative returns, which differs from the paper's observations from 1992-2016. This discrepancy warrants careful consideration of several important factors:
+                </p>
+
+                <div class="alert alert-warning mt-3">
+                  <h5 class="alert-heading">Key Considerations</h5>
+                  <p class="mb-0">
+                    <ul>
+                      <li>Trading Costs:
+                        <ul>
+                          <li>The "Zero cost" trading assumption in the paper doesn't account for real-world trading fees</li>
+                          <li>Transaction costs can significantly impact strategy profitability</li>
+                          <li>Implementation costs may reduce actual returns</li>
+                        </ul>
+                      </li>
+                      <li>Risk Assessment:
+                        <ul>
+                          <li>The strategy demonstrates high risk levels</li>
+                          <li>Performance may be unreliable in different market conditions</li>
+                          <li>Need for robust risk management framework</li>
+                        </ul>
+                      </li>
+                      <li>Alternative Strategies:
+                        <ul>
+                          <li>Consider more stable and proven investment approaches</li>
+                          <li>Explore strategies with better risk-adjusted returns</li>
+                          <li>Diversification across multiple strategies may be beneficial</li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </p>
+                </div>
+              </section>
+            </div>
+          </article>
+        </div>
+      </div>
+    </main>
+
+    <!-- JavaScript dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script src="../../components/header.js"></script>
+  </body>
+</html>
