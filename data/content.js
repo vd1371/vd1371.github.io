@@ -49,6 +49,12 @@
       date: 'May 4, 2025',
       icon: 'bi-graph-up',
     },
+    {
+      title: 'Cross-stock Momentum',
+      link: 'posts/quantio/2024-03-20-cross-stock-momentum.html',
+      date: 'May 4, 2025',
+      icon: 'bi-arrow-up-right-circle',
+    },
 
   ];
 
