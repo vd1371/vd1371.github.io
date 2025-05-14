@@ -55,6 +55,12 @@
       date: 'May 4, 2025',
       icon: 'bi-arrow-up-right-circle',
     },
+    {
+      title: 'Polynomial Moving Regression Band',
+      link: 'posts/quantio/2025-05-13-polynomial-moving-regression-band.html',
+      date: 'May 13, 2025',
+      icon: 'bi-diagram-2',
+    },
 
   ];
 

@@ -38,29 +38,33 @@
             <div class="table-of-contents mb-4">
               <h2 class="h5 mb-3">Table of Contents</h2>
               <ul class="list-unstyled">
-                <li><a href="#strategy-details">Strategy Details</a>
+                <li><a href="#monthly-data-aggregation">Monthly Data Aggregation</a>
                   <ul class="list-unstyled ms-3">
-                    <li><a href="#key-components">Key Components</a></li>
-                    <li><a href="#implementation-differences">Implementation Differences</a></li>
+                    <li><a href="#data-processing-steps">Data Processing Steps</a></li>
                   </ul>
                 </li>
-                <li><a href="#data-collection">Data Collection</a></li>
-                <li><a href="#strategy-implementation">Strategy Implementation</a>
+                <li><a href="#cross-stock-momentum-strategy">Cross-stock Momentum Strategy</a>
                   <ul class="list-unstyled ms-3">
-                    <li><a href="#prediction-matrix">Prediction Matrix Construction</a></li>
+                    <li><a href="#data-driven-linkages">Data-driven Linkages</a></li>
+                    <li><a href="#prediction-framework">Prediction Framework</a></li>
+                  </ul>
+                </li>
+                <li><a href="#long-short-strategy">Long & Short Strategy</a>
+                  <ul class="list-unstyled ms-3">
+                    <li><a href="#signal-generation">Signal Generation</a></li>
                     <li><a href="#portfolio-construction">Portfolio Construction</a></li>
                   </ul>
                 </li>
-                <li><a href="#results-analysis">Results Analysis</a>
+                <li><a href="#long-only-strategy">Long-Only Strategy</a>
                   <ul class="list-unstyled ms-3">
-                    <li><a href="#performance-metrics">Performance Metrics</a></li>
-                    <li><a href="#statistical-significance">Statistical Significance</a></li>
+                    <li><a href="#implementation">Implementation</a></li>
+                    <li><a href="#performance-tracking">Performance Tracking</a></li>
                   </ul>
                 </li>
-                <li><a href="#conclusion">Conclusion</a>
+                <li><a href="#results">Results Analysis</a>
                   <ul class="list-unstyled ms-3">
-                    <li><a href="#key-findings">Key Findings</a></li>
-                    <li><a href="#limitations">Limitations</a></li>
+                    <li><a href="#performance-metrics">Performance Metrics</a></li>
+                    <li><a href="#comparative-analysis">Comparative Analysis</a></li>
                   </ul>
                 </li>
               </ul>
@@ -174,15 +178,7 @@ print(f'Loaded data for {len(tickers)} companies')</code></pre>
                       <li>Strategy performance varies significantly with implementation choices</li>
                     </ol>
                   </p>
-                </div>
-                <code>
-                  <pre><code class="language-python">BRK.B: No timezone found, symbol may be delisted
-BF.B: No price data found, symbol may be delisted (1d 2005-01-01 -> 2023-12-31)
-GEV: Data doesn't exist for startDate = 1104555600, endDate = 1703998800
-SW: Data doesn't exist for startDate = 1104555600, endDate = 1703998800
-SOLV: Data doesn't exist for startDate = 1104555600, endDate = 1703998800
-Loaded data for 498 companies</code></pre>
-                </code>                
+                </div>                                
               </section>
               <section class="mb-4">
                 <h2 id="monthly-data-aggregation" class="h5 mb-3">Monthly Data Aggregation</h2>
