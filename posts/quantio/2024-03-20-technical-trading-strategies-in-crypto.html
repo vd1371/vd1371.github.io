@@ -174,19 +174,7 @@ out_of_sample_end_date = '2023-10-31'</code></pre>
               
               <p>The analysis uses daily price data for Bitcoin (BTC) and Ethereum (ETH) from Yahoo Finance. The data is processed to calculate rate of change (ROC) and split into in-sample and out-of-sample periods for strategy development and validation.</p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Data Processing Steps</h5>
-                <p class="mb-0">
-                  <ol>
-                    <li>Data Loading:
-                      <ul>
-                        <li>Reads BTC and ETH price data from CSV files</li>
-                        <li>Sets date as index and converts to datetime format</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
+              
               <pre><code class="language-python">btc_df = pd.read_csv('../data/yfinance_BTC.csv')
 btc_df = btc_df.set_index('Date')
 btc_df.index = pd.to_datetime(btc_df.index)
@@ -208,21 +196,7 @@ btc_df_full, eth_df_full</code></pre>
               <p>
                 During data processing, we encountered some warnings related to the yfinance library's TimedeltaIndex construction. These warnings are informational and don't affect the functionality of our code:
               </p>
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Warning Explanation</h5>
-                <p class="mb-0">
-                  These warnings indicate:
-                  <ol>
-                    <li>Library Deprecation:
-                      <ul>
-                        <li>The 'unit' keyword in TimedeltaIndex construction is being deprecated</li>
-                        <li>Future versions will require using pd.to_timedelta instead</li>
-                        <li>This is an internal yfinance library warning</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
+              
             </section>
             
             <section>
@@ -303,13 +277,6 @@ def simulation(performance_df,Type):
                         <li>Converts close prices to float type</li>
                         <li>Calculates log returns for price movements</li>
                         <li>Shifts signals to align with next period positions</li>
-                      </ul>
-                    </li>
-                    <li>Position and Trade Tracking:
-                      <ul>
-                        <li>Calculates positions based on signal shifts</li>
-                        <li>Tracks trade execution timing</li>
-                        <li>Applies transaction costs to all trades</li>
                       </ul>
                     </li>
                   </ol>
@@ -413,13 +380,6 @@ for short in range(10, 30, 5):
                 <p class="mb-0">
                   This code section implements the strategy testing framework:
                   <ol>
-                    <li>Strategy Testing:
-                      <ul>
-                        <li>Tests each strategy on both Bitcoin and Ethereum data</li>
-                        <li>Uses systematic parameter combinations for comprehensive testing</li>
-                        <li>Records performance metrics for each parameter set</li>
-                      </ul>
-                    </li>
                     <li>Parameter Ranges:
                       <ul>
                         <li>EMAC: Tests 6 short windows × 6 long windows = 36 combinations</li>
@@ -472,8 +432,6 @@ for short in range(10, 30, 5):
                         <li>Stores complete return series for analysis</li>
                         <li>Calculates annualized returns</li>
                         <li>Computes Sharpe ratio for risk-adjusted performance</li>
-                        <li>Determines maximum drawdown for risk assessment</li>
-                        <li>Calculates beta against benchmark for market sensitivity</li>
                       </ul>
                     </li>
                   </ol>
@@ -538,13 +496,6 @@ best_btc_result</code></pre>
                         <li>Compares performance metrics across strategies</li>
                       </ul>
                     </li>
-                    <li>Data Organization:
-                      <ul>
-                        <li>Creates individual DataFrames for each strategy type</li>
-                        <li>Combines results into a single comparison DataFrame</li>
-                        <li>Preserves all performance metrics for analysis</li>
-                      </ul>
-                    </li>
                   </ol>
                 </p>
               </div>
@@ -591,13 +542,6 @@ best_eth_result</code></pre>
                         <li>Creates individual DataFrames for each strategy type</li>
                         <li>Uses select_best_strategy function to identify optimal parameters</li>
                         <li>Combines results into a single comparison DataFrame</li>
-                      </ul>
-                    </li>
-                    <li>Data Organization:
-                      <ul>
-                        <li>Evaluates EMAC, RSI, Bollinger Bands, and MACD strategies</li>
-                        <li>Preserves all performance metrics for analysis</li>
-                        <li>Enables direct comparison between strategies</li>
                       </ul>
                     </li>
                   </ol>
@@ -690,13 +634,6 @@ Best MACD_(15, 25, 12)_whole_sample Strategy reality check p-value: 0.807</code>
                         <li>EMAC and RSI strategies show weaker statistical significance</li>
                       </ul>
                     </li>
-                    <li>Reality Check Results:
-                      <ul>
-                        <li>All strategies show high p-values in reality check (0.807-1.0)</li>
-                        <li>Indicates potential data mining concerns</li>
-                        <li>Suggests need for out-of-sample testing</li>
-                      </ul>
-                    </li>
                   </ol>
                 </p>
               </div>
@@ -754,13 +691,6 @@ all_performance</code></pre>
                         <li>Organizes results in a structured DataFrame</li>
                       </ul>
                     </li>
-                    <li>Data Organization:
-                      <ul>
-                        <li>Creates separate metrics for each strategy</li>
-                        <li>Combines results into a comprehensive performance table</li>
-                        <li>Preserves strategy names and performance indicators</li>
-                      </ul>
-                    </li>
                   </ol>
                 </p>
               </div>
@@ -809,14 +739,6 @@ Best MACD_(25, 40, 9)_whole_sample Strategy reality check p-value: 0.14</code></
                         <li>MACD strategy shows strong significance (p = 0.004)</li>
                       </ul>
                     </li>
-                    <li>Reality Check Results:
-                      <ul>
-                        <li>Most strategies fail the reality check at 5% significance</li>
-                        <li>EMAC strategy shows moderate robustness (p = 0.295)</li>
-                        <li>MACD strategy shows some robustness (p = 0.14)</li>
-                        <li>RSI and Bollinger Bands strategies show weak robustness</li>
-                      </ul>
-                    </li>
                   </ol>
                 </p>
               </div>
@@ -846,13 +768,6 @@ all_performance_eth</code></pre>
                         <li>Creates an empty DataFrame for storing metrics</li>
                         <li>Iterates through each strategy in the results</li>
                         <li>Calculates performance metrics for each strategy</li>
-                      </ul>
-                    </li>
-                    <li>Performance Metrics:
-                      <ul>
-                        <li>In-sample and out-of-sample annualized returns</li>
-                        <li>Sharpe ratios for both periods</li>
-                        <li>Maximum drawdowns for risk assessment</li>
                       </ul>
                     </li>
                   </ol>

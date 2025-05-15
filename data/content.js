@@ -2,16 +2,34 @@
 (function () {
   const quantNotebooks = [
     {
-      title: 'Value and Momentum Everywhere',
-      link: 'posts/quantio/2025-05-01-value-and-momentum-everywhere.html',
-      date: 'May 1, 2025',
-      icon: 'bi-currency-exchange',
+      title: 'Bet Against Beta in HK Market',
+      link: 'posts/quantio/2024-03-20-bet_against_beta_HK.html',
+      date: 'March 20, 2024',
+      icon: 'bi-activity',
+    },
+    {
+      title: 'Cross-stock Momentum',
+      link: 'posts/quantio/2024-03-20-cross-stock-momentum.html',
+      date: 'March 20, 2024',
+      icon: 'bi-arrow-up-right-circle',
+    },
+    {
+      title: 'Technical Trading Strategies in Crypto',
+      link: 'posts/quantio/2024-03-20-technical-trading-strategies-in-crypto.html',
+      date: 'March 20, 2024',
+      icon: 'bi-graph-up',
     },
     {
       title: 'Stock Returns After Extreme Loss Events',
       link: 'posts/quantio/2025-05-01-stock-returns-after-shock.html',
       date: 'May 1, 2025',
       icon: 'bi-lightning-charge',
+    },
+    {
+      title: 'Value and Momentum Everywhere',
+      link: 'posts/quantio/2025-05-01-value-and-momentum-everywhere.html',
+      date: 'May 1, 2025',
+      icon: 'bi-currency-exchange',
     },
     {
       title: 'Predicting Indices Using ARIMA',
@@ -26,43 +44,31 @@
       icon: 'bi-arrow-repeat',
     },
     {
-      title: 'Combining Low Volatility with Momentum',
-      link: 'posts/quantio/2025-05-04-combining-low-volatility-with-momentum.html',
-      date: 'May 4, 2025',
-      icon: 'bi-diagram-3',
-    }, 
-    {
       title: 'Asset Pricing: A Tale of Night and Day',
       link: 'posts/quantio/2025-05-04-asset-pricing-a-tale-of-night-and-day.html',
       date: 'May 4, 2025',
       icon: 'bi-moon-stars',
     },
     {
-      title: 'Bet Against Beta in HK Market',
-      link: 'posts/quantio/2024-03-20-bet_against_beta_HK.html',
+      title: 'Combining Low Volatility with Momentum',
+      link: 'posts/quantio/2025-05-04-combining-low-volatility-with-momentum.html',
       date: 'May 4, 2025',
-      icon: 'bi-activity',
-    },
-    {
-      title: 'Technical Trading Strategies in Crypto',
-      link: 'posts/quantio/2024-03-20-technical-trading-strategies-in-crypto.html',
-      date: 'May 4, 2025',
-      icon: 'bi-graph-up',
-    },
-    {
-      title: 'Cross-stock Momentum',
-      link: 'posts/quantio/2024-03-20-cross-stock-momentum.html',
-      date: 'May 4, 2025',
-      icon: 'bi-arrow-up-right-circle',
-    },
+      icon: 'bi-diagram-3',
+    }, 
     {
       title: 'Polynomial Moving Regression Band',
       link: 'posts/quantio/2025-05-13-polynomial-moving-regression-band.html',
       date: 'May 13, 2025',
       icon: 'bi-diagram-2',
     },
+    {
+      title: 'Dynamic Tactical Asset Allocation',
+      link: 'posts/quantio/2025-05-15-dynamic-tactical-asset-allocation.html',
+      date: 'May 15, 2025',
+      icon: 'bi-pie-chart',
+    },
 
-  ];
+  ]
 
   const projects = [
     {

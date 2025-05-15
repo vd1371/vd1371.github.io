@@ -208,12 +208,6 @@ tickers = [ticker for ticker in tickers if len(holder[ticker]) > 0]</code></pre>
                           <li>Implements efficient data caching system</li>
                         </ul>
                       </li>
-                      <li>Data Processing:
-                        <ul>
-                          <li>Calculates daily price changes</li>
-                          <li>Computes 50-day moving averages</li>
-                          <li>Generates higher-order terms for polynomial regression</li>
-                        </ul>
                     </ol>
                   </p>
                 </div>
@@ -225,28 +219,6 @@ tickers = [ticker for ticker in tickers if len(holder[ticker]) > 0]</code></pre>
                 <div class="strategy-overview mb-4">
                   <p>
                     In our analysis of the polynomial regression trading system, we identified two potential areas for improvement:
-                  </p>
-                </div>
-
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Improvement Areas</h5>
-                  <p class="mb-0">
-                    <ol>
-                      <li>Standard Deviation Coefficient Optimization:
-                        <ul>
-                          <li>Original paper uses fixed coefficient of 2</li>
-                          <li>Tested range from 0.5 to 3.5</li>
-                          <li>Analyzed impact on system performance</li>
-                        </ul>
-                      </li>
-                      <li>Annual Portfolio Rebalancing:
-                        <ul>
-                          <li>Implemented year-end position closure</li>
-                          <li>Analyzed impact on strategy returns</li>
-                          <li>Evaluated rebalancing frequency effects</li>
-                        </ul>
-                      </li>
-                    </ol>
                   </p>
                 </div>
 
@@ -304,13 +276,6 @@ ls_count_profit.append(count_profit_test)</code></pre>
                           <li>Tracks profit/loss metrics for each combination</li>
                         </ul>
                       </li>
-                      <li>Performance Analysis:
-                        <ul>
-                          <li>Identifies profitable tickers for each combination</li>
-                          <li>Calculates aggregate returns</li>
-                          <li>Counts profitable vs. losing trades</li>
-                        </ul>
-                      </li>
                     </ol>
                   </p>
                 </div>
@@ -364,11 +329,6 @@ portfolio_value = []</code></pre>
                     This code section implements the annual rebalancing strategy with the following key components:
                   </p>
                   <ul class="mb-0">
-                    <li><strong>Data Splitting:</strong> For each year, the data is split into training, validation, and test periods using predefined date ranges.</li>
-                    <li><strong>Model Training:</strong> A polynomial regression model (degree 4) is trained for each stock using the training data, with features derived from the 50-day moving average.</li>
-                    <li><strong>Stock Selection:</strong> Stocks are filtered based on data availability across all three periods (training, validation, and test).</li>
-                    <li><strong>Validation Process:</strong> The model is applied to validation data to identify profitable stocks (those with profit/loss > 1).</li>
-                    <li><strong>Portfolio Construction:</strong> An equal-weighted portfolio is created from the profitable stocks, with initial investment divided equally among selected stocks.</li>
                     <li><strong>Performance Tracking:</strong> The code tracks various metrics including:
                       <ul>
                         <li>Profit/loss for each stock and the overall portfolio</li>
@@ -454,10 +414,7 @@ ls_count_no_trade.append(count_no_trade)</code></pre>
                     <li><strong>Data Splitting:</strong> For each year, the data is split into training, validation, and test periods using predefined date ranges.</li>
                     <li><strong>Model Training:</strong> A polynomial regression model (degree 4) is trained for each stock using the training data, with features derived from the 50-day moving average.</li>
                     <li><strong>Stock Selection:</strong> Stocks are filtered based on data availability across all three periods (training, validation, and test).</li>
-                    <li><strong>Validation Process:</strong> The model is applied to validation data to identify profitable stocks (those with profit/loss > 1).</li>
-                    <li><strong>Portfolio Construction:</strong> An equal-weighted portfolio is created from the profitable stocks, with initial investment divided equally among selected stocks.</li>
-                    <li><strong>Performance Tracking:</strong> The code tracks various metrics including:
-                      
+                    
                 </div>
                 <code style="color: #000;">
                   <pre>
@@ -494,13 +451,6 @@ ls_count_no_trade.append(count_no_trade)</code></pre>
                           <li>Mixed results across different years</li>
                           <li>Strong performance in 2019, 2020, and 2021</li>
                           <li>Challenging periods in 2018 and 2022</li>
-                        </ul>
-                      </li>
-                      <li>Implementation Considerations:
-                        <ul>
-                          <li>Annual rebalancing impact varies by market conditions</li>
-                          <li>Standard deviation coefficient optimization shows promise</li>
-                          <li>Further mathematical validation needed for optimal parameters</li>
                         </ul>
                       </li>
                     </ol>
@@ -551,7 +501,7 @@ print(f"Maximum Drawdown: {max_drawdown:.2f}%")</code></pre>
                   Our analysis of the polynomial moving regression band trading system reveals several key findings:
                 </p>
 
-                <div class="alert alert-info mt-3">
+                <div class="alert alert-warning mt-3">
                   <h5 class="alert-heading">Key Findings</h5>
                   <p class="mb-0">
                     <ol>
