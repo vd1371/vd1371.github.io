@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="An analysis of value and momentum factors across global markets and their implications for portfolio construction"
+      content="An analysis of crypto news sentiment and its implications for portfolio construction"
     />
     <meta
       name="keywords"
-      content="value investing, momentum investing, factor investing, portfolio construction, asset allocation"
+      content="crypto news sentiment, sentiment analysis, cryptocurrency, news, sentiment, analysis"
     />
     <meta name="author" content="Vahid Asghari" />
-    <title>Value and Momentum Everywhere</title>
+    <title>Crypto News Sentiment</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
@@ -33,7 +33,26 @@
             </header>
 
             <div>
-              <img src="../../images/projects/2025-05-02-crypto-news-sentiment-Image1.jpg" alt="Crypto News Sentiment" class="img-fluid">
+              <h2 class="mb-3">Latest Cryptocurrency Sentiment </h2>
+              <p class="mb-4">Updated every few hours</p>
+              
+              <div id="crypto-sentiment-table"></div>
+
+              <div class="alert alert-warning" role="alert">
+                <h4 class="alert-heading"><i class="bi bi-exclamation-triangle-fill me-2"></i>Disclaimer</h4>
+                <p>
+                  The information provided on this page is for educational and research purposes only. It should not be considered as financial advice or a recommendation to make any type of investment. Cryptocurrency markets are highly volatile and risky. The sentiment analysis and data presented here:
+                </p>
+                <ul>
+                  <li>Is experimental and may contain errors or inaccuracies</li>
+                  <li>Should not be used as the sole basis for any investment decisions</li>
+                  <li>Does not guarantee future results or returns</li>
+                  <li>May be delayed or not reflect current market conditions</li>
+                </ul>
+                <p class="mb-0">
+                  Always conduct your own research and consult with qualified financial advisors before making any investment decisions. Past performance is not indicative of future results. You should never invest more than you can afford to lose.
+                </p>
+              </div>
             </div>
       
             <div class="table-of-contents mb-4">
@@ -316,34 +335,34 @@
                 
 
                 <p>
-                  This project is ready for its next phase. Here’s what I am working on to make
+                  This project is ready for its next phase. Here's what I am working on to make
                   it even more effective for traders and analysts:
                 </p>
 
                 <ul>
                   <li>
                     <strong>Spotting Predictive Trading Signals:</strong><br>
-                    We’ll dive into sentiment data to find patterns that predict market moves. Using machine learning, we’ll analyze historical trends and market data to create reliable signals for trading.
+                    We'll dive into sentiment data to find patterns that predict market moves. Using machine learning, we'll analyze historical trends and market data to create reliable signals for trading.
                   </li>
 
                   <li>
                     <strong>Improving Risk Management & Analysis:</strong><br>
-                    We’re adding robust risk management tools, including statistical models to evaluate sentiment signal reliability and dashboards to visualize risks like volatility and exposure.
+                    We're adding robust risk management tools, including statistical models to evaluate sentiment signal reliability and dashboards to visualize risks like volatility and exposure.
                   </li>
 
                   <li>
                     <strong>Streamlining Data Access:</strong><br>
-                    We’ll store sentiment data on AWS S3 for secure access and build a user-friendly API to let developers integrate our insights into their trading platforms.
+                    We'll store sentiment data on AWS S3 for secure access and build a user-friendly API to let developers integrate our insights into their trading platforms.
                   </li>
 
                   <li>
                     <strong>Speeding Up Real-Time Processing:</strong><br>
-                    To keep pace with fast markets, we’ll optimize our data pipelines and explore serverless architectures to handle demand spikes smoothly.
+                    To keep pace with fast markets, we'll optimize our data pipelines and explore serverless architectures to handle demand spikes smoothly.
                   </li>
 
                   <li>
                     <strong>Covering More Financial Instruments:</strong><br>
-                    We’ll expand to include more stocks, ETFs, and possibly cryptocurrencies, making the system more versatile for users.
+                    We'll expand to include more stocks, ETFs, and possibly cryptocurrencies, making the system more versatile for users.
                   </li> 
                 </ul>
                 
@@ -357,8 +376,7 @@
 
     <script src="../../components/header.js"></script>
     <script src="../../components/footer.js"></script>
-    <script src="../../data/content.js"></script>
-    <script src="../../components/content_menu.js"></script>
+    <script src="../../components/crypto_sentiment_table.js"></script>
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
@@ -366,6 +384,14 @@
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         loadHeader();
+      });
+    </script>
+    <!-- Include the JavaScript file -->
+    <script src="../../components/crypto_sentiment_table.js"></script>
+    <script>
+      // Initialize the table when the page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        createCryptoSentimentTable('crypto-sentiment-table');
       });
     </script>
   </body>
