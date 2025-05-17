@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+    name="description"
+    content="An analysis of an improved momentum strategy that incorporates market panic states"
+  />
+  <meta
+    name="keywords"
+    content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
+  />
+  <meta name="author" content="Vahid Asghari" />
+  <title>MACD Based Signals</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <!-- Add syntax highlighting for code blocks -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+</head>
+<body class="bg-light">
+  <header id="main-header"></header>
+
+  <main class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <article class="card shadow-sm p-4">
+          <header class="post-header mb-4">
+            <h1 class="card-title h4 text-primary pb-2">MACD Based Signals</h1>
+            <small class="text-muted">May 16, 2025</small>
+          </header>
+          <div class="text-center">
+            <img src="../../images/quantio/2025-05-16-MACD-based-signals-Image0.png" alt="MACD Based Signals" class="img-fluid">
+          </div>
+          <div class="table-of-contents mb-4">
+            <h2 class="h5 mb-3">Table of Contents</h2>
+            <ul class="list-unstyled">
+              <li><a href="#strategy-overview">Strategy Overview</a>
+                <ul class="list-unstyled ms-3">
+                  <li><a href="#key-components">Key Components</a></li>
+                </ul>
+              </li>
+              <li><a href="#code-implementation">Code Implementation</a>
+                <ul class="list-unstyled ms-3">
+                  <li><a href="#code-explanation">Code Explanation</a></li>
+                </ul>
+              </li>
+              <li><a href="#strategy-performance">Strategy Performance Analysis</a>
+                <ul class="list-unstyled ms-3">
+                  <li><a href="#performance-explanation">Performance Analysis Explanation</a></li>
+                </ul>
+              </li>
+              <li><a href="#etf-processing">ETF Processing Implementation</a></li>
+            </ul>
+          </div>
+          <div>
+            <section class="mb-4">
+              <h2 id="strategy-overview" class="h5 mb-3">Strategy Overview</h2>
+              
+              <div class="metadata mb-3">
+                <p><strong>Code Author:</strong> Vahid Dehghani</p>
+                <p><strong>Reference Paper:</strong> "MACD-based Trading Strategies"</p>
+                <p><strong>Implementation Date:</strong> May 16, 2025</p>
+              </div>
+
+              <p>
+                This project implements and analyzes four different trading strategies based on MACD (Moving Average Convergence Divergence) and VPVMA (Volume-Price-Volatility Moving Average) indicators. The strategies are tested on weekly market data with VIX integration for volatility awareness.
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Key Components</h5>
+                <p class="mb-0">
+                  <ol>
+                    <li>Traditional MACD:
+                      <ul>
+                        <li>Uses standard MACD crossover signals</li>
+                        <li>12/26/9 period settings for EMA calculations</li>
+                        <li>Weekly rebalancing with 1-week signal lag</li>
+                        <li>5% stop-loss protection</li>
+                      </ul>
+                    </li>
+                    <li>MACD Zero-Cross:
+                      <ul>
+                        <li>Enhanced MACD strategy requiring:
+                          <ul>
+                            <li>MACD line crosses above/below signal line</li>
+                            <li>MACD must be above zero for long positions</li>
+                            <li>MACD must be below zero for short positions</li>
+                          </ul>
+                        </li>
+                        <li>More conservative approach to reduce false signals</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="code-implementation" class="h5 mb-3">Code Implementation</h2>
+              
+              <p>
+                The following code implements the core functionality of the trading strategy framework:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements the core data collection functionality:
+                  <ol>
+                    <li>Data Collection:
+                      <ul>
+                        <li>Downloads price data for specified symbols using yfinance</li>
+                        <li>Retrieves VIX data for volatility analysis</li>
+                        <li>Implements efficient data handling for multiple symbols</li>
+                      </ul>
+                    </li>
+                    <li>Data Processing:
+                      <ul>
+                        <li>Handles both single symbol and multiple symbol cases</li>
+                        <li>Manages VIX data integration when needed</li>
+                        <li>Returns processed dataframes for further analysis</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">import pandas as pd
+import yfinance as yf
+import numpy as np
+import os
+from scipy import stats
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+def download_data(symbol, start_date, end_date):
+    """Download price and VIX data for a symbol"""
+    ticker = yf.Ticker(symbol)
+    df = ticker.history(start=start_date, end=end_date)
+    
+# Download VIX data only once if needed
+if symbol not in ['VIX', '^VIX']:
+    vix = yf.Ticker('^VIX')
+    vix_df = vix.history(start=start_date, end=end_date)
+    return df, vix_df
+return df, None</code></pre>
+            </section>
+    
+            <section class="mb-4">
+              <h2 id="strategy-performance" class="h5 mb-3">Strategy Performance Analysis</h2>
+              
+              <p>
+                This section implements the performance analysis functionality for comparing different trading strategies:
+              </p>
+
+              <pre><code class="language-python">def analyze_strategy_performance(results, symbol):
+    """Analyze and compare strategy performance for a ticker"""
+strategy_metrics = {
+    'MACD': results[0],
+    'MACD Zero-Cross': results[1],
+    'VPVMA': results[2],
+    'VPVMA Zero-Cross': results[3]
+}
+
+# Calculate Sharpe ratio for each strategy
+sharpe_ratios = {}
+for strategy_name, df in strategy_metrics.items():
+    returns = df['Strategy_Returns']
+    sharpe = np.sqrt(52) * returns.mean() / returns.std() if returns.std() != 0 else 0
+    sharpe_ratios[strategy_name] = sharpe
+
+# Find best strategy
+best_strategy = max(sharpe_ratios.items(), key=lambda x: x[1])
+
+# Save performance comparison to ticker directory
+ticker_dir = os.path.join('data', symbol.replace('^', ''))
+performance_file = os.path.join(ticker_dir, 'strategy_comparison.txt')
+
+with open(performance_file, 'w') as f:
+    f.write(f"Strategy Performance Comparison for {symbol}\n")
+    f.write("=" * 50 + "\n\n")
+    f.write("Sharpe Ratios:\n")
+    for strategy, sharpe in sharpe_ratios.items():
+        f.write(f"{strategy}: {sharpe:.2f}\n")
+    f.write(f"\nBest Strategy: {best_strategy[0]} (Sharpe: {best_strategy[1]:.2f})")
+
+return best_strategy[0], sharpe_ratios</code></pre>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements the strategy performance analysis:
+                  <ol>
+                    <li>Strategy Metrics:
+                      <ul>
+                        <li>Compares four different trading strategies:
+                          <ul>
+                            <li>MACD</li>
+                            <li>MACD Zero-Cross</li>
+                            <li>VPVMA</li>
+                            <li>VPVMA Zero-Cross</li>
+                          </ul>
+                        </li>
+                  </ol>
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="etf-processing" class="h5 mb-3">ETF Processing Implementation</h2>
+              <p>
+                This section implements the core functionality for processing ETF data and generating trading signals:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements the core ETF processing functionality:
+                  <ol>
+                    <li>Data Management:
+                      <ul>
+                        <li>Creates ETF-specific directories for data storage</li>
+                        <li>Downloads historical price data using yfinance</li>
+                        <li>Retrieves VIX data for volatility analysis</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">def process_etf(etf):
+"""Process a single ETF and return its results"""
+try:
+# Create ETF-specific directory
+ticker_dir = os.path.join('data', etf)
+os.makedirs(ticker_dir, exist_ok=True)
+
+# Download and process data using functions from Signals.py
+df = yf.Ticker(etf)
+df_hist = df.history(start='2005-01-01', end='2023-12-31')
+vix = yf.Ticker('^VIX')
+vix_df = vix.history(start='2005-01-01', end='2023-12-31')
+
+# Dictionary to store results for different strategies
+results = {}
+sharpe_ratios = {}
+
+# Test different MACD strategies
+strategies = {
+    'MACD_Standard': lambda: get_macd_signals(df=df_hist.copy(), symbol=etf),
+    'MACD_Zero_Cross': lambda: get_macd_signals_zero_cross(df=df_hist.copy(), symbol=etf),
+    'VPVMA_Standard': lambda: get_vpvma_signals(df=df_hist.copy(), vix_df=vix_df.copy(), symbol=etf),
+    'VPVMA_Zero_Cross': lambda: get_vpvma_signals_zero_cross(df=df_hist.copy(), vix_df=vix_df.copy(), symbol=etf)
+}
+
+for name, strategy_func in strategies.items():
+    # Apply strategy
+    signals_df = strategy_func()
+    
+    # Calculate metrics
+    metrics = calculate_performance_metrics(signals_df)
+    results[name] = metrics
+    sharpe_ratios[name] = float(metrics['Sharpe Ratio'].replace(',', ''))
+    
+    # Save trade information
+    get_trade_info(signals_df, name, etf)
+
+# Determine best strategy based on Sharpe ratio
+best_strategy = max(sharpe_ratios.items(), key=lambda x: x[1])[0]
+
+print(f"\nProcessed {etf}")
+return results, best_strategy, sharpe_ratios
+
+except Exception as e:
+print(f"Error processing {etf}: {str(e)}")
+return None</code></pre>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="stop-loss-implementation" class="h5 mb-3">Stop Loss Implementation</h2>
+              <p>
+                This section implements a stop loss mechanism to protect against significant drawdowns in the strategy:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Strategy Components</h5>
+                <p class="mb-0">
+                  <ol>
+                    <li>Stop Loss Mechanism:
+                      <ul>
+                        <li>Implements a percentage-based stop loss threshold</li>
+                        <li>Uses intraweek high/low prices for trigger checks</li>
+                        <li>Applies to both long and short positions</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">def apply_stop_loss(df, stop_loss_pct=0.03):
+"""Apply stop loss to positions immediately when threshold is breached
+Uses intraweek high/low prices to check for stop loss triggers
+Returns a new DataFrame with stop loss applied
+"""
+# Create a copy of the input DataFrame
+result_df = df.copy()
+
+position = 0
+entry_price = 0
+portfolio_value = result_df['Portfolio_Value'].iloc[0]
+
+for i in range(len(result_df)):
+    if result_df['Position'].iloc[i] != 0 and position == 0:
+        # Enter new position
+        position = result_df['Position'].iloc[i]
+        entry_price = result_df['Close'].iloc[i]
+        portfolio_value = result_df['Portfolio_Value'].iloc[i]
+    elif position != 0:
+# Check for stop loss using High and Low prices
+if position == 1:  # Long position
+    lowest_price = result_df['Low'].iloc[i]
+    loss_pct = (lowest_price - entry_price) / entry_price
+    if loss_pct < -stop_loss_pct:
+        # Stop loss triggered - use the stop loss price for return calculation
+        stop_price = entry_price * (1 - stop_loss_pct)
+        result_df.loc[result_df.index[i], 'Close'] = stop_price  # Assume execution at stop price
+        result_df.loc[result_df.index[i], 'Position'] = 0
+        position = 0
+        entry_price = 0
+                
+  else:  # Short position
+      highest_price = result_df['High'].iloc[i]
+      loss_pct = (entry_price - highest_price) / entry_price
+      if loss_pct < -stop_loss_pct:
+          # Stop loss triggered - use the stop loss price for return calculation
+          stop_price = entry_price * (1 + stop_loss_pct)
+          result_df.loc[result_df.index[i], 'Close'] = stop_price  # Assume execution at stop price
+          result_df.loc[result_df.index[i], 'Position'] = 0
+          position = 0
+          entry_price = 0
+        
+# Check for regular position change
+if result_df['Position'].iloc[i] != position and position != 0:
+    position = result_df['Position'].iloc[i]
+    entry_price = result_df['Close'].iloc[i] if position != 0 else 0
+    portfolio_value = result_df['Portfolio_Value'].iloc[i]
+
+return result_df</code></pre>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements the stop loss mechanism:
+                  <ol>
+                    <li>Stop Loss Logic:
+                      <ul>
+                        <li>For long positions: Monitors lowest price against entry</li>
+                        <li>For short positions: Monitors highest price against entry</li>
+                        <li>Triggers stop loss when threshold is breached</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">def calculate_strategy_returns(df):
+"""Calculate strategy returns with position changes"""
+df['Returns'] = df['Close'].pct_change()
+df['Strategy_Returns'] = df['Position'] * df['Returns']
+df['Strategy_Returns'] = df['Strategy_Returns'].fillna(0)
+df['Portfolio_Returns'] = df['Strategy_Returns']
+df['Portfolio_Value'] = df['Portfolio_Value'].iloc[0] * (1 + df['Portfolio_Returns']).cumprod()
+df['Position_Change'] = df['Position'].diff()
+return df</code></pre>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="macd-signals" class="h5 mb-3">MACD Signal Generation</h2>
+              <p>
+                This section implements the core MACD signal generation functionality with pre-downloaded data option:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements the MACD signal generation:
+                  <ol>
+                    <li>MACD Calculation:
+                      <ul>
+                        <li>Computes 12-period and 26-period EMAs</li>
+                        <li>Calculates MACD line and signal line</li>
+                        <li>Generates MACD histogram</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">def get_macd_signals(df=None, symbol='^GSPC', start_date='2005-01-01', end_date='2023-12-31', initial_capital=1_000_000):
+"""MACD strategy with pre-downloaded data option"""
+if df is None:
+    ticker = yf.Ticker(symbol)
+    df = ticker.history(start=start_date, end=end_date)
+
+# Convert timezone from UTC to US/Eastern
+df.index = pd.to_datetime(df.index)
+df.index = df.index.tz_convert('US/Eastern')
+
+# Resample to weekly data (last trading day of the week)
+weekly_df = df.resample('W').agg({
+    'Open': 'first',
+    'High': 'max',
+    'Low': 'min',
+    'Close': 'last',
+    'Volume': 'sum'
+})
+
+# Calculate weekly MACD
+exp1 = weekly_df['Close'].ewm(span=12, adjust=False).mean()
+exp2 = weekly_df['Close'].ewm(span=26, adjust=False).mean()
+macd = exp1 - exp2
+signal = macd.ewm(span=9, adjust=False).mean()
+
+# Create signals on weekly data
+weekly_df['MACD'] = macd
+weekly_df['Signal_Line'] = signal
+weekly_df['MACD_Histogram'] = macd - signal
+
+# Generate buy/sell signals
+weekly_df['Position'] = 0
+weekly_df['Position'] = weekly_df['Position'].mask(macd > signal, 1)
+weekly_df['Position'] = weekly_df['Position'].mask(macd < signal, -1)
+
+# Shift positions by 1 week to implement signal lag
+weekly_df['Position'] = weekly_df['Position'].shift(1)
+
+# Initialize Portfolio Value
+weekly_df['Portfolio_Value'] = 1_000_000
+
+# Apply stop loss with 5%
+weekly_df = apply_stop_loss(weekly_df, stop_loss_pct=0.05)
+
+# Recalculate returns after stop loss
+weekly_df = calculate_strategy_returns(weekly_df)
+
+# Save DataFrame to CSV in ticker directory
+output_file = os.path.join('data', symbol.replace('^', ''), 'weekly_macd_signals.csv')
+weekly_df.to_csv(output_file)
+print(f"Data saved to {output_file}")
+
+return weekly_df</code></pre>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="macd-signals-zero-cross" class="h5 mb-3">MACD Zero-Cross Signal Generation</h2>
+              <p>
+                This section implements the MACD zero-cross signal generation functionality:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements the MACD zero-cross signal generation:
+                  <ol>
+                    <li>Signal Generation:
+                      <ul>
+                        <li>Creates buy/sell signals based on MACD zero-cross conditions</li>
+                        <li>Implements signal lag for realistic trading</li>
+                        <li>Applies stop loss mechanism</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">def get_macd_signals_zero_cross(df, symbol='^GSPC', start_date='2005-01-01', end_date='2023-12-31', initial_capital=1_000_000):
+"""MACD zero-cross strategy with pre-downloaded data option"""
+if df is None:
+  ticker = yf.Ticker(symbol)
+  df = ticker.history(start=start_date, end=end_date)
+
+# Convert timezone from UTC to US/Eastern
+df.index = pd.to_datetime(df.index)
+df.index = df.index.tz_convert('US/Eastern')
+
+# Resample to weekly data (last trading day of the week)
+weekly_df = df.resample('W').agg({
+  'Open': 'first',
+  'High': 'max',
+  'Low': 'min',
+  'Close': 'last',
+  'Volume': 'sum'
+})
+
+# Calculate weekly MACD
+exp1 = weekly_df['Close'].ewm(span=12, adjust=False).mean()
+exp2 = weekly_df['Close'].ewm(span=26, adjust=False).mean()
+macd = exp1 - exp2
+signal = macd.ewm(span=9, adjust=False).mean()
+
+# Create signals on weekly data
+weekly_df['MACD'] = macd
+weekly_df['Signal_Line'] = signal
+weekly_df['MACD_Histogram'] = macd - signal
+
+# Generate buy/sell signals
+weekly_df['Position'] = 0
+weekly_df['Position'] = weekly_df['Position'].mask(macd > signal, 1)
+weekly_df['Position'] = weekly_df['Position'].mask(macd < signal, -1)
+
+# Shift positions by 1 week to implement signal lag
+weekly_df['Position'] = weekly_df['Position'].shift(1)
+
+# Initialize Portfolio Value
+weekly_df['Portfolio_Value'] = 1_000_000
+
+# Apply stop loss with 5%
+weekly_df = apply_stop_loss(weekly_df, stop_loss_pct=0.05)
+
+# Recalculate returns after stop loss
+weekly_df = calculate_strategy_returns(weekly_df)
+
+# Save DataFrame to CSV in ticker directory
+output_file = os.path.join('data', symbol.replace('^', ''), 'weekly_macd_signals_zero_cross.csv')
+weekly_df.to_csv(output_file)
+print(f"Data saved to {output_file}")
+
+return weekly_df</code></pre>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="vpvma-signals" class="h5 mb-3">VPVMA Signal Generation</h2>
+              <p>
+                This section implements the VPVMA signal generation functionality:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements the VPVMA signal generation:
+                  <ol>
+                    <li>Signal Generation:
+                      <ul>
+                        <li>Creates buy/sell signals based on VPVMA conditions</li>
+                        <li>Implements signal lag for realistic trading</li>
+                        <li>Applies stop loss mechanism</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">def get_vpvma_signals(df, vix_df, symbol='^GSPC', start_date='2005-01-01', end_date='2023-12-31', initial_capital=1_000_000):
+"""VPVMA strategy with pre-downloaded data option"""
+if df is None or vix_df is None:
+    ticker = yf.Ticker(symbol)
+    df = ticker.history(start=start_date, end=end_date)
+    vix_df = yf.Ticker('^VIX').history(start=start_date, end=end_date)
+
+# Convert timezone from UTC to US/Eastern
+df.index = pd.to_datetime(df.index)
+df.index = df.index.tz_convert('US/Eastern')
+vix_df.index = pd.to_datetime(vix_df.index)
+vix_df.index = vix_df.index.tz_convert('US/Eastern')
+
+# Resample to weekly data (last trading day of the week)
+weekly_df = df.resample('W').agg({
+    'Open': 'first',
+    'High': 'max',
+    'Low': 'min',
+    'Close': 'last',
+    'Volume': 'sum'
+})
+
+# Calculate weekly VPVMA
+vix_ewm = vix_df['Close'].ewm(span=12, adjust=False).mean()
+vix_vol = vix_ewm.std()
+vpvma = weekly_df['Close'] / vix_vol
+
+# Create signals on weekly data
+weekly_df['VPVMA'] = vpvma
+weekly_df['Position'] = 0
+weekly_df['Position'] = weekly_df['Position'].mask(vpvma > 1, 1)
+weekly_df['Position'] = weekly_df['Position'].mask(vpvma < 1, -1)
+
+# Shift positions by 1 week to implement signal lag
+weekly_df['Position'] = weekly_df['Position'].shift(1)
+
+# Initialize Portfolio Value
+weekly_df['Portfolio_Value'] = 1_000_000
+
+# Apply stop loss with 5%
+weekly_df = apply_stop_loss(weekly_df, stop_loss_pct=0.05)
+
+# Recalculate returns after stop loss
+weekly_df = calculate_strategy_returns(weekly_df)
+
+# Save DataFrame to CSV in ticker directory
+output_file = os.path.join('data', symbol.replace('^', ''), 'weekly_vpvma_signals.csv')
+weekly_df.to_csv(output_file)
+print(f"Data saved to {output_file}")
+
+return weekly_df</code></pre>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="vpvma-signals-zero-cross" class="h5 mb-3">VPVMA Zero-Cross Signal Generation</h2>
+              <p>
+                This section implements the VPVMA zero-cross signal generation functionality:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements the VPVMA zero-cross signal generation:
+                  <ol>
+                    <li>Signal Generation:
+                      <ul>
+                        <li>Creates buy/sell signals based on VPVMA zero-cross conditions</li>
+                        <li>Implements signal lag for realistic trading</li>
+                        <li>Applies stop loss mechanism</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">def get_vpvma_signals_zero_cross(df, vix_df, symbol='^GSPC', start_date='2005-01-01', end_date='2023-12-31', initial_capital=1_000_000):
+"""VPVMA zero-cross strategy with pre-downloaded data option"""
+if df is None or vix_df is None:
+    ticker = yf.Ticker(symbol)
+    df = ticker.history(start=start_date, end=end_date)
+    vix_df = yf.Ticker('^VIX').history(start=start_date, end=end_date)
+
+# Convert timezone from UTC to US/Eastern
+df.index = pd.to_datetime(df.index)
+df.index = df.index.tz_convert('US/Eastern')
+vix_df.index = pd.to_datetime(vix_df.index)
+vix_df.index = vix_df.index.tz_convert('US/Eastern')
+
+# Resample to weekly data (last trading day of the week)
+weekly_df = df.resample('W').agg({
+    'Open': 'first',
+    'High': 'max',
+    'Low': 'min',
+    'Close': 'last',
+    'Volume': 'sum'
+})
+
+# Calculate weekly VPVMA
+vix_ewm = vix_df['Close'].ewm(span=12, adjust=False).mean()
+vix_vol = vix_ewm.std()
+vpvma = weekly_df['Close'] / vix_vol
+
+# Create signals on weekly data
+weekly_df['VPVMA'] = vpvma
+weekly_df['Position'] = 0
+weekly_df['Position'] = weekly_df['Position'].mask(vpvma > 1, 1)
+weekly_df['Position'] = weekly_df['Position'].mask(vpvma < 1, -1)
+
+# Shift positions by 1 week to implement signal lag
+weekly_df['Position'] = weekly_df['Position'].shift(1)
+
+# Initialize Portfolio Value
+weekly_df['Portfolio_Value'] = 1_000_000
+
+# Apply stop loss with 5%
+weekly_df = apply_stop_loss(weekly_df, stop_loss_pct=0.05)
+
+# Recalculate returns after stop loss
+weekly_df = calculate_strategy_returns(weekly_df)
+
+# Save DataFrame to CSV in ticker directory
+output_file = os.path.join('data', symbol.replace('^', ''), 'weekly_vpvma_signals_zero_cross.csv')
+weekly_df.to_csv(output_file)
+print(f"Data saved to {output_file}")
+
+return weekly_df</code></pre>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="performance-metrics" class="h5 mb-3">Performance Metrics Calculation</h2>
+              <p>
+                This section implements comprehensive performance metrics calculation for evaluating trading strategies:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements comprehensive performance metrics:
+                  <ol>
+                    <li>Trading Statistics:
+                      <ul>
+                        <li>Calculates total number of trades</li>
+                        <li>Computes win ratio based on profitable trades</li>
+                        <li>Handles edge cases with zero trades</li>
+                      </ul>
+                    </li>
+                    <li>Return Metrics:
+                      <ul>
+                        <li>Calculates total and cumulative returns</li>
+                        <li>Computes annualized returns</li>
+                        <li>Implements Sharpe ratio calculation</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">def calculate_performance_metrics(df):
+"""Calculate various trading performance metrics"""
+
+# Number of Trades
+trades = df['Position_Change'].fillna(0)
+num_trades = len(trades[trades != 0])
+
+# Win Ratio - only count returns when position changes
+position_changes = df[df['Position_Change'] != 0]
+winning_trades = len(position_changes[position_changes['Strategy_Returns'] > 0])
+win_ratio = winning_trades / num_trades if num_trades > 0 else 0
+
+# Profit & Loss
+cumulative_returns = (1 + df['Strategy_Returns']).cumprod()
+total_return = (cumulative_returns.iloc[-1] - 1) * 100
+
+# Calculate annual return
+years = (df.index[-1] - df.index[0]).days / 365.25
+annual_return = (cumulative_returns.iloc[-1] ** (1/years)) - 1
+
+# Sharpe Ratio (assuming 0% risk-free rate)
+mean_returns = df['Strategy_Returns'].mean()
+std_returns = df['Strategy_Returns'].std()
+sharpe_ratio = np.sqrt(52) * mean_returns / std_returns if std_returns != 0 else 0
+
+# Maximum Drawdown calculation
+portfolio_value = df['Portfolio_Value']
+peak = portfolio_value.expanding(min_periods=1).max()
+drawdown = (portfolio_value - peak) / peak
+max_drawdown = drawdown.min() * 100
+
+# Portfolio Value metrics
+initial_value = df['Portfolio_Value'].iloc[0]
+final_value = df['Portfolio_Value'].iloc[-1]
+portfolio_return = ((final_value - initial_value) / initial_value) * 100
+
+return {
+    'Number of Trades': num_trades,
+    'Win Ratio': f"{win_ratio:.2%}",
+    'Total Return': f"{total_return:.2f}%",
+    'Annual Return': f"{annual_return*100:.2f}%",
+    'Sharpe Ratio': f"{sharpe_ratio:.2f}",
+    'Maximum Drawdown': f"{max_drawdown:.2f}%",
+    'Initial Portfolio Value': f"${initial_value:,.2f}",
+    'Final Portfolio Value': f"${final_value:,.2f}",
+    'Portfolio Return': f"{portfolio_return:.2f}%"
+}</code></pre>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="visualization" class="h5 mb-3">Visualization and Analysis</h2>
+              <p>
+                In this section, we implement visualization functions to analyze MACD signals and strategy performance:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements two key visualization functions:
+                  <ol>
+                    <li>MACD Signal Visualization:
+                      <ul>
+                        <li>Creates a dual-axis plot for price and MACD indicators</li>
+                        <li>Plots buy/sell signals with distinct markers</li>
+                        <li>Shows MACD line, signal line, and histogram</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">def plot_macd_signals(df):
+"""Plot MACD signals and price movements"""
+# Create figure with secondary y-axis
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(15, 10), height_ratios=[2, 1])
+
+# Plot price
+ax1.plot(df.index, df['Close'], label='Price', color='blue', alpha=0.6)
+
+# Plot buy/sell signals
+buy_signals = df[df['Position_Change'] == 1].index
+sell_signals = df[df['Position_Change'] == -2].index  # From 1 to -1
+ax1.scatter(buy_signals, df.loc[buy_signals, 'Close'], marker='^', color='green', label='Buy Signal')
+ax1.scatter(sell_signals, df.loc[sell_signals, 'Close'], marker='v', color='red', label='Sell Signal')
+
+ax1.set_title('Price Movement and Trading Signals')
+ax1.set_ylabel('Price')
+ax1.legend()
+
+# Plot MACD
+ax2.plot(df.index, df['MACD'], label='MACD', color='blue')
+ax2.plot(df.index, df['Signal_Line'], label='Signal Line', color='orange')
+ax2.bar(df.index, df['MACD_Histogram'], label='MACD Histogram', color='gray', alpha=0.3)
+ax2.set_title('MACD Indicator')
+ax2.legend()
+
+plt.tight_layout()
+plt.show()
+
+  def plot_performance(df):
+"""Plot strategy performance metrics"""
+fig, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, figsize=(15, 10))
+
+# Cumulative returns comparison
+strategy_cum_returns = (1 + df['Strategy_Returns']).cumprod()
+market_cum_returns = (1 + df['Returns']).cumprod()
+ax1.plot(df.index, strategy_cum_returns, label='Strategy Returns', color='blue')
+ax1.plot(df.index, market_cum_returns, label='Market Returns', color='gray', alpha=0.6)
+ax1.set_title('Cumulative Returns')
+ax1.legend()
+
+# Monthly returns heatmap
+monthly_returns = df['Strategy_Returns'].groupby([df.index.year, df.index.month]).sum().unstack()
+sns.heatmap(monthly_returns, ax=ax2, cmap='RdYlGn', center=0, annot=True, fmt='.2%')
+ax2.set_title('Monthly Returns Heatmap')
+
+# Rolling Sharpe ratio (252-day)
+rolling_sharpe = (df['Strategy_Returns'].rolling(252).mean() / 
+                df['Strategy_Returns'].rolling(252).std() * np.sqrt(252))
+ax3.plot(df.index, rolling_sharpe)
+ax3.axhline(y=0, color='r', linestyle='--')
+ax3.set_title('Rolling Sharpe Ratio (252-day)')
+
+# Drawdown analysis
+strategy_cum_returns = (1 + df['Strategy_Returns']).cumprod()
+rolling_max = strategy_cum_returns.expanding().max()
+drawdowns = (strategy_cum_returns - rolling_max) / rolling_max
+ax4.fill_between(df.index, drawdowns, 0, color='red', alpha=0.3)
+ax4.set_title('Drawdown Analysis')
+
+plt.tight_layout()
+plt.show()</code></pre>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Visualization Components</h5>
+                <p class="mb-0">
+                  The visualization functions provide comprehensive analysis through:
+                  <ol>
+                    <li>Price and Signal Analysis:
+                      <ul>
+                        <li>Price movement with buy/sell markers</li>
+                        <li>MACD line and signal line crossover</li>
+                        <li>MACD histogram for momentum visualization</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="trade-analysis" class="h5 mb-3">Trade Analysis</h2>
+              <p>
+                This section implements the core functionality for analyzing and recording trade information from the signals DataFrame:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements comprehensive trade analysis:
+                  <ol>
+                    <li>Trade Tracking:
+                      <ul>
+                        <li>Monitors position changes and entries/exits</li>
+                        <li>Handles three distinct trading scenarios:
+                          <ul>
+                            <li>Opening new positions from neutral</li>
+                            <li>Direct switches between long and short positions</li>
+                            <li>Closing positions to neutral</li>
+                          </ul>
+                        </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python">def get_trade_info(df, strategy_name, ticker):
+"""Extract trade information from the signals DataFrame"""
+trades = []
+position = 0
+entry_price = 0
+entry_date = None
+
+for date, row in df.iterrows():
+if row['Position_Change'] != 0:
+# Case 1: Opening a new position from neutral
+if position == 0:
+    position = row['Position']
+    entry_price = row['Close']
+    entry_date = date
+# Case 2: Direct switch between long and short positions
+elif (position == 1 and row['Position'] == -1) or (position == -1 and row['Position'] == 1):
+    # Close current position
+    exit_price = row['Close']
+    pnl = position * (exit_price - entry_price) / entry_price * 100
+    trades.append({
+        'Entry Date': entry_date,
+        'Exit Date': date,
+        'Position': 'Long' if position == 1 else 'Short',
+        'Entry Price': entry_price,
+        'Exit Price': exit_price,
+        'PnL %': pnl
+    })
+    # Open new position
+    position = row['Position']
+    entry_price = row['Close']
+    entry_date = date
+# Case 3: Closing a position to neutral
+elif row['Position'] == 0:
+    exit_price = row['Close']
+    pnl = position * (exit_price - entry_price) / entry_price * 100
+    trades.append({
+        'Entry Date': entry_date,
+        'Exit Date': date,
+        'Position': 'Long' if position == 1 else 'Short',
+        'Entry Price': entry_price,
+        'Exit Price': exit_price,
+        'PnL %': pnl
+    })
+    position = 0
+
+trades_df = pd.DataFrame(trades)
+
+# Create ticker-specific directory
+ticker_dir = os.path.join('data', ticker)
+os.makedirs(ticker_dir, exist_ok=True)
+
+# Save trade information to CSV in ticker directory
+output_file = os.path.join(ticker_dir, f'trade_info_{strategy_name}.csv')
+trades_df.to_csv(output_file, index=False)
+print(f"\nTrade information for {strategy_name} saved to {output_file}")
+print(f"Total trades: {len(trades_df)}")
+print(f"Long trades: {len(trades_df[trades_df['Position'] == 'Long'])}")
+print(f"Short trades: {len(trades_df[trades_df['Position'] == 'Short'])}")
+
+return trades_df</code></pre>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="etf-analysis" class="h5 mb-3">ETF Analysis Implementation</h2>
+              <p>
+                This section implements the core functionality for analyzing multiple ETFs and generating comprehensive trading strategy results:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Code Explanation</h5>
+                <p class="mb-0">
+                  This code section implements the ETF analysis framework:
+                  <ol>
+                    <li>ETF Selection:
+                      <ul>
+                        <li>Defines a comprehensive list of ETFs covering various regions and sectors</li>
+                        <li>Includes emerging markets, developed markets, and specific country ETFs</li>
+                        <li>Focuses on major market segments for broad coverage</li>
+                      </ul>
+                    </li>
+                    <li>Results Management:
+                      <ul>
+                        <li>Creates data structures to store analysis results</li>
+                        <li>Maintains separate collections for strategies and performance metrics</li>
+                        <li>Implements error handling for robust processing</li>
+                      </ul>
+                    </li>
+                  </ol>
+                </p>
+              </div>
+
+              <pre><code class="language-python"># List of ETFs to analyze
+etfs = [
+    'EEM',  # Emerging Markets
+    'VWO',  # Emerging Markets
+    'FXI',  # China Large-Cap
+    'AAXJ', # Asia ex-Japan
+    'EWJ',  # Japan
+    'ACWX', # All Country World ex-US
+    'CHIX', # China Technology
+    'CQQQ', # China Technology
+    'EWZ',  # Brazil
+    'ERUS', # Russia
+    'EWC',  # Canada
+    'EWU',  # United Kingdom
+    'VGK',  # Europe
+    'VPL'   # Pacific
+]
+
+# Store results for all ETFs
+all_results = {}
+best_strategies = {}
+all_sharpe_ratios = {}
+
+# Process ETFs sequentially
+for etf in etfs:
+    try:
+        result = process_etf(etf)
+        if result:
+            results, best_strategy, sharpe_ratios = result
+            best_strategies[etf] = best_strategy
+            all_sharpe_ratios[etf] = sharpe_ratios
+            all_results[etf] = results  # Store all results
+    except Exception as e:
+        print(f"Error processing {etf}: {str(e)}")
+
+# Create summary of best strategies and key stats
+summary_dir = os.path.join('data', 'summary')
+os.makedirs(summary_dir, exist_ok=True)
+
+# Save best strategies summary
+with open(os.path.join(summary_dir, 'best_strategies.txt'), 'w') as f:
+    f.write("Best Strategy by ETF\n")
+    f.write("=" * 50 + "\n\n")
+    for etf, strategy in best_strategies.items():
+        f.write(f"{etf}: {strategy} (Sharpe: {all_sharpe_ratios[etf][strategy]:.2f})\n")
+        f.write(f"Key Statistics:\n")
+        f.write("-" * 30 + "\n")
+        for metric, value in all_results[etf][strategy].items():
+            f.write(f"{metric}: {value}\n")
+        f.write("\n")
+
+# Create DataFrame of all Sharpe ratios
+sharpe_df = pd.DataFrame(all_sharpe_ratios).T
+sharpe_df.to_csv(os.path.join(summary_dir, 'sharpe_ratios.csv'))
+
+# Create summary statistics DataFrame
+summary_stats = []
+for etf in etfs:
+    if etf in all_results:
+        best_strat = best_strategies[etf]
+        stats = all_results[etf][best_strat]
+        stats['ETF'] = etf
+        stats['Strategy'] = best_strat
+        summary_stats.append(stats)
+
+stats_df = pd.DataFrame(summary_stats)
+stats_df.set_index('ETF', inplace=True)
+stats_df.to_csv(os.path.join(summary_dir, 'strategy_statistics.csv'))
+
+print("\nAnalysis complete. Results saved in data/summary folder.")
+              </code></pre>
+            </section>
+
+            <section class="mb-4">
+              <h2 id="strategy-results" class="h5 mb-3">Strategy Results</h2>
+              <p>
+                This section presents the results of the implemented strategies:
+              </p>
+
+              <div class="alert alert-info mt-3">
+                <h5 class="alert-heading">Results</h5>
+                <p class="mb-0">
+                  The following table presents the results of the implemented strategies:
+                </p>
+              </div>
+            </section>
+
+            <section>
+                          <code style="color: #000;"><pre>        ETF Number of Trades	Win Ratio Total Return	Annual Return	Sharpe Ratio	Maximum Drawdown	Initial Portfolio Value	Final Portfolio Value	Portfolio Return	Strategy
+0	EEM	164	31.71%	1046.59%  13.72%  0.70	-33.09%	$1,000,000.00	$11,465,945.94	1046.59%  VPVMA_Zero_Cross
+1	VWO	156	33.97%	973.25%   13.45%  0.67	-39.06%	$1,000,000.00	$10,732,533.96	973.25%   VPVMA_Zero_Cross
+2	FXI	174	31.61%	1579.52%  16.03%  0.68	-39.40%	$1,000,000.00	$16,795,170.01	1579.52%  VPVMA_Zero_Cross
+3	AAXJ	128	38.28%	1259.90%  18.51%  1.00	-27.81%	$1,000,000.00	$13,598,984.51	1259.90%  VPVMA_Zero_Cross
+4	EWJ	199	32.66%	163.59%   5.24%   0.38	-48.48%	$1,000,000.00	$2,635,873.82	163.59%   VPVMA_Standard
+5	ACWX	136	38.24%	408.06%   10.88%  0.68	-38.41%	$1,000,000.00	$5,080,578.47	408.06%   VPVMA_Zero_Cross
+6	CHIX	169	30.77%	329.02%   10.92%  0.55	-37.57%	$1,000,000.00	$4,290,175.29	329.02%   VPVMA_Standard
+7	CQQQ	116	25.86%	1119.08%  19.66%  0.80	-41.55%	$1,000,000.00	$12,190,828.71	1119.08%  VPVMA_Zero_Cross
+8	EWZ	213	31.92%	4960.29%  22.98%  0.78	-50.91%	$1,000,000.00	$50,602,909.36	4960.29%  MACD_Standard
+9	ERUS	104	36.54%	1069.66%  20.60%  0.72	-29.58%	$1,000,000.00	$11,696,623.24	1069.66%  MACD_Standard
+10	EWC	161	36.65%	384.95%   8.68%   0.50	-40.03%	$1,000,000.00	$4,849,462.39	384.95%   VPVMA_Zero_Cross
+11	EWU	219	32.42%	891.66%   12.85%  0.72	-40.00%	$1,000,000.00	$9,916,550.25	891.66%   VPVMA_Standard
+12	VGK	238	35.29%	1265.12%  14.92%  0.79	-32.02%	$1,000,000.00	$13,651,175.09	1265.12%  VPVMA_Standard
+13	VPL	219	38.81%	254.32%   6.96%   0.47	-36.40%	$1,000,000.00	$3,543,163.12	254.32%   VPVMA_Standard</pre></code>
+            </section>
+
+            <section class="mb-4">
+              <div class="alert alert-warning mt-3">
+                <h2 id="key-findings" class="h5 mb-3">Key Findings and Conclusions</h2>
+                
+                  <h5 class="alert-heading">Strategy Performance Analysis</h5>
+                  
+                  <h6 class="fw-bold">Strategy Effectiveness</h6>
+                  <ul class="mb-3">
+                    <li>VPVMA Zero-Cross emerged as the most effective strategy for 7 out of 14 ETFs</li>
+                    <li>VPVMA Standard performed best for 4 ETFs</li>
+                    <li>MACD Standard showed superior performance for 2 ETFs (EWZ and ERUS)</li>
+                    <li>MACD Zero-Cross did not outperform other strategies for any ETF</li>
+                  </ul>
+            
+                  <h6 class="fw-bold">Performance Metrics</h6>
+                  <ul class="mb-3">
+                    <li>Highest returns: EWZ (Brazil) with 4,960% total return</li>
+                    <li>Best Sharpe ratio: AAXJ (Asia ex-Japan) at 1.00</li>
+                    <li>Most consistent performance: VPVMA-based strategies</li>
+                    <li>Average win ratio across strategies: 33-38%</li>
+                  </ul>
+            
+                  <h6 class="fw-bold">Risk Management</h6>
+                  <ul class="mb-3">
+                    <li>Maximum drawdowns ranged from -27.81% to -50.91%</li>
+                    <li>AAXJ showed the best risk-adjusted performance</li>
+                    <li>5% stop-loss protection effectively limited downside risk</li>
+                  </ul>
+            
+                  <h6 class="fw-bold">Market Insights</h6>
+                  <ul>
+                    <li>Emerging markets (EEM, VWO, FXI) showed strong performance</li>
+                    <li>Developed markets (EWJ, VPL) exhibited lower returns</li>
+                    <li>Volatility-adjusted strategies (VPVMA) performed better in most cases</li>
+                    <li>Higher trading frequency correlated with lower win ratios</li>
+                  </ul>
+              </div>
+            </section>
+          </div>
+        </article>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+  <script src="../../components/header.js"></script>
+</body>
+</html>

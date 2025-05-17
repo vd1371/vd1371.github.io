@@ -67,7 +67,12 @@
       date: 'May 15, 2025',
       icon: 'bi-pie-chart',
     },
-
+    {
+      title: 'MACD-based Signals',
+      link: 'posts/quantio/2025-05-16-MACD-based-signals.html',
+      date: 'May 16, 2025',
+      icon: 'bi-graph-up',
+    },
   ]
 
   const projects = [
