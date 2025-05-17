@@ -89,8 +89,9 @@
     {
       // Expediting life cycle cost analysis of infrastructure assets under multiple uncertainties by deep neural networks
       title: 'Estimating Monte Carlo Simulation results with ML',
-      link: 'resources/tutorials.html',
+      link: 'posts/papers/2025-05-17-estimating-monte-carlo.html',
       icon: 'bi-cpu-fill',
+      date: 'May 17, 2025',
     },
     {
       // Machine learning modeling for spectral transient-based leak detection

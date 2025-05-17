@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An analysis of value and momentum factors across global markets and their implications for portfolio construction"
+    />
+    <meta
+      name="keywords"
+      content="value investing, momentum investing, factor investing, portfolio construction, asset allocation"
+    />
+    <meta name="author" content="Vahid Asghari" />
+    <title>Estimating Monte Carlo Simulation Results</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../styles.css" />
+    <!-- Add syntax highlighting for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+  </head>
+  <body class="bg-light">
+    <header id="main-header"></header>
+
+    <main class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <article class="card shadow-sm p-4">
+            <header class="post-header mb-4">
+              <h1 class="card-title h4 text-primary pb-2">Estimating Monte Carlo Simulation Results</h1>
+              <small class="text-muted">May 17, 2025</small>
+            </header>
+
+            <div class="d-flex justify-content-center">
+              <img src="../../images/papers/2025-05-17-MonteCarlo-Image1.png" alt="Estimating Monte Carlo Simulation Results" class="img-fluid">
+            </div>
+      
+            <div class="table-of-contents mb-4">
+              <h5 class="mb-3">Table of Contents</h5>
+              <ol class="list-unstyled">
+                <li class="mb-2"><a href="#motivation">Motivation</a></li>
+                <li class="mb-2"><a href="#why-it-matters">Why It Matters</a></li>
+                <li class="mb-2"><a href="#how-does-it-work">How Does It Work?</a></li>
+                <li class="mb-2"><a href="#what-was-found">What Was Found?</a></li>
+                <li class="mb-2"><a href="#how-it-can-change-pricing">How It Can Change Option Pricing</a></li>
+              </ol>
+            </div>
+      
+            <div>
+              <!-- Start with the motivation -->
+              <section class="mb-4" id="motivation">
+                <h1 class="mb-3">Motivation</h1>
+
+                <p>
+                  Imagine you’re tasked with making a big decision—say, managing a portfolio of investments, pricing
+                  a derivative, or planning maintenance for a city’s infrastructure, or optimizing a supply chain.
+                  You need to weigh costs, risks, and benefits over time, but multiple uncertainties make it a
+                  computationally intensive task.
+                  Traditionally, you’d run Monte Carlo simulations to estimate the outcomes, but it can take minutes,
+                  hours, days, or even months, depending on the complexity of the model.
+                </p>
+                <p>
+                  What if you could get the same insights in milliseconds or even microseconds?
+                </p>
+                <p>
+                  That’s what this paper is all about. I developed a way to use artificial intelligence (AI)
+                  to speed up these calculations, making it easier to make decisions quickly and confidently.
+                </p>
+
+
+                <p>
+                  Given my background in infrastructure asset management, the example is about some infrastructure
+                  project. But the method is general and can be applied to any Monte Carlo simulation.
+                </p>
+
+                <p></p>
+                  The paper is published in the ASCE Journal of Management in Engineering.
+                </p>
+                <p>
+                  <a href="https://ascelibrary.org/doi/abs/10.1061/(ASCE)ME.1943-5479.0000950">Link to the paper</a>
+                </p>
+
+
+              </section>
+
+              <section class="mb-4" id="why-it-matters">
+                <h1 class="mb-3">Why It Matters</h1>
+
+                <p>
+                  Whether you’re pricing an exotic option, maintaining bridges, trading stocks,
+                  or scheduling factory production, you need to predict costs and outcomes over time.
+
+                  The go-to method for these problems is Monte Carlo simulation, which looks at all
+                  possible outcomes and gets an average. The problem? It is too slow.
+                </p>
+                <p>
+                  I wanted to fix this. Slow calculations mean delayed decisions,
+                  which can cost money or miss opportunities. My goal was to use AI
+                  to predict Monte Carlo simulation results instantly, without sacrificing accuracy.
+                  For example, pricing an exotic option could go from milliseconds to microseconds.
+                  Planning maintenance for bridges could go from months to hours, saving time and resources.
+                  The same idea applies anywhere you need to plan under uncertainty, like in finance or logistics.
+                </p>
+
+              </section>
+
+              <section class="mb-4" id="how-does-it-work">
+                <h1 class="mb-3">How Does It Work?</h1>
+                
+                <p>
+                  The core of my approach is replacing the slow, number-crunching part of 
+                  Monte Carlo simulation with a machine learning model. In this case, a deep neural network (DNN) was used.
+                  Think of a DNN as a brainy assistant that learns from examples to make predictions.
+                  Here’s how the DNN was built and trained:
+                </p>
+
+                <ol>
+                  <li>
+                    <strong>Creating a Massive Dataset:</strong>
+                    To train the AI, we needed lots of data.
+                    For bridges, we didn’t have enough real ones, so we generated over 1.4 million
+                    “virtual” bridges with different traits—size, age, traffic, and so on—based on
+                    real data from the U.S. National Bridge Inventory. For the option pricing example,
+                    we can generate millions of scenarios with different stock prices, interest rates, volatility,
+                    rate, and so on.
+                    
+                    This is like creating a virtual universe of possible scenarios (options, bridges, etc.)
+                    to cover every possible scenario.
+                  </li>
+                  <li>
+                    <strong>Simulating Scenarios:</strong>
+                    For each virtual bridge (or option), you should run Monte Carlo simulations to calculate costs
+                    and benefits or the option payoff.
+                    This created a huge dataset of scenarios and their outcomes, like a playbook
+                    of what might happen.
+                  </li>
+                  <li>
+                    <strong>Training the DNN:</strong>
+                    This dataset was fed into the DNN, teaching it to predict costs and benefits or the option payoff
+                    for any scenario. The DNN learned to spot patterns—for example, how much will be the option payoff
+                    for a given stock price, interest rate, volatility, etc.
+                    
+                    It was tweaked for accuracy, normalizing data and choosing a “cost function”
+                    (mean absolute percentage error, or MAPE) to ensure it handled big and small numbers fairly.
+                  </li>
+                  <li>
+                    <strong>Testing the AI:</strong>
+                    The DNN’s predictions were compared against traditional Monte Carlo simulation results to see
+                    if it could match their accuracy in a fraction of the time.
+                    It was also compared to other machine learning models,
+                    like decision trees, to confirm it was the best fit.
+                  </li>
+                </ol>
+
+                <p>
+                  The algorithm for the context of infrastructure asset management is provided below,
+                  but the method is general and can be applied to any Monte Carlo simulation.
+                </p>
+
+                <div>
+                  <img src="../../images/papers/2025-05-17-MonteCarlo-Image2.png" alt="Monte Carlo Simulation Algorithm" class="img-fluid">
+                </div>
+              </section>
+
+              <section class="mb-4" id="what-was-found">
+                <h1 class="mb-3">What Was Found?</h1>
+
+                <p>
+                  The results were a game-changer. Our DNN was 98% reliable (measured by R-squared) with errors
+                  under 2% (using MAPE). Most impressively, it was lightning-fast.
+                  A traditional Monte Carlo simulation took about 5 seconds, but our DNN did it in 0.0004
+                  seconds—thousands of times faster. For a universe of 50,000 assets, this could slash calculation
+                  time by several orders of magnitude. In other contexts, like financial modeling, this speed could mean
+                  real-time decision-making instead of waiting seconds for results.
+                </p>
+                <p>
+                  Compared to other models like random forests or linear regression,
+                  the DNN shone because it could handle complex, nonlinear patterns in the data.
+                  It’s also flexible—you can keep training it with new data, no need to train the model from scratch.
+                </p>
+
+                <p>
+                  The actual vs. predicted results are provided below.
+                </p>
+
+                <div class="d-flex justify-content-center">
+                  <img
+                    src="../../images/papers/2025-05-17-MonteCarlo-Image3.png"
+                    alt="Actual vs. Predicted Results"
+                    class="img-fluid"
+                    style="width: 50%; height: 50%;"
+                  >
+                </div>
+              </section>
+
+              <section class="mb-4" id="how-it-can-change-pricing">
+                <h1 class="mb-3">How It Can Change Option Pricing</h1>
+
+                <p>
+                  While we tested this method on bridges, its real strength is its versatility,
+                  and option pricing in financial markets is a prime candidate for a makeover.
+                  Pricing options—like calls or puts—requires estimating future asset prices under uncertainty,
+                  much like predicting bridge maintenance costs. Traditional methods, like Monte Carlo simulations
+                  or binomial trees, are accurate but slow, especially for complex options or large portfolios.
+                  Our AI approach could change the game. Here’s how:
+                </p>
+                
+
+                <ul>
+                  <li>
+                    <strong>Lightning-Fast Pricing:</strong>
+                    Option pricing often involves simulating thousands of possible price paths for the underlying asset,
+                    factoring in volatility, interest rates, and time to expiration. The DNN, trained on vast datasets
+                    of simulated price paths (similar to our virtual bridges), could predict option prices
+                    in milliseconds or microseconds.
+                  </li>
+                  <li>
+                    <strong>Handling Complex Options:</strong>
+                    Exotic options, like barrier or Asian options, have intricate payoff structures that make simulations
+                    even slower. The DNN can learn the nonlinear relationships between inputs
+                    (like strike price, volatility, or barrier levels) and option prices.
+                  </li>
+                  <li>
+                    <strong>Scalability for Portfolios:</strong>
+                    Pricing a single option is one thing, but managing a portfolio with thousands of options
+                    is a computational nightmare. This approach can price entire portfolios instantly,
+                    helping hedge funds or market makers optimize strategies or assess risk across millions
+                    of contracts in real time.
+                  </li>
+                </ul>
+              </section>
+
+            </div>
+          </article>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../components/header.js"></script>
+    <script src="../../components/footer.js"></script>
+    <script src="../../data/content.js"></script>
+    <script src="../../components/content_menu.js"></script>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        loadHeader();
+      });
+    </script>
+  </body>
+</html>
