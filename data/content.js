@@ -73,6 +73,13 @@
       date: 'May 16, 2025',
       icon: 'bi-graph-up',
     },
+    {
+      title: 'Holt-Winter for Gold and BTC',
+      link: 'posts/quantio/2025-05-19-Holt-Winter-for-Gold-and-BTC.html',
+      date: 'May 19, 2025',
+      icon: 'bi-lightning-charge',
+    },
+
   ]
 
   const projects = [
