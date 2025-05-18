@@ -34,6 +34,9 @@ function createCryptoSentimentTable(containerId) {
           const entry = {
             symbol: values[0],
             sentiment_score: parseFloat(values[1]) || 0,
+            uncertainty_score: parseFloat(values[2]) || 0,
+            potential_market_impact: parseFloat(values[3]) || 0,
+            count: parseInt(values[4]) || 0,
           };
           if (!isNaN(entry.sentiment_score)) {
             parsedData.push(entry);
@@ -52,6 +55,9 @@ function createCryptoSentimentTable(containerId) {
                             <tr>
                                 <th scope="col" class="text-center">Cryptocurrency</th>
                                 <th scope="col" class="text-center">Sentiment Score</th>
+                                <th scope="col" class="text-center">Uncertainty</th>
+                                <th scope="col" class="text-center">Market Impact</th>
+                                <th scope="col" class="text-center">Count</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,6 +68,15 @@ function createCryptoSentimentTable(containerId) {
                                     <td class="text-center fw-bold">${coin.symbol}</td>
                                     <td class="text-center ${coin.sentiment_score > 0 ? 'text-success' : coin.sentiment_score < 0 ? 'text-danger' : ''}">
                                         ${parseFloat(coin.sentiment_score).toFixed(2)}
+                                    </td>
+                                    <td class="text-center">
+                                        ${parseFloat(coin.uncertainty_score).toFixed(2)}
+                                    </td>
+                                    <td class="text-center">
+                                        ${parseFloat(coin.potential_market_impact).toFixed(2)}
+                                    </td>
+                                    <td class="text-center">
+                                        ${coin.count}
                                     </td>
                                 </tr>
                             `
