@@ -225,41 +225,41 @@ vix = load_data("^VIX")</code></pre>
                 </div>
 
                 <pre><code class="language-python"># Find the rolling sum of the daily returns for the sp500
-                sp500["daily_return"] = sp500["Close"].pct_change()
-                sp500["daily_return_direction"] = np.nan
-                sp500.loc[sp500["daily_return"]>0,"daily_return_direction"] = 1
-                sp500.loc[sp500["daily_return"]<0,"daily_return_direction"] = -1
-                sp500['rolling_sum'] = sp500["daily_return_direction"].rolling(window=2).sum()
+sp500["daily_return"] = sp500["Close"].pct_change()
+sp500["daily_return_direction"] = np.nan
+sp500.loc[sp500["daily_return"]>0,"daily_return_direction"] = 1
+sp500.loc[sp500["daily_return"]<0,"daily_return_direction"] = -1
+sp500['rolling_sum'] = sp500["daily_return_direction"].rolling(window=2).sum()
 
-                # Find the rolling sum of the daily returns for the vix
-                vix["daily_return"] = vix["Close"].pct_change()
-                vix["daily_return_direction"] = np.nan
-                vix.loc[vix["daily_return"]>0,"daily_return_direction"] = 1
-                vix.loc[vix["daily_return"]<0,"daily_return_direction"] = -1
-                vix['rolling_sum'] = vix["daily_return_direction"].rolling(window=2).sum()
+# Find the rolling sum of the daily returns for the vix
+vix["daily_return"] = vix["Close"].pct_change()
+vix["daily_return_direction"] = np.nan
+vix.loc[vix["daily_return"]>0,"daily_return_direction"] = 1
+vix.loc[vix["daily_return"]<0,"daily_return_direction"] = -1
+vix['rolling_sum'] = vix["daily_return_direction"].rolling(window=2).sum()
 
-                # Combine the two rolling sums
-                data = pd.concat([sp500[["daily_return","rolling_sum"]],vix[["daily_return","rolling_sum"]]],axis=1)
-                data.columns = ["sp500_daily_return","sp500_rolling_sum","vix_daily_return","vix_rolling_sum"]
-                data['total_rolling_sum'] = data["sp500_rolling_sum"]+data["vix_rolling_sum"]
+# Combine the two rolling sums
+data = pd.concat([sp500[["daily_return","rolling_sum"]],vix[["daily_return","rolling_sum"]]],axis=1)
+data.columns = ["sp500_daily_return","sp500_rolling_sum","vix_daily_return","vix_rolling_sum"]
+data['total_rolling_sum'] = data["sp500_rolling_sum"]+data["vix_rolling_sum"]
 
-                data['signal'] = 0
+data['signal'] = 0
 
-                data.loc[data["total_rolling_sum"]!=4.0,'signal'] = 0
-                data.loc[data["total_rolling_sum"]==4.0,'signal'] = 1
-                print("count of trades:",len(data[data['signal']==1]))
+data.loc[data["total_rolling_sum"]!=4.0,'signal'] = 0
+data.loc[data["total_rolling_sum"]==4.0,'signal'] = 1
+print("count of trades:",len(data[data['signal']==1]))
 
-                # Signal is: Short the first two days and long the next two days after the signal
-                data['signal'] = -data["signal"].shift(1) - data["signal"].shift(2) + data["signal"].shift(3) + data["signal"].shift(4)
-                data['portfolio_return'] = (data['signal'] * data["sp500_daily_return"] - data['signal'] * data["vix_daily_return"])/2
+# Signal is: Short the first two days and long the next two days after the signal
+data['signal'] = -data["signal"].shift(1) - data["signal"].shift(2) + data["signal"].shift(3) + data["signal"].shift(4)
+data['portfolio_return'] = (data['signal'] * data["sp500_daily_return"] - data['signal'] * data["vix_daily_return"])/2
 
-                # Print the sharpe of S&P
-                snp_sharpe = sp500["daily_return"].mean() / sp500["daily_return"].std() *np.sqrt(252)
-                print (f"sharpe ratio of S&P: {snp_sharpe:.2f}")
+# Print the sharpe of S&P
+snp_sharpe = sp500["daily_return"].mean() / sp500["daily_return"].std() *np.sqrt(252)
+print (f"sharpe ratio of S&P: {snp_sharpe:.2f}")
 
-                cumsum = data['portfolio_return'].cumsum()
-                sharpe = data["portfolio_return"].mean() / data["portfolio_return"].std() *np.sqrt(252)
-                print(f"sharpe ratio: {sharpe:.2f}")</code></pre>
+cumsum = data['portfolio_return'].cumsum()
+sharpe = data["portfolio_return"].mean() / data["portfolio_return"].std() *np.sqrt(252)
+print(f"sharpe ratio: {sharpe:.2f}")</code></pre>
 
                 <div><br>
                   <p>
