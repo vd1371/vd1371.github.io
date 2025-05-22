@@ -78,12 +78,18 @@
       link: 'posts/quantio/2025-05-19-Holt-Winter-for-Gold-and-BTC.html',
       date: 'May 19, 2025',
       icon: 'bi-lightning-charge',
-    },
+    },    
     {
       title: 'Stock Returns After Extreme Loss Events',
       link: 'posts/quantio/2025-05-21-stock-returns-after-extreme-loss-events.html',
       date: 'May 21, 2025',
       icon: 'bi-graph-up-arrow',
+    },
+    {
+      title: 'Statistical arbitrage strategy based on VIX-to-market based signal',
+      link: 'posts/quantio/2025-05-23-statistical-arbitrage-strategy-based-on-VIX-to-market-based-signal.html',
+      date: 'May 23, 2025',
+      icon: 'bi-bar-chart-line',
     },
 
   ]

@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An analysis of an improved momentum strategy that incorporates market panic states"
+    />
+    <meta
+      name="keywords"
+      content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
+    />
+    <meta name="author" content="Vahid Asghari" />
+    <title>Statistical arbitrage strategy based on VIX-to-market based signal</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <!-- Add syntax highlighting for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+  </head>
+  <body class="bg-light">
+    <header id="main-header"></header>
+
+    <main class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <article class="card shadow-sm p-4">
+            <header class="post-header mb-4">
+              <h1 class="card-title h4 text-primary pb-2">Statistical arbitrage strategy based on VIX-to-market based signal</h1>
+              <small class="text-muted">May 23, 2025</small>
+            </header>
+
+            <div>
+              <img src="../../images/quantio/2025-05-23-statistical-arbitrage-strategy-based-on-VIX-to-market-based-signal-Image0.png" alt="Day and Night Returns Analysis" class="img-fluid">
+            </div>
+
+            <div class="table-of-contents mb-4">
+              <h2 class="h5 mb-3">Table of Contents</h2>
+              <ul class="list-unstyled">
+                <li><a href="#strategy-details">Strategy Details</a>
+                  <ul class="list-unstyled ms-3">
+                    <li><a href="#reference-paper">Reference Paper</a></li>
+                    <li><a href="#strategy-overview">Strategy Overview</a></li>
+                    <li><a href="#strategy-components">Strategy Components</a></li>
+                  </ul>
+                </li>
+                <li><a href="#strategy-implementation">Strategy Implementation</a>
+                  <ul class="list-unstyled ms-3">
+                    <li><a href="#data-preparation">Data Preparation</a></li>
+                    <li><a href="#signal-generation">Signal Generation</a></li>
+                    <li><a href="#position-management">Position Management</a></li>
+                  </ul>
+                </li>
+                <li><a href="#performance-analysis">Performance Analysis</a>
+                  <ul class="list-unstyled ms-3">
+                    <li><a href="#return-visualization">Return Visualization</a></li>
+                    <li><a href="#strategy-characteristics">Strategy Characteristics</a></li>
+                  </ul>
+                </li>
+                <li><a href="#final-thoughts">Final Thoughts</a></li>
+              </ul>
+            </div>
+            <div>
+              <section>
+                <h2 id="strategy-details" class="h5 mb-3">Strategy Details</h2>
+                
+                <div class="metadata mb-3">
+                  <p><strong>Reference Paper:</strong> Statistical arbitrage strategy based on VIX-to-market based signal</p>
+                  <p><strong>Author:</strong> Tuomas Lehtinen</p>
+                  <p><strong>Year:</strong> 2022</p>
+                </div>
+
+                <div class="strategy-overview mb-4">
+                  <p>
+                    This strategy explores the relationship between S&P500 and VIX index movements to identify profitable trading opportunities. The core concept revolves around detecting consecutive positive co-movements between these indices, which serve as signals for subsequent trading actions.
+                  </p>
+                  <p>
+                    The strategy's implementation focuses on a systematic approach to market timing, leveraging the observed patterns in index behavior. While the original research considered various performance metrics including excess returns, Jensen Alpha, and security market line analysis, our implementation focuses on the core trading mechanics.
+                  </p>
+                </div>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Strategy Components</h5>
+                  <p class="mb-0">
+                    <ol>
+                      <li>Signal Generation:
+                        <ul>
+                          <li>Identifies two consecutive days of positive co-movement between S&P500 and VIX</li>
+                          <li>Signal is recorded on the second day of co-movement</li>
+                        </ul>
+                      </li>
+                      <li>Trading Actions:
+                        <ul>
+                          <li>Day t+2: Short S&P500 and long VIX for two days</li>
+                          <li>Day t+4: Long S&P500 and short VIX for two days</li>
+                        </ul>
+                      </li>
+                      <li>Implementation Notes:
+                        <ul>
+                          <li>Time frame: 2000-01-02 to 2024-05-31</li>
+                          <li>Risk-free rate and transaction costs are not considered</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <p class="mt-3">
+                  The following table illustrates the strategy's signal generation and trading actions:
+                </p>
+
+                <table style="border-collapse: collapse; width: 100%;">
+                    <tr>
+                        <th style="border: 1px solid #000; padding: 8px;">Date</th>
+                        <th style="border: 1px solid #000; padding: 8px;">S&P500 return</th>
+                        <th style="border: 1px solid #000; padding: 8px;">VIX return</th>
+                        <th style="border: 1px solid #000; padding: 8px;">Signal</th>
+                        <th style="border: 1px solid #000; padding: 8px;">action</th>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #000; padding: 8px;">t</td>
+                        <td style="border: 1px solid #000; padding: 8px;">+</td>
+                        <td style="border: 1px solid #000; padding: 8px;">+</td>
+                        <td style="border: 1px solid #000; padding: 8px;">0</td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #000; padding: 8px;">t+1</td>
+                        <td style="border: 1px solid #000; padding: 8px;">+</td>
+                        <td style="border: 1px solid #000; padding: 8px;">+</td>
+                        <td style="border: 1px solid #000; padding: 8px;">1</td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #000; padding: 8px;">t+2</td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td style="border: 1px solid #000; padding: 8px;">short S&P500</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #000; padding: 8px;">t+3</td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td style="border: 1px solid #000; padding: 8px;">short S&P500</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #000; padding: 8px;">t+4</td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td style="border: 1px solid #000; padding: 8px;">long S&P500</td>
+                    </tr>
+                    <tr>
+                        <td style="border: 1px solid #000; padding: 8px;">t+5</td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td style="border: 1px solid #000; padding: 8px;"></td>
+                        <td style="border: 1px solid #000; padding: 8px;">long S&P500</td>
+                    </tr>
+                </table>
+              </section>
+
+              <section class="mb-4"><br>
+                <h2 id="strategy-implementation" class="h5 mb-3">Strategy Implementation</h2>
+                
+                <div class="strategy-overview mb-4">
+                  <p>
+                    This strategy implements a statistical arbitrage approach based on the relationship between S&P500 and VIX indices. The core concept involves identifying specific co-movement patterns between these indices to generate trading signals. When we observe two consecutive positive co-movements between S&P500 and VIX, we take a short position in S&P500 for two days, followed by a long position for the next two days.
+                  </p>
+                </div>
+                
+                <pre><code class="language-python">import os
+import requests
+import pandas as pd
+import yfinance as yf
+import warnings
+warnings.filterwarnings("ignore")
+import numpy as np
+import matplotlib.pyplot as plt
+
+def load_data(symbol):
+    
+    direc  =  'data/'
+    os.makedirs(direc, exist_ok = True)
+    file_name = os.path.join(direc, symbol + '.csv')
+
+    if not os.path.exists(file_name):
+        ticker = yf.Ticker(symbol)
+        df = ticker.history(start='2000-01-02', end='2024-05-31')
+        df.to_csv(file_name)
+
+    df = pd.read_csv(file_name, index_col=0)
+    df.index = pd.to_datetime(df.index, utc=True).date
+
+    return df
+
+# I know that these two are not tradaable, but I want to use them as a proxy of
+# their futures.
+sp500 = load_data("^GSPC")
+vix = load_data("^VIX")</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Strategy Components</h5>
+                  <p class="mb-0">
+                    <ol>
+                      <li>Signal Generation:
+                        <ul>
+                          <li>Identifies consecutive positive co-movements between S&P500 and VIX</li>
+                          <li>Uses rolling window analysis for pattern detection</li>
+                          <li>Generates trading signals based on specific conditions</li>
+                        </ul>
+                      </li>
+                      <li>Position Management:
+                        <ul>
+                          <li>Short position for two days after signal</li>
+                          <li>Long position for the following two days</li>
+                          <li>Equal weighting between positions</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Find the rolling sum of the daily returns for the sp500
+                sp500["daily_return"] = sp500["Close"].pct_change()
+                sp500["daily_return_direction"] = np.nan
+                sp500.loc[sp500["daily_return"]>0,"daily_return_direction"] = 1
+                sp500.loc[sp500["daily_return"]<0,"daily_return_direction"] = -1
+                sp500['rolling_sum'] = sp500["daily_return_direction"].rolling(window=2).sum()
+
+                # Find the rolling sum of the daily returns for the vix
+                vix["daily_return"] = vix["Close"].pct_change()
+                vix["daily_return_direction"] = np.nan
+                vix.loc[vix["daily_return"]>0,"daily_return_direction"] = 1
+                vix.loc[vix["daily_return"]<0,"daily_return_direction"] = -1
+                vix['rolling_sum'] = vix["daily_return_direction"].rolling(window=2).sum()
+
+                # Combine the two rolling sums
+                data = pd.concat([sp500[["daily_return","rolling_sum"]],vix[["daily_return","rolling_sum"]]],axis=1)
+                data.columns = ["sp500_daily_return","sp500_rolling_sum","vix_daily_return","vix_rolling_sum"]
+                data['total_rolling_sum'] = data["sp500_rolling_sum"]+data["vix_rolling_sum"]
+
+                data['signal'] = 0
+
+                data.loc[data["total_rolling_sum"]!=4.0,'signal'] = 0
+                data.loc[data["total_rolling_sum"]==4.0,'signal'] = 1
+                print("count of trades:",len(data[data['signal']==1]))
+
+                # Signal is: Short the first two days and long the next two days after the signal
+                data['signal'] = -data["signal"].shift(1) - data["signal"].shift(2) + data["signal"].shift(3) + data["signal"].shift(4)
+                data['portfolio_return'] = (data['signal'] * data["sp500_daily_return"] - data['signal'] * data["vix_daily_return"])/2
+
+                # Print the sharpe of S&P
+                snp_sharpe = sp500["daily_return"].mean() / sp500["daily_return"].std() *np.sqrt(252)
+                print (f"sharpe ratio of S&P: {snp_sharpe:.2f}")
+
+                cumsum = data['portfolio_return'].cumsum()
+                sharpe = data["portfolio_return"].mean() / data["portfolio_return"].std() *np.sqrt(252)
+                print(f"sharpe ratio: {sharpe:.2f}")</code></pre>
+
+                <div><br>
+                  <p>
+                    The visualization code creates a comprehensive performance chart that tracks the strategy's cumulative returns over time. It employs a line plot to show the progression of returns, with clear axis labels and a grid for easy value reading. The chart includes a title that dynamically displays the final cumulative return percentage, providing an immediate visual reference for the strategy's overall performance.
+                  </p>
+                  <p>
+                    The implementation uses matplotlib's plotting capabilities to create a professional-looking visualization. The code sets appropriate styling parameters, including figure size and grid appearance, to ensure the chart is both informative and visually appealing. The y-axis is formatted to display percentage values, making it intuitive for readers to interpret the returns. This visualization serves as a crucial tool for evaluating the strategy's effectiveness and identifying key performance trends over the testing period.
+                  </p>
+                </div>
+              </section>
+
+              <section>
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section implements the performance visualization:
+                    <ol>
+                      <li>Data Visualization:
+                        <ul>
+                          <li>Plots the cumulative returns over time</li>
+                          <li>Labels axes for clear interpretation</li>
+                          <li>Displays the final cumulative return value</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <pre><code class="language-python">plt.plot(cumsum)
+plt.xlabel('Date')
+plt.ylabel('Cumulative Return')
+plt.show()
+print(f"Cumulative Return : {cumsum[-1]}")</code></pre>
+
+                <div class="d-flex justify-content-center">
+                  <img src="../../images/quantio/2025-05-23-statistical-arbitrage-strategy-based-on-VIX-to-market-based-signal-Image1.png" alt="Day and Night Returns Analysis" class="img-fluid">
+                </div>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Performance Analysis</h5>
+                  <p class="mb-0">
+                    The visualization reveals several key insights:
+                    <ol>
+                      <li>Return Pattern:
+                        <ul>
+                          <li>Shows the cumulative performance over time</li>
+                          <li>Indicates the overall strategy effectiveness</li>
+                          <li>Reveals any significant drawdowns or growth periods</li>
+                        </ul>
+                      </li>
+                      <li>Strategy Characteristics:
+                        <ul>
+                          <li>Demonstrates the strategy's risk-adjusted returns</li>
+                          <li>Shows the consistency of performance</li>
+                          <li>Highlights the final cumulative return achieved</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+              </section>
+
+              <section class="alert alert-warning">
+                <h2 id="final-thoughts" class="h5 mb-3">Final Thoughts</h2>
+                
+                <p>
+                  Our analysis revealed some notable discrepancies with the original paper's findings. While the paper reported a Sharpe ratio above 2, our results showed a different picture. This discrepancy is particularly interesting given that the paper's S&P 500 Sharpe ratio calculations also appear to deviate from actual market performance. These differences highlight the importance of independent verification in quantitative research.
+                </p>
+
+                <p>
+                  Despite these discrepancies, the strategy demonstrates some compelling characteristics. It shows remarkable effectiveness in capturing rare market events, with only 268 days of market exposure over a 24-year period, indicating high selectivity. This selective nature makes it particularly valuable for portfolio diversification and could be especially effective when combined with other index-based strategies. The strategy's ability to identify and capitalize on specific market conditions suggests it could serve as a valuable component in a broader trading system.
+                </p>
+              </section>
+            </div>
+          </article>
+        </div>
+      </main>
+  
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+      <script src="../../components/header.js"></script>
+    </body>
+  </html>
