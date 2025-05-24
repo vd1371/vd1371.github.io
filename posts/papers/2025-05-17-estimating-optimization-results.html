@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An analysis of value and momentum factors across global markets and their implications for portfolio construction"
+    />
+    <meta
+      name="keywords"
+      content="value investing, momentum investing, factor investing, portfolio construction, asset allocation"
+    />
+    <meta name="author" content="Vahid Asghari" />
+    <title>Estimating Optimization Results with ML</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../styles.css" />
+    <!-- Add syntax highlighting for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+  </head>
+  <body class="bg-light">
+    <header id="main-header"></header>
+
+    <main class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <article class="card shadow-sm p-4">
+            <header class="post-header mb-4">
+              <h1 class="card-title h4 text-primary pb-2">Estimating Optimization Results with ML</h1>
+              <small class="text-muted">May 25, 2025</small>
+            </header>
+
+            <div class="d-flex justify-content-center mb-4">
+              <img src="../../images/papers/2025-05-17-estimating-optimization-Image1.png" alt="Estimating Optimization Results with ML" class="img-fluid">
+            </div>
+      
+            <div class="table-of-contents mb-4">
+              <h5 class="mb-3">Table of Contents</h5>
+              <ol class="list-unstyled">
+                <li class="mb-2"><a href="#motivation">Motivation</a></li>
+                <li class="mb-2"><a href="#why-it-matters">Why it matters</a></li>
+                <li class="mb-2"><a href="#how-it-works">How it works</a></li>
+                <li class="mb-2"><a href="#how-it-can-be-used">How it can be used</a></li>
+              </ol>
+            </div>
+      
+            <div>
+              <!-- Start with the motivation -->
+              <section class="mb-4" id="motivation">
+                <h1 class="mb-3">Motivation</h1>
+
+                <p>
+                  Imagine you’re tasked with making a big decision—say, managing a portfolio of investments, pricing
+                  a derivative, or planning maintenance for a city’s infrastructure, or optimizing a supply chain.
+                  You need to weigh costs, risks, and benefits over time, but multiple uncertainties make it a
+                  computationally intensive task.
+                  Traditionally, you’d run Monte Carlo simulations to estimate the outcomes, but it can take minutes,
+                  hours, days, or even months, depending on the complexity of the model.
+                </p>
+                <p>
+                  What if you could get the same insights in milliseconds or even microseconds?
+                </p>
+                <p>
+                  That’s what this paper is all about. I developed a way to use artificial intelligence (AI)
+                  to speed up these calculations, making it easier to make decisions quickly and confidently.
+                </p>
+
+
+                <p>
+                  Given my background in infrastructure asset management, the example is about some infrastructure
+                  project. But the method is general and can be applied to any Monte Carlo simulation.
+                </p>
+
+                <p></p>
+                  The paper is published in the ASCE Journal of Management in Engineering.
+                </p>
+                <p>
+                  <a href="https://ascelibrary.org/doi/abs/10.1061/(ASCE)ME.1943-5479.0000950">Link to the paper</a>
+                </p>
+              </section>
+
+              <section class="mb-4" id="why-it-matters">
+                <h1 class="mb-3">Why it matters</h1>
+                
+                <p>
+                  It matters for the people who need to optimize a heuristic algorithm, but at the same time, they
+                  want to get the results as fast as possible. In finance, where asset managers juggle thousands of
+                  investments amid constant uncertainty, traditional methods like Monte Carlo simulations are just
+                  too slow—forcing tough choices between speed and accuracy.
+                </p>
+
+                <p>
+                  The proposed machine learning approach changes the game by delivering near-optimal decisions—like when to
+                  buy, sell, or rebalance assets—up to a million times faster. This breakthrough means institutions
+                  can manage huge portfolios in real time, make smarter decisions, and even support sustainability
+                  goals, all without sacrificing precision.
+                </p>
+              </section>
+
+
+              <section class="mb-4" id="how-it-works">
+                <h1 class="mb-3">How it works</h1>
+                <p>
+                  The methodology leverages an ensemble of random forests, a type of ML model, to predict optimal intervention strategies for financial assets. Here’s a simplified breakdown:
+                </p>
+
+                <ul>
+                  <li><strong>Data Generation</strong>:
+                      The approach starts by creating a large dataset of semisynthesized financial assets, such as
+                      hypothetical investment portfolios with varying characteristics (e.g., asset type, risk profile,
+                      market conditions) and MCS parameters (e.g., volatility, interest rates). These are paired with
+                      optimal intervention plans derived from traditional optimization methods like genetic algorithms (GA).</li>
+                  <li><strong>Model Training</strong>:
+                      An ensemble of random forests models is trained on this dataset. The input variables include asset
+                      characteristics (e.g., expected returns, liquidity) and simulation parameters, while the output is
+                      the optimal intervention plan (e.g., buy, sell, hold, or rebalance). Random forests excel here due
+                      to their ability to handle imbalanced, multioutput, and multiclass problems without requiring
+                      extensive data preprocessing.</li>
+                  <li><strong>Prediction</strong>:
+                      Once trained, the model can predict intervention timings for new assets almost instantly, bypassing
+                      the need for time-consuming simulations. The study achieved over 95% accuracy on test data and 89%
+                      accuracy on real-world asset networks, demonstrating reliability.</li>
+                  <li><strong>Preprocessing and Tuning</strong>:
+                      Asset characteristics and parameters are normalized or encoded (e.g., one-hot encoding for asset
+                      types), and constant variables are removed to streamline the model. Hyperparameters, such as the
+                      number of trees and maximum depth, are tuned using grid search to optimize performance.</li>
+                </ul>
+
+                <div class="d-flex justify-content-center mb-4">
+                  <img src="../../images/papers/2025-05-17-estimating-optimization-Image2.png" alt="Estimating Optimization Results with ML" class="img-fluid">
+                </div>
+              </section>
+
+              <section class="mb-4" id="how-it-can-be-used">
+                <h1 class="mb-3">How it can be used</h1>
+                <p>
+                  To be honest, not much non-linear optimization is done in the finance industry. But the methodology
+                  can be used to estimate the results of any optimization algorithm.
+                </p>
+
+                <p>
+                  It is orders of magnitude faster than the traditional methods. If the optimization algorithm is
+                  the bottleneck, this method can be used to make things lightning fast.
+                </p>
+
+                <div class="d-flex justify-content-center mb-4">
+                  <img src="../../images/papers/2025-05-17-estimating-optimization-Image3.png" alt="Estimating Optimization Results with ML" class="img-fluid">
+                </div>
+              </section>
+
+
+            </div>
+          </article>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../components/header.js"></script>
+    <script src="../../components/footer.js"></script>
+    <script src="../../data/content.js"></script>
+    <script src="../../components/content_menu.js"></script>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        loadHeader();
+      });
+    </script>
+  </body>
+</html>

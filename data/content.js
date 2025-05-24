@@ -121,8 +121,9 @@
       // Machine learning modeling for spectral transient-based leak detection
       // Upscaling complex project-level infrastructure intervention planning to network assets
       title: 'Estimating Optimization Results with ML',
-      link: 'resources/books.html',
+      link: 'posts/papers/2025-05-17-estimating-optimization-results.html',
       icon: 'bi-book',
+      date: 'May 25, 2025',
     },
     {
       // An open-source and extensible platform for general infrastructure asset management system
