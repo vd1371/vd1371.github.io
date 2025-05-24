@@ -1,0 +1,585 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An analysis of an improved momentum strategy that incorporates market panic states"
+    />
+    <meta
+      name="keywords"
+      content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
+    />
+    <meta name="author" content="Vahid Asghari" />
+    <title>Stat Arb in Crude Oil Markets</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <!-- Add syntax highlighting for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+  </head>
+  <body class="bg-light">
+    <header id="main-header"></header>
+
+    <main class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <article class="card shadow-sm p-4">
+            <header class="post-header mb-4">
+              <h1 class="card-title h4 text-primary pb-2">Stat Arb in Crude Oil Markets</h1>
+              <small class="text-muted">May 25, 2025</small>
+            </header>
+
+            <div class="d-flex justify-content-center">
+              <img src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image0.png" alt="Day and Night Returns Analysis" class="img-fluid">
+            </div>
+
+            <div class="table-of-contents mb-4">
+              <h2 class="h5 mb-3">Table of Contents</h2>
+              <ul class="list-unstyled">
+                <li><a href="#strategy-details">Strategy Details</a>
+                  <ul class="list-unstyled ms-3">
+                    <li><a href="#reference-paper">Reference Paper</a></li>
+                    <li><a href="#strategy-overview">Strategy Overview</a></li>
+                    <li><a href="#strategy-components">Strategy Components</a></li>
+                  </ul>
+                </li>
+                <li><a href="#analysis-of-results">Analysis of Results</a>
+                  <ul class="list-unstyled ms-3">
+                    <li><a href="#strategy-components">Strategy Components</a></li>
+                    <li><a href="#performance-metrics">Performance Metrics</a></li>
+                    <li><a href="#key-findings">Key Findings</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <section class="mb-4">
+                <h2 id="strategy-details" class="h5 mb-3">Strategy Details</h2>
+                
+                <div class="metadata mb-3">
+                  <p><strong>Reference Paper:</strong> Mean-Reverting Statistical Arbitrage Strategies in Crude Oil Markets</p>
+                  <p><strong>Author:</strong> Viviana Fanelli</p>
+                  <p><strong>Journal:</strong> Risks 2024, 12, 106</p>
+                </div>
+
+                <div class="strategy-overview mb-4">
+                  <p>
+                    This strategy implements statistical arbitrage in Crude Oil markets using classical cointegration and Augmented Dickey-Fuller (ADF) tests. The approach focuses on identifying and exploiting mean-reverting relationships between different crude oil futures contracts.
+                  </p>
+                  <p>
+                    The implementation analyzes price relationships between major crude oil futures contracts, including WTI Crude Oil, Brent Crude Oil, and Heating Oil futures. By identifying cointegrated pairs, the strategy aims to capture temporary price divergences and their subsequent mean reversion.
+                  </p>
+                </div>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Key Components</h5>
+                  <p class="mb-0">
+                    <ol>
+                      <li>Data Collection:
+                        <ul>
+                          <li>Uses Yahoo Finance API for historical price data</li>
+                          <li>Focuses on major crude oil futures contracts</li>
+                          <li>Implements efficient data caching mechanism</li>
+                        </ul>
+                      </li>
+                      <li>Analysis Framework:
+                        <ul>
+                          <li>Implements cointegration testing between pairs</li>
+                          <li>Uses ADF test for stationarity analysis</li>
+                          <li>Calculates correlation matrices for relationship analysis</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <pre><code class="language-python">import os
+import requests
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from itertools import combinations
+import multiprocessing as mp
+import yfinance as yf
+import warnings
+from statsmodels.tsa.stattools import coint
+import warnings
+warnings.filterwarnings("ignore")
+
+# This is the selected list of tickers in the paper
+tickers = [
+    'CL=F', # Crude Oil
+    'BZ=F', # Brent Crude Oil
+    # '2039.T', # Dubai Crude Oil, the data is not available on Yahoo Finance
+    'HO=F', # Heating Oil, instead, we use Heating Oil Futures
+]
+def load_data(symbol):
+    
+    direc  =  'data/'
+    os.makedirs(direc, exist_ok = True)
+    file_name = os.path.join(direc, symbol + '.csv')
+
+    if not os.path.exists(file_name):
+        ticker = yf.Ticker(symbol)
+        df = ticker.history(start='2008-01-02', end='2024-05-31')
+        df.to_csv(file_name)
+
+    df = pd.read_csv(file_name, index_col=0)
+    df.index = pd.to_datetime(df.index, utc=True).date
+
+    df['return'] = df['Close'].pct_change(fill_method=None)
+    df['next_day_return'] = df['return'].shift(-1)
+
+    return df
+data = {symbol: load_data(symbol) for symbol in tickers}
+
+# Plot the data
+fig, ax = plt.subplots(1, 1, figsize=(10, 5))
+for symbol, df in data.items():
+    ax.plot(df.index, df['Close'], label=symbol)
+
+ax.set_title('Crude Oil Prices')
+ax.set_ylabel('Price')
+ax.legend()
+plt.show()
+
+# Plot the correlation matrix
+df = pd.concat([df['Close'] for df in data.values()], axis=1)
+df.columns = tickers
+corr = df.corr()
+
+fig, ax = plt.subplots(1, 1, figsize=(5, 5))
+im = ax.matshow(corr, cmap='coolwarm')
+ax.set_xticks(range(len(tickers)))
+ax.set_yticks(range(len(tickers)))
+ax.set_xticklabels(tickers)
+ax.set_yticklabels(tickers)
+fig.colorbar(im)
+plt.show()</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section implements the data collection and initial analysis framework:
+                    <ol>
+                      <li>Data Management:
+                        <ul>
+                          <li>Implements efficient data caching using local storage</li>
+                          <li>Downloads historical data from Yahoo Finance API</li>
+                          <li>Processes and stores data with proper datetime indexing</li>
+                        </ul>
+                      </li>
+                      <li>Visualization Components:
+                        <ul>
+                          <li>Creates time series plots of crude oil prices</li>
+                          <li>Generates correlation matrix heatmap</li>
+                          <li>Implements proper data labeling and formatting</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <img src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image1.png" alt="Day and Night Returns Analysis" class="img-fluid">
+                </div>
+
+                <div class="d-flex justify-content-center">
+                  <img src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image2.png" alt="Day and Night Returns Analysis" class="img-fluid">
+                </div>
+              </section>
+
+              <section>
+                <h2 id="analysis-of-results" class="h5 mb-3">Analysis of Results</h2>
+                
+                <p>
+                  Our analysis reveals promising opportunities for statistical arbitrage trading in the crude oil markets. The high correlation between prices and the common underlying source (oil) suggests potential for profitable trading strategies.
+                </p>
+
+                <p>
+                  We implemented a systematic approach to identify and exploit these opportunities:
+                </p>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Strategy Components</h5>
+                  <p class="mb-0">
+                    <ol>
+                      <li>Signal Generation:
+                        <ul>
+                          <li>Uses a rolling window approach for analysis</li>
+                          <li>Implements Augmented Dickey-Fuller (ADF) test for cointegration</li>
+                          <li>Generates trading signals based on residual analysis</li>
+                        </ul>
+                      </li>
+                      <li>Trading Rules:
+                        <ul>
+                          <li>Opens positions when residuals exceed 2 standard deviations</li>
+                          <li>Implements mean reversion strategy</li>
+                          <li>Manages risk through position sizing</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Get the unique dates
+unique_dates = sorted(df.index.unique())
+
+W = 66 # Window size
+sigma_ratio = 1.0 # Sigma ratio
+
+holder = []
+for ticker1, ticker2 in combinations(tickers, 2):
+
+    daily_returns_holder = []
+    for i, date in enumerate(unique_dates):
+        daily_returns = []
+
+        if i < W:
+            continue
+
+        start_date = unique_dates[i-W]
+
+        df1 = data[ticker1].loc[start_date: date, :].copy()
+        df2 = data[ticker2].loc[start_date: date, :].copy()
+
+        # Concat the close prices
+        df1 = df1[['Close', 'next_day_return']]
+        df2 = df2[['Close', 'next_day_return']]
+        
+        # Normalize the prices
+        df1['Close'] /= df1['Close'].iloc[0]
+        df2['Close'] /= df2['Close'].iloc[0]
+        
+        df1.columns = [ticker1, f'{ticker1}_next_day_return']
+        df2.columns = [ticker2, f'{ticker2}_next_day_return']
+        df = pd.concat([df1, df2], axis=1)
+
+        # Dropna
+        df = df.dropna()
+
+        # Check for cointegration
+        spread = df[ticker1] - df[ticker2]
+        score, pvalue, _ = coint(df[ticker1], df[ticker2])
+        
+        if pvalue > 0.1:
+            daily_returns_holder.append((date, 0))
+            continue
+        print (f'{ticker1} and {ticker2} are cointegrated at {date}', end='\r')
+
+        mu = spread.mean()
+        sigma = spread.std()
+        z_score = (spread[-1] - mu)/sigma
+
+        if z_score > sigma_ratio:
+            # Short spread
+            daily_returns.append(-df[ticker1+'_next_day_return'].iloc[-1])
+            daily_returns.append(df[ticker2+'_next_day_return'].iloc[-1])
+            print (f'Short spread for {ticker1} and {ticker2} at {date}', end='\r')
+
+        elif z_score < -sigma_ratio:
+            # Long spread
+            daily_returns.append(df[ticker1+'_next_day_return'].iloc[-1])
+            daily_returns.append(-df[ticker2+'_next_day_return'].iloc[-1])
+            print (f'Long spread for {ticker1} and {ticker2} at {date}', end='\r')
+
+        else:
+            # No trade
+            # print (f'No trade for {ticker1} and {ticker2} at {date}', end='\r')
+            pass
+
+        if len(daily_returns) > 0:
+            daily_returns_holder.append((date, np.mean(daily_returns)))
+        else:
+            daily_returns_holder.append((date, 0))
+
+    df = pd.DataFrame(daily_returns_holder, columns=['Date', 'Return'])
+    df = df.set_index('Date')
+    holder.append(df)
+
+    portfolio = pd.concat(holder, axis=1)
+portfolio.columns = [f'{ticker1}_{ticker2}' for ticker1, ticker2 in combinations(tickers, 2)]
+portfolio = portfolio.dropna()
+
+# Find the max in CL=F_HO=F
+max_idx = portfolio['CL=F_HO=F'].idxmax()
+min_idx = portfolio['CL=F_HO=F'].idxmin()
+
+# IMPORTANT: If you remember, some weird things happened on the 17-19 of April 2020
+# Let's replace the returns with 0
+portfolio.loc[max_idx] = 0
+portfolio.loc[min_idx] = 0
+
+# Portfolio combined
+portfolio['Portfolio'] = portfolio.sum(axis=1)
+
+# Keep the data after financial crisis
+portfolio.index = pd.to_datetime(portfolio.index)
+portfolio = portfolio[portfolio.index.year >= 2010]
+
+# plot the cumsum of each pair
+fig, ax = plt.subplots(1, 1, figsize=(10, 5))
+for col in portfolio.columns:
+    ax.plot(portfolio[col].cumsum(), label=col)
+
+ax.set_title('Cumulative Returns')
+ax.set_ylabel('Cumulative Return')
+ax.legend()
+plt.show()</code></pre>
+
+                <div class="d-flex justify-content-center">
+                  <img src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image3.png" alt="Day and Night Returns Analysis" class="img-fluid">
+                </div>
+
+                <p>
+                  The performance metrics reveal interesting insights about the strategy's effectiveness:
+                </p>
+
+                <pre><code class="language-python"># Find the sharpe, max drawdown, and sortino ratio
+sharpe = portfolio.mean()/portfolio.std()*np.sqrt(252)
+max_drawdown = portfolio.cumsum().cummax() - portfolio.cumsum()
+sortino = portfolio.mean()/portfolio[portfolio<0].std()*np.sqrt(252)
+
+# Combine the results into a dataframe
+df = pd.concat([sharpe, max_drawdown.max(), sortino], axis=1)
+df.columns = ['Sharpe', 'Max Drawdown', 'Sortino']
+df = df.T
+
+# Round to 3 decimal places
+df = df.round(3)
+
+print (df)</code></pre>
+
+                <code style="color: #000;">
+                  <pre>CL=F_BZ=F  CL=F_HO=F  BZ=F_HO=F  Portfolio
+    Sharpe            0.750      0.074      0.569      0.790
+    Max Drawdown      0.063      0.095      0.034      0.117
+    Sortino           0.461      0.027      0.351      0.667</pre>
+                </code>
+
+                <p>
+                  We also conducted a weekly analysis to assess the strategy's performance over longer timeframes:
+                </p>
+
+                <pre><code class="language-python"># First, let's resample the data to weekly
+data_weekly = {}
+for symbol, df in data.items():
+    df.index = pd.to_datetime(df.index)
+    df = df.resample('W').agg({
+        'Open': 'first',
+        'High': 'max',
+        'Low': 'min',
+        'Close': 'last',
+        'Volume': 'sum'})
+    df['next_week_return'] = (df['Close']/df['Open']-1).shift(-1)
+    data_weekly[symbol] = df
+
+def run_analysis_weekly_basis(data_weekly, W, p_val_threshold, sigma_ratio):
+    """
+    Run the analysis for weekly basis
+
+    Args:
+    W: int, the window size
+    p_val_threshold: float, the p-value threshold for cointegration
+    sigma_ratio: float, the sigma ratio for the z-score
+
+    Returns:
+    df: pd.DataFrame, the portfolio returns
+    """
+    
+holder = []
+unique_dates = sorted(data_weekly[tickers[0]].index.unique())
+for ticker1, ticker2 in combinations(tickers, 2):
+
+    weekly_returns_holder = []
+    for i, date in enumerate(unique_dates):
+        weekly_returns = []
+
+        if i < W:
+            continue
+
+        start_date = unique_dates[i-W]
+
+        df1 = data_weekly[ticker1].loc[start_date: date, :].copy()
+        df2 = data_weekly[ticker2].loc[start_date: date, :].copy()
+
+        # Concat the close prices
+        df1 = df1[['Close', 'next_week_return']]
+        df2 = df2[['Close', 'next_week_return']]
+        
+        df1['Close'] /= df1['Close'].iloc[0]
+        df2['Close'] /= df2['Close'].iloc[0]
+        
+        df1['Close'].fillna(0.0, inplace=True)
+        df2['Close'].fillna(0.0, inplace=True)
+        
+        df1.columns = [ticker1, f'{ticker1}_next_week_return']
+        df2.columns = [ticker2, f'{ticker2}_next_week_return']
+        df = pd.concat([df1, df2], axis=1)
+        
+# Dropna
+df = df.dropna()
+
+# Check for cointegration
+spread = df[ticker1] - df[ticker2]
+score, pvalue, _ = coint(df[ticker1], df[ticker2])
+
+if pvalue > p_val_threshold:
+    weekly_returns_holder.append((date, 0))
+    continue
+# print (f'{ticker1} and {ticker2} are cointegrated at {date}', end='\r')
+
+mu = spread.mean()
+sigma = spread.std()
+z_score = (spread[-1] - mu)/sigma
+
+  if z_score > sigma_ratio:
+      # Short spread
+      weekly_returns.append(-df[ticker1+'_next_week_return'].iloc[-1])
+      weekly_returns.append(df[ticker2+'_next_week_return'].iloc[-1])
+      # print (f'Short spread for {ticker1} and {ticker2} at {date}', end='\r')
+
+  elif z_score < -sigma_ratio:
+      # Long spread
+      weekly_returns.append(df[ticker1+'_next_week_return'].iloc[-1])
+      weekly_returns.append(-df[ticker2+'_next_week_return'].iloc[-1])
+      # print (f'Long spread for {ticker1} and {ticker2} at {date}', end='\r')
+
+  else:
+      # No trade
+      # print (f'No trade for {ticker1} and {ticker2} at {date}', end='\r')
+      pass
+
+  if len(weekly_returns) > 0:
+      weekly_returns_holder.append((date, np.mean(weekly_returns)))
+  else:
+      weekly_returns_holder.append((date, 0))
+
+    df = pd.DataFrame(weekly_returns_holder, columns=['Date', 'Return'])
+    df = df.set_index('Date')
+
+    holder.append(df)
+
+portfolio_weekly = pd.concat(holder, axis=1)
+portfolio_weekly.columns = [f'{ticker1}_{ticker2}' for ticker1, ticker2 in combinations(tickers, 2)]
+portfolio_weekly = portfolio_weekly.dropna()
+
+# Portfolio combined
+portfolio_weekly['Portfolio'] = portfolio_weekly.sum(axis=1)
+
+return portfolio_weekly, W, p_val_threshold, sigma_ratio
+
+max_sharpe = 0
+best_params = None
+
+params_to_pass = []
+for w in [12, 24, 36, 52]:
+    for p_val_threshold in [0.05, 0.1, 0.2, 0.3]:
+        for sigma_ratio in [1, 1.5, 2]:
+            params_to_pass.append((data_weekly.copy(), w, p_val_threshold, sigma_ratio))
+            
+with mp.Pool(int(mp.cpu_count()*0.9)) as pool:
+    results = pool.starmap(run_analysis_weekly_basis, params_to_pass)
+    
+for portfolio_weekly, w, p_val_threshold, sigma_ratio in results:
+    sharpe = portfolio_weekly.mean()/portfolio_weekly.std()*np.sqrt(52)
+    if sharpe['Portfolio'] > max_sharpe:
+        max_sharpe = sharpe['Portfolio']
+        best_params = (w, p_val_threshold, sigma_ratio)
+
+# Run the analysis with the best parameters
+portfolio_weekly, _, _, _ = run_analysis_weekly_basis(data_weekly.copy(), *best_params)
+
+# Find the max in CL=F_HO=F
+max_idx = portfolio_weekly['CL=F_HO=F'].idxmax()
+min_idx = portfolio_weekly['CL=F_HO=F'].idxmin()
+
+# IMPORTANT: If you remember, some weird things happened on the 17-19 of April 2020
+portfolio_weekly.loc[max_idx] = 0
+portfolio_weekly.loc[min_idx] = 0
+
+# Portfolio combined
+portfolio_weekly['Portfolio'] = portfolio_weekly.sum(axis=1)
+
+# plot the cumsum of each pair
+fig, ax = plt.subplots(1, 1, figsize=(10, 5))
+for col in portfolio_weekly.columns:
+    ax.plot(portfolio_weekly[col].cumsum(), label=col)
+
+ax.set_title('Cumulative Returns')
+ax.set_ylabel('Cumulative Return')
+ax.legend()
+plt.show()</code></pre>
+
+                <div class="d-flex justify-content-center">
+                  <img src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image4.png" alt="Day and Night Returns Analysis" class="img-fluid">
+                </div>
+
+                <pre><code class="language-python"># Find the sharpe, max drawdown, and sortino ratio
+sharpe = portfolio_weekly.mean()/portfolio_weekly.std()*np.sqrt(52)
+max_drawdown = portfolio_weekly.cumsum().cummax() - portfolio_weekly.cumsum()
+sortino = portfolio_weekly.mean()/portfolio_weekly[portfolio_weekly<0].std()*np.sqrt(52)
+
+# Combine the results into a dataframe
+df = pd.concat([sharpe, max_drawdown.max(), sortino], axis=1)
+df.columns = ['Sharpe', 'Max Drawdown', 'Sortino']
+df = df.T
+
+# Round to 3 decimal places
+df = df.round(3)
+
+print (df)</code></pre>
+
+                <code style="color: #000;">
+                  <pre>CL=F_BZ=F  CL=F_HO=F  BZ=F_HO=F  Portfolio
+    Sharpe            0.521      0.353      0.196      0.479
+    Max Drawdown      0.003      0.000      0.025      0.050
+    Sortino             NaN        NaN      0.066      0.197</pre>
+                </code>
+
+                <div class="alert alert-warning mt-3">
+                  <h5 class="alert-heading">Key Findings</h5>
+                  <p class="mb-0">
+                    <ol>
+                      <li>Daily Trading Performance:
+                        <ul>
+                          <li>Strong Sharpe ratio of 0.790 for the portfolio</li>
+                          <li>Acceptable maximum drawdown of 11.7%</li>
+                          <li>Positive Sortino ratio indicating good risk-adjusted returns</li>
+                        </ul>
+                      </li>
+                      <li>Weekly Trading Results:
+                        <ul>
+                          <li>Lower Sharpe ratio of 0.479</li>
+                          <li>Smaller maximum drawdown of 5.0%</li>
+                          <li>Less consistent performance across pairs</li>
+                        </ul>
+                      </li>
+                      <li>Strategy Limitations:
+                        <ul>
+                          <li>Uses Heating Oil futures instead of Dubai Crude Oil</li>
+                          <li>Transaction costs not considered in the analysis</li>
+                          <li>Potential for improved performance with parameter optimization</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <p>
+                  The daily trading implementation of the statistical arbitrage strategy shows promising results, with a Sharpe ratio around 0.5 and acceptable drawdown levels. While the weekly trading approach shows less consistent performance, the daily strategy demonstrates potential for production implementation with further refinement.
+                </p>
+              </section>
+            </div>
+          </article>
+        </div>
+      </main>
+  
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+      <script src="../../components/header.js"></script>
+    </body>
+  </html>

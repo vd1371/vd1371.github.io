@@ -103,3 +103,10 @@ body {
 pre code {
   font-weight: normal !important;
 }
+
+/* Center all images by default */
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}

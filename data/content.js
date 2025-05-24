@@ -91,7 +91,12 @@
       date: 'May 23, 2025',
       icon: 'bi-bar-chart-line',
     },
-
+    {
+      title: 'Stat Arb in Crude Oil Markets',
+      link: 'posts/quantio/2025-05-25-stat-arb-in-crude-Oil-markets.html',
+      date: 'May 25, 2025',
+      icon: 'bi-droplet',
+    },
   ]
 
   const projects = [
