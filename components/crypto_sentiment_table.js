@@ -22,7 +22,7 @@ function createCryptoSentimentTable(containerId) {
     NEAR: base_link + 'near-protocol',
     LTC: base_link + 'litecoin',
     PEPE: base_link + 'pepe',
-    MATIC: base_link + 'polygon',
+    MATIC: base_link + 'polygon-ecosystem-token',
     ICP: base_link + 'internet-computer',
     KAS: base_link + 'kaspa',
     APT: base_link + 'aptos',
