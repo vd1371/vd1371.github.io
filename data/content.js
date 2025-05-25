@@ -112,6 +112,12 @@
       link: 'posts/projects/2025-05-02-crypto-news-sentiment.html',
       icon: 'bi-chat-square-text',
     },
+    {
+      title: 'PaperGPT',
+      date: 'May 25, 2025',
+      link: 'posts/projects/2025-05-25-papergpt.html',
+      icon: 'bi-book',
+    },
   ];
 
   const researchPapers = [
