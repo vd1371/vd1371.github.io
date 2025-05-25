@@ -97,6 +97,13 @@
       date: 'May 25, 2025',
       icon: 'bi-droplet',
     },
+    {
+      title: 'Pair Trading',
+      link: 'posts/quantio/2025-05-26-pair-trading.html',
+      date: 'May 26, 2025',
+      icon: 'bi-graph-up',
+    },
+
   ]
 
   const projects = [

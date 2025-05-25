@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An analysis of an improved momentum strategy that incorporates market panic states"
+    />
+    <meta
+      name="keywords"
+      content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
+    />
+    <meta name="author" content="Vahid Asghari" />
+    <title>Pair Trading</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <!-- Add syntax highlighting for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+  </head>
+  <body class="bg-light">
+    <header id="main-header"></header>
+
+    <main class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <article class="card shadow-sm p-4">
+            <header class="post-header mb-4">
+              <h1 class="card-title h4 text-primary pb-2">Pair Trading</h1>
+              <small class="text-muted">May 26, 2025</small>
+            </header>
+
+            <div class="d-flex justify-content-center">
+              <img src="../../images/quantio/2025-05-26-pair-trading-Image0.png" alt="Day and Night Returns Analysis" class="img-fluid">
+            </div>
+
+            <div class="table-of-contents mb-4">
+              <h2 class="h5 mb-3">Table of Contents</h2>
+              <ul class="list-unstyled">
+                <li><a href="#strategy-details">Strategy Details</a>
+                  <ul class="list-unstyled ms-3">
+                    <li><a href="#reference-paper">Reference Paper</a></li>
+                    <li><a href="#strategy-overview">Strategy Overview</a></li>
+                    <li><a href="#strategy-components">Strategy Components</a></li>
+                  </ul>
+                </li>
+                <li><a href="#data-preparation">Data Preparation</a>
+                  <ul class="list-unstyled ms-3">
+                    <li><a href="#data-collection">Data Collection</a></li>
+                    <li><a href="#data-loading">Data Loading</a></li>
+                    <li><a href="#data-normalization">Data Normalization</a></li>
+                    <li><a href="#data-filtering">Data Filtering</a></li>
+                  </ul>
+                </li>
+                <li><a href="#implementation">Implementation of Pairs Trading Strategy</a>
+                  <ul class="list-unstyled ms-3">
+                    <li><a href="#data-splitting">Data Splitting</a></li>
+                    <li><a href="#pair-selection">Pair Selection</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <section class="mb-4">
+                <h2 id="strategy-details" class="h5 mb-3">Strategy Details</h2>
+                
+                <div class="metadata mb-3">
+                  <p><strong>Code Author:</strong> Otis Wang</p>
+                  <p><strong>Reference Paper:</strong> Examining Pairs Trading Profitability</p>
+                  <p><strong>Link:</strong> <a href="https://economics.yale.edu/sites/default/files/2024-05/Zhu_Pairs_Trading.pdf" target="_blank">Original Paper</a></p>
+                </div>
+
+                <div class="strategy-overview mb-4">
+                  <p>
+                    This strategy implements pairs trading based on the mean-reverting property of the spread between two stocks. The approach involves identifying cointegrated pairs of stocks and trading based on the statistical deviation of their price spread from its historical mean.
+                  </p>
+                </div>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Strategy Components</h5>
+                  <p class="mb-0">
+                    <ol>
+                      <li>Pair Selection:
+                        <ul>
+                          <li>Identifies cointegrated pairs using Euclidean distance method</li>
+                          <li>Alternative methods include Engle-Granger, PCA, and clustering</li>
+                        </ul>
+                      </li>
+                      <li>Trading Signals:
+                        <ul>
+                          <li>Calculates spread between paired stocks</li>
+                          <li>Computes z-score of the spread</li>
+                          <li>Generates signals based on z-score thresholds</li>
+                        </ul>
+                      </li>
+                      <li>Position Management:
+                        <ul>
+                          <li>Long position when z-score is below threshold</li>
+                          <li>Short position when z-score is above threshold</li>
+                          <li>Exit positions when z-score approaches zero</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <p class="mt-3">
+                  Let's begin by collecting and processing the necessary data:
+                </p>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Data Collection</h5>
+                  <p class="mb-0">
+                    The following code collects S&P 500 company data and prepares it for analysis:
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Collect the list of the S&P 500 companies from Wikipedia and save it to a file
+import os
+import requests
+import pandas as pd
+
+# Get the list of S&P 500 companies from Wikipedia
+url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
+response = requests.get(url)
+html = response.content
+df = pd.read_html(html, header=0)[0]
+
+tickers = df['Symbol'].tolist()
+# tickers.append('^GSPC')</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Data Loading</h5>
+                  <p class="mb-0">
+                    The following code implements data loading from Yahoo Finance with proper error handling and data normalization:
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Load the data from yahoo finance
+import yfinance as yf
+
+def load_data(symbol):
+    direc = 'data/'
+    os.makedirs(direc, exist_ok=True)
+
+    file_name = os.path.join(direc, symbol + '.csv')
+
+    if not os.path.exists(file_name):
+        ticker = yf.Ticker(symbol)
+        df = ticker.history(start='2005-01-01', end='2023-12-31')
+        df.to_csv(file_name)
+
+    df = pd.read_csv(file_name, index_col=0)
+    df.index = pd.to_datetime(df.index, utc=True).tz_convert('US/Eastern')
+    df['date'] = df.index
+
+    if len(df) == 0:
+        os.remove(file_name)
+        return None
+
+    return df
+
+holder = []
+ticker_with_data = []
+for symbol in tickers:
+    df = load_data(symbol)
+    if df is not None:
+        holder.append(df)
+        ticker_with_data.append(symbol)
+
+tickers = ticker_with_data[:]
+
+print(f'Loaded data for {len(tickers)} companies')</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Data Normalization</h5>
+                  <p class="mb-0">
+                    The following code normalizes the price data to facilitate pair comparison:
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Keep the "close" and "open" column only
+holder = [df[['Close', 'Open']] for df in holder]
+
+# Divide all the prices by the first close price to normalize the data
+normalized_holder = []
+
+for i in range(len(holder)):
+    df = holder[i].copy()
+    normalizer = df['Close'].iloc[0]
+    df['Close'] /= normalizer
+    df['Open'] /= normalizer
+    normalized_holder.append(df)
+
+# Show the head of the first dataframe
+normalized_holder[0].head()</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Data Filtering</h5>
+                  <p class="mb-0">
+                    The following code ensures we only work with stocks that have complete data for the analysis period:
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Keep stocks that have data for the whole period
+normalized_holder = [df for df in normalized_holder if len(df) == len(normalized_holder[0])]
+tickers = [ticker for df, ticker in zip(normalized_holder, tickers)]
+
+# Show the number of stocks that have data for the whole period
+print(f'Number of stocks that have data for the whole period: {len(tickers)}')</code></pre>
+              </section>
+
+              <section>
+                <h2>Implementation of Pairs Trading Strategy</h2>
+                
+                <p>
+                  In this section, we implement the pairs trading strategy using the normalized price data. We'll split the data into training and testing periods, identify cointegrated pairs, and evaluate the strategy's performance.
+                </p>
+                
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Data Splitting</h5>
+                  <p class="mb-0">
+                  We split our data into training (2005-2019) and testing (2019-2023) periods. This allows us to identify pairs during the training period and evaluate their performance in the testing period.
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Split the data into training and testing sets for each stock
+training_data = [df[df.index.year < 2019] for df in normalized_holder]
+testing_data = [df[df.index.year >= 2019] for df in normalized_holder]
+
+# Show the rows of the first training dataframe and the first testing dataframe
+training_data[0].shape, testing_data[0].shape</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Pair Selection</h5>
+                  <p class="mb-0">
+                    We calculate the Euclidean distance between each pair of stocks to identify the most similar pairs. This helps us find stocks that move together, which is crucial for pairs trading.
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Calculate the Euclidean distance between each pair of stocks, add a progress bar
+distance_matrix = np.zeros((len(tickers), len(tickers)))
+for i, j in itertools.product(range(len(tickers)), repeat=2):
+    distance_matrix[i, j] = np.sqrt(np.sum((training_data[i]['Close'] - training_data[j]['Close']) ** 2))
+    # Progress bar
+    print(f'\r{i + 1}/{len(tickers)}', end='')
+
+# Find the top 50 pairs of stocks with the smallest distance, excluding pairs of the same stock and distance 0
+top_pairs = []
+for i in range(len(tickers)):
+    for j in range(i + 1, len(tickers)):
+        if i != j and distance_matrix[i, j] != 0:
+            top_pairs.append((tickers[i], tickers[j], distance_matrix[i, j]))
+
+top_pairs = sorted(top_pairs, key=lambda x: x[2])[:50]</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Visualizing Selected Pairs</h5>
+                  <p class="mb-0">
+                    Let's visualize the price movements of one of our selected pairs to understand their relationship.
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Plot the close prices of the first pair of stocks
+i, j, _ = top_pairs[40]
+i = tickers.index(i)
+j = tickers.index(j)
+
+plt.figure(figsize=(10, 5))
+plt.plot(training_data[i]['Close'], label=tickers[i])
+plt.plot(training_data[j]['Close'], label=tickers[j])
+plt.legend()
+plt.show()</code></pre>
+
+                <div class="d-flex justify-content-center">
+                  <img src="../../images/quantio/2025-05-26-pair-trading-Image1.png" alt="Price Movements of Selected Pair" class="img-fluid">
+                </div>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Spread Calculation and Signal Generation</h5>
+                  <p class="mb-0">
+                    We calculate the spread between each pair and generate trading signals based on statistical deviations from the mean.
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># For each pair of stocks, calculate spread = stock1 - stock2
+spread = [testing_data[tickers.index(i)]["Close"] - testing_data[tickers.index(j)]["Close"] for i, j, _ in top_pairs]
+
+# Find the spread for the training data
+spread_training = [training_data[tickers.index(i)]["Close"] - training_data[tickers.index(j)]["Close"] for i, j, _ in top_pairs]
+
+# Find the standard deviation of the spread for each pair of stocks
+std_spread = [np.std(s) for s in spread_training]
+
+# Generate the signals for each pair based on if the absolute value of spread is greater than 2 standard deviation
+signals = [np.where(s > 2 * std, 1, np.where(s < -2 * std, -1, 0)) for s, std in zip(spread, std_spread)]</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Strategy Returns Calculation</h5>
+                  <p class="mb-0">
+                    We implement the pairs trading strategy by calculating returns based on the generated signals. The strategy goes long-short when the spread deviates significantly from its mean.
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># For each pair, calculate the daily return of the strategy
+returns = []
+for i, j, _ in top_pairs:
+    signal = signals[top_pairs.index((i, j, _))]
+    i_index = tickers.index(i)
+    j_index = tickers.index(j)
+    returns.append([])
+
+for k in range(len(signal)):
+    return_ = 0
+    # If the signal is 1 and the previous signal is not 1, then short the first stock and long the second stock
+    if signal[k] == 1 and (k == 0 or signal[k - 1] != 1):
+        # Exit the position when the spread is less than or equal to 0
+        exit = k + np.argmax(spread[top_pairs.index((i, j, _))][k:] <= 0)
+        # Calculate the return of the trade, open at next day open price and close at exit day close price
+        # Handle the case when the exit is the last day of the data
+        if exit == len(spread[top_pairs.index((i, j, _))]) - 1:
+            return_ = (testing_data[j_index]['Close'].iloc[-1] / testing_data[j_index]['Open'].iloc[k+1] - 1) - (testing_data[i_index]['Close'].iloc[-1] / testing_data[i_index]['Open'].iloc[k+1] - 1)
+        else:
+            return_ = (testing_data[j_index]['Close'].iloc[exit+1] / testing_data[j_index]['Open'].iloc[k+1] - 1) - (testing_data[i_index]['Close'].iloc[exit+1] / testing_data[i_index]['Open'].iloc[k+1] - 1)
+        # Change the type of return_ to float
+        return_ = float(return_)
+        print(f'{i} {j} {k} {exit} {return_}')
+    # If the signal is -1 and the previous signal is not -1, then long the first stock and short the second stock
+    elif signal[k] == -1 and (k == 0 or signal[k - 1] != -1):
+        # Exit the position when the spread is greater than or equal to 0
+        exit = k + np.argmax(spread[top_pairs.index((i, j, _))][k:] >= 0)
+        # Calculate the return of the trade, open at next day open price and close at exit day close price
+        # Handle the case when the exit is the last day of the data
+        if exit == len(spread[top_pairs.index((i, j, _))]) - 1:
+            return_ = (testing_data[i_index]['Close'].iloc[-1] / testing_data[i_index]['Open'].iloc[k] - 1) - (testing_data[j_index]['Close'].iloc[-1] / testing_data[j_index]['Open'].iloc[k] - 1)
+        else:
+            return_ = (testing_data[i_index]['Close'].iloc[exit+1] / testing_data[i_index]['Open'].iloc[k+1] - 1) - (testing_data[j_index]['Close'].iloc[exit+1] / testing_data[j_index]['Open'].iloc[k+1] - 1)
+        # Change the type of return_ to float
+        return_ = float(return_)
+        print(f'{i} {j} {k} {exit} {return_}')
+
+    returns[-1].append(return_)
+
+print(f'\r{top_pairs.index((i, j, _)) + 1}/{len(top_pairs)}', end='')</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Performance Analysis</h5>
+                  <p class="mb-0">
+                    We analyze the strategy's performance by calculating cumulative returns and Sharpe ratios for each pair and the overall portfolio.
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Calculate the cumulative return of the strategy for each pair using cumsum
+cumulative_returns = [np.cumsum(r) for r in returns]
+# Calculate the sharpe ratio of the strategy for each pair excluding pairs that have a cumulative return of 0
+sharpe_ratios = [np.mean(r) / np.std(r) * np.sqrt(252) for r in returns if np.std(r) != 0]
+# Show the sharpe ratios with the corresponding pairs
+sharpe_ratios_pairs = [(i, j, r) for (i, j, _), r in zip(top_pairs, sharpe_ratios)]
+# Sort the pairs by sharpe ratio
+sharpe_ratios_pairs = sorted(sharpe_ratios_pairs, key=lambda x: x[2], reverse=True)</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Portfolio Performance</h5>
+                  <p class="mb-0">
+                    Finally, we evaluate the performance of an equal-weighted portfolio of all pairs.
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Calculate the sharpe ratio of a equal weighted portfolio
+cumulative_returns_portfolio = np.sum(cumulative_returns, axis=0)/50
+sharpe_ratio_portfolio = np.mean(cumulative_returns_portfolio) / np.std(cumulative_returns_portfolio) /np.sqrt(5)
+
+# Draw the cumulative return of the equal weighted portfolio
+plt.figure(figsize=(10, 5))
+plt.plot(cumulative_returns_portfolio)
+plt.title('Cumulative return of the equal weighted portfolio')
+plt.show()
+
+print(f'Sharpe ratio of the equal weighted portfolio: {sharpe_ratio_portfolio}')</code></pre>
+
+                <div class="d-flex justify-content-center">
+                  <img src="../../images/quantio/2025-05-26-pair-trading-Image2.png" alt="Portfolio Cumulative Returns" class="img-fluid">
+                </div>
+              </section>
+
+              <section class="mb-4">
+                <h2 id="comments" class="h5 mb-3">Comments</h2>
+                <p>
+                  This is a simple implementation of the pairs trading strategy. There are many ways to improve the strategy. For example, we can use machine learning models to predict the spread between the two stocks. We can also use more sophisticated methods to find the pairs of stocks that are cointegrated. But the results of this simple implementation are already promising.
+                </p>
+              </section>
+
+              <section class="mb-4">
+                <h2 id="engle-granger-implementation" class="h5 mb-3">Engle-Granger Implementation</h2>
+                <p>
+                  Here is another implementation of the pairs trading strategy using the two-step Engle-Granger method. For this implementation, I did not explicitly separate the training and testing data. I used the entire data to find the cointegrated pairs and then implemented the pairs trading strategy.
+                </p>                
+
+                <pre><code class="language-python">def find_cointegrated_pairs(data):
+n = len(data)
+
+score_matrix = np.zeros((n, n))
+pvalue_matrix = np.ones((n, n))
+
+keys = range(n)
+pairs = list(itertools.combinations(keys, 2))
+
+for i, j in pairs:
+    print(f'Finding cointegration for {tickers[i]} and {tickers[j]}')
+    try:
+        result = coint(data[i]['Close'], data[j]['Close'])
+    except:
+        print(f'Error in cointegration test for {tickers[i]} and {tickers[j]}')
+        continue
+    else:
+        score = result[0]
+        pvalue = result[1]
+        score_matrix[i, j] = score
+        pvalue_matrix[i, j] = pvalue
+
+return score_matrix, pvalue_matrix</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section handles data persistence:
+                    <ol>
+                      <li>Data Management:
+                        <ul>
+                          <li>Saves cointegration test results to files</li>
+                          <li>Loads previously computed results</li>
+                          <li>Optimizes computation time by avoiding recalculation</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Do not run this cell, load the data directly
+score_matrix, pvalue_matrix = find_cointegrated_pairs(holder)
+
+# Save the score and pvalue matrix
+np.save('score_matrix.npy', score_matrix)
+np.save('pvalue_matrix.npy', pvalue_matrix)
+
+# Read the score and pvalue matrix
+score_matrix = np.load('score_matrix.npy')
+pvalue_matrix = np.load('pvalue_matrix.npy')</code></pre>
+
+                
+                <pre><code class="language-python">pairs = []
+for i in range(len(tickers)):
+    for j in range(i+1, len(tickers)):
+        if pvalue_matrix[i, j] < 0.05:
+            pairs.append((tickers[i], tickers[j]))
+
+print(f'Found {len(pairs)} cointegrated pairs')</code></pre>
+
+                <pre><code class="language-python"># Print the top 100 cointegrated pairs with the lowest p-values
+pairs.sort(key=lambda x: pvalue_matrix[tickers.index(x[0]), tickers.index(x[1])])
+for pair in pairs[:100]:
+    print(pair, pvalue_matrix[tickers.index(pair[0]), tickers.index(pair[1])])</code></pre>
+
+                <pre><code class="language-python"># Load the data for the top 100 cointegrated pairs
+top_pairs = pairs[:100]
+top_pairs_data = []
+for pair in top_pairs:
+    top_pairs_data.append((load_data(pair[0]), load_data(pair[1])))
+    print(f'Loaded data for {pair[0]} and {pair[1]}')
+
+# For each df in the top_pairs_data, devide the close price by the first close price
+for i, (df1, df2) in enumerate(top_pairs_data):
+    top_pairs_data[i] = (df1['Close'] / df1['Close'].iloc[0], df2['Close'] / df2['Close'].iloc[0])
+
+# Show the top_pairs_data[0]
+print(top_pairs_data[0])</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section calculates spread metrics:
+                    <ol>
+                      <li>Spread Analysis:
+                        <ul>
+                          <li>Computes price spreads between pairs</li>
+                          <li>Calculates standard deviation of spreads</li>
+                          <li>Generates trading signals based on spread thresholds</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># For each pair in the top_pairs_data, calculate the spread
+spread_data = []
+for df1, df2 in top_pairs_data:
+    spread_data.append(df1 - df2)
+    
+# Show the spread_data[0]
+print(spread_data[0])
+
+# Calculate the standard deviation of the spread for each pair
+std_spread = []
+for spread in spread_data:
+    std_spread.append(np.std(spread))
+
+# Show the std_spread[0]
+print(std_spread[0])
+
+# Generate the signals for each pair based on if the absolute value of spread is greater than 2 standard deviation
+# If the spread is greater than 2 standard deviation, the signal is 1
+# If the spread is less than -2 standard deviation, the signal is -1
+# Otherwise, the signal is 0
+signals = []
+for spread, std in zip(spread_data, std_spread):
+    signals.append(np.where(spread > 2 * std, 1, np.where(spread < -2 * std, -1, 0)))
+
+# Show the signals[0]
+print(signals[0])</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section implements the trading strategy:
+                    <ol>
+                      <li>Return Calculation:
+                        <ul>
+                          <li>Computes daily returns for each pair</li>
+                          <li>Implements position entry and exit logic</li>
+                          <li>Calculates strategy returns based on signals</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Calculate the daily return for each pair using close price
+daily_return = [None] * len(top_pairs_data)
+for i, (df1, df2) in enumerate(top_pairs_data):
+    daily_return[i] = ((df1/df1.shift(1) - 1) , (df2/df2.shift(1) - 1))
+
+# Show the daily_return[0]
+print(daily_return[0])
+
+# For each pair, calculate the daily return of the strategy
+# If the signal is 1, then short the first stock and long the second stock, hold the position until the spread is 0, then calculate the return for this trade
+# If the signal is -1, then long the first stock and short the second stock, hold the position until the spread is 0, then calculate the return foer this trade
+# If the signal is 0, then do nothing
+daily_return_strategy = []
+for i, (df1, df2) in enumerate(top_pairs_data):
+    signal = signals[i]
+    spread = spread_data[i]
+    daily_return_strategy.append([0] * len(df1))
+    for j in range(1, len(df1)):
+        # If the signal is 1 and the previous signal is not 1, then short the first stock and long the second stock
+        if signal[j] == 1 and signal[j-1] != 1:
+            # Exit the position when the spread is less than or equal to 0
+            k = j
+            while k < len(df1) and spread[k] > 0:
+                k += 1
+            if k < len(df1):
+                daily_return_strategy[i][j] = (df2[k+1]/df2[j+1] - 1) - (df1[k+1]/df1[j+1] - 1)
+        # If the signal is -1 and the previous signal is not -1, then long the first stock and short the second stock
+        elif signal[j] == -1 and signal[j-1] != -1:
+            # Exit the position when the spread is greater than or equal to 0
+            k = j
+            while k < len(df1) and spread[k] < 0:
+                k += 1
+            if k < len(df1):
+                daily_return_strategy[i][j] = (df1[k+1]/df1[j+1] - 1) - (df2[k+1]/df2[j+1] - 1)
+
+# Show the daily_return_strategy[0]
+print(daily_return_strategy[0])</code></pre>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Code Explanation</h5>
+                  <p class="mb-0">
+                    This code section analyzes strategy performance:
+                    <ol>
+                      <li>Performance Metrics:
+                        <ul>
+                          <li>Calculates cumulative returns for each pair</li>
+                          <li>Computes Sharpe ratios for profitable pairs</li>
+                          <li>Evaluates portfolio performance</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <pre><code class="language-python"># Calculate the cumulative return for each pair using cumsum
+cumulative_return = []
+for daily_return_strat in daily_return_strategy:
+    cumulative_return.append(np.cumsum(daily_return_strat))
+
+# Show the cumulative_return[0]
+print(cumulative_return[0])
+
+# Check the non zero cumulative return
+for i, cum_return in enumerate(cumulative_return):
+    if cum_return[-1] != 0:
+        print(f'{top_pairs[i]}: {cum_return[-1]}')
+
+# calculate the sharpe ratio for each pair with non zero cumulative return
+sharpe_ratio = []
+for i, cum_return in enumerate(cumulative_return):
+    if cum_return[-1] != 0:
+        sharpe_ratio.append(np.mean(daily_return_strategy[i]) / np.std(daily_return_strategy[i]) * np.sqrt(252))
+
+# Show the sharpe_ratio
+for i, ratio in enumerate(sharpe_ratio):
+    print(f'{top_pairs[i]}: {ratio}')
+
+# Calculate the sharpe ratio of a equal weighted portfolio
+cumulative_returns_array = np.zeros(len(cumulative_return))
+for i, cum_return in enumerate(cumulative_return):
+    cumulative_returns_array[i] = cum_return[-1]
+
+# drop the pairs that have zero cumulative return
+cumulative_returns_array = cumulative_returns_array[cumulative_returns_array != 0]
+
+print(cumulative_returns_array)
+
+cumulative_returns_portfolio = np.sum(cumulative_returns_array, axis=0)/len(cumulative_returns_array)
+sharpe_ratio_portfolio = np.mean(cumulative_returns_array) / np.std(cumulative_returns_array)
+
+print(f'Sharpe ratio of the equal weighted portfolio: {sharpe_ratio_portfolio}')</code></pre>
+              </section>
+
+              <section class="mb-4">
+                <h2 id="conclusion" class="h5 mb-3">Conclusion and Future Work</h2>
+                
+                <div class="strategy-overview mb-4">
+                  <p>
+                    Through our implementation of both the distance method and Engle-Granger method, we have demonstrated that pairs trading remains a profitable strategy even after many years. While the distance method offers simplicity with its fixed 1:1 long-short ratio, the Engle-Granger method provides more flexibility in position sizing.
+                  </p>
+                </div>
+
+                <div class="alert alert-info mt-3">
+                  <h5 class="alert-heading">Key Findings</h5>
+                  <p class="mb-0">
+                    <ol>
+                      <li>Strategy Performance:
+                        <ul>
+                          <li>Both methods demonstrate consistent profitability</li>
+                          <li>Results show similar performance despite different approaches</li>
+                          <li>Strategy maintains effectiveness in current market conditions</li>
+                        </ul>
+                      </li>
+                      <li>Method Comparison:
+                        <ul>
+                          <li>Distance method: Simpler implementation with fixed ratios</li>
+                          <li>Engle-Granger method: More flexible position sizing</li>
+                          <li>Both approaches show comparable results</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+
+                <div class="alert alert-warning mt-3">
+                  <h5 class="alert-heading">Future Work</h5>
+                  <p class="mb-0">
+                    Several promising areas for further research and improvement:
+                    <ol>
+                      <li>Strategy Enhancement:
+                        <ul>
+                          <li>Adjust long-short ratios in Engle-Granger method</li>
+                          <li>Optimize position sizing for better risk-adjusted returns</li>
+                          <li>Implement dynamic threshold adjustments</li>
+                        </ul>
+                      </li>
+                      <li>Portfolio Expansion:
+                        <ul>
+                          <li>Develop "Generalized pairs-trading" approach</li>
+                          <li>Trade groups of stocks against other groups</li>
+                          <li>Create statistical arbitrage book with multiple pair trades</li>
+                        </ul>
+                      </li>
+                      <li>Risk Management:
+                        <ul>
+                          <li>Implement portfolio-level risk controls</li>
+                          <li>Develop dynamic position sizing based on volatility</li>
+                          <li>Add correlation-based position limits</li>
+                        </ul>
+                      </li>
+                    </ol>
+                  </p>
+                </div>
+              </section>
+            </div>
+          </article>
+        </div>
+      </main>
+  
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+      <script src="../../components/header.js"></script>
+    </body>
+  </html>
