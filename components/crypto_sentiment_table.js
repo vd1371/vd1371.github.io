@@ -12,7 +12,7 @@ function createCryptoSentimentTable(containerId) {
     USDC: base_link + 'usd-coin',
     XRP: base_link + 'xrp',
     DOGE: base_link + 'dogecoin',
-    ADA: base_link + 'ada',
+    ADA: base_link + 'cardano',
     TRX: base_link + 'tron',
     AVAX: base_link + 'avalanche',
     SHIB: base_link + 'shiba-inu',
