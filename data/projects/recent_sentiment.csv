@@ -1,6 +1,6 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
-ADA,0.8,0.2,0.8,1
-ETH,0.7,0.3,0.7,1
+ADA,0.75,0.2,0.8,2
+ETH,0.7,0.3,0.75,2
 BTC,0.6142857142857142,0.34285714285714286,0.7428571428571429,7
 XRP,0.6,0.4,0.8,2
 SUI,-0.15,0.3,0.8500000000000001,2
