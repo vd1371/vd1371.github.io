@@ -1,2 +1,4 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
-BTC,0.8,0.25,0.7,2
+SOL,0.75,0.25,0.75,2
+XRP,0.7,0.1,0.8,1
+BTC,0.4,0.3,0.7,4
