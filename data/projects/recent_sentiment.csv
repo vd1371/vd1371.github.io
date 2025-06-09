@@ -1,4 +1,4 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
-ETH,0.8,0.2,0.9,1
-SOL,0.7,0.3,0.7,1
+SOL,0.6,0.43333333333333335,0.7333333333333334,3
+ETH,0.55,0.375,0.675,4
 BTC,0.2,0.4,0.5,1
