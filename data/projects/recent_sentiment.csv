@@ -1,4 +1,5 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
-ETH,0.7,0.3,0.7,1
+ETH,0.75,0.3,0.75,2
 XRP,0.7,0.3,0.7,1
-BTC,-0.03333333333333335,0.43333333333333335,0.7333333333333334,3
+APT,0.2,0.4,0.6,1
+BTC,0.14999999999999997,0.4,0.75,4
