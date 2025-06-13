@@ -1,5 +1,5 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
 XRP,0.62,0.32,0.76,5
-BTC,-0.03749999999999999,0.3875,0.7875,8
+BTC,0.1153846153846154,0.36153846153846153,0.7769230769230769,13
 ETH,-0.1,0.48,0.78,5
 HBAR,-0.3,0.7,0.8,1
