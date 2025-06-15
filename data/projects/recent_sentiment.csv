@@ -1,5 +1,1 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
-ARB,0.7,0.3,0.6,1
-BTC,-1.850371707708594e-17,0.3333333333333333,0.7333333333333334,3
-ETH,-0.2333333333333333,0.5,0.7333333333333334,3
-SOL,-0.5,0.2,0.7,1
