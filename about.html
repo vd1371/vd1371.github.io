@@ -15,68 +15,28 @@
     <main class="container py-5">
       <div class="row g-4 justify-content-center">
         <div class="col-md-6">
-          <div class="card shadow-sm mb-4">
-            <div class="card-body justify-content-center">
-              <div class="d-flex justify-content-center align-items-center mb-4">
-                <img
-                  src="public/Vahid2024-Square.jpg"
-                  alt="Profile Photo"
-                  class="rounded-circle me-4"
-                  style="width: 120px; height: 120px; object-fit: cover"
-                />
-                <div>
-                  <h3 class="card-title mb-1">Vahid Asghari</h3>
-                  <p class="text-muted mb-1">Quant AI Specialist at Premialab</p>
-                  <p class="text-muted"><i class="fas fa-map-marker-alt me-2"></i>Hong Kong</p>
+          <div class="card shadow-sm mb-4 justify-content-center align-items-center">
+            <div class="card-body">
+              <!-- Profile section with improved responsive layout -->
+              <div class="row g-3 align-items-center mb-4">
+                <div class="col-sm-auto d-flex justify-content-center">
+                  <img
+                    src="public/Vahid2024-Square.jpg"
+                    alt="Profile Photo"
+                    class="rounded-circle"
+                    style="width: 120px; height: 120px; object-fit: cover; box-shadow: 0 4px 8px rgba(0,0,0,0.1);"
+                  />
+                </div>
+                <div class="col-sm text-center text-sm-start">
+                  <h3 class="mb-2">Vahid Asghari</h3>
+                  <p class="text-muted mb-1 fw-medium">Quant AI Specialist at Premialab</p>
+                  <p class="text-muted mb-0">
+                    <i class="fas fa-map-marker-alt me-2 text-primary"></i>Hong Kong
+                  </p>
                 </div>
               </div>
-              <div class="d-flex justify-content-center">
-                <a
-                  href="https://linkedin.com/in/asgharivahid/"
-                  class="btn btn-primary align-self-center"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i class="fab fa-linkedin me-2"></i>Connect on LinkedIn
-                </a>
-              </div>
-            </div>
-          </div>
 
-          <div class="card shadow-sm">
-            <div class="card-body">
-              <h2 class="card-title h4 text-primary mb-4">About Me</h2>
-              <p class="card-text">
-                I'm a quantitative developer and researcher with experience in equity space and equity derivatives.
-                Currently, I'm working as a Quant AI Specialist at Premialab and responsible for developing in house
-                computational/quantitative tools and enriching the firm's products with AI and ML.
-              </p>
-              <p class="card-text">
-                Tight deadlines and high stakes projects are my bread and butter. Interested in building scalable and
-                efficient quantitative systems that can handle large amounts of data and complex computations.
-              </p>
-              <p class="card-text">
-                In my free time, I run bi-monthly Hong Kong Machine Learning Meetups, replicate academic papers, build
-                small full-stack applications, and cook for my family and friends.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row justify-content-center mt-4">
-        <div class="col-md-6">
-          <div class="card shadow-sm">
-            <div class="card-body">
               <div class="d-flex justify-content-center flex-wrap gap-3">
-                <a
-                  href="https://github.com/vd1371"
-                  class="btn btn-outline-dark"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i class="fab fa-github me-2"></i>GitHub
-                </a>
                 <a
                   href="https://linkedin.com/in/asgharivahid"
                   class="btn btn-outline-primary"
@@ -84,22 +44,6 @@
                   rel="noopener noreferrer"
                 >
                   <i class="fab fa-linkedin me-2"></i>LinkedIn
-                </a>
-                <a
-                  href="https://www.meetup.com/hong-kong-machine-learning-meetup"
-                  class="btn btn-outline-danger"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i class="fab fa-meetup me-2"></i>Meetup
-                </a>
-                <a
-                  href="https://scholar.google.com/citations?user=eUlLuc8AAAAJ&hl=en"
-                  class="btn btn-outline-info"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <i class="fas fa-graduation-cap me-2"></i>Google Scholar
                 </a>
                 <a
                   href="mailto:contact@vahidasghari.me"
@@ -117,7 +61,50 @@
                 >
                   <i class="fas fa-newspaper me-2"></i>Subscribe
                 </a>
+                <a
+                  href="https://github.com/vd1371"
+                  class="btn btn-outline-dark"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fab fa-github me-2"></i>GitHub
+                </a>
+                <a
+                  href="https://www.meetup.com/hong-kong-machine-learning-meetup"
+                  class="btn btn-outline-danger"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fab fa-meetup me-2"></i>Meetup
+                </a>
+                <a
+                  href="https://scholar.google.com/citations?user=eUlLuc8AAAAJ&hl=en"
+                  class="btn btn-outline-info"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <i class="fas fa-graduation-cap me-2"></i>Google Scholar
+                </a>
               </div>
+            </div>
+          </div>
+
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h2 class="card-title h4 text-primary mb-4">About Me</h2>
+              <p class="card-text">
+                I'm a quantitative developer and researcher with experience in equity space and equity derivatives.
+                Currently, I'm working as a Quant AI Specialist at Premialab and responsible for developing in house
+                computational/quantitative tools and enriching the firm's products with AI and ML.
+              </p>
+              <p class="card-text">
+                Interested in building scalable and
+                efficient quantitative systems that can handle large amounts of data and complex computations.
+              </p>
+              <p class="card-text">
+                In my free time, I run bi-monthly Hong Kong Machine Learning Meetups, replicate academic papers, build
+                small full-stack applications, and cook for my family and friends.
+              </p>
             </div>
           </div>
         </div>

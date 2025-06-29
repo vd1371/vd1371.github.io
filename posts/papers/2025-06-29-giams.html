@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="An open-source and extensible platform for general infrastructure asset management system - GIAMS"
+    />
+    <meta
+      name="keywords"
+      content="asset management, infrastructure, open-source, Python, bridge management, optimization, GIAMS"
+    />
+    <meta name="author" content="Vahid Asghari" />
+    <title>GIAMS: Open-Source Infrastructure Asset Management</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../styles.css" />
+    <!-- Add syntax highlighting for code blocks -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+  </head>
+  <body class="bg-light">
+    <header id="main-header"></header>
+
+    <main class="container py-4">
+      <div class="row justify-content-center">
+        <div class="col-md-6">
+          <article class="card shadow-sm p-4">
+            <header class="post-header mb-4">
+              <h1 class="card-title h4 text-primary pb-2">GIAMS: Open-Source Infrastructure Asset Management</h1>
+              <small class="text-muted">June 29, 2025</small>
+            </header>
+
+            <div class="d-flex justify-content-center mb-4">
+              <img src="../../images/papers/2025-06-29-giams-Image1.png" alt="GIAMS Infrastructure Asset Management System" class="img-fluid">
+            </div>
+      
+            <div class="table-of-contents mb-4">
+              <h5 class="mb-3">Table of Contents</h5>
+              <ol class="list-unstyled">
+                <li class="mb-2"><a href="#motivation">Motivation</a></li>
+                <li class="mb-2"><a href="#why-it-matters">Why it matters</a></li>
+                <li class="mb-2"><a href="#how-it-works">How it works</a></li>
+                <li class="mb-2"><a href="#real-world-applications">Real-world applications</a></li>
+              </ol>
+            </div>
+      
+            <div>
+              <!-- Start with the motivation -->
+              <section class="mb-4" id="motivation">
+                <h1 class="mb-3">Motivation</h1>
+
+                <p>
+                  Traditional asset management systems (AMS) are like overpriced, locked-in software suites—think clunky,
+                  expensive, and about as flexible as a concrete slab. The authors saw the need for something better:
+                  a system that's affordable, adaptable, and community-driven. Here's why they set out to create GIAMS:
+                </p>
+
+                <ul>
+                  <li>
+                    <strong>Cost Barriers:</strong> Proprietary AMS solutions often come with hefty price tags, putting
+                    them out of reach for smaller agencies or developing regions.
+                  </li>
+  
+                  <li>
+                    <strong>Rigidity:</strong> Most systems are rigid, making it hard to tweak them for specific needs
+                    like bridge deterioration models or seismic risk analysis.
+                  </li>
+  
+                  <li>
+                    <strong>Collaboration Gap:</strong> Closed systems limit community input, slowing down innovation
+                    in infrastructure management.
+                  </li>
+  
+                  <li>
+                    <strong>Inextensibility:</strong> Existing systems can't be easily updated or extended, forcing researchers
+                    to develop new AMS from scratch for each study.
+                  </li>
+  
+                  <li>
+                    <strong>Language Limitations:</strong> Many current AMS use inflexible programming languages that make
+                    it difficult to integrate modern tools like machine learning models.
+                  </li>
+  
+                  <li>
+                    <strong>Solution:</strong> GIAMS, an open-source Python platform, empowers engineers and researchers to
+                    customize and collaborate without breaking the bank, addressing diverse infrastructure challenges
+                    from bridges to buildings.
+                  </li>
+                </ul>
+
+                <p>
+                  <strong>Paper:</strong> 
+                  <a href="https://www.sciencedirect.com/science/article/abs/pii/S0926580521001436" target="_blank">GIAMS: An Open-Source Infrastructure Asset Management System</a>
+                </p>
+
+                <p>
+                  <strong>Repository:</strong> 
+                  <a href="https://github.com/vd1371/GIAMS" target="_blank">https://github.com/vd1371/GIAMS</a>
+                </p>
+              </section>
+
+              <section class="mb-4" id="why-it-matters">
+                <h1 class="mb-3">Why it matters: A Game-Changer for Infrastructure</h1>
+                
+                <p>
+                  GIAMS isn't just another tool; it's a paradigm shift for how we manage critical infrastructure.
+                  Here's why it's considered a game-changer:
+                </p>
+
+                <ul>
+                  <li>
+                    <strong>Cost Savings:</strong>
+                    Open-source means no licensing fees, making advanced asset management accessible to
+                    cash-strapped municipalities or developing countries.
+                  </li>
+  
+                  <li>
+                    <strong>Global Collaboration:</strong>
+                    Hosted on GitHub, GIAMS invites contributions from engineers worldwide, speeding up
+                    innovation through shared expertise.
+                  </li>
+  
+                  <li>
+                    <strong>Scalability:</strong>
+                    Its modular design lets users tailor solutions for specific assets
+                    (e.g., bridges in Indiana or earthquake-prone buildings in Japan).
+                  </li>
+  
+                  <li>
+                    <strong>Python Power:</strong>
+                    Written in Python, GIAMS can integrate with modern data science tools like TensorFlow and Scikit-learn,
+                    enabling advanced machine learning applications.
+                  </li>
+  
+                  <li>
+                    <strong>Future-Proofing:</strong>
+                    GIAMS supports emerging needs, like integrating AI for predictive maintenance or adapting to new
+                    regulations, without starting from scratch.
+                  </li>
+  
+                  <li>
+                    <strong>Real-World Impact:</strong>
+                    Imagine a small town using GIAMS to predict bridge wear and tear, saving millions in repairs, or a
+                    research team adding a new seismic risk model that gets adopted globally. That's the power of
+                    open-source!
+                  </li>
+                </ul>
+              </section>
+
+              <section class="mb-4" id="how-it-works">
+                <h1 class="mb-3">How it works</h1>
+                
+                <p>
+                  GIAMS is like a Lego set for infrastructure management—modular, extensible, and built for collaboration.
+                  It's hosted on GitHub and uses Git's version-control magic to manage contributions. Here's the technical breakdown:
+                </p>
+
+                <h3 class="mt-4 mb-3">System Architecture</h3>
+                <p>GIAMS follows an object-oriented design with the builder pattern, consisting of four major modules:</p>
+
+                <ul>
+                  <li>
+                    <strong>Asset Module:</strong> The core component that models infrastructure elements like bridges or buildings
+                    
+                    <ul class="mt-2">
+                      <li><strong>Elements:</strong> Individual components (deck, superstructure, substructure)</li>
+                      <li><strong>Condition Rating:</strong> Tracks asset health using various rating schemes (NBI, PONTIS, etc.)</li>
+                      <li><strong>Deterioration Models:</strong> Predict how assets degrade over time using Markov chains</li>
+                      <li><strong>Agency Costs:</strong> Model direct costs for maintenance, rehabilitation, and reconstruction</li>
+                      <li><strong>User Costs:</strong> Account for community impact (traffic delays, detours)</li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    <strong>Network Module:</strong> Aggregates multiple assets and defines network-level constraints and objectives
+                  </li>
+
+                  <li>
+                    <strong>Life Cycle Analyzer:</strong> Evaluates long-term performance and costs using Monte Carlo simulation
+                  </li>
+
+                  <li>
+                    <strong>Optimizer Module:</strong> Provides optimal maintenance strategies using:
+                    <ul class="mt-2">
+                      <li><strong>Genetic Algorithm (GA):</strong> For project-level life cycle optimization</li>
+                      <li><strong>Incremental Utility Cost (IUC):</strong> For network-level budget allocation</li>
+                    </ul>
+                  </li>
+                </ul>
+
+                <h3 class="mt-4 mb-3">Hazard Integration</h3>
+                <p>GIAMS can model various hazards affecting infrastructure:</p>
+                <ul>
+                  <li><strong>Generator Models:</strong> Use Poisson Point Process to model hazard occurrence</li>
+                  <li><strong>Response Models:</strong> HAZUS-based fragility curves predict asset response to hazards</li>
+                  <li><strong>Loss Models:</strong> Estimate casualties and economic losses</li>
+                  <li><strong>Recovery Models:</strong> Plan post-disaster restoration strategies</li>
+                </ul>
+              </section>
+
+              <section class="mb-4" id="real-world-applications">
+                <h1 class="mb-3">Real-world Applications</h1>
+                
+                <p>
+                  GIAMS demonstrates its capabilities through comprehensive examples using the Indiana bridge network
+                  with over 4,600 bridges from the National Bridge Inventory.
+                </p>
+
+                <h3 class="mt-4 mb-3">Project-Level Optimization</h3>
+                <p>
+                  For individual assets, GIAMS uses genetic algorithms to find optimal maintenance strategies over
+                  a 20-year horizon. The system considers:
+                </p>
+                <ul>
+                  <li>Budget constraints and performance requirements</li>
+                  <li>Probabilistic deterioration and hazard occurrence</li>
+                  <li>Multiple bridge elements (deck, superstructure, substructure)</li>
+                  <li>Various maintenance actions (do nothing, maintain, rehabilitate, reconstruct)</li>
+                </ul>
+
+                <h3 class="mt-4 mb-3">Network-Level Portfolio Selection</h3>
+                <p>
+                  At the network level, GIAMS uses the Incremental Utility Cost (IUC) heuristic to prioritize
+                  maintenance projects across the entire bridge network, helping agencies allocate limited budgets
+                  for maximum benefit.
+                </p>
+
+                <h3 class="mt-4 mb-3">Extensions and Future Applications</h3>
+                <p>GIAMS can be extended for various applications:</p>
+                <ul>
+                  <li><strong>Seismic Retrofit Planning:</strong> Prioritize building retrofits based on seismic risk</li>
+                  <li><strong>Structural Health Monitoring:</strong> Integrate sensor data for condition-based maintenance</li>
+                  <li><strong>Multi-Asset Networks:</strong> Expand beyond bridges to pavements, water systems, and more</li>
+                  <li><strong>Advanced Analytics:</strong> Incorporate machine learning for improved deterioration prediction</li>
+                </ul>
+
+                <p>
+                  The platform's modular design makes it straightforward to add new deterioration models,
+                  optimization algorithms, or asset types. For example, adding a location-based deterioration
+                  model requires just a few simple steps in the existing framework.
+                </p>
+              </section>
+            </div>
+          </article>
+        </div>
+      </div>
+    </main>
+
+    <script src="../../components/header.js"></script>
+    <script src="../../components/footer.js"></script>
+    <script src="../../data/content.js"></script>
+    <script src="../../components/content_menu.js"></script>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        loadHeader();
+      });
+    </script>
+  </body>
+</html>
