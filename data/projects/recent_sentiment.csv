@@ -1,3 +1,4 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
 BTC,0.6,0.3,0.7,1
+XRP,0.6,0.3,0.8,1
 HBAR,0.5,0.4,0.6,1
