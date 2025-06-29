@@ -153,7 +153,7 @@
       // The Network Level Multiagent reinforcement learning for project-level intervention planning under multiple uncertainties
       title:
         'The Network Level Multiagent reinforcement learning for project-level intervention planning under multiple uncertainties',
-      link: 'resources/tools.html',
+      link: 'posts/papers/2025-06-29-RLAMNL.html',
       icon: 'bi-diagram-2',
     },
   ];
