@@ -1,5 +1,6 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
 BCH,0.8,0.2,0.7,1
-ETH,0.7,0.25,0.7,2
 TRX,0.7,0.2,0.5,1
-BTC,0.375,0.225,0.775,4
+ETH,0.7,0.25,0.7,2
+BTC,0.32222222222222224,0.2777777777777778,0.6111111111111112,9
+DOGE,-0.6,0.7,0.8,1
