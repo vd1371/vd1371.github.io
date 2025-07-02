@@ -1,2 +1,7 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
-BTC,-0.5,0.3,0.6,1
+SUI,0.5,0.3,0.7,1
+DOGE,0.4,0.3,0.5,1
+ARB,0.3,0.6,0.7,1
+BTC,-0.25999999999999995,0.42000000000000004,0.6199999999999999,5
+ETH,-0.3,0.4,0.7,1
+XRP,-0.3,0.7,0.6,1
