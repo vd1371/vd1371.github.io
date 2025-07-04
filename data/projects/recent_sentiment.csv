@@ -1,3 +1,6 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
-BTC,0.36666666666666664,0.3666666666666667,0.7333333333333334,3
+BNB,0.7,0.2,0.8,1
+BTC,0.48,0.3,0.7,5
+SOL,0.4,0.2,0.6,1
+PEPE,-0.4,0.3,0.7,1
 ICP,-0.7,0.3,0.8,1
