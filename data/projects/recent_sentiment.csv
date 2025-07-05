@@ -2,5 +2,6 @@ symbol,sentiment_score,uncertainty_score,potential_market_impact,count
 XRP,0.6,0.4,0.5,1
 BTC,0.375,0.35,0.575,4
 DOGE,0.2,0.3,0.4,1
-ETH,0.125,0.325,0.675,4
-BCH,-0.3,0.7,0.8,1
+BCH,0.05000000000000002,0.44999999999999996,0.65,2
+ETH,0.04,0.3,0.64,5
+HBAR,-0.3,0.4,0.5,1
