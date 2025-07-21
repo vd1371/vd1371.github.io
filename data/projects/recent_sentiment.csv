@@ -1,5 +1,5 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
-ETH,0.725,0.275,0.825,4
+ETH,0.74,0.26,0.8,5
 BTC,0.26666666666666666,0.39999999999999997,0.35000000000000003,6
 LTC,0.2,0.5,0.7,1
 HBAR,0.2,0.5,0.6,1
