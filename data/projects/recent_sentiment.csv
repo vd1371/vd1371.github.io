@@ -1,9 +1,9 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
 HBAR,0.8,0.3,0.8,1
-SUI,0.8,0.3,0.7,1
+SUI,0.75,0.3,0.6499999999999999,2
 XRP,0.7,0.4,0.8,1
 BNB,0.6,0.2,0.5,1
+BTC,0.32,0.26,0.6,5
 PEPE,0.3,0.4,0.4,2
-BTC,0.2,0.275,0.575,4
 ETH,0.15000000000000002,0.25,0.7,2
 SOL,-0.2,0.3,0.5,1
