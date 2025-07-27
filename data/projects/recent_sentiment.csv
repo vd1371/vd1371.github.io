@@ -1,5 +1,6 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
 BCH,0.8,0.2,0.7,1
 ETH,0.7,0.3,0.8,1
+HBAR,0.7,0.3,0.6,1
 SOL,0.3,0.4,0.6,1
-BTC,-0.3,0.6,0.7,1
+BTC,-0.15,0.4,0.35,2
