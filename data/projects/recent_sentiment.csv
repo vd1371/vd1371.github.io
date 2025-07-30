@@ -1,2 +1,3 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
-BTC,-0.2,0.6,0.7,1
+ETH,0.7,0.4,0.8,1
+BTC,-0.25,0.4,0.55,2
