@@ -2,4 +2,5 @@ symbol,sentiment_score,uncertainty_score,potential_market_impact,count
 ETH,0.7,0.2,0.8,1
 BTC,0.35,0.25,0.45,2
 DOGE,-0.7,0.2,0.6,1
+SOL,-0.7,0.4,0.6,1
 XRP,-0.7,0.2,0.6,1
