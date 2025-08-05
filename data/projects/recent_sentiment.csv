@@ -1,3 +1,5 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
+LTC,0.8,0.3,0.8,1
 TRX,0.5,0.6,0.3,1
-BTC,-0.22499999999999998,0.475,0.525,4
+BTC,-0.039999999999999994,0.42000000000000004,0.54,5
+ETH,-0.3,0.2,0.6,1
