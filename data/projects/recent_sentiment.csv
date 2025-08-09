@@ -1,5 +1,6 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
 ETH,0.8,0.2,0.8,2
+BTC,0.6,0.4,0.5,1
 PEPE,0.5,0.3,0.6,1
 DOGE,0.4,0.3,0.5,1
 SOL,0.3333333333333333,0.4666666666666666,0.3666666666666667,3
