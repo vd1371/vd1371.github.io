@@ -1,1 +1,3 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
+ETH,0.6,0.3,0.75,2
+TRX,-0.7,0.2,0.8,1
