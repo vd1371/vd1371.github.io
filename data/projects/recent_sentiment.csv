@@ -1,5 +1,6 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
+LINK,0.8,0.1,0.8,1
 BNB,0.7,0.3,0.9,1
 DOGE,0.7,0.2,0.6,1
-BTC,0.425,0.325,0.55,4
-ETH,0.3,0.2,0.4,1
+BTC,0.3888888888888889,0.2777777777777778,0.5222222222222223,9
+ETH,0.25,0.25,0.55,2
