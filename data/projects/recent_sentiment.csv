@@ -1,3 +1,5 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
 XRP,0.7,0.2,0.6,1
+DOGE,0.6,0.2,0.7,1
+BTC,0.35,0.3,0.4,2
 TRX,0.2,0.4,0.6,1
