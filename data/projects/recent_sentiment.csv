@@ -1,2 +1,3 @@
 symbol,sentiment_score,uncertainty_score,potential_market_impact,count
+SOL,0.3,0.7,0.8,1
 ETH,-0.04999999999999999,0.44999999999999996,0.55,2
