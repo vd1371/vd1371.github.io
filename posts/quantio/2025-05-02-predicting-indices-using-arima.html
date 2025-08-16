@@ -20,17 +20,22 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
   </head>
   <body class="bg-light">
-    <header id="main-header"></header>
+    
 
-    <main class="container py-4">
+    <div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar Container -->
+    <div class="sidebar-container"></div>
+    
+    <!-- Main Content -->
+    <div class="col-lg-9 col-md-8 main-content">
+      <div class="content-wrapper p-4">
+        <main class="container py-4">
       <div class="row justify-content-center">
         <div class="col-md-6">
           <article class="card shadow-sm">
             <div class="card-body">
-              <header class="post-header mb-4">
-                <h1 class="card-title h4 text-primary pb-2">Predicting Indices Using ARIMA</h1>
-                <small class="text-muted">May 2, 2025</small>
-              </header>
+              
 
 
               <div>
@@ -482,9 +487,14 @@ print (results_holder)</code></pre>
       </div>
 
     </main>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <script src="../../components/header.js"></script>
-    <script src="../../components/footer.js"></script>
+    
+    
     <script src="../../data/content.js"></script>
     <script src="../../components/content_menu.js"></script>
     <!-- Bootstrap JS Bundle with Popper -->
@@ -493,8 +503,8 @@ print (results_holder)</code></pre>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
     <script>
       document.addEventListener('DOMContentLoaded', function () {
-        loadHeader();
-      });
+        });
     </script>
-  </body>
+    <script src="components/sidebar.js"></script>
+</body>
 </html>

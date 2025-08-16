@@ -10,90 +10,12 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <header></header>
+
 
     <div class="container-fluid">
       <div class="row">
-        <!-- Sidebar -->
-        <div class="col-lg-3 col-md-4 sidebar p-0">
-          <div class="sidebar-content h-100">
-            <!-- Profile Section -->
-            <div class="profile-section text-center p-4">
-              <div class="profile-image mb-3">
-                <img src="public/Vahid2024-Square.jpg" alt="Vahid Asghari" class="rounded-circle border border-3 border-white shadow">
-              </div>
-              <h1 class="h4 fw-bold text-white mb-2">Vahid Asghari</h1>
-              <p class="text-light mb-3">Quant AI Specialist at Premialab</p>
-            </div>
-
-            <!-- About Description -->
-            <div class="about-description p-3">
-              <h6 class="text-white mb-3 fw-semibold">About Me</h6>
-              <p class="text-white-50 small mb-3">
-                I'm a quantitative developer and researcher with experience in equity space and equity derivatives. 
-                Currently working as a Quant AI Specialist at Premialab, responsible for developing in-house 
-                computational/quantitative tools and enriching the firm's products with AI and ML.
-              </p>
-              <p class="text-white-50 small mb-3">
-                Interested in building scalable and efficient quantitative systems that can handle large amounts 
-                of data and complex computations.
-              </p>
-              <p class="text-white-50 small mb-3">
-                In my free time, I run bi-monthly Hong Kong Machine Learning Meetups, replicate academic papers, 
-                build small full-stack applications, and cook for my family and friends.
-              </p>
-            </div>
-
-            <!-- Navigation -->
-            <nav class="sidebar-nav p-3">
-              <ul class="nav flex-column">
-                <li class="nav-item mb-2">
-                  <a class="nav-link text-white-50 d-flex align-items-center" href="#quant">
-                    <i class="bi bi-journal-text me-2"></i>
-                    <span>Quant Notebooks</span>
-                  </a>
-                </li>
-                <li class="nav-item mb-2">
-                  <a class="nav-link text-white-50 d-flex align-items-center" href="#projects">
-                    <i class="bi bi-code-square me-2"></i>
-                    <span>Projects</span>
-                  </a>
-                </li>
-                <li class="nav-item mb-2">
-                  <a class="nav-link text-white-50 d-flex align-items-center" href="#papers">
-                    <i class="bi bi-book me-2"></i>
-                    <span>Research Papers</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-
-            <!-- Social Links -->
-            <div class="sidebar-footer p-3 mt-auto">
-              <h6 class="text-white mb-2 fw-semibold text-center">Connect With Me</h6>
-              <div class="d-flex flex-wrap justify-content-center gap-1">
-                <a href="https://linkedin.com/in/asgharivahid" class="btn btn-outline-light btn-sm px-2 py-1" target="_blank" title="LinkedIn">
-                  <i class="bi bi-linkedin"></i>
-                </a>
-                <a href="mailto:contact@vahidasghari.me" class="btn btn-outline-light btn-sm px-2 py-1" title="Email">
-                  <i class="bi bi-envelope"></i>
-                </a>
-                <a href="https://forms.gle/isrRxsD94VtHXNKx5" class="btn btn-outline-light btn-sm px-2 py-1" target="_blank" title="Subscribe">
-                  <i class="bi bi-newspaper"></i>
-                </a>
-                <a href="https://github.com/vd1371" class="btn btn-outline-light btn-sm px-2 py-1" target="_blank" title="GitHub">
-                  <i class="bi bi-github"></i>
-                </a>
-                <a href="https://www.meetup.com/hong-kong-machine-learning-meetup" class="btn btn-outline-light btn-sm px-2 py-1" target="_blank" title="Meetup">
-                  <i class="bi bi-people"></i>
-                </a>
-                <a href="https://scholar.google.com/citations?user=eUlLuc8AAAAJ&hl=en" class="btn btn-outline-light btn-sm px-2 py-1" target="_blank" title="Google Scholar">
-                  <i class="bi bi-mortarboard"></i>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- Sidebar Container -->
+        <div class="sidebar-container"></div>
 
         <!-- Main Content -->
         <div class="col-lg-9 col-md-8 main-content">
@@ -115,7 +37,7 @@
             </section>
 
             <!-- Projects Section -->
-            <section id="projects" class="mb-5">
+            <section id="projects-section" class="mb-5">
               <div class="section-header d-flex align-items-center mb-4">
                 <div class="section-icon me-3">
                   <i class="bi bi-code-square text-success fs-1"></i>
@@ -150,90 +72,10 @@
       </div>
     </div>
 
-    <script src="components/header.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="components/sidebar.js"></script>
     <script src="data/content.js"></script>
-    <script>
-      // Function to create content cards
-      function createContentCard(item, sectionType) {
-        const col = document.createElement('div');
-        col.className = 'col-lg-6 col-md-12';
-        
-        const card = document.createElement('div');
-        card.className = 'content-card h-100 p-4 border-0 shadow-sm';
-        
-        const iconClass = getIconClass(sectionType);
-        const iconColor = getIconColor(sectionType);
-        
-        card.innerHTML = `
-          <div class="d-flex align-items-start mb-3">
-            <div class="me-3">
-              <i class="bi ${item.icon} ${iconColor} fs-4"></i>
-            </div>
-            <div class="flex-grow-1">
-              <h5 class="fw-semibold mb-2">
-                <a href="${item.link}" class="text-decoration-none text-dark stretched-link">
-                  ${item.title}
-                </a>
-              </h5>
-              ${item.date ? `<small class="text-muted">${item.date}</small>` : ''}
-            </div>
-          </div>
-        `;
-        
-        col.appendChild(card);
-        return col;
-      }
-
-      function getIconClass(sectionType) {
-        const iconMap = {
-          'quant': 'bi-journal-text',
-          'projects': 'bi-code-square',
-          'papers': 'bi-book'
-        };
-        return iconMap[sectionType] || 'bi-file-text';
-      }
-
-      function getIconColor(sectionType) {
-        const colorMap = {
-          'quant': 'text-primary',
-          'projects': 'text-success',
-          'papers': 'text-info'
-        };
-        return colorMap[sectionType] || 'text-secondary';
-      }
-
-      // Function to populate sections
-      function populateSections() {
-        const quantNotebooksContainer = document.getElementById('quant-notebooks');
-        const projectsContainer = document.getElementById('projects');
-        const researchPapersContainer = document.getElementById('research-papers');
-
-        if (quantNotebooksContainer) {
-          quantNotebooks.forEach(item => {
-            quantNotebooksContainer.appendChild(createContentCard(item, 'quant'));
-          });
-        }
-
-        if (projectsContainer) {
-          projects.forEach(item => {
-            projectsContainer.appendChild(createContentCard(item, 'projects'));
-          });
-        }
-
-        if (researchPapersContainer) {
-          researchPapers.forEach(item => {
-            researchPapersContainer.appendChild(createContentCard(item, 'papers'));
-          });
-        }
-      }
-
-      // Wait for the DOM to be fully loaded
-      if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', populateSections);
-      } else {
-        populateSections();
-      }
-    </script>
+    <script src="components/content-cards.js"></script>
   </body>
 </html>

@@ -44,20 +44,20 @@
   </style>
  </head>
  <body class="bg-light">
-  <header id="main-header">
-  </header>
-  <main class="container py-4">
+  
+  <div class="container-fluid">
+  <div class="row">
+    <!-- Sidebar Container -->
+    <div class="sidebar-container"></div>
+    
+    <!-- Main Content -->
+    <div class="col-lg-9 col-md-8 main-content">
+      <div class="content-wrapper p-4">
+        <main class="container py-4">
    <div class="row justify-content-center">
     <div class="col-md-6">
      <article class="card shadow-sm p-4">
-      <header class="post-header mb-4">
-       <h1 class="card-title h4 text-primary pb-2">
-        PaperGPT
-       </h1>
-       <small class="text-muted">
-        May 25, 2025
-       </small>
-      </header>
+      
 
       <div class="d-flex flex-column justify-content-center">
         <div class="ratio ratio-16x9 mb-4">
@@ -196,10 +196,13 @@
     </div>
    </div>
   </main>
-  <script src="../../components/header.js">
-  </script>
-  <script src="../../components/footer.js">
-  </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+  
   <script src="../../components/crypto_sentiment_table.js">
   </script>
   <!-- Bootstrap JS Bundle with Popper -->
@@ -211,8 +214,7 @@
   </script>
   <script>
    document.addEventListener('DOMContentLoaded', function () {
-        loadHeader();
-      });
+        });
   </script>
   <!-- Include the JavaScript file -->
   <script src="../../components/crypto_sentiment_table.js">
@@ -223,5 +225,6 @@
         createCryptoSentimentTable('crypto-sentiment-table');
       });
   </script>
- </body>
+   <script src="components/sidebar.js"></script>
+</body>
 </html>
