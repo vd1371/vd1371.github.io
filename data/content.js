@@ -145,14 +145,14 @@
     },
     {
       // An open-source and extensible platform for general infrastructure asset management system
-      title: 'An open-source and extensible platform for general infrastructure asset management system',
+      title: 'An open-source platform for infrastructure asset management',
       link: 'posts/papers/2025-06-29-giams.html',
       icon: 'bi-gear-wide-connected',
     },
     {
       // The Network Level Multiagent reinforcement learning for project-level intervention planning under multiple uncertainties
       title:
-        'The Network Level Multiagent reinforcement learning for project-level intervention planning under multiple uncertainties',
+        'The multiagent reinforcement learning for portfolio management',
       link: 'posts/papers/2025-06-29-RLAMNL.html',
       icon: 'bi-diagram-2',
     },
