@@ -1,186 +1,295 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
+  <head>
+    <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+      content="An analysis of technical trading strategies in cryptocurrency markets using EMAC, RSI, Bollinger Bands, and MACD approaches"
+    />
   <meta
-    name="description"
-    content="An analysis of technical trading strategies in cryptocurrency markets using EMAC, RSI, Bollinger Bands, and MACD approaches"
-  />
-  <meta
-    name="keywords"
-    content="cryptocurrency trading, technical analysis, EMAC, RSI, Bollinger Bands, MACD, trading strategy"
-  />
-  <meta name="author" content="Vahid Asghari" />
-  <title>Technical Trading Strategies in Crypto</title>
-  <!-- Bootstrap CSS -->
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+      name="keywords"
+      content="cryptocurrency trading, technical analysis, EMAC, RSI, Bollinger Bands, MACD, trading strategy"
+    />
+    <meta name="author" content="Vahid Asghari" />
+    <title>Technical Trading Strategies in Crypto</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../../styles.css" />
-  <!-- Add syntax highlighting for code blocks -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
-</head>
-<body class="bg-light">
-  
+    <!-- Add syntax highlighting for code blocks -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css"
+    />
+  </head>
+  <body class="bg-light">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar Container -->
+        <div class="sidebar-container"></div>
 
-  <div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar Container -->
-    <div class="sidebar-container"></div>
-    
-    <!-- Main Content -->
-    <div class="col-lg-9 col-md-8 main-content">
-      <div class="content-wrapper p-4">
-                <div class="row justify-content-center">
-        <div class="col-md-12">
-          <article class="card shadow-sm p-4">
-          
+        <!-- Main Content -->
+        <div class="col-lg-9 col-md-8 main-content">
+          <div class="content-wrapper p-4">
+            <div class="row justify-content-center">
+              <div class="col-md-12">
+                <article class="card shadow-sm p-4">
+                  <div>
+                    <img
+                      src="../../images/quantio/2024-03-20-technical-trading-strategies-in-crypto-Image0.png"
+                      alt="Technical Trading Strategies in Crypto"
+                      class="img-fluid"
+                    />
+                  </div>
 
-          <div>
-            <img src="../../images/quantio/2024-03-20-technical-trading-strategies-in-crypto-Image0.png" alt="Technical Trading Strategies in Crypto" class="img-fluid">
-          </div>
+                  <div class="table-of-contents mb-4">
+                    <h2 class="h5 mb-3">Table of Contents</h2>
+                    <ul class="list-unstyled">
+                      <li>
+                        <a href="#strategy-overview">Strategy Overview</a>
+                        <ul class="list-unstyled ms-3">
+                          <li><a href="#key-components">Key Components</a></li>
+                          <li>
+                            <a href="#code-explanation">Code Explanation</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#date-ranges">Date Ranges for Analysis</a>
+                      </li>
+                      <li>
+                        <a href="#simulation-function">Simulation Function</a>
+                        <ul class="list-unstyled ms-3">
+                          <li><a href="#key-components">Key Components</a></li>
+                          <li>
+                            <a href="#code-explanation">Code Explanation</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#strategy-implementation"
+                          >Strategy Implementation</a
+                        >
+                        <ul class="list-unstyled ms-3">
+                          <li>
+                            <a href="#strategy-components"
+                              >Strategy Components</a
+                            >
+                          </li>
+                          <li>
+                            <a href="#code-explanation">Code Explanation</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#strategy-selection">Strategy Selection</a>
+                        <ul class="list-unstyled ms-3">
+                          <li>
+                            <a href="#selection-criteria">Selection Criteria</a>
+                          </li>
+                          <li>
+                            <a href="#code-explanation">Code Explanation</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#best-eth-strategy">Best ETH Strategy</a>
+                        <ul class="list-unstyled ms-3">
+                          <li>
+                            <a href="#strategy-components"
+                              >Strategy Components</a
+                            >
+                          </li>
+                          <li>
+                            <a href="#code-explanation">Code Explanation</a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#statistical-testing">Statistical Testing</a>
+                        <ul class="list-unstyled ms-3">
+                          <li>
+                            <a href="#testing-components">Testing Components</a>
+                          </li>
+                          <li>
+                            <a href="#test-results-analysis"
+                              >Test Results Analysis</a
+                            >
+                          </li>
+                          <li>
+                            <a href="#performance-summary"
+                              >Performance Summary</a
+                            >
+                          </li>
+                          <li>
+                            <a href="#statistical-testing-results"
+                              >Statistical Testing Results</a
+                            >
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <a href="#thoughts-and-conclusion"
+                          >Thoughts and Conclusion</a
+                        >
+                        <ul class="list-unstyled ms-3">
+                          <li><a href="#key-findings">Key Findings</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </div>
 
-          <div class="table-of-contents mb-4">
-            <h2 class="h5 mb-3">Table of Contents</h2>
-            <ul class="list-unstyled">
-              <li><a href="#strategy-overview">Strategy Overview</a>
-                <ul class="list-unstyled ms-3">
-                  <li><a href="#key-components">Key Components</a></li>
-                  <li><a href="#code-explanation">Code Explanation</a></li>
-                </ul>
-              </li>
-              <li><a href="#date-ranges">Date Ranges for Analysis</a></li>
-              <li><a href="#simulation-function">Simulation Function</a>
-                <ul class="list-unstyled ms-3">
-                  <li><a href="#key-components">Key Components</a></li>
-                  <li><a href="#code-explanation">Code Explanation</a></li>
-                </ul>
-              </li>
-              <li><a href="#strategy-implementation">Strategy Implementation</a>
-                <ul class="list-unstyled ms-3">
-                  <li><a href="#strategy-components">Strategy Components</a></li>
-                  <li><a href="#code-explanation">Code Explanation</a></li>
-                </ul>
-              </li>
-              <li><a href="#strategy-selection">Strategy Selection</a>
-                <ul class="list-unstyled ms-3">
-                  <li><a href="#selection-criteria">Selection Criteria</a></li>
-                  <li><a href="#code-explanation">Code Explanation</a></li>
-                </ul>
-              </li>
-              <li><a href="#best-eth-strategy">Best ETH Strategy</a>
-                <ul class="list-unstyled ms-3">
-                  <li><a href="#strategy-components">Strategy Components</a></li>
-                  <li><a href="#code-explanation">Code Explanation</a></li>
-                </ul>
-              </li>
-              <li><a href="#statistical-testing">Statistical Testing</a>
-                <ul class="list-unstyled ms-3">
-                  <li><a href="#testing-components">Testing Components</a></li>
-                  <li><a href="#test-results-analysis">Test Results Analysis</a></li>
-                  <li><a href="#performance-summary">Performance Summary</a></li>
-                  <li><a href="#statistical-testing-results">Statistical Testing Results</a></li>
-                </ul>
-              </li>
-              <li><a href="#thoughts-and-conclusion">Thoughts and Conclusion</a>
-                <ul class="list-unstyled ms-3">
-                  <li><a href="#key-findings">Key Findings</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
+                  <div>
+                    <section id="strategy-overview" class="mb-4">
+                      <h2 class="h5 mb-3">Strategy Overview</h2>
 
-          <div>
-            <section id="strategy-overview" class="mb-4">
-              <h2 class="h5 mb-3">Strategy Overview</h2>
-              
-              <div class="metadata mb-3">
-                <p><strong>Code Author:</strong> Oscar LI</p>
-                <p><strong>Reference Paper:</strong> Testing the Applicability of the Technical Trading Strategy in the Cryptocurrency Market</p>
-                <p><strong>Authors:</strong> Chen, A., Wang, Z., & Yang, M. (2023)</p>
-                <p><strong>Journal:</strong> Journal of Finance and Economics, 11(4), 195-234</p>
-                <p><strong>DOI:</strong> <a href="https://pubs.sciepub.com/jfe/11/4/2/" target="_blank">10.12691/jfe-11-4-2</a></p>
-              </div>
+                      <div class="metadata mb-3">
+                        <p><strong>Code Author:</strong> Oscar LI</p>
+                        <p>
+                          <strong>Reference Paper:</strong> Testing the
+                          Applicability of the Technical Trading Strategy in the
+                          Cryptocurrency Market
+                        </p>
+                        <p>
+                          <strong>Authors:</strong> Chen, A., Wang, Z., & Yang,
+                          M. (2023)
+                        </p>
+                        <p>
+                          <strong>Journal:</strong> Journal of Finance and
+                          Economics, 11(4), 195-234
+                        </p>
+                        <p>
+                          <strong>DOI:</strong>
+                          <a
+                            href="https://pubs.sciepub.com/jfe/11/4/2/"
+                            target="_blank"
+                            >10.12691/jfe-11-4-2</a
+                          >
+                        </p>
+                      </div>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Key Components</h5>
-                <p class="mb-0">
-                  The strategy implements four technical trading approaches on cryptocurrency markets:
-                  <ol>
-                    <li>EMAC Strategy:
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Key Components</h5>
+                        <p class="mb-0">
+                          The strategy implements four technical trading
+                          approaches on cryptocurrency markets:
+                        </p>
+
+                        <ol>
+                          <li>
+                            EMAC Strategy:
+                            <ul>
+                              <li>Uses exponential moving average crossover</li>
+                              <li>
+                                Generates signals based on short and long-term
+                                trend alignment
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            RSI Strategy:
+                            <ul>
+                              <li>Implements Relative Strength Index</li>
+                              <li>
+                                Identifies overbought and oversold conditions
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Bollinger Bands Strategy:
+                            <ul>
+                              <li>Uses price volatility and mean reversion</li>
+                              <li>
+                                Generates signals based on price breakouts
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            MACD Strategy:
+                            <ul>
+                              <li>Combines moving averages with momentum</li>
+                              <li>
+                                Identifies trend changes and momentum shifts
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+
+                      <p class="mt-3">
+                        The strategy focuses on BTC/USDT and ETH/USDT pairs,
+                        evaluating performance through:
+                      </p>
+
                       <ul>
-                        <li>Uses exponential moving average crossover</li>
-                        <li>Generates signals based on short and long-term trend alignment</li>
+                        <li>Annualized returns</li>
+                        <li>Sharpe ratio</li>
+                        <li>In-sample and out-of-sample testing</li>
+                        <li>Statistical significance analysis</li>
                       </ul>
-                    </li>
-                    <li>RSI Strategy:
-                      <ul>
-                        <li>Implements Relative Strength Index</li>
-                        <li>Identifies overbought and oversold conditions</li>
-                      </ul>
-                    </li>
-                    <li>Bollinger Bands Strategy:
-                      <ul>
-                        <li>Uses price volatility and mean reversion</li>
-                        <li>Generates signals based on price breakouts</li>
-                      </ul>
-                    </li>
-                    <li>MACD Strategy:
-                      <ul>
-                        <li>Combines moving averages with momentum</li>
-                        <li>Identifies trend changes and momentum shifts</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
+                    </section>
+                    <section>
+                      The idea is to using Technical Trading Strategies on
+                      cryptocurrency market, mainly BTC/USDT and ETH/USDT pair.
+                      EMAC Strategy, RSI Strategy, Bollinger Bands Strategy and
+                      MACD Strategy are suggested to formulate a profitable
+                      strategy.
+                    </section>
+                    <section>
+                      The performance of the strategies are evaulated by 2
+                      approaches, the annualized return and the sharpe ratio.
+                      Also, the performance will be assessed on its
+                      profitability over the whole sample and the profitability
+                      in In-sample period and Out-of-Sample periods. import
+                      pandas as pd import numpy as np import yfinance as yf from
+                      datetime import datetime, timedelta
+                    </section>
+                    <section id="date-ranges" class="mb-4">
+                      <h2 class="h5 mb-3">Date Ranges for Analysis</h2>
 
-              <p class="mt-3">
-                The strategy focuses on BTC/USDT and ETH/USDT pairs, evaluating performance through:
-                <ul>
-                  <li>Annualized returns</li>
-                  <li>Sharpe ratio</li>
-                  <li>In-sample and out-of-sample testing</li>
-                  <li>Statistical significance analysis</li>
-                </ul>
-              </p>
-            </section>
-            <section>
-              The idea is to using Technical Trading Strategies on cryptocurrency market, mainly BTC/USDT and ETH/USDT pair. EMAC Strategy, RSI Strategy, Bollinger Bands Strategy and MACD Strategy are suggested to formulate a profitable strategy.
-            </section>
-            <section>
-              The performance of the strategies are evaulated by 2 approaches, the annualized return and the sharpe ratio. Also, the performance will be assessed on its profitability over the whole sample and the profitability in In-sample period and Out-of-Sample periods.
-              
-              import pandas as pd
-              import numpy as np
-              import yfinance as yf
-              from datetime import datetime, timedelta
-            </section>
-            <section id="date-ranges" class="mb-4">
-              <h2 class="h5 mb-3">Date Ranges for Analysis</h2>
-              
-              <p>The analysis is conducted using two distinct time periods to evaluate the strategies' performance:</p>
+                      <p>
+                        The analysis is conducted using two distinct time
+                        periods to evaluate the strategies' performance:
+                      </p>
 
-              <div class="alert alert-info">
-                <h5 class="alert-heading">Time Periods</h5>
-                <ul class="mb-0">
-                  <li><strong>In-Sample Period:</strong> Used for strategy development and initial testing</li>
-                  <li><strong>Out-of-Sample Period:</strong> Used for validation and performance verification</li>
-                </ul>
-              </div>
+                      <div class="alert alert-info">
+                        <h5 class="alert-heading">Time Periods</h5>
+                        <ul class="mb-0">
+                          <li>
+                            <strong>In-Sample Period:</strong> Used for strategy
+                            development and initial testing
+                          </li>
+                          <li>
+                            <strong>Out-of-Sample Period:</strong> Used for
+                            validation and performance verification
+                          </li>
+                        </ul>
+                      </div>
 
-              <pre><code class="language-python">in_sample_start_date = '2017-11-09'
+                      <pre><code class="language-python">in_sample_start_date = '2017-11-09'
 in_sample_end_date = '2021-12-20'
 out_of_sample_start_date = '2021-12-20'
-out_of_sample_end_date = '2023-10-31'</code></pre>
-            </section>
-            <section id="data-preparation" class="mb-4">
-              <h2 class="h5 mb-3">Data Preparation</h2>
-              
-              <p>The analysis uses daily price data for Bitcoin (BTC) and Ethereum (ETH) from Yahoo Finance. The data is processed to calculate rate of change (ROC) and split into in-sample and out-of-sample periods for strategy development and validation.</p>
+out_of_sample_end_date = '2023-10-31'</code>
+                  </pre>
+                    </section>
+                    <section id="data-preparation" class="mb-4">
+                      <h2 class="h5 mb-3">Data Preparation</h2>
 
-              
-              <pre><code class="language-python">btc_df = pd.read_csv('../data/yfinance_BTC.csv')
+                      <p>
+                        The analysis uses daily price data for Bitcoin (BTC) and
+                        Ethereum (ETH) from Yahoo Finance. The data is processed
+                        to calculate rate of change (ROC) and split into
+                        in-sample and out-of-sample periods for strategy
+                        development and validation.
+                      </p>
+
+                      <pre><code class="language-python">btc_df = pd.read_csv('../data/yfinance_BTC.csv')
 btc_df = btc_df.set_index('Date')
 btc_df.index = pd.to_datetime(btc_df.index)
 btc_df['ROC'] = (btc_df['close'] - btc_df['Open']) / btc_df['Open']
@@ -194,19 +303,24 @@ eth_df['ROC'] = (eth_df['close'] - eth_df['Open']) / eth_df['Open']
 eth_df_in_sample = eth_df.loc[in_sample_start_date:in_sample_end_date]
 eth_df_out_of_sample = eth_df.loc[out_of_sample_start_date:out_of_sample_end_date]
 eth_df_full = eth_df.loc[in_sample_start_date:out_of_sample_end_date]
-btc_df_full, eth_df_full</code></pre>
-            </section>
-            <section class="mb-4">
-              <h2 id="data-processing" class="h5 mb-3">Data Processing</h2>
-              <p>
-                During data processing, we encountered some warnings related to the yfinance library's TimedeltaIndex construction. These warnings are informational and don't affect the functionality of our code:
-              </p>
-              
-            </section>
-            
-            <section>
-              <code style="color: #000;">
-                <pre>
+btc_df_full, eth_df_full</code>
+                  </pre>
+                    </section>
+                    <section class="mb-4">
+                      <h2 id="data-processing" class="h5 mb-3">
+                        Data Processing
+                      </h2>
+                      <p>
+                        During data processing, we encountered some warnings
+                        related to the yfinance library's TimedeltaIndex
+                        construction. These warnings are informational and don't
+                        affect the functionality of our code:
+                      </p>
+                    </section>
+
+                    <section>
+                      <code style="color: #000">
+                        <pre>
 Date                        Open          High           Low                                           
 2017-11-09 00:00:00+00:00   7446.830078   7446.830078   7101.520020   
 2017-11-10 00:00:00+00:00   7173.729980   7312.000000   6436.870117   
@@ -236,16 +350,21 @@ Date                        close           Volume       Dividends    Stock Spli
 2023-10-31 00:00:00+00:00   6477922747        0.0           0.0           0.003496  
 
 [2183 rows x 8 columns]
-                </pre>
-              </code>
-            </section>
-            <section class="mb-4">
-              <h2 id="simulation-function" class="h5 mb-3">Simulation Function</h2>
-              <p>
-                This section implements a comprehensive simulation function to calculate trading strategy returns, incorporating transaction costs and position tracking:
-              </p>
+                </pre
+                        >
+                      </code>
+                    </section>
+                    <section class="mb-4">
+                      <h2 id="simulation-function" class="h5 mb-3">
+                        Simulation Function
+                      </h2>
+                      <p>
+                        This section implements a comprehensive simulation
+                        function to calculate trading strategy returns,
+                        incorporating transaction costs and position tracking:
+                      </p>
 
-              <pre><code class="language-python">import pandas as pd
+                      <pre><code class="language-python">import pandas as pd
 import numpy as np
 import warnings
 warnings.filterwarnings("ignore")
@@ -270,67 +389,104 @@ def simulation(performance_df,Type):
   performance_df['cum_long_return'] = performance_df['long_return'].cumsum()
   performance_df['cum_short_return'] = performance_df['short_return'].cumsum()
 
-  return performance_df</code></pre>
+  return performance_df</code>
+                  </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
-                  This code section implements the core simulation functionality:
-                  <ol>
-                    <li>Data Preparation:
-                      <ul>
-                        <li>Converts close prices to float type</li>
-                        <li>Calculates log returns for price movements</li>
-                        <li>Shifts signals to align with next period positions</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
-            </section>
-            <section class="mb-4">
-              <h2 id="strategy-implementation" class="h5 mb-3">Strategy Implementation</h2>
-              <p>
-                In this section, we implement and test various technical trading strategies on both Bitcoin and Ethereum data:
-              </p>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Code Explanation</h5>
+                        <p class="mb-0">
+                          This code section implements the core simulation
+                          functionality:
+                        </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Strategy Components</h5>
-                <p class="mb-0">
-                  <ol>
-                    <li>Moving Average Crossover (EMAC):
-                      <ul>
-                        <li>Tests multiple short and long window combinations</li>
-                        <li>Range: Short windows (10-34), Long windows (35-59)</li>
-                        <li>Step size of 4 for systematic testing</li>
-                      </ul>
-                    </li>
-                    <li>Relative Strength Index (RSI):
-                      <ul>
-                        <li>Tests various overbought/oversold thresholds</li>
-                        <li>Range: Upper (70-94), Lower (20-44)</li>
-                        <li>Step size of 4 for systematic testing</li>
-                      </ul>
-                    </li>
-                    <li>Bollinger Bands:
-                      <ul>
-                        <li>Tests different length and standard deviation combinations</li>
-                        <li>Range: Length (10-34), Standard deviation (1-3)</li>
-                        <li>Step size of 4 for length, 1 for standard deviation</li>
-                      </ul>
-                    </li>
-                    <li>Moving Average Convergence Divergence (MACD):
-                      <ul>
-                        <li>Tests various parameter combinations</li>
-                        <li>Range: Short (10-30), Long (25-45), Signal period (6-15)</li>
-                        <li>Step sizes: 5 for short/long, 3 for signal period</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
+                        <ol>
+                          <li>
+                            Data Preparation:
+                            <ul>
+                              <li>Converts close prices to float type</li>
+                              <li>
+                                Calculates log returns for price movements
+                              </li>
+                              <li>
+                                Shifts signals to align with next period
+                                positions
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+                    </section>
+                    <section class="mb-4">
+                      <h2 id="strategy-implementation" class="h5 mb-3">
+                        Strategy Implementation
+                      </h2>
+                      <p>
+                        In this section, we implement and test various technical
+                        trading strategies on both Bitcoin and Ethereum data:
+                      </p>
 
-              <pre><code class="language-python">btc_result = {}
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Strategy Components</h5>
+                        <p class="mb-0"></p>
+                        <ol>
+                          <li>
+                            Moving Average Crossover (EMAC):
+                            <ul>
+                              <li>
+                                Tests multiple short and long window
+                                combinations
+                              </li>
+                              <li>
+                                Range: Short windows (10-34), Long windows
+                                (35-59)
+                              </li>
+                              <li>Step size of 4 for systematic testing</li>
+                            </ul>
+                          </li>
+                          <li>
+                            Relative Strength Index (RSI):
+                            <ul>
+                              <li>
+                                Tests various overbought/oversold thresholds
+                              </li>
+                              <li>Range: Upper (70-94), Lower (20-44)</li>
+                              <li>Step size of 4 for systematic testing</li>
+                            </ul>
+                          </li>
+                          <li>
+                            Bollinger Bands:
+                            <ul>
+                              <li>
+                                Tests different length and standard deviation
+                                combinations
+                              </li>
+                              <li>
+                                Range: Length (10-34), Standard deviation (1-3)
+                              </li>
+                              <li>
+                                Step size of 4 for length, 1 for standard
+                                deviation
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Moving Average Convergence Divergence (MACD):
+                            <ul>
+                              <li>Tests various parameter combinations</li>
+                              <li>
+                                Range: Short (10-30), Long (25-45), Signal
+                                period (6-15)
+                              </li>
+                              <li>
+                                Step sizes: 5 for short/long, 3 for signal
+                                period
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+
+                      <pre><code class="language-python">btc_result = {}
 for short_window in range(10, 34, 4):
   for long_window in range(35, 59, 4):
       key = f'EMAC_({short_window}, {long_window})'
@@ -378,32 +534,53 @@ for short in range(10, 30, 5):
       for signal_prd in range(6, 15, 3):
           key = f'MACD_({short}, {long}, {signal_prd})'
           result = MACD(eth_df_full, short=short, long=long, signal_prd=signal_prd)
-          record_performance_metrics(eth_result, key, result, btc_df_full['ROC'])</code></pre>
+          record_performance_metrics(eth_result, key, result, btc_df_full['ROC'])</code>
+                  </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
-                  This code section implements the strategy testing framework:
-                  <ol>
-                    <li>Parameter Ranges:
-                      <ul>
-                        <li>EMAC: Tests 6 short windows × 6 long windows = 36 combinations</li>
-                        <li>RSI: Tests 6 upper thresholds × 6 lower thresholds = 36 combinations</li>
-                        <li>Bollinger Bands: Tests 6 lengths × 3 standard deviations = 18 combinations</li>
-                        <li>MACD: Tests 4 short periods × 4 long periods × 3 signal periods = 48 combinations</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
-            </section>
-            <section class="mb-4">
-              <h2 id="performance-metrics" class="h5 mb-3">Performance Metrics</h2>
-              <p>
-                This section implements a comprehensive performance metrics recording system that calculates various risk and return metrics for both in-sample and out-of-sample periods:
-              </p>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Code Explanation</h5>
+                        <p class="mb-0">
+                          This code section implements the strategy testing
+                          framework:
+                        </p>
 
-              <pre><code class="language-python">def record_performance_metrics(btc_result, key, result, benchmark_returns):
+                        <ol>
+                          <li>
+                            Parameter Ranges:
+                            <ul>
+                              <li>
+                                EMAC: Tests 6 short windows × 6 long windows =
+                                36 combinations
+                              </li>
+                              <li>
+                                RSI: Tests 6 upper thresholds × 6 lower
+                                thresholds = 36 combinations
+                              </li>
+                              <li>
+                                Bollinger Bands: Tests 6 lengths × 3 standard
+                                deviations = 18 combinations
+                              </li>
+                              <li>
+                                MACD: Tests 4 short periods × 4 long periods × 3
+                                signal periods = 48 combinations
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+                    </section>
+                    <section class="mb-4">
+                      <h2 id="performance-metrics" class="h5 mb-3">
+                        Performance Metrics
+                      </h2>
+                      <p>
+                        This section implements a comprehensive performance
+                        metrics recording system that calculates various risk
+                        and return metrics for both in-sample and out-of-sample
+                        periods:
+                      </p>
+
+                      <pre><code class="language-python">def record_performance_metrics(btc_result, key, result, benchmark_returns):
   strategy_returns = result['return']
   strategy_returns = strategy_returns.fillna(0)
   in_sample_returns = strategy_returns.loc[in_sample_start_date:in_sample_end_date]
@@ -418,47 +595,71 @@ for short in range(10, 30, 5):
   btc_result[f'{key}_in_sample_max_drawdown'] = max_drawdown(in_sample_returns)
   btc_result[f'{key}_out_of_sample_annualized_return'] = annualized_return(out_of_samplereturns)
   btc_result[f'{key}_out_of_sample_sharpe_ratio'] = sharpe_ratio(out_of_samplereturns)
-  btc_result[f'{key}_out_of_sample_max_drawdown'] = max_drawdown(out_of_samplereturns)</code></pre>
+  btc_result[f'{key}_out_of_sample_max_drawdown'] = max_drawdown(out_of_samplereturns)</code>
+                  </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
-                  This code section implements a comprehensive performance metrics recording system:
-                  <ol>
-                    <li>Data Preparation:
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Code Explanation</h5>
+                        <p class="mb-0">
+                          This code section implements a comprehensive
+                          performance metrics recording system:
+                        </p>
+
+                        <ol>
+                          <li>
+                            Data Preparation:
+                            <ul>
+                              <li>
+                                Extracts strategy returns from the result
+                                dictionary
+                              </li>
+                              <li>
+                                Handles missing values by filling with zeros
+                              </li>
+                              <li>
+                                Splits returns into in-sample and out-of-sample
+                                periods
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Whole Sample Metrics:
+                            <ul>
+                              <li>
+                                Stores complete return series for analysis
+                              </li>
+                              <li>Calculates annualized returns</li>
+                              <li>
+                                Computes Sharpe ratio for risk-adjusted
+                                performance
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+                    </section>
+                    <section class="mb-4">
+                      <h2 id="strategy-selection" class="h5 mb-3">
+                        Strategy Selection
+                      </h2>
+                      <p>
+                        We evaluate the performance of different strategies
+                        using two key metrics: Annualized Return and Sharpe
+                        Ratio. For simplicity, we focus on Annualized Return as
+                        our primary selection criteria.
+                      </p>
+
+                      <p>
+                        The MACD(15,25,12) strategy was selected based on the
+                        best annualized return over the whole sample, achieving:
+                      </p>
                       <ul>
-                        <li>Extracts strategy returns from the result dictionary</li>
-                        <li>Handles missing values by filling with zeros</li>
-                        <li>Splits returns into in-sample and out-of-sample periods</li>
+                        <li>Annualized Return: 111.4%</li>
+                        <li>Sharpe Ratio: 1.06</li>
+                        <li>Maximum Drawdown: 62.76%</li>
                       </ul>
-                    </li>
-                    <li>Whole Sample Metrics:
-                      <ul>
-                        <li>Stores complete return series for analysis</li>
-                        <li>Calculates annualized returns</li>
-                        <li>Computes Sharpe ratio for risk-adjusted performance</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
-            </section>
-            <section class="mb-4">
-              <h2 id="strategy-selection" class="h5 mb-3">Strategy Selection</h2>
-              <p>
-                We evaluate the performance of different strategies using two key metrics: Annualized Return and Sharpe Ratio. For simplicity, we focus on Annualized Return as our primary selection criteria.
-              </p>
 
-              <p>
-                The MACD(15,25,12) strategy was selected based on the best annualized return over the whole sample, achieving:
-              </p>
-              <ul>
-                <li>Annualized Return: 111.4%</li>
-                <li>Sharpe Ratio: 1.06</li>
-                <li>Maximum Drawdown: 62.76%</li>
-              </ul>
-
-              <pre><code class="language-python">import pandas as pd
+                      <pre><code class="language-python">import pandas as pd
 
 def select_best_strategy(btc_result, strategy_name):
   max_sharpe_ratio = 0
@@ -487,88 +688,122 @@ btc_macd = pd.DataFrame(select_best_strategy(btc_result, 'MACD'))
 
 # Concatenate the DataFrames into a single DataFrame
 best_btc_result = pd.concat([btc_emac, btc_rsi, btc_bband, btc_macd], ignore_index=True)
-best_btc_result</code></pre>
+best_btc_result</code>
+                  </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
-                  This code section implements the strategy selection process:
-                  <ol>
-                    <li>Strategy Evaluation:
-                      <ul>
-                        <li>Defines a function to select the best strategy based on Sharpe ratio</li>
-                        <li>Evaluates each strategy type (EMAC, RSI, BBand, MACD)</li>
-                        <li>Compares performance metrics across strategies</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
-              <code style="color: #000;">
-                <pre>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Code Explanation</h5>
+                        <p class="mb-0">
+                          This code section implements the strategy selection
+                          process:
+                        </p>
+
+                        <ol>
+                          <li>
+                            Strategy Evaluation:
+                            <ul>
+                              <li>
+                                Defines a function to select the best strategy
+                                based on Sharpe ratio
+                              </li>
+                              <li>
+                                Evaluates each strategy type (EMAC, RSI, BBand,
+                                MACD)
+                              </li>
+                              <li>
+                                Compares performance metrics across strategies
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+                      <code style="color: #000">
+                        <pre>
         Strategy	          Annualized Return	Sharpe Ratio	Max Drawdown	Beta
 0	EMAC_(22, 43)_whole_sample	0.894563	0.891262	-0.678296	0.001639
 1	RSI_(70, 20)_whole_sample	0.378732	1.081748	-0.329953	0.133846
 2	BBand_(10, 1)_whole_sample	0.693460	0.979101	-0.466610	-0.045422
 3	MACD_(15, 25, 12)_whole_sample	1.147492	1.057560	-0.627596	-0.037010
-                </pre>
-              </code>
-            </section>
-            <section class="mb-4">
-              <h2 id="best-eth-strategy" class="h5 mb-3">Best ETH Strategy: Profitability Over the Whole Sample</h2>
-              
-              <div class="strategy-overview mb-4">
-                <p>
-                  The MACD(25,40,9) strategy was selected based on the best annualized return over the whole sample period. This strategy demonstrates strong performance with:
-                </p>
-                <ul>
-                  <li>Annualized Return: 188.54%</li>
-                  <li>Sharpe Ratio: 1.17</li>
-                  <li>Maximum Drawdown: 66.83%</li>
-                </ul>
-              </div>
+                </pre
+                        >
+                      </code>
+                    </section>
+                    <section class="mb-4">
+                      <h2 id="best-eth-strategy" class="h5 mb-3">
+                        Best ETH Strategy: Profitability Over the Whole Sample
+                      </h2>
 
-              <pre><code class="language-python">eth_emac = pd.DataFrame(select_best_strategy(eth_result, 'EMAC'))
+                      <div class="strategy-overview mb-4">
+                        <p>
+                          The MACD(25,40,9) strategy was selected based on the
+                          best annualized return over the whole sample period.
+                          This strategy demonstrates strong performance with:
+                        </p>
+                        <ul>
+                          <li>Annualized Return: 188.54%</li>
+                          <li>Sharpe Ratio: 1.17</li>
+                          <li>Maximum Drawdown: 66.83%</li>
+                        </ul>
+                      </div>
+
+                      <pre><code class="language-python">eth_emac = pd.DataFrame(select_best_strategy(eth_result, 'EMAC'))
 eth_rsi = pd.DataFrame(select_best_strategy(eth_result, 'RSI'))
 eth_bband = pd.DataFrame(select_best_strategy(eth_result, 'BBand'))
 eth_macd = pd.DataFrame(select_best_strategy(eth_result, 'MACD'))
 
 # Concatenate the DataFrames into a single DataFrame
 best_eth_result = pd.concat([eth_emac, eth_rsi, eth_bband, eth_macd], ignore_index=True)
-best_eth_result</code></pre>
+best_eth_result</code>
+                  </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
-                  This code section implements the strategy selection process:
-                  <ol>
-                    <li>Strategy Evaluation:
-                      <ul>
-                        <li>Creates individual DataFrames for each strategy type</li>
-                        <li>Uses select_best_strategy function to identify optimal parameters</li>
-                        <li>Combines results into a single comparison DataFrame</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
-              <code style="color: #000;">
-                <pre>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Code Explanation</h5>
+                        <p class="mb-0">
+                          This code section implements the strategy selection
+                          process:
+                        </p>
+
+                        <ol>
+                          <li>
+                            Strategy Evaluation:
+                            <ul>
+                              <li>
+                                Creates individual DataFrames for each strategy
+                                type
+                              </li>
+                              <li>
+                                Uses select_best_strategy function to identify
+                                optimal parameters
+                              </li>
+                              <li>
+                                Combines results into a single comparison
+                                DataFrame
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+                      <code style="color: #000">
+                        <pre>
         Strategy	              Annualized Return	Sharpe Ratio	Max Drawdown	Beta
 0	EMAC_(10, 35)_whole_sample	1.659237	1.076791	-0.791749	-0.029633
 1	RSI_(70, 32)_whole_sample	0.247152	0.487046	-0.529445	-0.026121
 2	BBand_(30, 2)_whole_sample	0.709163	1.263341	-0.299048	-0.041932
 3	MACD_(25, 40, 9)_whole_sample	1.885479	1.165862	-0.668294	-0.119171
-                </pre>
-              </code>
-            </section>
-            <section class="mb-4">
-              <h2 id="statistical-testing" class="h5 mb-3">Statistical Testing</h2>
-              <p>
-                In this section, we implement statistical tests to evaluate the significance of our trading strategies:
-              </p>
+                </pre
+                        >
+                      </code>
+                    </section>
+                    <section class="mb-4">
+                      <h2 id="statistical-testing" class="h5 mb-3">
+                        Statistical Testing
+                      </h2>
+                      <p>
+                        In this section, we implement statistical tests to
+                        evaluate the significance of our trading strategies:
+                      </p>
 
-              <pre><code class="language-python">import numpy as np
+                      <pre><code class="language-python">import numpy as np
 from scipy.stats import norm
 ## Null Hypothese: The selected strategy is not the best strategy
 def individual_test(selected_strategy_returns):
@@ -625,31 +860,45 @@ Best RSI_(70, 20)_whole_sample Strategy reality check p-value: 1.0
 Best BBand_(10, 1)_whole_sample Strategy nominal p-value: 0.007461977317418267
 Best BBand_(10, 1)_whole_sample Strategy reality check p-value: 0.999
 Best MACD_(15, 25, 12)_whole_sample Strategy nominal p-value: 0.06702669025693098
-Best MACD_(15, 25, 12)_whole_sample Strategy reality check p-value: 0.807</code></pre>
+Best MACD_(15, 25, 12)_whole_sample Strategy reality check p-value: 0.807</code>
+                  </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Test Results Analysis</h5>
-                <p class="mb-0">
-                  The statistical tests reveal several important insights:
-                  <ol>
-                    <li>Individual Strategy Tests:
-                      <ul>
-                        <li>Bollinger Bands strategy shows strongest statistical significance (p-value: 0.007)</li>
-                        <li>MACD strategy shows moderate significance (p-value: 0.067)</li>
-                        <li>EMAC and RSI strategies show weaker statistical significance</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
-            </section>
-            <section class="mb-4">
-              <h2 id="btc-results" class="h5 mb-3">BTC Results</h2>
-              <p>
-                In this section, we analyze the performance of our technical trading strategies on Bitcoin:
-              </p>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Test Results Analysis</h5>
+                        <p class="mb-0">
+                          The statistical tests reveal several important
+                          insights:
+                        </p>
 
-              <pre><code class="language-python">import pandas as pd
+                        <ol>
+                          <li>
+                            Individual Strategy Tests:
+                            <ul>
+                              <li>
+                                Bollinger Bands strategy shows strongest
+                                statistical significance (p-value: 0.007)
+                              </li>
+                              <li>
+                                MACD strategy shows moderate significance
+                                (p-value: 0.067)
+                              </li>
+                              <li>
+                                EMAC and RSI strategies show weaker statistical
+                                significance
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+                    </section>
+                    <section class="mb-4">
+                      <h2 id="btc-results" class="h5 mb-3">BTC Results</h2>
+                      <p>
+                        In this section, we analyze the performance of our
+                        technical trading strategies on Bitcoin:
+                      </p>
+
+                      <pre><code class="language-python">import pandas as pd
 
 def get_performance_metrics(btc_result, best_strategy):
   in_sample_strategy = best_strategy.replace("whole_sample", "in_sample")
@@ -682,35 +931,46 @@ for i in range(len(best_btc_result)):
   strategy = best_btc_result.loc[i, 'Strategy']
   strategy_performance = get_performance_metrics(btc_result, strategy)
   all_performance = pd.concat([all_performance, strategy_performance], ignore_index=True)
-all_performance</code></pre>
+all_performance</code>
+                  </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
-                  This code section implements the performance analysis:
-                  <ol>
-                    <li>Performance Metrics Calculation:
-                      <ul>
-                        <li>Computes in-sample and out-of-sample metrics</li>
-                        <li>Calculates annualized returns, Sharpe ratios, and max drawdowns</li>
-                        <li>Organizes results in a structured DataFrame</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Code Explanation</h5>
+                        <p class="mb-0">
+                          This code section implements the performance analysis:
+                        </p>
 
-              <code style="color: #000;">
-                <pre>
+                        <ol>
+                          <li>
+                            Performance Metrics Calculation:
+                            <ul>
+                              <li>
+                                Computes in-sample and out-of-sample metrics
+                              </li>
+                              <li>
+                                Calculates annualized returns, Sharpe ratios,
+                                and max drawdowns
+                              </li>
+                              <li>
+                                Organizes results in a structured DataFrame
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+
+                      <code style="color: #000">
+                        <pre>
   Strategy	        In-sample Annualized Return	In-sample Sharpe Ratio	In-sample Max Drawdown	Out-of-sample Annualized Return	Out-of-sample Sharpe Ratio	Out-of-sample Max Drawdown
   0	EMAC_(22, 43)	  1.341975	1.092498	-0.678296	0.182604	0.302536	-0.598704
   1	RSI_(70, 20)	  0.479902	1.130464	-0.329953	0.178638	1.258045	-0.114103
   2	BBand_(10, 1)	  0.789955	0.985928	-0.466610	0.497300	1.014891	-0.298204
   3	MACD(15,25,12)    2.100151	1.439519	-0.627596	-0.049188	-0.090962	-0.538897
-                </pre>
-              </code>
+                </pre
+                        >
+                      </code>
 
-              <pre><code class="language-python">eth_strategies = []
+                      <pre><code class="language-python">eth_strategies = []
 
 # Loop through the rows of best_eth_result DataFrame
 for index, row in best_eth_result.iterrows():
@@ -729,67 +989,94 @@ Best RSI_(70, 32)_whole_sample Strategy reality check p-value: 1.0
 Best BBand_(30, 2)_whole_sample Strategy nominal p-value: 0.0020043290066984465
 Best BBand_(30, 2)_whole_sample Strategy reality check p-value: 1.0
 Best MACD_(25, 40, 9)_whole_sample Strategy nominal p-value: 0.0043554736103184055
-Best MACD_(25, 40, 9)_whole_sample Strategy reality check p-value: 0.14</code></pre>
+Best MACD_(25, 40, 9)_whole_sample Strategy reality check p-value: 0.14</code>
+                  </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Statistical Testing Results</h5>
-                <p class="mb-0">
-                  The statistical tests reveal:
-                  <ol>
-                    <li>Nominal P-values:
-                      <ul>
-                        <li>EMAC strategy shows strong significance (p = 0.008)</li>
-                        <li>RSI strategy shows moderate significance (p = 0.234)</li>
-                        <li>Bollinger Bands strategy shows high significance (p = 0.002)</li>
-                        <li>MACD strategy shows strong significance (p = 0.004)</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
-            </section>
-            <section class="mb-4">
-              <h2 id="eth-results" class="h5 mb-3">ETH Results</h2>
-              <p>
-                In this section, we analyze the performance of our technical trading strategies on Ethereum:
-              </p>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">
+                          Statistical Testing Results
+                        </h5>
+                        <p class="mb-0">The statistical tests reveal:</p>
 
-              <pre><code class="language-python"># Create an empty DataFrame to store the performance metrics
+                        <ol>
+                          <li>
+                            Nominal P-values:
+                            <ul>
+                              <li>
+                                EMAC strategy shows strong significance (p =
+                                0.008)
+                              </li>
+                              <li>
+                                RSI strategy shows moderate significance (p =
+                                0.234)
+                              </li>
+                              <li>
+                                Bollinger Bands strategy shows high significance
+                                (p = 0.002)
+                              </li>
+                              <li>
+                                MACD strategy shows strong significance (p =
+                                0.004)
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+                    </section>
+                    <section class="mb-4">
+                      <h2 id="eth-results" class="h5 mb-3">ETH Results</h2>
+                      <p>
+                        In this section, we analyze the performance of our
+                        technical trading strategies on Ethereum:
+                      </p>
+
+                      <pre><code class="language-python"># Create an empty DataFrame to store the performance metrics
 all_performance_eth = pd.DataFrame()
 
 for i in range(len(best_eth_result)):
   strategy = best_eth_result.loc[i, 'Strategy']
   strategy_performance = get_performance_metrics(eth_result, strategy)
   all_performance_eth = pd.concat([all_performance_eth, strategy_performance], ignore_index=True)
-all_performance_eth</code></pre>
+all_performance_eth</code>
+                  </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
-                  This code section calculates performance metrics for each strategy:
-                  <ol>
-                    <li>Data Organization:
-                      <ul>
-                        <li>Creates an empty DataFrame for storing metrics</li>
-                        <li>Iterates through each strategy in the results</li>
-                        <li>Calculates performance metrics for each strategy</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Code Explanation</h5>
+                        <p class="mb-0">
+                          This code section calculates performance metrics for
+                          each strategy:
+                        </p>
 
-              <code style="color: #000;">
-                <pre>
+                        <ol>
+                          <li>
+                            Data Organization:
+                            <ul>
+                              <li>
+                                Creates an empty DataFrame for storing metrics
+                              </li>
+                              <li>
+                                Iterates through each strategy in the results
+                              </li>
+                              <li>
+                                Calculates performance metrics for each strategy
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+
+                      <code style="color: #000">
+                        <pre>
   Strategy	         In-sample Annualized Return	In-sample Sharpe Ratio	In-sample Max Drawdown	Out-of-sample Annualized Return	Out-of-sample Sharpe Ratio	Out-of-sample Max Drawdown
   0	EMAC_(10, 35)	3.054947	1.419351	-0.660977	0.043244	0.060306	-0.791749
   1	RSI_(70, 32)	0.464895	0.756499	-0.378487	-0.126176	-0.434384	-0.394310
   2	BBand_(30, 2)	0.867437	1.378082	-0.299048	0.404495	0.966559	-0.205770
   3	MACD_(25,40,9)  3.291195	1.475273	-0.498846	0.196375	0.255441	-0.668294
-                </pre>
-              </code>
+                </pre
+                        >
+                      </code>
 
-              <pre><code class="language-python">## Plot the equity curve for EMAC Straetgy
+                      <pre><code class="language-python">## Plot the equity curve for EMAC Straetgy
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots(figsize=(12, 6))
 plt.plot(btc_result[f'{btc_strategies[0]}_return_series'].cumsum(), label='BTC EMAC Strategy')
@@ -800,13 +1087,18 @@ plt.plot(btc_df_full['ROC'].cumsum(), label='BTC Benchmark')
 ## add the legend, title
 plt.legend()
 plt.title('BTC Equity Curve with BTC Benchmark')
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
 
-              <div class="d-flex justify-content-center">
-                <img src="../../images/quantio/2024-03-20-technical-trading-strategies-in-crypto-Image1.png" alt="Technical Trading Strategies in Crypto" class="img-fluid">
-              </div>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2024-03-20-technical-trading-strategies-in-crypto-Image1.png"
+                          alt="Technical Trading Strategies in Crypto"
+                          class="img-fluid"
+                        />
+                      </div>
 
-              <pre><code class="language-python">## plot the equity curve for ETH
+                      <pre><code class="language-python">## plot the equity curve for ETH
 import matplotlib.pyplot as plt
 fig, ax = plt.subplots(figsize=(12, 6))
 plt.plot(eth_result[f'{eth_strategies[0]}_return_series'].cumsum(), label='ETH EMAC Strategy')
@@ -818,87 +1110,135 @@ plt.plot(eth_df_full['ROC'].cumsum(), label='ETH Benchmark')
 ## add the legend, title
 plt.legend()
 plt.title('ETH Equity Curve with ETH Benchmark')
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
 
-              <div class="d-flex justify-content-center">
-                <img src="../../images/quantio/2024-03-20-technical-trading-strategies-in-crypto-Image2.png" alt="Technical Trading Strategies in Crypto" class="img-fluid">
-              </div>
-            </section>
-            <section class="mb-4">
-              <h2 id="thoughts-and-conclusion" class="h5 mb-3">Thoughts and Conclusion</h2>
-              <p>
-                Our analysis of technical trading strategies in cryptocurrency markets reveals several key findings:
-              </p>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2024-03-20-technical-trading-strategies-in-crypto-Image2.png"
+                          alt="Technical Trading Strategies in Crypto"
+                          class="img-fluid"
+                        />
+                      </div>
+                    </section>
+                    <section class="mb-4">
+                      <h2 id="thoughts-and-conclusion" class="h5 mb-3">
+                        Thoughts and Conclusion
+                      </h2>
+                      <p>
+                        Our analysis of technical trading strategies in
+                        cryptocurrency markets reveals several key findings:
+                      </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Key Findings</h5>
-                <p class="mb-0">
-                  <ol>
-                    <li>Strategy Performance:
-                      <ul>
-                        <li>EMAC Strategy and MACD Strategy on BTC and ETH significantly outperform the buy and hold benchmark</li>
-                        <li>Demonstrates the profitability of these technical strategies in crypto markets</li>
-                      </ul>
-                    </li>
-                    <li>Performance Consistency:
-                      <ul>
-                        <li>Inconsistency between in-sample and out-of-sample periods</li>
-                        <li>Technical strategies show effectiveness during in-sample period</li>
-                        <li>Performance deteriorates as crypto market becomes more efficient</li>
-                      </ul>
-                    </li>
-                    <li>Risk Assessment:
-                      <ul>
-                        <li>Maximum drawdowns range from 30% to 80%</li>
-                        <li>High volatility characteristic of cryptocurrency markets</li>
-                        <li>Significant risk management required</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
-              </div>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Key Findings</h5>
+                        <p class="mb-0"></p>
+                        <ol>
+                          <li>
+                            Strategy Performance:
+                            <ul>
+                              <li>
+                                EMAC Strategy and MACD Strategy on BTC and ETH
+                                significantly outperform the buy and hold
+                                benchmark
+                              </li>
+                              <li>
+                                Demonstrates the profitability of these
+                                technical strategies in crypto markets
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Performance Consistency:
+                            <ul>
+                              <li>
+                                Inconsistency between in-sample and
+                                out-of-sample periods
+                              </li>
+                              <li>
+                                Technical strategies show effectiveness during
+                                in-sample period
+                              </li>
+                              <li>
+                                Performance deteriorates as crypto market
+                                becomes more efficient
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Risk Assessment:
+                            <ul>
+                              <li>Maximum drawdowns range from 30% to 80%</li>
+                              <li>
+                                High volatility characteristic of cryptocurrency
+                                markets
+                              </li>
+                              <li>Significant risk management required</li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
 
-              <div class="alert alert-warning mt-3">
-                <h5 class="alert-heading">Suggestions for Improvement</h5>
-                <p class="mb-0">
-                  <ol>
-                    <li>Data Quality:
-                      <ul>
-                        <li>Use price data from cryptocurrency exchanges (Binance, Coinbase) for more realistic simulation</li>
-                        <li>Replace Yahoo Finance data with exchange-specific data</li>
-                      </ul>
-                    </li>
-                    <li>Time Period:
-                      <ul>
-                        <li>Extend analysis to 2020-01-01 to 2023-12-31</li>
-                        <li>Capture both bull and bear market conditions</li>
-                        <li>Utilize more frequent market data for backtesting</li>
-                      </ul>
-                    </li>
-                    <li>Strategy Enhancement:
-                      <ul>
-                        <li>Extend token universe to include other altcoins</li>
-                        <li>Implement rolling optimization instead of in-sample/out-of-sample split</li>
-                      </ul>
-                    </li>
-                  </ol>
-                </p>
+                      <div class="alert alert-warning mt-3">
+                        <h5 class="alert-heading">
+                          Suggestions for Improvement
+                        </h5>
+                        <p class="mb-0"></p>
+                        <ol>
+                          <li>
+                            Data Quality:
+                            <ul>
+                              <li>
+                                Use price data from cryptocurrency exchanges
+                                (Binance, Coinbase) for more realistic
+                                simulation
+                              </li>
+                              <li>
+                                Replace Yahoo Finance data with
+                                exchange-specific data
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Time Period:
+                            <ul>
+                              <li>
+                                Extend analysis to 2020-01-01 to 2023-12-31
+                              </li>
+                              <li>
+                                Capture both bull and bear market conditions
+                              </li>
+                              <li>
+                                Utilize more frequent market data for
+                                backtesting
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Strategy Enhancement:
+                            <ul>
+                              <li>
+                                Extend token universe to include other altcoins
+                              </li>
+                              <li>
+                                Implement rolling optimization instead of
+                                in-sample/out-of-sample split
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+                    </section>
+                  </div>
+                </article>
               </div>
-            </section>
-          </div>
-        </article>
-      </div>
-  </main>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-    
-  <script src="../../components/sidebar.js"></script>
+
+    <script src="../../components/sidebar.js"></script
 </body>
 </html>

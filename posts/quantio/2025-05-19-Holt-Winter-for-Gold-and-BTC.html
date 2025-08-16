@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-    name="description"
+    <meta name="description"
     content="An analysis of an improved momentum strategy that incorporates market panic states"
-  />
+  >
   <meta
     name="keywords"
     content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
@@ -94,9 +93,8 @@
                         <li>Performance comparison with transaction costs</li>
                         <li>Focus on BTC and Gold ETFs</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <pre><code class="language-python">import os
@@ -109,7 +107,8 @@ import statsmodels.api as sm
 import pandas_ta as ta
 
 start_date = '2019-01-01'
-end_date = '2024-10-31'</code></pre>
+end_date = '2024-10-31'</code>
+                  </pre>
             </section>
 
             <section class="mb-4">
@@ -130,9 +129,8 @@ end_date = '2024-10-31'</code></pre>
                         <li>Implements caching to avoid re-downloading existing data</li>
                         <li>Downloads historical data from Yahoo Finance</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <pre><code class="language-python">def load_data(symbol):
@@ -171,7 +169,8 @@ btc.set_index('date', inplace=True)
 
 #daily returns
 gold['daily_return'] = gold['Close'].pct_change()
-btc['daily_return'] = btc['Close'].pct_change()</code></pre>
+btc['daily_return'] = btc['Close'].pct_change()</code>
+                  </pre>
             </section>
 
             <section class="mb-4">
@@ -189,7 +188,8 @@ plt.show()
 
 plt.plot(btc['daily_return'], label='Bitcoin', color='orange')
 plt.legend()
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
 
               <div class="alert alert-info mt-3">
                 <h5 class="alert-heading">Code Explanation</h5>
@@ -202,9 +202,8 @@ plt.show()</code></pre>
                         <li>Uses distinct colors for easy differentiation</li>
                         <li>Includes legends for clear identification</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <p>
@@ -258,7 +257,8 @@ def get_accuracy(data, name):
     print(name, "correct: ", data['correct'].value_counts())
 
 get_accuracy(gold, "Gold")
-get_accuracy(btc, "BTC")</code></pre>
+get_accuracy(btc, "BTC")</code>
+                  </pre>
 
               <div class="alert alert-info mt-3">
                 <h5 class="alert-heading">Code Explanation</h5>
@@ -271,9 +271,8 @@ get_accuracy(btc, "BTC")</code></pre>
                         <li>Uses ExponentialSmoothing with additive trend</li>
                         <li>Generates one-step-ahead forecasts for each day</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
             </section>
 
@@ -308,7 +307,8 @@ def strategy_1(data, name, transaction_cost = 0.0025):
   get_portfolio_results(data['strategy1_returns'])
 
 strategy_1(gold, "Gold", 0.0001)
-strategy_1(btc, "BTC", 0.0005)</code></pre>
+strategy_1(btc, "BTC", 0.0005)</code>
+                  </pre>
 
               <div class="alert alert-info mt-3">
                 <h5 class="alert-heading">Code Explanation</h5>
@@ -328,9 +328,8 @@ strategy_1(btc, "BTC", 0.0005)</code></pre>
                         <li>Applies transaction costs on position changes</li>
                         <li>Calculates strategy returns net of costs</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
             </section>
 
@@ -362,7 +361,8 @@ def strategy_2(df, name, transaction_cost):
   get_portfolio_results(df['strategy2_returns'])
 
 strategy_2(gold, "Gold", 0.0001)
-strategy_2(btc, "BTC", 0.0005)</code></pre>
+strategy_2(btc, "BTC", 0.0005)</code>
+                  </pre>
 
               <div class="alert alert-info mt-3">
                 <h5 class="alert-heading">Strategy Analysis</h5>
@@ -375,9 +375,8 @@ strategy_2(btc, "BTC", 0.0005)</code></pre>
                         <li>Model errors continue to trigger frequent trading signals</li>
                         <li>Transaction costs remain a significant factor in overall returns</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
             </section>
 
@@ -413,7 +412,8 @@ def strategy_3(df, name, transaction_cost):
   get_portfolio_results(df['strategy3_returns'])
 
 strategy_3(gold, "Gold", 0.0001)
-strategy_3(btc, "BTC", 0.0005)</code></pre>
+strategy_3(btc, "BTC", 0.0005)</code>
+                  </pre>
 
               <div class="alert alert-info mt-3">
                 <h5 class="alert-heading">Code Explanation</h5>
@@ -426,9 +426,8 @@ strategy_3(btc, "BTC", 0.0005)</code></pre>
                         <li>Computes 30-day SMA for BTC price data</li>
                         <li>Uses rolling window approach for dynamic calculation</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
             </section>
 
@@ -452,9 +451,8 @@ strategy_3(btc, "BTC", 0.0005)</code></pre>
                         <li>If price is smaller than middleband but larger than lowerband, sell it</li>
                         <li>If price is smaller than lowerband, buy it</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <pre><code class="language-python">#getting the Bollinger Bands
@@ -484,7 +482,8 @@ def strategy_4(df, name, transaction_cost):
   get_portfolio_results(df['strategy4_returns'])
 
 strategy_4(gold, "Gold", 0.0001)
-strategy_4(btc, "BTC", 0.0005)</code></pre>
+strategy_4(btc, "BTC", 0.0005)</code>
+                  </pre>
 
               <div class="alert alert-info mt-3">
                 <h5 class="alert-heading">Implementation Details</h5>
@@ -496,9 +495,8 @@ strategy_4(btc, "BTC", 0.0005)</code></pre>
                         <li>2 standard deviations for bands</li>
                         <li>Applied to both Gold and BTC data</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
             </section>
             
@@ -519,9 +517,8 @@ strategy_4(btc, "BTC", 0.0005)</code></pre>
                         <li>Calculates cumulative returns for performance tracking</li>
                         <li>Visualizes strategy performance over time</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <pre><code class="language-python">#saving all the returns in 1 dataframe
@@ -534,7 +531,8 @@ btc_cumulative_returns = (1 + btc_all_returns).cumprod()
 
 #plot the cumulative returns
 gold_cumulative_returns.plot()
-btc_cumulative_returns.plot()</code></pre>
+btc_cumulative_returns.plot()</code>
+                  </pre>
 
               <div class="text-center">
                 <img src="../../images/quantio/2025-05-19-Holt-Winter-for-Gold-and-BTC-Image1.png" alt="Holt-Winter for Gold and BTC" class="img-fluid">
@@ -566,11 +564,7 @@ btc_cumulative_returns.plot()</code></pre>
           </div>
         </article>
       </div>
-    </div>
-  </main>
         </div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -579,5 +573,4 @@ btc_cumulative_returns.plot()</code></pre>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
   
   <script src="../../components/sidebar.js"></script>
-</body>
 </html>

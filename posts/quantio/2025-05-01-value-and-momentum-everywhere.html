@@ -1,13 +1,12 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
+    <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
       content="An analysis of value and momentum factors across global markets and their implications for portfolio construction"
-    />
-    <meta
+    >
+  <meta
       name="keywords"
       content="value investing, momentum investing, factor investing, portfolio construction, asset allocation"
     />
@@ -88,7 +87,8 @@ response = requests.get(url)
 html = response.content
 df = pd.read_html(html, header=0)[0]
 
-tickers = df['Symbol'].tolist()</code></pre>
+tickers = df['Symbol'].tolist()</code>
+                  </pre>
               </section>
       
               <section class="mb-4">
@@ -128,7 +128,8 @@ if df is not None:
     holder.append(df)
     ticker_with_data.append(symbol)
 
-tickers = ticker_with_data[:]</code></pre>
+tickers = ticker_with_data[:]</code>
+                  </pre>
       
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -160,9 +161,8 @@ tickers = ticker_with_data[:]</code></pre>
                           <li>holder: Stores the actual stock data</li>
                           <li>ticker_with_data: Keeps track of valid stock symbols</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
               </section>
       
@@ -187,7 +187,8 @@ df.set_index('date', inplace=True)
 monthly_data.append(df)
 
 del holder
-                </code></pre>
+                </code>
+                  </pre>
               </section>
       
               <section class="mb-4">
@@ -212,7 +213,8 @@ return df
 n_cores = min(os.cpu_count()-2, len(monthly_data))
 with Pool(n_cores) as p:
 monthly_data = p.map(process_data, monthly_data)
-</code></pre>
+</code>
+                  </pre>
       
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -238,9 +240,8 @@ monthly_data = p.map(process_data, monthly_data)
                           <li>Automatically determines optimal number of CPU cores to use</li>
                           <li>Processes multiple stocks simultaneously</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
               </section>
       
@@ -275,7 +276,8 @@ X = sm.add_constant(df_for_regression['rolling_12_months_return'])
 y = df_for_regression['next_month_return']
 
 model = sm.OLS(y, X)
-results = model.fit()</code></pre>
+results = model.fit()</code>
+                  </pre>
       
                 <div class="d-flex justify-content-center">
                   <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image1.png" alt="Value and Momentum Everywhere" class="img-fluid">
@@ -391,7 +393,8 @@ short_df = short_df.mask(short_df.rank(axis=1, method='dense', ascending=True) >
 
 # Get the symbols for long and short positions
 long_df_symbols = long_df.apply(lambda row: row.dropna().index.tolist(), axis=1)
-short_df_symbols = short_df.apply(lambda row: row.dropna().index.tolist(), axis=1)</code></pre>
+short_df_symbols = short_df.apply(lambda row: row.dropna().index.tolist(), axis=1)</code>
+                  </pre>
       
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -404,7 +407,6 @@ short_df_symbols = short_df.apply(lambda row: row.dropna().index.tolist(), axis=
                       <li>Selects the bottom 20 stocks with negative momentum for short positions</li>
                       <li>Creates lists of symbols for both long and short portfolios</li>
                     </ol>
-                  </p>
                 </div>
               </section>
       
@@ -441,7 +443,8 @@ X = sm.add_constant(df_for_regression['rolling_12_months_return'])
 y = df_for_regression['next_month_return']
 
 model = sm.OLS(y, X)
-results = model.fit()</code></pre>
+results = model.fit()</code>
+                  </pre>
       
             <code style="color: #000;">
               <pre>
@@ -494,9 +497,8 @@ Kurtosis:                      11.051   Cond. No.                         1.65
                           <li>Adds a constant term for the regression intercept</li>
                           <li>Sets up the OLS (Ordinary Least Squares) regression model</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
               </section>
 
@@ -548,7 +550,8 @@ print(f'Sharpe ratio: {sharpe:4f}')
 
 plt.plot(dates_holder, strategy_monthly_return_holder_cum)
 plt.title('Cumulative return')
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -561,9 +564,8 @@ plt.show()</code></pre>
                           <li>For long positions: Takes positive returns from stocks with positive momentum</li>
                           <li>For short positions: Takes negative returns from stocks with negative momentum</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <div class="d-flex justify-content-center">
@@ -600,7 +602,8 @@ print(f'Sharpe ratio after 2010: {sharpe:4f}')
 # Plot cumulative returns for post-2010 period
 plt.plot(dates_after_2010, strategy_monthly_return_holder_cum[first_index:])
 plt.title('Cumulative return after 2010')
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
       
                 <div class="d-flex justify-content-center">
                   <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image3.png" alt="Post-2010 Momentum Strategy Returns" class="img-fluid">
@@ -616,7 +619,6 @@ plt.show()</code></pre>
                       <li>Visualizes cumulative returns to assess strategy stability</li>
                       <li>Helps evaluate if the momentum effect persists in recent market conditions</li>
                     </ul>
-                  </p>
                 </div>
               </section>
       
@@ -693,7 +695,8 @@ print(f'Sharpe ratio after 2010 with optimization: {sharpe:4f}')
 plt.plot(dates_after_2010, np.cumsum(np.array(monthly_return_holder)))
 plt.title('Cumulative return after 2010 with optimization')
 plt.show()
-</code></pre>
+</code>
+                  </pre>
       
                  <div class="d-flex justify-content-center">
                    <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image4.png" alt="Post-2010 Momentum Strategy Returns with Optimization" class="img-fluid">
@@ -724,9 +727,8 @@ plt.show()
                            <li>Starts with equal weights as initial guess</li>
                            <li>Rebalances portfolio monthly based on new signals</li>
                          </ul>
-                       </li>
-                     </ol>
-                   </p>
+                        </li>
+                      </ol>
                  </div>
       
                  <div class="alert alert-warning mt-3">
@@ -738,24 +740,17 @@ plt.show()
                        <li>Look-ahead bias is avoided by using only past data for optimization</li>
                        <li>The strategy's complexity increases computational requirements and potential for overfitting</li>
                      </ul>
-                   </p>
                  </div>
                </section>
       
             </div>
           </article>
         </div>
-      </div>
-    </main>
         </div>
-      </div>
-    </div>
   </div>
 </div>
 
-    
-    
-    <script src="../../data/content.js"></script>
+  <script src="../../data/content.js"></script>
     <script src="../../components/content_menu.js"></script>
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -765,6 +760,6 @@ plt.show()
       document.addEventListener('DOMContentLoaded', function () {
         });
     </script>
-    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/sidebar.js"></script
 </body>
 </html>

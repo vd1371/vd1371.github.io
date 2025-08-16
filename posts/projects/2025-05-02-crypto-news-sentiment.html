@@ -1,487 +1,503 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <meta content="An analysis of crypto news sentiment and its implications for portfolio construction" name="description"/>
-  <meta content="crypto news sentiment, sentiment analysis, cryptocurrency, news, sentiment, analysis" name="keywords"/>
-  <meta content="Vahid Asghari" name="author"/>
-  <title>
-   Crypto News Sentiment
-  </title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-  <link href="../../styles.css" rel="stylesheet"/>
-  <!-- Add syntax highlighting for code blocks -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet"/>
- </head>
- <body class="bg-light">
-  <div class="container-fluid">
-   <div class="row">
-    <!-- Sidebar Container -->
-    <div class="sidebar-container"></div>
-    
-    <!-- Main Content -->
-    <div class="col-lg-9 col-md-8 main-content">
-     <div class="content-wrapper p-4">
-      <div class="row justify-content-center">
-       <div class="col-md-12">
-     <article class="card shadow-sm p-4">
-      
-      <div>
-       <h2 class="mb-3">
-        Latest Cryptocurrency Sentiment
-       </h2>
-       <p class="mb-4" id="last-updated">
-        Last updated: 2025-08-16 10:00:07 HK
-       </p>
-       <div id="crypto-sentiment-table">
-       </div>
-       <div class="alert alert-warning" role="alert">
-        <h4 class="alert-heading">
-         <i class="bi bi-exclamation-triangle-fill me-2">
-         </i>
-         Disclaimer
-        </h4>
-        <p>
-         The information provided on this page is for educational and research purposes only. It should not be considered as financial advice or a recommendation to make any type of investment. Cryptocurrency markets are highly volatile and risky. The sentiment analysis and data presented here:
-        </p>
-        <ul>
-         <li>
-          Is experimental and may contain errors or inaccuracies
-         </li>
-         <li>
-          Should not be used as the sole basis for any investment decisions
-         </li>
-         <li>
-          Does not guarantee future results or returns
-         </li>
-         <li>
-          May be delayed or not reflect current market conditions
-         </li>
-        </ul>
-        <p class="mb-0">
-         Always conduct your own research and consult with qualified financial advisors before making any investment decisions. Past performance is not indicative of future results. You should never invest more than you can afford to lose.
-        </p>
-       </div>
-      </div>
-      <div class="table-of-contents mb-4">
-       <h5 class="mb-3">
-        Table of Contents
-       </h5>
-       <ol class="list-unstyled">
-        <li class="mb-2">
-         <a href="#motivation">
-          Motivation
-         </a>
-        </li>
-        <li class="mb-2">
-         <a href="#data-collection">
-          Data Collection
-         </a>
-        </li>
-        <li class="mb-2">
-         <a href="#challenges">
-          Challenges
-         </a>
-        </li>
-        <li class="mb-2">
-         <a href="#methodology">
-          Methodology
-         </a>
-        </li>
-        <li class="mb-2">
-         <a href="#code-structure">
-          Code Structure
-         </a>
-        </li>
-        <li class="mb-2">
-         <a href="#next-steps">
-          Next Steps
-         </a>
-        </li>
-       </ol>
-      </div>
-      <div>
-       <!-- Start with the motivation -->
-       <section class="mb-4" id="motivation">
-        <h1 class="mb-3">
-         Motivation
-        </h1>
-        <p>
-         Alternative data is a rich source of information that can be used to make
-                  investment decisions. It can provide insights that are not available in the
-                  market data and any type of factors or indicators. The faster you get the
-                  information, the better you can make the investment decisions. The Covid
-                  vaccine, Brexit, tarrifs, etc. are some examples of the events that
-                  moved the market and had a significant impact on the price of the stocks.
-        </p>
-        <p>
-         In 2024, I started a project to programatically read the news online,
-                  clean the text, and then find the sentiment of the news with the hope of
-                  using it for trading cryptocurrencies, mostly for my own portfolio.
-        </p>
-        <p>
-         The data sources are the publicly available news websites which I will 
-                  list in the data collection section. The sentiment analysis is done as 
-                  a combination of classical and modern NLP techniques with a touch of
-                  proprietary techniques.
-        </p>
-        <h2>
-         Current Status
-        </h2>
-        <p>
-         The project is up and running, with a solid setup for ongoing sentiment analysis. Here's what it offers:
-        </p>
-        <ul>
-         <li>
-          Real-time sentiment tracking
-         </li>
-         <li>
-          Strong error handling and retry systems
-         </li>
-         <li>
-          Easy deployment with containers
-         </li>
-         <li>
-          Scalable database support
-         </li>
-        </ul>
-       </section>
-       <!-- Data Collection -->
-       <section class="pt-4 border-top mb-4" id="data-collection">
-        <h1 class="mb-3">
-         Data Collection
-        </h1>
-        <p>
-         The following is the list of the news websites that I have used to collect
-                  the data.
-        </p>
-        <ul>
-         <li>
-          <a href="https://www.coindesk.com/" target="_blank">
-           CoinDesk
-          </a>
-         </li>
-         <li>
-          <a href="https://u.today/" target="_blank">
-           U.Today
-          </a>
-         </li>
-         <li>
-          <a href="https://www.decrypt.co/" target="_blank">
-           Decrypt
-          </a>
-         </li>
-         <li>
-          <a href="https://www.beincrypto.com/" target="_blank">
-           BeinCrypto
-          </a>
-         </li>
-         <li>
-          <a href="https://coinbureau.com/" target="_blank">
-           Coin Bureau
-          </a>
-         </li>
-         <li>
-          <a href="https://www.blockworks.co/" target="_blank">
-           Blockworks
-          </a>
-         </li>
-        </ul>
-        <p>
-         The following news sources are also famous, but they implement bot detection
-                  and have more stringent rules for scraping the data. So, I did not use them.
-        </p>
-        <ul>
-         <li>
-          <a href="https://www.bitcoinmagazine.com/" target="_blank">
-           Bitcoin Magazine
-          </a>
-         </li>
-         <li>
-          <a href="https://www.cointelegraph.com/" target="_blank">
-           Coin Telegraph
-          </a>
-         </li>
-         <li>
-          <a href="https://www.theblock.co/" target="_blank">
-           The Block
-          </a>
-         </li>
-        </ul>
-       </section>
-       <!-- Challenges -->
-       <section class="pt-4 border-top mb-4" id="challenges">
-        <h1 class="mb-3">
-         Challenges and Lessons Learned
-        </h1>
-        <p>
-         Developing FinInstruSentiment, our tool for real-time sentiment analysis of financial instruments,
-                  was a journey filled with hurdles that taught us invaluable lessons about creating reliable, scalable systems
-                  for financial data analysis. Below, we dive into the key challenges we faced, the solutions we implemented,
-                  and the insights we gained along the way.
-        </p>
-        <h3>
-         1. Outsmarting Bot Detection Systems
-        </h3>
-        <p>
-         Scraping data from financial websites was no easy feat, as many of these platforms use
-                  advanced bot detection to block automated systems. Getting past these defenses required
-                  us to think like humans—or at least make our system behave like one.
-        </p>
-        <ul>
-         <li>
-          <strong>
-           Dynamic Header Rotation:
-          </strong>
-          To avoid being flagged, we set up our headless browsers to constantly switch up
-                    HTTP headers, like user agents, to mimic different devices and browsers. This kept our requests looking fresh and less robotic.
-         </li>
-         <li>
-          <strong>
-           Randomized Request Patterns:
-          </strong>
-          We added random delays between requests to emulate how a human might browse, avoiding predictable patterns that could trigger bot detection.
-         </li>
-         <li>
-          <strong>
-           IP Rotation via Proxies:
-          </strong>
-          By routing our requests through a pool of proxy servers,
-                    we distributed them across multiple IP addresses, reducing the risk of being blocked for
-                    excessive activity from a single source.
-         </li>
-         <li>
-          <strong>
-           Regular Updates:
-          </strong>
-          We regularly updated our scraping tools to stay ahead of new bot detection techniques.
-         </li>
-        </ul>
-        <p>
-         These tactics not only helped us gather data consistently but also taught us the
-                  importance of staying adaptable in the face of evolving web security measures.
-        </p>
-        <h3>
-         2. Keeping the System Stable Under Pressure
-        </h3>
-        <p>
-         Running headless browsers and Selenium for large-scale data collection put a serious
-                  strain on our system's resources, especially when deployed on AWS EC2 instances.
-                  We quickly learned that stability was just as critical as functionality.
-        </p>
-        <ul>
-         <li>
-          <strong>
-           Memory Leaks and Orphaned Processes:
-          </strong>
-          Early on, we noticed that Selenium and headless browsers sometimes left behind
-                    "zombie" processes, eating up memory and crashing our servers. This was a major
-                    bottleneck for continuous operation.
-         </li>
-         <li>
-          <strong>
-           Solutions that worked:
-          </strong>
-         </li>
-         <ul>
-          <li>
-           <strong>
-            Automated Restarts:
-           </strong>
-           We scheduled daily system restarts to clear out lingering processes and keep things running smoothly.
-          </li>
-          <li>
-           <strong>
-            Process Monitoring Scripts:
-           </strong>
-           We wrote scripts to detect and terminate orphaned processes, preventing memory exhaustion.
-          </li>
-          <li>
-           <strong>
-            Resource Thresholds:
-           </strong>
-           We set up alerts and automatic recovery procedures to kick in when CPU or memory usage
-                      crossed critical thresholds, ensuring the system could self-correct before crashing.
-          </li>
-         </ul>
-        </ul>
-        <p>
-         These fixes transformed our system into a more resilient beast, capable of handling heavy workloads
-                  without constant babysitting. The lesson? Proactive monitoring and automated recovery are
-                  non-negotiable for production-grade systems.
-        </p>
-        <h3>
-         3. Cracking the Code on Sentiment Analysis
-        </h3>
-        <p>
-        </p>
-        The heart of FinInstruSentiment is its ability to accurately analyze sentiment around financial
-                  instruments, but this was by far our most complex challenge. Financial texts are messy—full of
-                  jargon, abbreviations, and context that can shift the meaning of a single sentence.
-                  Here's how we tackled it:
-        <ul>
-         <li>
-          <strong>
-           Pinpointing Financial Entities:
-          </strong>
-          We leaned heavily on natural language processing (NLP) to identify mentions of specific financial
-                    instruments. This meant teaching the system to recognize:
-         </li>
-         <ul>
-          <li>
-           Direct references (e.g., "Apple stock")
-          </li>
-          <li>
-           Ticker symbols (e.g., "AAPL")
-          </li>
-          <li>
-           Company aliases (e.g., "Big Tech" for major tech firms)
-          </li>
-         </ul>
-         <p>
-          Getting this right required training our models on diverse datasets and
-                    constantly refining them to handle edge cases.
-         </p>
-        </ul>
-        <ul>
-         <li>
-          <strong>
-           Granular Sentiment Analysis:
-          </strong>
-          Financial sentiment isn't just "positive" or "negative." We built a system that breaks it down into multiple dimensions:
-         </li>
-         <ul>
-          <li>
-           Market sentiment: How the broader market views the instrument.
-          </li>
-          <li>
-           Technical factors: Sentiment tied to price trends, trading volume, or technical indicators.
-          </li>
-          <li>
-           Security issues: Sentiment around cybersecurity risks or data breaches.
-          </li>
-          <li>
-           Regulatory impacts: How laws or policies might affect the instrument's outlook.
-          </li>
-         </ul>
-         <p>
-          This multi-angle approach gave us a richer, more actionable understanding of sentiment.
-         </p>
-        </ul>
-        <ul>
-         <li>
-          <strong>
-           Context-Aware Processing:
-          </strong>
-          Financial news often mentions multiple instruments in one article, and the sentiment can vary depending on the context. We enhanced our analyzer to:
-         </li>
-         <ul>
-          <li>
-           Distinguish between instruments in the same piece of content.
-          </li>
-          <li>
-           Understand relationships between news events (e.g., how a merger affects both companies involved).
-          </li>
-          <li>
-           Factor in the timing of sentiment (e.g., recent news carries more weight than older reports).
-          </li>
-         </ul>
-         <p>
-          This was a game-changer, allowing us to deliver precise, context-sensitive
-                    insights rather than generic sentiment scores.
-         </p>
-        </ul>
-       </section>
-       <!-- An example of the dataset -->
-       <section class="mb-4" id="methodology">
-        <h1 class="mb-3">
-         An example of the dataset
-        </h1>
-        <p>
-         The following is an example of the dataset that I have collected. To just give you an idea 
-                  of the type of the data that I am dealing with.
-        </p>
-        <div>
-         <img alt="An example of the dataset" class="img-fluid mb-4" src="../../images/projects/2025-05-02-crypto-news-sentiment-Image2.png"/>
-        </div>
-        <div class="d-flex justify-content-center">
-         <a class="btn btn-primary d-flex align-items-center gap-2" href="../../data/projects/2025-05-02-crypto-news-sentiment-sample-data.csv" target="_blank">
-          <i class="bi bi-download">
-          </i>
-          Download Sample Dataset (CSV)
-         </a>
-        </div>
-       </section>
-       <!-- Next Steps -->
-       <section class="mb-4" id="next-steps">
-        <h1 class="mb-3">
-         Next Steps
-        </h1>
-        <p>
-         This project is ready for its next phase. Here's what I am working on to make
-                  it even more effective for traders and analysts:
-        </p>
-        <ul>
-         <li>
-          <strong>
-           Spotting Predictive Trading Signals:
-          </strong>
-          <br/>
-          We'll dive into sentiment data to find patterns that predict market moves. Using machine learning, we'll analyze historical trends and market data to create reliable signals for trading.
-         </li>
-         <li>
-          <strong>
-           Improving Risk Management &amp; Analysis:
-          </strong>
-          <br/>
-          We're adding robust risk management tools, including statistical models to evaluate sentiment signal reliability and dashboards to visualize risks like volatility and exposure.
-         </li>
-         <li>
-          <strong>
-           Streamlining Data Access:
-          </strong>
-          <br/>
-          We'll store sentiment data on AWS S3 for secure access and build a user-friendly API to let developers integrate our insights into their trading platforms.
-         </li>
-         <li>
-          <strong>
-           Speeding Up Real-Time Processing:
-          </strong>
-          <br/>
-          To keep pace with fast markets, we'll optimize our data pipelines and explore serverless architectures to handle demand spikes smoothly.
-         </li>
-         <li>
-          <strong>
-           Covering More Financial Instruments:
-          </strong>
-          <br/>
-          We'll expand to include more stocks, ETFs, and possibly cryptocurrencies, making the system more versatile for users.
-         </li>
-        </ul>
-       </section>
-      </div>
-     </article>
-       </div>
-      </div>
-     </div>
-    </div>
-   </div>
+  <head>
+    <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta content="An analysis of crypto news sentiment and its implications for portfolio construction"
+      name="description"
+    />
+  <meta
+      content="crypto news sentiment, sentiment analysis, cryptocurrency, news, sentiment, analysis"
+      name="keywords"
+    />
+    <meta content="Vahid Asghari" name="author" />
+    <title>Crypto News Sentiment</title>
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
+    <link href="../../styles.css" rel="stylesheet" />
+    <!-- Add syntax highlighting for code blocks -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-light">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar Container -->
+        <div class="sidebar-container"></div>
+
+        <!-- Main Content -->
+        <div class="col-lg-9 col-md-8 main-content">
+          <div class="content-wrapper p-4">
+            <div class="row justify-content-center">
+              <div class="col-md-12">
+                <article class="card shadow-sm p-4">
+                  <div>
+                    <h2 class="mb-3">Latest Cryptocurrency Sentiment</h2>
+                    <p class="mb-4" id="last-updated">
+                      Last updated: 2025-08-16 10:00:07 HK
+                    </p>
+                    <div id="crypto-sentiment-table"></div>
+                    <div class="alert alert-warning" role="alert">
+                      <h4 class="alert-heading">
+                        <i class="bi bi-exclamation-triangle-fill me-2"> </i>
+                        Disclaimer
+                      </h4>
+                      <p>
+                        The information provided on this page is for educational
+                        and research purposes only. It should not be considered
+                        as financial advice or a recommendation to make any type
+                        of investment. Cryptocurrency markets are highly
+                        volatile and risky. The sentiment analysis and data
+                        presented here:
+                      </p>
+                      <ul>
+                        <li>
+                          Is experimental and may contain errors or inaccuracies
+                        </li>
+                        <li>
+                          Should not be used as the sole basis for any
+                          investment decisions
+                        </li>
+                        <li>Does not guarantee future results or returns</li>
+                        <li>
+                          May be delayed or not reflect current market
+                          conditions
+                        </li>
+                      </ul>
+                      <p class="mb-0">
+                        Always conduct your own research and consult with
+                        qualified financial advisors before making any
+                        investment decisions. Past performance is not indicative
+                        of future results. You should never invest more than you
+                        can afford to lose.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="table-of-contents mb-4">
+                    <h5 class="mb-3">Table of Contents</h5>
+                    <ol class="list-unstyled">
+                      <li class="mb-2">
+                        <a href="#motivation"> Motivation </a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#data-collection"> Data Collection </a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#challenges"> Challenges </a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#methodology"> Methodology </a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#code-structure"> Code Structure </a>
+                      </li>
+                      <li class="mb-2">
+                        <a href="#next-steps"> Next Steps </a>
+                      </li>
+                    </ol>
+                  </div>
+                  <div>
+                    <!-- Start with the motivation -->
+                    <section class="mb-4" id="motivation">
+                      <h1 class="mb-3">Motivation</h1>
+                      <p>
+                        Alternative data is a rich source of information that
+                        can be used to make investment decisions. It can provide
+                        insights that are not available in the market data and
+                        any type of factors or indicators. The faster you get
+                        the information, the better you can make the investment
+                        decisions. The Covid vaccine, Brexit, tarrifs, etc. are
+                        some examples of the events that moved the market and
+                        had a significant impact on the price of the stocks.
+                      </p>
+                      <p>
+                        In 2024, I started a project to programatically read the
+                        news online, clean the text, and then find the sentiment
+                        of the news with the hope of using it for trading
+                        cryptocurrencies, mostly for my own portfolio.
+                      </p>
+                      <p>
+                        The data sources are the publicly available news
+                        websites which I will list in the data collection
+                        section. The sentiment analysis is done as a combination
+                        of classical and modern NLP techniques with a touch of
+                        proprietary techniques.
+                      </p>
+                      <h2>Current Status</h2>
+                      <p>
+                        The project is up and running, with a solid setup for
+                        ongoing sentiment analysis. Here's what it offers:
+                      </p>
+                      <ul>
+                        <li>Real-time sentiment tracking</li>
+                        <li>Strong error handling and retry systems</li>
+                        <li>Easy deployment with containers</li>
+                        <li>Scalable database support</li>
+                      </ul>
+                    </section>
+                    <!-- Data Collection -->
+                    <section class="pt-4 border-top mb-4" id="data-collection">
+                      <h1 class="mb-3">Data Collection</h1>
+                      <p>
+                        The following is the list of the news websites that I
+                        have used to collect the data.
+                      </p>
+                      <ul>
+                        <li>
+                          <a href="https://www.coindesk.com/" target="_blank">
+                            CoinDesk
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://u.today/" target="_blank">
+                            U.Today
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.decrypt.co/" target="_blank">
+                            Decrypt
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.beincrypto.com/" target="_blank">
+                            BeinCrypto
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://coinbureau.com/" target="_blank">
+                            Coin Bureau
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.blockworks.co/" target="_blank">
+                            Blockworks
+                          </a>
+                        </li>
+                      </ul>
+                      <p>
+                        The following news sources are also famous, but they
+                        implement bot detection and have more stringent rules
+                        for scraping the data. So, I did not use them.
+                      </p>
+                      <ul>
+                        <li>
+                          <a
+                            href="https://www.bitcoinmagazine.com/"
+                            target="_blank"
+                          >
+                            Bitcoin Magazine
+                          </a>
+                        </li>
+                        <li>
+                          <a
+                            href="https://www.cointelegraph.com/"
+                            target="_blank"
+                          >
+                            Coin Telegraph
+                          </a>
+                        </li>
+                        <li>
+                          <a href="https://www.theblock.co/" target="_blank">
+                            The Block
+                          </a>
+                        </li>
+                      </ul>
+                    </section>
+                    <!-- Challenges -->
+                    <section class="pt-4 border-top mb-4" id="challenges">
+                      <h1 class="mb-3">Challenges and Lessons Learned</h1>
+                      <p>
+                        Developing FinInstruSentiment, our tool for real-time
+                        sentiment analysis of financial instruments, was a
+                        journey filled with hurdles that taught us invaluable
+                        lessons about creating reliable, scalable systems for
+                        financial data analysis. Below, we dive into the key
+                        challenges we faced, the solutions we implemented, and
+                        the insights we gained along the way.
+                      </p>
+                      <h3>1. Outsmarting Bot Detection Systems</h3>
+                      <p>
+                        Scraping data from financial websites was no easy feat,
+                        as many of these platforms use advanced bot detection to
+                        block automated systems. Getting past these defenses
+                        required us to think like humans—or at least make our
+                        system behave like one.
+                      </p>
+                      <ul>
+                        <li>
+                          <strong> Dynamic Header Rotation: </strong>
+                          To avoid being flagged, we set up our headless
+                          browsers to constantly switch up HTTP headers, like
+                          user agents, to mimic different devices and browsers.
+                          This kept our requests looking fresh and less robotic.
+                        </li>
+                        <li>
+                          <strong> Randomized Request Patterns: </strong>
+                          We added random delays between requests to emulate how
+                          a human might browse, avoiding predictable patterns
+                          that could trigger bot detection.
+                        </li>
+                        <li>
+                          <strong> IP Rotation via Proxies: </strong>
+                          By routing our requests through a pool of proxy
+                          servers, we distributed them across multiple IP
+                          addresses, reducing the risk of being blocked for
+                          excessive activity from a single source.
+                        </li>
+                        <li>
+                          <strong> Regular Updates: </strong>
+                          We regularly updated our scraping tools to stay ahead
+                          of new bot detection techniques.
+                        </li>
+                      </ul>
+                      <p>
+                        These tactics not only helped us gather data
+                        consistently but also taught us the importance of
+                        staying adaptable in the face of evolving web security
+                        measures.
+                      </p>
+                      <h3>2. Keeping the System Stable Under Pressure</h3>
+                      <p>
+                        Running headless browsers and Selenium for large-scale
+                        data collection put a serious strain on our system's
+                        resources, especially when deployed on AWS EC2
+                        instances. We quickly learned that stability was just as
+                        critical as functionality.
+                      </p>
+                      <ul>
+                        <li>
+                          <strong>
+                            Memory Leaks and Orphaned Processes:
+                          </strong>
+                          Early on, we noticed that Selenium and headless
+                          browsers sometimes left behind "zombie" processes,
+                          eating up memory and crashing our servers. This was a
+                          major bottleneck for continuous operation.
+                        </li>
+                        <li>
+                          <strong> Solutions that worked: </strong>
+                        </li>
+                        <ul>
+                          <li>
+                            <strong> Automated Restarts: </strong>
+                            We scheduled daily system restarts to clear out
+                            lingering processes and keep things running
+                            smoothly.
+                          </li>
+                          <li>
+                            <strong> Process Monitoring Scripts: </strong>
+                            We wrote scripts to detect and terminate orphaned
+                            processes, preventing memory exhaustion.
+                          </li>
+                          <li>
+                            <strong> Resource Thresholds: </strong>
+                            We set up alerts and automatic recovery procedures
+                            to kick in when CPU or memory usage crossed critical
+                            thresholds, ensuring the system could self-correct
+                            before crashing.
+                          </li>
+                        </ul>
+                      </ul>
+                      <p>
+                        These fixes transformed our system into a more resilient
+                        beast, capable of handling heavy workloads without
+                        constant babysitting. The lesson? Proactive monitoring
+                        and automated recovery are non-negotiable for
+                        production-grade systems.
+                      </p>
+                      <h3>3. Cracking the Code on Sentiment Analysis</h3>
+                      The heart of FinInstruSentiment is its ability to
+                      accurately analyze sentiment around financial instruments,
+                      but this was by far our most complex challenge. Financial
+                      texts are messy—full of jargon, abbreviations, and context
+                      that can shift the meaning of a single sentence. Here's
+                      how we tackled it:
+                      <ul>
+                        <li>
+                          <strong> Pinpointing Financial Entities: </strong>
+                          We leaned heavily on natural language processing (NLP)
+                          to identify mentions of specific financial
+                          instruments. This meant teaching the system to
+                          recognize:
+                        </li>
+                        <ul>
+                          <li>Direct references (e.g., "Apple stock")</li>
+                          <li>Ticker symbols (e.g., "AAPL")</li>
+                          <li>
+                            Company aliases (e.g., "Big Tech" for major tech
+                            firms)
+                          </li>
+                        </ul>
+                        <p>
+                          Getting this right required training our models on
+                          diverse datasets and constantly refining them to
+                          handle edge cases.
+                        </p>
+                      </ul>
+                      <ul>
+                        <li>
+                          <strong> Granular Sentiment Analysis: </strong>
+                          Financial sentiment isn't just "positive" or
+                          "negative." We built a system that breaks it down into
+                          multiple dimensions:
+                        </li>
+                        <ul>
+                          <li>
+                            Market sentiment: How the broader market views the
+                            instrument.
+                          </li>
+                          <li>
+                            Technical factors: Sentiment tied to price trends,
+                            trading volume, or technical indicators.
+                          </li>
+                          <li>
+                            Security issues: Sentiment around cybersecurity
+                            risks or data breaches.
+                          </li>
+                          <li>
+                            Regulatory impacts: How laws or policies might
+                            affect the instrument's outlook.
+                          </li>
+                        </ul>
+                        <p>
+                          This multi-angle approach gave us a richer, more
+                          actionable understanding of sentiment.
+                        </p>
+                      </ul>
+                      <ul>
+                        <li>
+                          <strong> Context-Aware Processing: </strong>
+                          Financial news often mentions multiple instruments in
+                          one article, and the sentiment can vary depending on
+                          the context. We enhanced our analyzer to:
+                        </li>
+                        <ul>
+                          <li>
+                            Distinguish between instruments in the same piece of
+                            content.
+                          </li>
+                          <li>
+                            Understand relationships between news events (e.g.,
+                            how a merger affects both companies involved).
+                          </li>
+                          <li>
+                            Factor in the timing of sentiment (e.g., recent news
+                            carries more weight than older reports).
+                          </li>
+                        </ul>
+                        <p>
+                          This was a game-changer, allowing us to deliver
+                          precise, context-sensitive insights rather than
+                          generic sentiment scores.
+                        </p>
+                      </ul>
+                    </section>
+                    <!-- An example of the dataset -->
+                    <section class="mb-4" id="methodology">
+                      <h1 class="mb-3">An example of the dataset</h1>
+                      <p>
+                        The following is an example of the dataset that I have
+                        collected. To just give you an idea of the type of the
+                        data that I am dealing with.
+                      </p>
+                      <div>
+                        <img
+                          alt="An example of the dataset"
+                          class="img-fluid mb-4"
+                          src="../../images/projects/2025-05-02-crypto-news-sentiment-Image2.png"
+                        />
+                      </div>
+                      <div class="d-flex justify-content-center">
+                        <a
+                          class="btn btn-primary d-flex align-items-center gap-2"
+                          href="../../data/projects/2025-05-02-crypto-news-sentiment-sample-data.csv"
+                          target="_blank"
+                        >
+                          <i class="bi bi-download"> </i>
+                          Download Sample Dataset (CSV)
+                        </a>
+                      </div>
+                    </section>
+                    <!-- Next Steps -->
+                    <section class="mb-4" id="next-steps">
+                      <h1 class="mb-3">Next Steps</h1>
+                      <p>
+                        This project is ready for its next phase. Here's what I
+                        am working on to make it even more effective for traders
+                        and analysts:
+                      </p>
+                      <ul>
+                        <li>
+                          <strong>
+                            Spotting Predictive Trading Signals:
+                          </strong>
+                          <br />
+                          We'll dive into sentiment data to find patterns that
+                          predict market moves. Using machine learning, we'll
+                          analyze historical trends and market data to create
+                          reliable signals for trading.
+                        </li>
+                        <li>
+                          <strong>
+                            Improving Risk Management &amp; Analysis:
+                          </strong>
+                          <br />
+                          We're adding robust risk management tools, including
+                          statistical models to evaluate sentiment signal
+                          reliability and dashboards to visualize risks like
+                          volatility and exposure.
+                        </li>
+                        <li>
+                          <strong> Streamlining Data Access: </strong>
+                          <br />
+                          We'll store sentiment data on AWS S3 for secure access
+                          and build a user-friendly API to let developers
+                          integrate our insights into their trading platforms.
+                        </li>
+                        <li>
+                          <strong> Speeding Up Real-Time Processing: </strong>
+                          <br />
+                          To keep pace with fast markets, we'll optimize our
+                          data pipelines and explore serverless architectures to
+                          handle demand spikes smoothly.
+                        </li>
+                        <li>
+                          <strong>
+                            Covering More Financial Instruments:
+                          </strong>
+                          <br />
+                          We'll expand to include more stocks, ETFs, and
+                          possibly cryptocurrencies, making the system more
+                          versatile for users.
+                        </li>
+                      </ul>
+                    </section>
+                  </div>
+                </article>
+              </div>
   </div>
-  
+</div>
+
   <script src="../../components/sidebar.js"></script>
-  <script src="../../components/crypto_sentiment_table.js"></script>
-  <!-- Bootstrap JS Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-  <script>
-   // Initialize the table when the page loads
-      document.addEventListener('DOMContentLoaded', function() {
-        createCryptoSentimentTable('crypto-sentiment-table');
+    <script src="../../components/crypto_sentiment_table.js"></script>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+    <script>
+      // Initialize the table when the page loads
+      document.addEventListener("DOMContentLoaded", function () {
+        createCryptoSentimentTable("crypto-sentiment-table");
       });
-  </script>
- </body>
+    </script
+</body>
 </html>

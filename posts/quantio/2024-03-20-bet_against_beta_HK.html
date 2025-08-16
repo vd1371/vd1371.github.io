@@ -1,13 +1,12 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
+    <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
       content="An analysis of an improved momentum strategy that incorporates market panic states"
-    />
-    <meta
+    >
+  <meta
       name="keywords"
       content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
     />
@@ -104,9 +103,8 @@
                         <li>Risk-free rate from HKMA API (1-month HIBOR)</li>
                         <li>Analysis period: 2005-01-01 to 2024-06-30</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <pre><code class="language-python">import pandas as pd
@@ -250,7 +248,8 @@ trade=trade.sort_index()
 
 trade["rank"] = 0
 trade["rank"] = trade.groupby(trade['Date'])["rolling_12_month_beta"].transform(lambda x: 
-                                pd.qcut(x.rank(method='first'), q=ngroup, labels=range(1, ngroup + 1)))</code></pre>
+                                pd.qcut(x.rank(method='first'), q=ngroup, labels=range(1, ngroup + 1)))</code>
+                  </pre>
 
               <div class="alert alert-info mt-3">
                 <h5 class="alert-heading">Code Explanation</h5>
@@ -270,9 +269,8 @@ trade["rank"] = trade.groupby(trade['Date'])["rolling_12_month_beta"].transform(
                         <li>Computes 12-month rolling betas</li>
                         <li>Groups stocks into quintiles</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
             </section>
 
@@ -301,9 +299,8 @@ trade["rank"] = trade.groupby(trade['Date'])["rolling_12_month_beta"].transform(
                         <li>Market return comparison</li>
                         <li>Sharpe ratio calculation</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <pre><code class="language-python">## Without beta neutral strategy:
@@ -332,7 +329,8 @@ plt.title("Long Monthly Lowest Beta Stocks and Short Monthly Highest Beta Stocks
 risk = pd.concat([trade.loc[trade["rank"]==5, "next_month_return"],
                   trade.loc[trade["rank"]==1, "next_month_return"]]).std()
 sharpe = (trade.loc[trade["rank"]==1, "next_month_return"] - trade.loc[trade["rank"]==5, "next_month_return"]).mean() / risk *np.sqrt(12)
-print(f"Sharpe Ratio is : {sharpe}")</code></pre>
+print(f"Sharpe Ratio is : {sharpe}")</code>
+                  </pre>
 
               <div class="alert alert-info mt-3">
                 <h5 class="alert-heading">Code Explanation</h5>
@@ -352,9 +350,8 @@ print(f"Sharpe Ratio is : {sharpe}")</code></pre>
                         <li>Shows strategy's cumulative return</li>
                         <li>Includes market return comparison</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <div class="d-flex justify-content-center">
@@ -372,9 +369,8 @@ print(f"Sharpe Ratio is : {sharpe}")</code></pre>
                         <li>Long positions in low beta stocks show consistent performance</li>
                         <li>Short positions in high beta stocks contribute to strategy returns</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
             </section>
 
@@ -404,9 +400,8 @@ print(f"Sharpe Ratio is : {sharpe}")</code></pre>
                         <li>Aims for zero-beta portfolio exposure</li>
                         <li>Uses multiplier to balance long and short positions</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <pre><code class="language-python">
@@ -458,7 +453,8 @@ print(f'Sharpe Ratio is {sharpe}')
 
 plt.show()
 
-Sharpe Ratio is 0.872005424739978</code></pre>
+Sharpe Ratio is 0.872005424739978</code>
+                  </pre>
 
               <div class="alert alert-info mt-3">
                 <h5 class="alert-heading">Code Explanation</h5>
@@ -485,9 +481,8 @@ Sharpe Ratio is 0.872005424739978</code></pre>
                         <li>Shows cumulative returns for long and short positions</li>
                         <li>Includes market return comparison</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <div class="d-flex justify-content-center">
@@ -512,9 +507,8 @@ Sharpe Ratio is 0.872005424739978</code></pre>
                         <li>Diversification across quintiles helps manage stock-specific risk</li>
                         <li>Monthly rebalancing maintains strategy consistency</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
             </section>
 
@@ -544,9 +538,8 @@ Sharpe Ratio is 0.872005424739978</code></pre>
                         <li>Inverse beta weighting for balanced exposure</li>
                         <li>Normalized weights for portfolio stability</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <pre><code class="language-python">
@@ -605,7 +598,8 @@ sharpe = total_returns.mean() / total_returns.std() * np.sqrt(12)
 print(f'Sharpe Ratio is {sharpe}')
 plt.title("Beta Weighted Beta neutral strategy")
 plt.show()
-              </code></pre>
+              </code>
+                  </pre>
 
               <div class="alert alert-info mt-3">
                 <h5 class="alert-heading">Code Explanation</h5>
@@ -625,9 +619,8 @@ plt.show()
                         <li>Calculates inverse beta weights</li>
                         <li>Normalizes weights for portfolio balance</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <div class="d-flex justify-content-center">
@@ -652,9 +645,8 @@ plt.show()
                         <li>Transaction costs may impact actual returns</li>
                         <li>Market liquidity constraints in Hong Kong</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
             </section>
 
@@ -685,9 +677,8 @@ plt.show()
                         <li>Multiplied risk exposure in low beta positions</li>
                         <li>Recent performance decline since 2021</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <p>
@@ -704,17 +695,12 @@ plt.show()
           </div>
         </article>
       </div>
-    </main>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
     
     <script src="../../components/sidebar.js"></script>
-</body>
 </html>

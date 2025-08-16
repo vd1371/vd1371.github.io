@@ -1,13 +1,12 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
+    <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
       content="An analysis of cross-stock momentum strategy based on lead-lag relationships and contemporaneous co-movements in stock markets"
-    />
-    <meta
+    >
+  <meta
       name="keywords"
       content="cross-stock momentum, factor momentum, lead-lag relationships, stock market analysis, trading strategy"
     />
@@ -83,7 +82,6 @@
                           <li>Lower Band: 𝛽_0+𝛽_1*𝑋+𝛽_2*𝑋^2 +𝛽_3*𝑋^3 +𝛽_4*𝑋^4 - 2S</li>
                         </ul>
                     </ol>
-                  </p>
                 </div>
 
                 <p class="mt-3">
@@ -199,7 +197,8 @@ for ticker in tickers:
     holder[ticker].dropna(inplace=True)  # Remove rows with missing values
 
 # Update tickers list to include only those with valid data after calculations
-tickers = [ticker for ticker in tickers if len(holder[ticker]) > 0]</code></pre>
+tickers = [ticker for ticker in tickers if len(holder[ticker]) > 0]</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -212,9 +211,8 @@ tickers = [ticker for ticker in tickers if len(holder[ticker]) > 0]</code></pre>
                           <li>Downloads historical stock data using yfinance</li>
                           <li>Implements efficient data caching system</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
               </section>
 
@@ -267,7 +265,8 @@ ls_lower_range.append(lower_coeff)
 ls_profit_loss_test.append(sum(profit_loss_test))
 ls_profit_loss_validate.append(sum(profit_loss_validate))
 ls_count_loss.append(count_loss_test)
-ls_count_profit.append(count_profit_test)</code></pre>
+ls_count_profit.append(count_profit_test)</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -280,9 +279,8 @@ ls_count_profit.append(count_profit_test)</code></pre>
                           <li>Evaluates performance across validation and test periods</li>
                           <li>Tracks profit/loss metrics for each combination</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <code style="color: #000;">
@@ -326,7 +324,8 @@ ls_count_no_trade = []
 ls_initial_investment = []
 
 initial_investment = 1000
-portfolio_value = []</code></pre>
+portfolio_value = []</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -409,7 +408,8 @@ initial_investment = sum(profit_loss) + initial_investment
 ls_profit_loss.append(sum(profit_loss))
 ls_count_profit.append(count_profit_test)
 ls_count_loss.append(count_loss_test)
-ls_count_no_trade.append(count_no_trade)</code></pre>
+ls_count_no_trade.append(count_no_trade)</code>
+                  </pre>
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
                   <p class="mb-0">
@@ -457,9 +457,8 @@ ls_count_no_trade.append(count_no_trade)</code></pre>
                           <li>Strong performance in 2019, 2020, and 2021</li>
                           <li>Challenging periods in 2018 and 2022</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
                 <pre><code class="language-python"># Plot the portfolio value
 plt.figure(figsize=(15, 6))
@@ -468,7 +467,8 @@ plt.title('Portfolio Value')
 plt.xlabel('Date')
 plt.ylabel('Value')
 plt.show()
-                  </code></pre>
+                  </code>
+                  </pre>
                 <div>
                   <img src="../../images/quantio/2025-05-13-polynomial-moving-regression-band-Image1.png" alt="Polynomial Moving Regression Band" class="img-fluid">
                 </div>
@@ -497,7 +497,8 @@ print(f"Performance Metrics:")
 print(f"total return: {df_portfolio_value['value'][-1]/1000 - 1:.2f}")
 print(f"Annual Return: {annual_return:.2f}%")
 print(f"Sharpe Ratio: {sharpe_ratio:.2f}")
-print(f"Maximum Drawdown: {max_drawdown:.2f}%")</code></pre>
+print(f"Maximum Drawdown: {max_drawdown:.2f}%")</code>
+                  </pre>
 
               </section>
               <section class="mb-4">
@@ -533,9 +534,8 @@ print(f"Maximum Drawdown: {max_drawdown:.2f}%")</code></pre>
                           <li>Annual reselection of profitable stocks tends to yield worse results</li>
                           <li>More frequent rebalancing may be necessary for optimal performance</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
               </section>
               <section>
@@ -546,18 +546,13 @@ print(f"Maximum Drawdown: {max_drawdown:.2f}%")</code></pre>
 
           </article>
         </div>
-      </div>
-    </main>
         </div>
-      </div>
-    </div>
   </div>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
     
     <script src="../../components/sidebar.js"></script>
-</body>
 </html>

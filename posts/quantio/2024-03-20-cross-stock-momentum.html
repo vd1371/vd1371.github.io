@@ -1,13 +1,12 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
+    <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
       content="An analysis of cross-stock momentum strategy based on lead-lag relationships and contemporaneous co-movements in stock markets"
-    />
-    <meta
+    >
+  <meta
       name="keywords"
       content="cross-stock momentum, factor momentum, lead-lag relationships, stock market analysis, trading strategy"
     />
@@ -102,9 +101,8 @@
                           <li>Difference between long-run and short-run relationships</li>
                           <li>Distinct from factor momentum</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
                 
               </section>
@@ -130,7 +128,8 @@ response = requests.get(url)
 html = response.content
 df = pd.read_html(html, header=0)[0]
 
-tickers = df['Symbol'].tolist()</code></pre>
+tickers = df['Symbol'].tolist()</code>
+                  </pre>
 
                 <pre><code class="language-python"># Load the data from yahoo finance
 import os
@@ -167,7 +166,8 @@ for symbol in tickers:
 
 tickers = ticker_with_data[:]
 
-print(f'Loaded data for {len(tickers)} companies')</code></pre>
+print(f'Loaded data for {len(tickers)} companies')</code>
+                  </pre>
               </section>
 
               <section id="conclusion" class="mb-4">
@@ -181,7 +181,6 @@ print(f'Loaded data for {len(tickers)} companies')</code></pre>
                       <li>Lead-lag relationships provide valuable predictive signals</li>
                       <li>Strategy performance varies significantly with implementation choices</li>
                     </ol>
-                  </p>
                 </div>                                
               </section>
               <section class="mb-4">
@@ -219,9 +218,8 @@ print(f'Loaded data for {len(tickers)} companies')</code></pre>
                           <li>Next month's intra-month returns</li>
                           <li>Cumulative returns for momentum signals</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
                 <pre><code class="language-python"># We only need the monthly data, so we will resample the data,
 # Open should be the first day of the month, Close should be the last day of the month
@@ -255,7 +253,8 @@ for df in monthly_data:
 
 monthly_data = temp
 
-monthly_data[0].head(3)</code></pre>
+monthly_data[0].head(3)</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -276,9 +275,8 @@ monthly_data[0].head(3)</code></pre>
                           <li>Shifts returns for next month prediction</li>
                           <li>Computes cumulative returns for momentum signals</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <code style="color: #000;">
@@ -315,9 +313,8 @@ date                      Open	    High      Low       Close     Volume   monthl
                           <li>Ensures proper alignment of dates across all stocks</li>
                           <li>Preserves the hierarchical structure of the data</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <pre><code class="language-python"># Transfer all the data to a single dataframe
@@ -337,7 +334,8 @@ last_1_month_cumulative_return_df = pd.concat(last_1_month_cumulative_return_hol
 last_2_month_cumulative_return_df = pd.concat(last_2_month_cumulative_return_holder, axis=1)
 
 print(last_1_month_cumulative_return_df.iloc[0:3, 0:3])
-print(last_2_month_cumulative_return_df.iloc[0:3, 0:3])</code></pre>
+print(last_2_month_cumulative_return_df.iloc[0:3, 0:3])</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Data Preview</h5>
@@ -357,9 +355,8 @@ print(last_2_month_cumulative_return_df.iloc[0:3, 0:3])</code></pre>
                           <li>Maintains consistent date alignment</li>
                           <li>Preserves the same stock symbols</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <code style="color: #000;">
@@ -399,9 +396,8 @@ print(last_2_month_cumulative_return_df.iloc[0:3, 0:3])</code></pre>
                           <li>Corr(r_t-1_i, r_t_j): Stock i's past returns vs stock j's current returns</li>
                           <li>Corr(r_t_i, r_t-1_j): Stock j's past returns vs stock i's current returns</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <pre><code class="language-python">correlation_holder = []
@@ -425,7 +421,8 @@ for ticker in tickers:
 
 # Transpose the correlation_df
 correlation_df_T = correlation_df.T
-correlation_df_T.head(3)</code></pre>
+correlation_df_T.head(3)</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Correlation Matrix Analysis</h5>
@@ -443,9 +440,8 @@ correlation_df_T.head(3)</code></pre>
                           <li>Positive difference: Stock follows another</li>
                           <li>Negative difference: Stock leads another</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <pre><code class="language-python"># Get the difference between the correlation_df and correlation_df_T, so that we can know the lead-lag linkage between the companies
@@ -483,7 +479,8 @@ for ticker in tickers:
         df['y'] = monthly_data[tickers.index(ticker)]['next_intra_month_return']
         df['intra_month_retrun'+pairs[ticker][0][0]] = monthly_data[tickers.index(ticker)]['intra_month_return'+pairs[ticker][0][0]]
     
-        regression_data.append(df)</code></pre>
+        regression_data.append(df)</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Regression Model Implementation</h5>
@@ -503,9 +500,8 @@ for ticker in tickers:
                           <li>Maintains temporal consistency</li>
                           <li>Preserves stock pair relationships</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <pre><code class="language-python">import statsmodels.api as sm
@@ -542,7 +538,8 @@ regression_df = pd.concat([regression_df_leader_stock, regression_df_y], axis=1)
 X = sm.add_constant(regression_df['Leader Stock Intra Month Return'])
 model = OLS(regression_df['y'], X)
 result_corr = model.fit()
-print(result_corr.summary())</code></pre>
+print(result_corr.summary())</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Analysis Results</h5>
@@ -562,9 +559,8 @@ print(result_corr.summary())</code></pre>
                           <li>Data-driven approach may deviate from theoretical cross-stock momentum</li>
                           <li>Possible implementation issues in the code</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <code style="color: #000;">
@@ -722,7 +718,8 @@ for ticker in tickers:
         df['predicted_next_month_return'] = sum([df['intra_month_return' + pair[0]] * regression_model_2005_2017[ticker]['intra_month_return '+pair[0]] for pair in linkage_2005_2017[ticker]]) + regression_model_2005_2017[ticker]['const']
         temp.append(df)
     
-prediction_matrix_2018_2023_holder = temp</code></pre>
+prediction_matrix_2018_2023_holder = temp</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -756,9 +753,8 @@ prediction_matrix_2018_2023_holder = temp</code></pre>
                           <li>Implements regression-based predictions</li>
                           <li>Combines leader stock returns with model coefficients</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
               </section>
               
@@ -794,7 +790,8 @@ portfolio_cumulative_return = portfolio.cumsum()
 cumulative_return_2018_2023 = []
 for df in prediction_matrix_2018_2023_holder:
     df['cumulative_return'] = df['next_intra_month_trading_return'].cumsum()
-    cumulative_return_2018_2023.append(df['cumulative_return'].iloc[-2])</code></pre>
+    cumulative_return_2018_2023.append(df['cumulative_return'].iloc[-2])</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -821,9 +818,8 @@ for df in prediction_matrix_2018_2023_holder:
                           <li>Tracks individual stock performance</li>
                           <li>Stores final cumulative returns</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
               </section>
 
@@ -859,7 +855,8 @@ portfolio_cumulative_return_long_only = portfolio_long_only.cumsum()
 cumulative_return_2018_2023_long_only = []
 for df in prediction_matrix_2018_2023_holder:
     df['cumulative_return_long_only'] = df['trading_return_long_only'].cumsum()
-    cumulative_return_2018_2023_long_only.append(df['cumulative_return_long_only'].iloc[-2])</code></pre>
+    cumulative_return_2018_2023_long_only.append(df['cumulative_return_long_only'].iloc[-2])</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -886,9 +883,8 @@ for df in prediction_matrix_2018_2023_holder:
                           <li>Tracks performance from 2018-2023</li>
                           <li>Stores final cumulative returns for analysis</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
               </section>
 
@@ -944,7 +940,8 @@ plt.plot(portfolio_cumulative_return, label='Portfolio')
 plt.plot(portfolio_cumulative_return_long_only, label='Long Only Portfolio')
 plt.legend()
 plt.title('Cumulative Return of the Portfolio and Long Only Portfolio')
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
 
                 <div class="d-flex justify-content-center">
                   <img src="../../images/quantio/2024-03-20-cross-stock-momentum-Image1.png" alt="Cross Stock Momentum Analysis" class="img-fluid">
@@ -967,9 +964,8 @@ plt.show()</code></pre>
                           <li>Long-short portfolio shows better VaR (-2.33% vs -5.47%)</li>
                           <li>Long-only strategy exhibits higher volatility but better risk-adjusted returns</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <div class="alert alert-warning mt-3">
@@ -988,9 +984,8 @@ plt.show()</code></pre>
                           <li>Regression models struggle with predicting negative returns</li>
                           <li>Short-selling predictions show lower accuracy</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <div class="alert alert-info mt-3">
@@ -1018,26 +1013,20 @@ plt.show()</code></pre>
                           <li>Explore large-cap vs small-cap relationships</li>
                           <li>Investigate cross-market influences</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
               </section>
             </div>
           </article>
         </div>
-      </div>
-    </main>
         </div>
-      </div>
-    </div>
   </div>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
     
     <script src="../../components/sidebar.js"></script>
-</body>
 </html>

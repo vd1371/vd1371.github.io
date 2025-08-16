@@ -2,12 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta
-    name="description"
+    <meta name="description"
     content="An analysis of cross-stock momentum strategy based on lead-lag relationships and contemporaneous co-movements in stock markets"
-  />
+  >
   <meta
     name="keywords"
     content="cross-stock momentum, factor momentum, lead-lag relationships, stock market analysis, trading strategy"
@@ -174,7 +173,8 @@ data_sma_return["portfolio_daily_return"] =
 + np.where(data_sma_return["Gold ETF"] >= data_sma_return["Gold ETF_250_SMA"], data_sma_return["Gold ETF_daily_return"].shift(-1), data_sma_return['Cash_daily_return'].shift(-1)) 
 + np.where(data_sma_return["HSI"] >= data_sma_return["HSI_250_SMA"], data_sma_return["HSI_daily_return"].shift(-1), data_sma_return['Cash_daily_return'].shift(-1))  
 + np.where(data_sma_return["Link REIT"] >= data_sma_return["Link REIT_250_SMA"], data_sma_return["Link REIT_daily_return"].shift(-1), data_sma_return['Cash_daily_return'].shift(-1)) )  /4
-data_sma_return</code></pre>
+data_sma_return</code>
+                  </pre>
 
               <div class="alert alert-info mt-3">
                 <h5 class="alert-heading">Code Explanation</h5>
@@ -194,9 +194,8 @@ data_sma_return</code></pre>
                         <li>Calculates daily returns for each asset</li>
                         <li>Computes cash returns based on Overnight HIBOR rates</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
             </section>
             <section>
@@ -248,7 +247,8 @@ plt.plot(data_sma_return["HSI_daily_return"].cumsum(), label= "HSI Return")
 plt.plot(data_sma_return['Gold ETF_daily_return'].cumsum(), label= "Commodities Return")
 plt.plot(data_sma_return["HKD bond fund_daily_return"].cumsum(), label="Fixed Income Return")
 plt.plot(data_sma_return["Link REIT_daily_return"].cumsum(), label= "Real Estate Return")
-plt.legend()</code></pre>
+plt.legend()</code>
+                  </pre>
 
             <div>
               <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image1.png" alt="Dynamic Tactical Asset Allocation" class="img-fluid">
@@ -289,7 +289,8 @@ for column in data_dtaa.columns[:4]:
         #Lower than 250 days SMA and high volatility
     )
 data_dtaa=data_dtaa[250:].copy()
-data_dtaa["portfolio_daily_return"]=data_dtaa["HKD bond fund_strategy_return"]+ data_dtaa["Gold ETF_strategy_return"] +data_dtaa["HSI_strategy_return"] +data_dtaa['Link REIT_strategy_return']</code></pre>
+data_dtaa["portfolio_daily_return"]=data_dtaa["HKD bond fund_strategy_return"]+ data_dtaa["Gold ETF_strategy_return"] +data_dtaa["HSI_strategy_return"] +data_dtaa['Link REIT_strategy_return']</code>
+                  </pre>
 
               <div class="alert alert-info mt-3">
                 <h5 class="alert-heading">Code Explanation</h5>
@@ -308,9 +309,8 @@ data_dtaa["portfolio_daily_return"]=data_dtaa["HKD bond fund_strategy_return"]+ 
                         <li>Calculates daily returns</li>
                         <li>Determines 20-day and 250-day volatility measures</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <code style="color: #000;"><pre>HKD bond fund	Gold ETF	HSI	Link REIT	Overnight HIBOR	Cash_daily_return	HKD bond fund_250_SMA	HKD bond fund_daily_return	HKD bond fund_20_days_volatility	HKD bond fund_250_days_volatility	HKD bond fund_strategy_return	Gold ETF_250_SMA	Gold ETF_daily_return	Gold ETF_20_days_volatility	Gold ETF_250_days_volatility	Gold ETF_strategy_return	HSI_250_SMA	HSI_daily_return	HSI_20_days_volatility	HSI_250_days_volatility	HSI_strategy_return	Link REIT_250_SMA	Link REIT_daily_return	Link REIT_20_days_volatility	Link REIT_250_days_volatility	Link REIT_strategy_return	portfolio_daily_return
@@ -333,12 +333,14 @@ Date
   plt.plot(data_dtaa['Gold ETF_daily_return'].cumsum(), label= "Commodities Return")
   plt.plot(data_dtaa["HKD bond fund_daily_return"].cumsum(), label="Fixed Income Return")
   plt.plot(data_dtaa["Link REIT_daily_return"].cumsum(), label= "Real Estate Return")
-  plt.legend()</code></pre>
+  plt.legend()</code>
+                  </pre>
 
               <pre><code class="language-python">portfolio_return = data_dtaa["portfolio_daily_return"][:-1].cumsum().iloc[-1]
   print("DTAA Strategy Return: ", portfolio_return)
   risk=data_dtaa["portfolio_daily_return"].std()
-  print("Sharpe Ratio is : ", data_dtaa["portfolio_daily_return"].mean() / risk * np.sqrt(250))</code></pre>
+  print("Sharpe Ratio is : ", data_dtaa["portfolio_daily_return"].mean() / risk * np.sqrt(250))</code>
+                  </pre>
             </section>
 
             <section>
@@ -434,7 +436,8 @@ plt.title('Counts of Signal Combinations')
 plt.xlabel('Signal Combination') 
 plt.ylabel('Count') 
 plt.xticks(rotation=45) 
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
                           
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -454,9 +457,8 @@ plt.show()</code></pre>
                           <li>Generates volatility signals comparing short-term vs long-term volatility</li>
                           <li>Combines both signals to create a comprehensive trading signal</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
               </section>
 
@@ -485,9 +487,8 @@ plt.show()</code></pre>
                         <li>Aggregates volatility differences for volatility signals</li>
                         <li>Combines signals to create final allocation decisions</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <pre><code class="language-python">data_dtaa["portfolio_daily_return"]=np.where(
@@ -502,7 +503,8 @@ plt.plot(data_dtaa["HSI_daily_return"].cumsum(), label= "HSI Return")
 plt.plot(data_dtaa['Gold ETF_daily_return'].cumsum(), label= "Commodities Return")
 plt.plot(data_dtaa["HKD bond fund_daily_return"].cumsum(), label="Fixed Income Return")
 plt.plot(data_dtaa["Link REIT_daily_return"].cumsum(), label= "Real Estate Return")
-plt.legend()</code></pre>
+plt.legend()</code>
+                  </pre>
 
               <div class="d-flex justify-content-center mb-4">
                 <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image4.png" alt="Dynamic Tactical Asset Allocation" class="img-fluid">
@@ -526,9 +528,8 @@ plt.legend()</code></pre>
                         <li>Compares performance against individual asset classes</li>
                         <li>Shows relative performance over time</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <pre><code class="language-python">portfolio_return = data_dtaa["portfolio_daily_return"][:-1].cumsum().iloc[-1]
@@ -540,7 +541,8 @@ plt.plot(data_dtaa["portfolio_daily_return"].cumsum(), label="DTAA Return")
 plt.plot(data_sma_plus["portfolio_daily_return"].cumsum(), label="250 days SMA Plus Strategy Return")
 plt.plot(data_sma_return["portfolio_daily_return"].cumsum(), label="250 days SMA Strategy Return")
 plt.legend()
-plt.title("Signal Based Strategy Return")</code></pre>
+plt.title("Signal Based Strategy Return")</code>
+                  </pre>
 
               <div class="d-flex justify-content-center mb-4">
                 <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image5.png" alt="Dynamic Tactical Asset Allocation" class="img-fluid">
@@ -591,7 +593,8 @@ data_risk_parity=data_risk_parity[250:].copy()
 weights = adjust_weights(data_risk_parity, stock_columns)
 
 data_risk_parity['portfolio_daily_return'] = (weights * data_risk_parity[[stock + '_daily_return' for stock in stock_columns]].values).sum(axis=1)
-data_risk_parity['portfolio_cumulative_return'] = data_risk_parity['portfolio_daily_return'].cumsum()</code></pre>
+data_risk_parity['portfolio_cumulative_return'] = data_risk_parity['portfolio_daily_return'].cumsum()</code>
+                  </pre>
 
               <div class="alert alert-info mt-3">
                 <h5 class="alert-heading">Code Explanation</h5>
@@ -611,9 +614,8 @@ data_risk_parity['portfolio_cumulative_return'] = data_risk_parity['portfolio_da
                         <li>Calculates inverse volatility weights</li>
                         <li>Applies weights to portfolio construction</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
 
               <pre><code class="language-python">plt.figure(figsize=(8, 6))
@@ -625,7 +627,8 @@ plt.plot(data_risk_parity["Link REIT_daily_return"].cumsum(), label= "Real Estat
 plt.title('Risk Parity DTAA')
 plt.ylabel('Cumulative Return')
 plt.legend()
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
 
               <div class="d-flex justify-content-center mb-4">
                 <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image6.png" alt="Risk Parity DTAA Performance" class="img-fluid">
@@ -634,7 +637,8 @@ plt.show()</code></pre>
               <pre><code class="language-python">portfolio_return = data_risk_parity["portfolio_daily_return"].cumsum().iloc[-1]
 print("SMA Plus Strategy Return: ", portfolio_return)
 risk=data_risk_parity["portfolio_daily_return"].std()
-print("Sharpe Ratio is : ", data_risk_parity["portfolio_daily_return"].mean() / risk * np.sqrt(250))</code></pre>
+print("Sharpe Ratio is : ", data_risk_parity["portfolio_daily_return"].mean() / risk * np.sqrt(250))</code>
+                  </pre>
 
             </section>
 
@@ -653,7 +657,8 @@ plt.plot(data_sma_return["portfolio_daily_return"].cumsum(), label="250 days SMA
 plt.title('Return of different asset allocation strategies')
 plt.ylabel('Cumulative Return')
 plt.legend()
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
 
               <div class="alert alert-warning mt-3">
                 <h5 class="alert-heading">Market Context and Challenges</h5>
@@ -695,19 +700,14 @@ plt.show()</code></pre>
                         <li>We can choose a different investment environment?</li>
                         <li>It is obvious that the strategies performance of this thesis are much better than mine as he use US market to backtest</li>
                       </ul>
-                    </li>
-                  </ol>
-                </p>
+                        </li>
+                      </ol>
               </div>
             </section>
           </div>
         </article>
       </div>
-    </div>
-  </main>
         </div>
-      </div>
-    </div>
   </div>
 </div>
 
@@ -716,5 +716,4 @@ plt.show()</code></pre>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
   
   <script src="../../components/sidebar.js"></script>
-</body>
 </html>

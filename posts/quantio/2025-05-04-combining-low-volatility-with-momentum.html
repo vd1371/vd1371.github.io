@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -14,68 +14,100 @@
     <meta name="author" content="Vahid Asghari" />
     <title>Combining Low Volatility with Momentum</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../../styles.css" />
     <!-- Add syntax highlighting for code blocks -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css"
+    />
   </head>
   <body class="bg-light">
-    
-
     <div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar Container -->
-    <div class="sidebar-container"></div>
-    
-    <!-- Main Content -->
-    <div class="col-lg-9 col-md-8 main-content">
-      <div class="content-wrapper p-4">
-        <div class="row justify-content-center">
-        <div class="col-md-12">
-          <article class="card shadow-sm p-4">
-            
+      <div class="row">
+        <!-- Sidebar Container -->
+        <div class="sidebar-container"></div>
 
-            <div>
-              <img src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image0.png" alt="Combining Low Volatility with Momentum" class="img-fluid">
-            </div>
-            
-            <div class="table-of-contents mb-4">
-              <h2 class="h5 mb-3">Table of Contents</h2>
-              <ul class="list-unstyled">
-                <li><a href="#strategy-details">Strategy Details</a></li>
-                <li><a href="#data-collection">Data Collection</a></li>
-                <li><a href="#monthly-aggregation">Monthly Returns and Volatility Calculation</a></li>
-                <li><a href="#regression-analysis">Regression Analysis</a></li>
-                <li><a href="#tail-analysis">Tail Analysis</a></li>
-                <li><a href="#strategy-implementation">Strategy Implementation</a></li>
-                <li><a href="#results-analysis">Results Analysis</a></li>
-              </ul>
-            </div>
+        <!-- Main Content -->
+        <div class="col-lg-9 col-md-8 main-content">
+          <div class="content-wrapper p-4">
+            <div class="row justify-content-center">
+              <div class="col-md-12">
+                <article class="card shadow-sm p-4">
+                  <div>
+                    <img
+                      src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image0.png"
+                      alt="Combining Low Volatility with Momentum"
+                      class="img-fluid"
+                    />
+                  </div>
 
-            <div>
-              
-              <section class="mb-4">
-                <h2 id="strategy-details" class="h5 mb-3">Strategy Details</h2>
-                <p>
-                  This strategy is based on the following paper:
-                  <a href="https://doi.org/10.1080/00036846.2024.2300000" target="_blank" rel="noopener noreferrer">
-                    Grobys, K., Fatmy, V., & Rajalin, T. (2024). Combining low-volatility and momentum: recent evidence from the Nordic equities. Applied Economics.
-                  </a>
-                </p>
+                  <div class="table-of-contents mb-4">
+                    <h2 class="h5 mb-3">Table of Contents</h2>
+                    <ul class="list-unstyled">
+                      <li><a href="#strategy-details">Strategy Details</a></li>
+                      <li><a href="#data-collection">Data Collection</a></li>
+                      <li>
+                        <a href="#monthly-aggregation"
+                          >Monthly Returns and Volatility Calculation</a
+                        >
+                      </li>
+                      <li>
+                        <a href="#regression-analysis">Regression Analysis</a>
+                      </li>
+                      <li><a href="#tail-analysis">Tail Analysis</a></li>
+                      <li>
+                        <a href="#strategy-implementation"
+                          >Strategy Implementation</a
+                        >
+                      </li>
+                      <li><a href="#results-analysis">Results Analysis</a></li>
+                    </ul>
+                  </div>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Key Concept</h5>
-                  <p class="mb-0">
-                    The strategy explores how combining the low-volatility anomaly with the momentum anomaly can enhance risk-adjusted returns. While the original research focused on Nordic stock markets, we investigate whether this combined approach can improve performance in the S&P 500 context.
-                  </p>
-                </div>
+                  <div>
+                    <section class="mb-4">
+                      <h2 id="strategy-details" class="h5 mb-3">
+                        Strategy Details
+                      </h2>
+                      <p>
+                        This strategy is based on the following paper:
+                        <a
+                          href="https://doi.org/10.1080/00036846.2024.2300000"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                        >
+                          Grobys, K., Fatmy, V., & Rajalin, T. (2024). Combining
+                          low-volatility and momentum: recent evidence from the
+                          Nordic equities. Applied Economics.
+                        </a>
+                      </p>
 
-                <p class="mt-3">
-                  Let's begin by collecting and processing the necessary data:
-                </p>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Key Concept</h5>
+                        <p class="mb-0">
+                          The strategy explores how combining the low-volatility
+                          anomaly with the momentum anomaly can enhance
+                          risk-adjusted returns. While the original research
+                          focused on Nordic stock markets, we investigate
+                          whether this combined approach can improve performance
+                          in the S&P 500 context.
+                        </p>
+                      </div>
 
-                <pre><code class="language-python"># Collect the list of the S&P 500 companies from Wikipedia and save it to a file
+                      <p class="mt-3">
+                        Let's begin by collecting and processing the necessary
+                        data:
+                      </p>
+
+                      <pre><code class="language-python"># Collect the list of the S&P 500 companies from Wikipedia and save it to a file
 import os
 import requests
 import pandas as pd
@@ -92,11 +124,10 @@ html = response.content
 df = pd.read_html(html, header=0)[0]
 
 tickers = df['Symbol'].tolist()
-N = 20 # Number of stocks to long or short on each tail</code></pre>
+N = 20 # Number of stocks to long or short on each tail</code>
+                  </pre>
 
-                
-
-                <pre><code class="language-python"># Load the data from yahoo finance
+                      <pre><code class="language-python"># Load the data from yahoo finance
 import os
 import yfinance as yf
 
@@ -132,32 +163,43 @@ for symbol in tickers:
 
 tickers = ticker_with_data[:]
 
-print(f'Loaded data for {len(tickers)} companies')</code></pre>
+print(f'Loaded data for {len(tickers)} companies')</code>
+                  </pre>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Code Explanation</h5>
-                  <p class="mb-0">
-                    This code section implements efficient data management:
-                    <ol>
-                      <li>Data Download Function:
-                        <ul>
-                          <li>Creates a 'data' directory for caching</li>
-                          <li>Downloads historical data from Yahoo Finance</li>
-                          <li>Handles timezone conversion for consistency</li>
-                        </ul>
-                      </li>
-                      <li>Data Processing:
-                        <ul>
-                          <li>Filters out invalid or empty datasets</li>
-                          <li>Ensures sufficient historical data (3+ years)</li>
-                          <li>Maintains a clean list of valid tickers</li>
-                        </ul>
-                      </li>
-                    </ol>
-                  </p>
-                </div>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Code Explanation</h5>
+                        <p class="mb-0">
+                          This code section implements efficient data
+                          management:
+                        </p>
 
-                <pre><code class="language-python"># Get the monthly data as we use the monthly data to calculate the momentum
+                        <ol>
+                          <li>
+                            Data Download Function:
+                            <ul>
+                              <li>Creates a 'data' directory for caching</li>
+                              <li>
+                                Downloads historical data from Yahoo Finance
+                              </li>
+                              <li>
+                                Handles timezone conversion for consistency
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Data Processing:
+                            <ul>
+                              <li>Filters out invalid or empty datasets</li>
+                              <li>
+                                Ensures sufficient historical data (3+ years)
+                              </li>
+                              <li>Maintains a clean list of valid tickers</li>
+                            </ul>
+                          </li>
+                        </ol>
+                      </div>
+
+                      <pre><code class="language-python"># Get the monthly data as we use the monthly data to calculate the momentum
 monthly_data = []
 for data in holder:
     df = data.resample('M').agg({
@@ -174,17 +216,22 @@ df.set_index('date', inplace=True)
 # convert the date time to year-month
 df.index = df.index.to_period('M')
 
-monthly_data.append(df)</code></pre>
-               
-              </section>
-              
-              <section class="mb-4">
-                <h2 id="monthly-aggregation" class="h5 mb-3">Monthly Returns and Volatility Calculation</h2>
-                <p>
-                  We calculate the monthly returns and volatilities for our analysis. The strategy assumes opening positions at the monthly open price and closing at the monthly close price.
-                </p>
+monthly_data.append(df)</code>
+                  </pre>
+                    </section>
 
-                <pre><code class="language-python"># Add the monthly returns and the volatilties
+                    <section class="mb-4">
+                      <h2 id="monthly-aggregation" class="h5 mb-3">
+                        Monthly Returns and Volatility Calculation
+                      </h2>
+                      <p>
+                        We calculate the monthly returns and volatilities for
+                        our analysis. The strategy assumes opening positions at
+                        the monthly open price and closing at the monthly close
+                        price.
+                      </p>
+
+                      <pre><code class="language-python"># Add the monthly returns and the volatilties
 
 # Calculate the monthly returns
 temp = []
@@ -253,40 +300,72 @@ for symbol, df in zip(tickers, monthly_data):
     
 print (rolling_12_months_return_df.iloc[:3, :4])
 print (next_intra_month_return_df.iloc[:3, :4])
-print (last_month_rolling_3_years_std_df.iloc[:3, :4])</code></pre>
+print (last_month_rolling_3_years_std_df.iloc[:3, :4])</code>
+                  </pre>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Code Explanation</h5>
-                  <p class="mb-0">
-                    This code section implements the core calculations for our strategy:
-                    <ol>
-                      <li>Monthly Return Calculations:
-                        <ul>
-                          <li>Computes intra-month returns using open and close prices</li>
-                          <li>Calculates next month's returns for forward-looking analysis</li>
-                          <li>Derives monthly returns using closing prices</li>
-                          <li>Computes 12-month rolling returns for momentum signals</li>
-                        </ul>
-                      </li>
-                      <li>Volatility Calculations:
-                        <ul>
-                          <li>Uses daily returns to calculate 3-year rolling volatility</li>
-                          <li>Shifts volatility data to avoid look-ahead bias</li>
-                          <li>Resamples volatility data to monthly frequency</li>
-                        </ul>
-                      </li>
-                      <li>Data Organization:
-                        <ul>
-                          <li>Creates separate dataframes for different metrics</li>
-                          <li>Aligns all time series for consistent analysis</li>
-                          <li>Structures data with symbols as columns and dates as rows</li>
-                        </ul>
-                      </li>
-                    </ol>
-                  </p>
-                </div>
-                <code style="color: #000;">
-                  <pre>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Code Explanation</h5>
+                        <p class="mb-0">
+                          This code section implements the core calculations for
+                          our strategy:
+                        </p>
+
+                        <ol>
+                          <li>
+                            Monthly Return Calculations:
+                            <ul>
+                              <li>
+                                Computes intra-month returns using open and
+                                close prices
+                              </li>
+                              <li>
+                                Calculates next month's returns for
+                                forward-looking analysis
+                              </li>
+                              <li>
+                                Derives monthly returns using closing prices
+                              </li>
+                              <li>
+                                Computes 12-month rolling returns for momentum
+                                signals
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Volatility Calculations:
+                            <ul>
+                              <li>
+                                Uses daily returns to calculate 3-year rolling
+                                volatility
+                              </li>
+                              <li>
+                                Shifts volatility data to avoid look-ahead bias
+                              </li>
+                              <li>
+                                Resamples volatility data to monthly frequency
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Data Organization:
+                            <ul>
+                              <li>
+                                Creates separate dataframes for different
+                                metrics
+                              </li>
+                              <li>
+                                Aligns all time series for consistent analysis
+                              </li>
+                              <li>
+                                Structures data with symbols as columns and
+                                dates as rows
+                              </li>
+                            </ul>
+                          </li>
+                        </ol>
+                      </div>
+                      <code style="color: #000">
+                        <pre>
                                   MMM       AOS       ABT  ABBV
                     date                                       
                     2008-01  0.165248 -0.037589  0.081723   NaN
@@ -302,17 +381,24 @@ print (last_month_rolling_3_years_std_df.iloc[:3, :4])</code></pre>
                     2008-01  0.011269  0.021270  0.011481   NaN
                     2008-02  0.011350  0.021901  0.011652   NaN
                     2008-03  0.011437  0.022053  0.011725   NaN
-                  </pre>
-                </code>
-              </section>
+                  </pre
+                        >
+                      </code>
+                    </section>
 
-              <section class="mb-4">
-                <h2 id="regression-analysis" class="h5 mb-3">Regression Analysis</h2>
-                <p>
-                  We perform regression analysis to examine the relationship between volatility and future returns. This analysis helps us understand if there's a systematic relationship between a stock's volatility and its subsequent performance.
-                </p>
+                    <section class="mb-4">
+                      <h2 id="regression-analysis" class="h5 mb-3">
+                        Regression Analysis
+                      </h2>
+                      <p>
+                        We perform regression analysis to examine the
+                        relationship between volatility and future returns. This
+                        analysis helps us understand if there's a systematic
+                        relationship between a stock's volatility and its
+                        subsequent performance.
+                      </p>
 
-                <pre><code class="language-python"># Regression Analysis
+                      <pre><code class="language-python"># Regression Analysis
 import matplotlib.pyplot as plt
 import seaborn as sns
 import statsmodels.api as sm
@@ -337,14 +423,19 @@ X = sm.add_constant(df_for_regression['last_month_rolling_3_years_volatility'])
 y = df_for_regression['next_intra_month_return']
 
 model = sm.OLS(y, X).fit()
-model.summary()</code></pre>
+model.summary()</code>
+                  </pre>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image1.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
-                </div>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image1.png"
+                          alt="Predicting Indices Using ARIMA"
+                          class="img-fluid"
+                        />
+                      </div>
 
-                <code style="color: #000;">
-                  <pre>
+                      <code style="color: #000">
+                        <pre>
 
 Correlation between the next month return and the last month volatility is 0.05542205432229919
 
@@ -373,44 +464,73 @@ Correlation between the next month return and the last month volatility is 0.055
 
       Notes:
       [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-                  </pre>
-                </code>
+                  </pre
+                        >
+                      </code>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Analysis of the Results</h5>
-                  <p class="mb-0">
-                    The regression analysis reveals several key findings:
-                    <ol>
-                      <li>Statistical Significance:
-                        <ul>
-                          <li>The p-value of the volatility coefficient is 0.000, indicating high statistical significance</li>
-                          <li>The relationship between volatility and future returns is robust</li>
-                        </ul>
-                      </li>
-                      <li>Relationship Direction:
-                        <ul>
-                          <li>Positive correlation between volatility and future returns</li>
-                          <li>This finding is somewhat counterintuitive to traditional low volatility theory</li>
-                        </ul>
-                      </li>
-                      <li>Potential Explanations:
-                        <ul>
-                          <li>Possible code implementation issues that need verification</li>
-                          <li>Low volatility effect may be weaker in S&P 500 context</li>
-                          <li>Time period differences from original research</li>
-                          <li>Effect might be more pronounced in distribution tails</li>
-                        </ul>
-                      </li>
-                    </ol>
-                  </p>
-                </div>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Analysis of the Results</h5>
+                        <p class="mb-0">
+                          The regression analysis reveals several key findings:
+                        </p>
 
-                <h3 class="h5 mb-3">Tail Analysis</h3>
-                <p>
-                  To better understand the relationship, we analyze the tails of the volatility distribution:
-                </p>
+                        <ol>
+                          <li>
+                            Statistical Significance:
+                            <ul>
+                              <li>
+                                The p-value of the volatility coefficient is
+                                0.000, indicating high statistical significance
+                              </li>
+                              <li>
+                                The relationship between volatility and future
+                                returns is robust
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Relationship Direction:
+                            <ul>
+                              <li>
+                                Positive correlation between volatility and
+                                future returns
+                              </li>
+                              <li>
+                                This finding is somewhat counterintuitive to
+                                traditional low volatility theory
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Potential Explanations:
+                            <ul>
+                              <li>
+                                Possible code implementation issues that need
+                                verification
+                              </li>
+                              <li>
+                                Low volatility effect may be weaker in S&P 500
+                                context
+                              </li>
+                              <li>
+                                Time period differences from original research
+                              </li>
+                              <li>
+                                Effect might be more pronounced in distribution
+                                tails
+                              </li>
+                            </ul>
+                          </li>
+                        </ol>
+                      </div>
 
-                <pre><code class="language-python"># Numbers of stocks to long or short
+                      <h3 class="h5 mb-3">Tail Analysis</h3>
+                      <p>
+                        To better understand the relationship, we analyze the
+                        tails of the volatility distribution:
+                      </p>
+
+                      <pre><code class="language-python"># Numbers of stocks to long or short
 low_vol_stocks = last_month_rolling_3_years_std_df.mask(last_month_rolling_3_years_std_df.rank(axis=1, method='dense', ascending=False) > N,np.nan)
 high_vol_stocks = last_month_rolling_3_years_std_df.mask(last_month_rolling_3_years_std_df.rank(axis=1, method='dense', ascending=True) > N,np.nan)
 
@@ -442,40 +562,66 @@ X = sm.add_constant(df_for_tail_regression['last_month_rolling_3_years_std'])
 Y = df_for_tail_regression['next_intra_month_return']
 
 model = sm.OLS(Y, X).fit()
-model.summary()</code></pre>
+model.summary()</code>
+                  </pre>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Tail Analysis Methodology</h5>
-                  <p class="mb-0">
-                    This code section implements a focused analysis on volatility extremes:
-                    <ol>
-                      <li>Portfolio Selection:
-                        <ul>
-                          <li>Identifies stocks with lowest and highest volatility</li>
-                          <li>Creates separate portfolios for extreme volatility groups</li>
-                          <li>Maintains equal number of stocks in each portfolio</li>
-                        </ul>
-                      </li>
-                      <li>Data Processing:
-                        <ul>
-                          <li>Flattens panel data for regression analysis</li>
-                          <li>Handles missing values appropriately</li>
-                          <li>Preserves the relationship between volatility and returns</li>
-                        </ul>
-                      </li>
-                      <li>Regression Analysis:
-                        <ul>
-                          <li>Implements OLS regression on tail portfolios</li>
-                          <li>Includes constant term for baseline returns</li>
-                          <li>Generates comprehensive statistical output</li>
-                        </ul>
-                      </li>
-                    </ol>
-                  </p>
-                </div>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Tail Analysis Methodology</h5>
+                        <p class="mb-0">
+                          This code section implements a focused analysis on
+                          volatility extremes:
+                        </p>
 
-                <code style="color: #000;">
-                  <pre>
+                        <ol>
+                          <li>
+                            Portfolio Selection:
+                            <ul>
+                              <li>
+                                Identifies stocks with lowest and highest
+                                volatility
+                              </li>
+                              <li>
+                                Creates separate portfolios for extreme
+                                volatility groups
+                              </li>
+                              <li>
+                                Maintains equal number of stocks in each
+                                portfolio
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Data Processing:
+                            <ul>
+                              <li>
+                                Flattens panel data for regression analysis
+                              </li>
+                              <li>Handles missing values appropriately</li>
+                              <li>
+                                Preserves the relationship between volatility
+                                and returns
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Regression Analysis:
+                            <ul>
+                              <li>
+                                Implements OLS regression on tail portfolios
+                              </li>
+                              <li>
+                                Includes constant term for baseline returns
+                              </li>
+                              <li>
+                                Generates comprehensive statistical output
+                              </li>
+                            </ul>
+                          </li>
+                        </ol>
+                      </div>
+
+                      <code style="color: #000">
+                        <pre>
                                       OLS Regression Results                              
       ===================================================================================
       Dep. Variable:     next_intra_month_return   R-squared:                       0.005
@@ -500,49 +646,61 @@ model.summary()</code></pre>
       ==============================================================================
 
       Notes:
-      [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</pre></code>
+      [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</pre
+                        >
+                      </code>
+                    </section>
 
-              </section>
+                    <section class="mb-4">
+                      <h2 id="strategy-implementation" class="h5 mb-3">
+                        Strategy Implementation on the Whole Universe of S&P500
+                      </h2>
+                      <p>
+                        In this section, we implement various portfolio
+                        strategies combining momentum and volatility factors. We
+                        create a comprehensive results table to compare the
+                        performance of different approaches.
+                      </p>
 
-              <section class="mb-4">
-                <h2 id="strategy-implementation" class="h5 mb-3">Strategy Implementation on the Whole Universe of S&P500</h2>
-                <p>
-                  In this section, we implement various portfolio strategies combining momentum and volatility factors. We create a comprehensive results table to compare the performance of different approaches.
-                </p>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Strategy Overview</h5>
+                        <p class="mb-0">
+                          We implement and compare several portfolio strategies:
+                        </p>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Strategy Overview</h5>
-                  <p class="mb-0">
-                    We implement and compare several portfolio strategies:
-                    <ul>
-                      <li>Pure Momentum Portfolio</li>
-                      <li>High Momentum Portfolio</li>
-                      <li>Pure Volatility Portfolio</li>
-                      <li>Low Volatility Portfolio</li>
-                      <li>Combined Strategies (Double Screening)</li>
-                    </ul>
-                  </p>
-                </div>
+                        <ul>
+                          <li>Pure Momentum Portfolio</li>
+                          <li>High Momentum Portfolio</li>
+                          <li>Pure Volatility Portfolio</li>
+                          <li>Low Volatility Portfolio</li>
+                          <li>Combined Strategies (Double Screening)</li>
+                        </ul>
+                      </div>
 
-                <pre><code class="language-python"># Build a table to store the results from 4 portfolios using portfolio name as rows and metrics as columns
+                      <pre><code class="language-python"># Build a table to store the results from 4 portfolios using portfolio name as rows and metrics as columns
 columns = ['Total Return', 'Annualized Return', 'Annualized Volatility', 'Sharpe Ratio', 'VaR']
 index = ['Pure Momentum Portfolio','High Momentum Portfolio','Pure Volatility Portfolio', 'Low Volatility Portfolio', 
          'High Momentum First Low Volatility Portfolio', 'Low Volatility First High Momentum Portfolio',
          'Low Momentum First High Volatility Portfolio', 'High Volatility First Low Momentum Portfolio']
-results_df = pd.DataFrame(index=index, columns=columns)</code></pre>
+results_df = pd.DataFrame(index=index, columns=columns)</code>
+                  </pre>
 
-                <h3 class="h6 mt-4">Pure Momentum Portfolio</h3>
-                <p>
-                  The pure momentum strategy involves:
-                  <ul>
-                    <li>Calculating 12-month momentum scores (excluding the most recent month)</li>
-                    <li>Taking long positions in high momentum stocks</li>
-                    <li>Taking short positions in low momentum stocks</li>
-                    <li>Monthly rebalancing based on updated momentum scores</li>
-                  </ul>
-                </p>
+                      <h3 class="h6 mt-4">Pure Momentum Portfolio</h3>
+                      <p>The pure momentum strategy involves:</p>
 
-                <pre><code class="language-python"># Select the top N and bottom N stocks based on the momentum
+                      <ul>
+                        <li>
+                          Calculating 12-month momentum scores (excluding the
+                          most recent month)
+                        </li>
+                        <li>Taking long positions in high momentum stocks</li>
+                        <li>Taking short positions in low momentum stocks</li>
+                        <li>
+                          Monthly rebalancing based on updated momentum scores
+                        </li>
+                      </ul>
+
+                      <pre><code class="language-python"># Select the top N and bottom N stocks based on the momentum
 high_momentum_mask = rolling_12_months_return_df.rank(axis=1, method='dense', ascending=False, na_option='top') < N
 low_momentum_mask = rolling_12_months_return_df.rank(axis=1, method='dense', ascending=True, na_option='top') < N
 
@@ -590,18 +748,24 @@ results_df.loc['Pure Momentum Portfolio', 'Total Return'] = cumulative_returns[-
 results_df.loc['Pure Momentum Portfolio', 'Annualized Return'] = annualized_return
 results_df.loc['Pure Momentum Portfolio', 'Annualized Volatility'] = annualized_volatility
 results_df.loc['Pure Momentum Portfolio', 'Sharpe Ratio'] = sharpe_ratio
-results_df.loc['Pure Momentum Portfolio', 'VaR'] = VaR</code></pre>
+results_df.loc['Pure Momentum Portfolio', 'VaR'] = VaR</code>
+                  </pre>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image2.png" alt="Pure Momentum Portfolio Returns" class="img-fluid">
-                </div>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image2.png"
+                          alt="Pure Momentum Portfolio Returns"
+                          class="img-fluid"
+                        />
+                      </div>
 
-                <h3 class="h6 mt-4">Pure-play High Momentum Portfolio</h3>
-                <p>
-                  This strategy focuses solely on long positions in high momentum stocks, without taking short positions.
-                </p>
+                      <h3 class="h6 mt-4">Pure-play High Momentum Portfolio</h3>
+                      <p>
+                        This strategy focuses solely on long positions in high
+                        momentum stocks, without taking short positions.
+                      </p>
 
-                <pre><code class="language-python">high_momentum_mask = rolling_12_months_return_df.rank(axis=1, method='dense', ascending=False) <= N
+                      <pre><code class="language-python">high_momentum_mask = rolling_12_months_return_df.rank(axis=1, method='dense', ascending=False) <= N
 # Get the returns for the high momentum stocks
 returns_df_for_pure_high_momentum = next_intra_month_return_df [high_momentum_mask]
 # Build the equal weighted portfolio for the high momentum stocks
@@ -639,18 +803,25 @@ results_df.loc['High Momentum Portfolio', 'Total Return'] = cumulative_return_hi
 results_df.loc['High Momentum Portfolio', 'Annualized Return'] = annualized_return_high_momentum
 results_df.loc['High Momentum Portfolio', 'Annualized Volatility'] = annualized_volatility_high_momentum
 results_df.loc['High Momentum Portfolio', 'Sharpe Ratio'] = sharpe_ratio_high_momentum
-results_df.loc['High Momentum Portfolio', 'VaR'] = VaR_95_high_momentum</code></pre>
+results_df.loc['High Momentum Portfolio', 'VaR'] = VaR_95_high_momentum</code>
+                  </pre>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image3.png" alt="High Momentum Portfolio Returns" class="img-fluid">
-                </div>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image3.png"
+                          alt="High Momentum Portfolio Returns"
+                          class="img-fluid"
+                        />
+                      </div>
 
-                <h3 class="h6 mt-4">Pure Volatility Portfolio</h3>
-                <p>
-                  This strategy implements a pure volatility-based approach, taking short positions in high volatility stocks and long positions in low volatility stocks.
-                </p>
+                      <h3 class="h6 mt-4">Pure Volatility Portfolio</h3>
+                      <p>
+                        This strategy implements a pure volatility-based
+                        approach, taking short positions in high volatility
+                        stocks and long positions in low volatility stocks.
+                      </p>
 
-                <pre><code class="language-python">high_volatility_mask = last_month_rolling_3_years_std_df.rank(axis=1, method='dense', ascending=False) <= N
+                      <pre><code class="language-python">high_volatility_mask = last_month_rolling_3_years_std_df.rank(axis=1, method='dense', ascending=False) <= N
 low_volatility_mask = last_month_rolling_3_years_std_df.rank(axis=1, method='dense', ascending=True) <= N
 
 # Get the returns
@@ -692,18 +863,24 @@ results_df.loc['Pure Volatility Portfolio', 'Total Return'] = cumulative_returns
 results_df.loc['Pure Volatility Portfolio', 'Annualized Return'] = annualized_return
 results_df.loc['Pure Volatility Portfolio', 'Annualized Volatility'] = annualized_volatility
 results_df.loc['Pure Volatility Portfolio', 'Sharpe Ratio'] = sharpe_ratio
-results_df.loc['Pure Volatility Portfolio', 'VaR'] = VaR</code></pre>
+results_df.loc['Pure Volatility Portfolio', 'VaR'] = VaR</code>
+                  </pre>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image4.png" alt="Pure Volatility Portfolio Returns" class="img-fluid">
-                </div>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image4.png"
+                          alt="Pure Volatility Portfolio Returns"
+                          class="img-fluid"
+                        />
+                      </div>
 
-                <h3 class="h6 mt-4">Pure Low-Volatility Portfolio</h3>
-                <p>
-                  This strategy focuses on long positions in low volatility stocks, without taking short positions.
-                </p>
+                      <h3 class="h6 mt-4">Pure Low-Volatility Portfolio</h3>
+                      <p>
+                        This strategy focuses on long positions in low
+                        volatility stocks, without taking short positions.
+                      </p>
 
-                <pre><code class="language-python">low_volatility_mask = last_month_rolling_3_years_std_df.rank(axis=1, method='dense', ascending=True) <= N
+                      <pre><code class="language-python">low_volatility_mask = last_month_rolling_3_years_std_df.rank(axis=1, method='dense', ascending=True) <= N
 
 # Get the returns for the low volatility stocks
 returns_df_for_pure_volatility = pd.DataFrame(index=last_month_rolling_3_years_std_df.index, columns=last_month_rolling_3_years_std_df.columns)
@@ -741,25 +918,36 @@ results_df.loc['Low Volatility Portfolio', 'Total Return'] = cumulative_return_l
 results_df.loc['Low Volatility Portfolio', 'Annualized Return'] = annualized_return
 results_df.loc['Low Volatility Portfolio', 'Annualized Volatility'] = annualized_volatility
 results_df.loc['Low Volatility Portfolio', 'Sharpe Ratio'] = sharpe_ratio
-results_df.loc['Low Volatility Portfolio', 'VaR'] = VaR</code></pre>
+results_df.loc['Low Volatility Portfolio', 'VaR'] = VaR</code>
+                  </pre>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image5.png" alt="Low Volatility Portfolio Returns" class="img-fluid">
-                </div>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image5.png"
+                          alt="Low Volatility Portfolio Returns"
+                          class="img-fluid"
+                        />
+                      </div>
 
-                <h3 class="h6 mt-4">Double Screening: Combined Strategy</h3>
-                <p>
-                  We implement four combined strategies using double-screening:
-                  <ul>
-                    <li>High Momentum First Low Volatility Portfolio</li>
-                    <li>Low Volatility First High Momentum Portfolio</li>
-                    <li>Low Momentum First High Volatility Portfolio</li>
-                    <li>High Volatility First Low Momentum Portfolio</li>
-                  </ul>
-                </p>
+                      <h3 class="h6 mt-4">
+                        Double Screening: Combined Strategy
+                      </h3>
+                      <p>
+                        We implement four combined strategies using
+                        double-screening:
+                      </p>
 
-                <h4 class="h6 mt-3">1. Low-Volatility Stocks from High Momentum Universe</h4>
-                <pre><code class="language-python">HighMomentumFirst_LowVolatility_df = pd.DataFrame(index = rolling_12_months_return_df.index, columns=rolling_12_months_return_df.columns)
+                      <ul>
+                        <li>High Momentum First Low Volatility Portfolio</li>
+                        <li>Low Volatility First High Momentum Portfolio</li>
+                        <li>Low Momentum First High Volatility Portfolio</li>
+                        <li>High Volatility First Low Momentum Portfolio</li>
+                      </ul>
+
+                      <h4 class="h6 mt-3">
+                        1. Low-Volatility Stocks from High Momentum Universe
+                      </h4>
+                      <pre><code class="language-python">HighMomentumFirst_LowVolatility_df = pd.DataFrame(index = rolling_12_months_return_df.index, columns=rolling_12_months_return_df.columns)
 HighMomentumFirst_LowVolatility_df.iloc[:, :] = np.nan
 
 # Copy the rolling 12 months return dataframe to avoid changing the original dataframe
@@ -823,14 +1011,21 @@ results_df.loc['High Momentum First Low Volatility Portfolio', 'Total Return'] =
 results_df.loc['High Momentum First Low Volatility Portfolio', 'Annualized Return'] = annualized_return
 results_df.loc['High Momentum First Low Volatility Portfolio', 'Annualized Volatility'] = annualized_volatility
 results_df.loc['High Momentum First Low Volatility Portfolio', 'Sharpe Ratio'] = sharpe_ratio
-results_df.loc['High Momentum First Low Volatility Portfolio', 'VaR'] = VaR</code></pre>
+results_df.loc['High Momentum First Low Volatility Portfolio', 'VaR'] = VaR</code>
+                  </pre>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image6.png" alt="High Momentum First Low Volatility Portfolio Returns" class="img-fluid">
-                </div>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image6.png"
+                          alt="High Momentum First Low Volatility Portfolio Returns"
+                          class="img-fluid"
+                        />
+                      </div>
 
-                <h4 class="h6 mt-3">2. High Momentum Stock from Low Volatility Universe</h4>
-                <pre><code class="language-python"># Firstly selecte the low volatility stocks
+                      <h4 class="h6 mt-3">
+                        2. High Momentum Stock from Low Volatility Universe
+                      </h4>
+                      <pre><code class="language-python"># Firstly selecte the low volatility stocks
 LowVolatilityFirst_HighMomentum_df = pd.DataFrame(index = rolling_12_months_return_df.index, columns=rolling_12_months_return_df.columns)
 LowVolatilityFirst_HighMomentum_df.iloc[:, :] = np.nan
 
@@ -891,14 +1086,21 @@ results_df.loc['Low Volatility First High Momentum Portfolio', 'Total Return'] =
 results_df.loc['Low Volatility First High Momentum Portfolio', 'Annualized Return'] = annualized_return
 results_df.loc['Low Volatility First High Momentum Portfolio', 'Annualized Volatility'] = annualized_volatility
 results_df.loc['Low Volatility First High Momentum Portfolio', 'Sharpe Ratio'] = sharpe_ratio
-results_df.loc['Low Volatility First High Momentum Portfolio', 'VaR'] = VaR</code></pre>
+results_df.loc['Low Volatility First High Momentum Portfolio', 'VaR'] = VaR</code>
+                  </pre>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image7.png" alt="Low Volatility First High Momentum Portfolio Returns" class="img-fluid">
-                </div>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image7.png"
+                          alt="Low Volatility First High Momentum Portfolio Returns"
+                          class="img-fluid"
+                        />
+                      </div>
 
-                <h4 class="h6 mt-3">3. High Volatility from Low Momentum Universe</h4>
-                <pre><code class="language-python"># Firstly selecte the low momentum stocks
+                      <h4 class="h6 mt-3">
+                        3. High Volatility from Low Momentum Universe
+                      </h4>
+                      <pre><code class="language-python"># Firstly selecte the low momentum stocks
 LowMomentumFirst_HighVolatility_df = pd.DataFrame(index=rolling_12_months_return_df.index, columns=rolling_12_months_return_df.columns)
 LowMomentumFirst_HighVolatility_df.iloc[:,:] = np.nan
 
@@ -962,14 +1164,21 @@ results_df.loc['Low Momentum First High Volatility Portfolio', 'Total Return'] =
 results_df.loc['Low Momentum First High Volatility Portfolio', 'Annualized Return'] = annualized_return
 results_df.loc['Low Momentum First High Volatility Portfolio', 'Annualized Volatility'] = annualized_volatility
 results_df.loc['Low Momentum First High Volatility Portfolio', 'Sharpe Ratio'] = sharpe_ratio
-results_df.loc['Low Momentum First High Volatility Portfolio', 'VaR'] = VaR</code></pre>
+results_df.loc['Low Momentum First High Volatility Portfolio', 'VaR'] = VaR</code>
+                  </pre>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image8.png" alt="Low Momentum First High Volatility Portfolio Returns" class="img-fluid">
-                </div>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image8.png"
+                          alt="Low Momentum First High Volatility Portfolio Returns"
+                          class="img-fluid"
+                        />
+                      </div>
 
-                <h4 class="h6 mt-3">4. Low Momentum from High Volatility Universe</h4>
-                <pre><code class="language-python"># Firstly selecte the high volatility stocks
+                      <h4 class="h6 mt-3">
+                        4. Low Momentum from High Volatility Universe
+                      </h4>
+                      <pre><code class="language-python"># Firstly selecte the high volatility stocks
 HighVolatilityFirst_LowMomentum_df = pd.DataFrame(index=rolling_12_months_return_df.index, columns=rolling_12_months_return_df.columns)
 HighVolatilityFirst_LowMomentum_df.iloc[:,:] = np.nan
 
@@ -1035,131 +1244,164 @@ results_df.loc['High Volatility First Low Momentum Portfolio', 'VaR'] = VaR
 
 # Plot the cumulative return
 plt.figure(figsize=(5, 3))
-cumulative_return.plot(title='High Volatility First Low Momentum Portfolio Accumulative Return')</code></pre>
+cumulative_return.plot(title='High Volatility First Low Momentum Portfolio Accumulative Return')</code>
+                  </pre>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image9.png" alt="High Volatility First Low Momentum Portfolio Returns" class="img-fluid">
-                </div>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2025-05-04-combininglowvolatilitywithmomentum-Image9.png"
+                          alt="High Volatility First Low Momentum Portfolio Returns"
+                          class="img-fluid"
+                        />
+                      </div>
 
-                <h3 class="h6 mt-4">Results Analysis</h3>
-                <p>
-                  The table below summarizes the performance metrics for all implemented strategies:
-                </p>
+                      <h3 class="h6 mt-4">Results Analysis</h3>
+                      <p>
+                        The table below summarizes the performance metrics for
+                        all implemented strategies:
+                      </p>
 
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
+                      <table class="table table-striped">
+                        <thead>
+                          <tr>
                             <th>Portfolio</th>
                             <th>Total Return</th>
                             <th>Annualized Return</th>
                             <th>Annualized Volatility</th>
                             <th>Sharpe Ratio</th>
                             <th>VaR</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
                             <td>Pure Momentum Portfolio</td>
                             <td>0.697436</td>
                             <td>-0.001875</td>
                             <td>0.150014</td>
                             <td>-0.012499</td>
                             <td>-0.073744</td>
-                        </tr>
-                        <tr>
+                          </tr>
+                          <tr>
                             <td>High Momentum Portfolio</td>
                             <td>23.098753</td>
                             <td>0.216814</td>
                             <td>0.247352</td>
                             <td>0.876542</td>
                             <td>-0.098544</td>
-                        </tr>
-                        <tr>
+                          </tr>
+                          <tr>
                             <td>Pure Volatility Portfolio</td>
                             <td>0.155883</td>
                             <td>-0.009634</td>
                             <td>0.162083</td>
                             <td>-0.059437</td>
                             <td>-0.079177</td>
-                        </tr>
-                        <tr>
+                          </tr>
+                          <tr>
                             <td>Low Volatility Portfolio</td>
                             <td>4.945701</td>
                             <td>0.112453</td>
                             <td>0.114659</td>
                             <td>0.936954</td>
                             <td>-0.049847</td>
-                        </tr>
-                        <tr>
-                            <td>High Momentum First Low Volatility Portfolio</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              High Momentum First Low Volatility Portfolio
+                            </td>
                             <td>6.140235</td>
                             <td>0.128615</td>
                             <td>0.166954</td>
                             <td>0.769989</td>
                             <td>-0.075427</td>
-                        </tr>
-                        <tr>
-                            <td>Low Volatility First High Momentum Portfolio</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Low Volatility First High Momentum Portfolio
+                            </td>
                             <td>6.164702</td>
                             <td>0.128914</td>
                             <td>0.166628</td>
                             <td>0.772666</td>
                             <td>-0.077535</td>
-                        </tr>
-                        <tr>
-                            <td>Low Momentum First High Volatility Portfolio</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              Low Momentum First High Volatility Portfolio
+                            </td>
                             <td>0.072133</td>
                             <td>-0.16078</td>
                             <td>0.193667</td>
                             <td>-0.749106</td>
                             <td>-0.088737</td>
-                        </tr>
-                        <tr>
-                            <td>High Volatility First Low Momentum Portfolio</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              High Volatility First Low Momentum Portfolio
+                            </td>
                             <td>0.035425</td>
                             <td>-0.199637</td>
                             <td>0.253409</td>
                             <td>-0.687743</td>
                             <td>-0.118319</td>
-                        </tr>
-                    </tbody>
-                </table>
+                          </tr>
+                        </tbody>
+                      </table>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Key Findings</h5>
-                  <p class="mb-0">
-                    <ul>
-                      <li>The Low Volatility First High Momentum Portfolio shows the best overall performance, with high returns, good Sharpe ratio, and relatively lower risk.</li>
-                      <li>Both combined portfolios (High Momentum First Low Volatility and Low Volatility First High Momentum) show higher Sharpe ratios compared to the pure high momentum portfolio.</li>
-                      <li>The Low Volatility First High Momentum Portfolio has higher total returns and lower VaR compared to the pure high momentum portfolio.</li>
-                      <li>Strategies involving short positions (Pure Momentum Portfolio and Low Momentum First High Volatility Portfolio) show unsatisfactory results.</li>
-                    </ul>
-                  </p>
-                </div>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Key Findings</h5>
+                        <p class="mb-0"></p>
+                        <ul>
+                          <li>
+                            The Low Volatility First High Momentum Portfolio
+                            shows the best overall performance, with high
+                            returns, good Sharpe ratio, and relatively lower
+                            risk.
+                          </li>
+                          <li>
+                            Both combined portfolios (High Momentum First Low
+                            Volatility and Low Volatility First High Momentum)
+                            show higher Sharpe ratios compared to the pure high
+                            momentum portfolio.
+                          </li>
+                          <li>
+                            The Low Volatility First High Momentum Portfolio has
+                            higher total returns and lower VaR compared to the
+                            pure high momentum portfolio.
+                          </li>
+                          <li>
+                            Strategies involving short positions (Pure Momentum
+                            Portfolio and Low Momentum First High Volatility
+                            Portfolio) show unsatisfactory results.
+                          </li>
+                        </ul>
+                      </div>
 
-                <div class="alert alert-warning mt-3">
-                  <h5 class="alert-heading">Important Note</h5>
-                  <p class="mb-0">
-                    The high Sharpe ratios observed in these results may be influenced by survivorship bias in the S&P 500 universe. This means the results should be interpreted with caution, as they may not fully reflect real-world trading conditions.
-                  </p>
-                </div>
-              </section>
+                      <div class="alert alert-warning mt-3">
+                        <h5 class="alert-heading">Important Note</h5>
+                        <p class="mb-0">
+                          The high Sharpe ratios observed in these results may
+                          be influenced by survivorship bias in the S&P 500
+                          universe. This means the results should be interpreted
+                          with caution, as they may not fully reflect real-world
+                          trading conditions.
+                        </p>
+                      </div>
+                    </section>
+                  </div>
+                </article>
+              </div>
             </div>
-          </article>
-        </div>
-      </div>
-    </main>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
     <!-- JavaScript dependencies -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-    
-    <script src="../../components/sidebar.js"></script>
+
+    <script src="../../components/sidebar.js"></script
 </body>
 </html>

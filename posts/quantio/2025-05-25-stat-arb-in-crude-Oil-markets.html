@@ -2,105 +2,158 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
       content="An analysis of an improved momentum strategy that incorporates market panic states"
     />
-    <meta
+  <meta
       name="keywords"
       content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
     />
     <meta name="author" content="Vahid Asghari" />
     <title>Stat Arb in Crude Oil Markets</title>
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="../../styles.css" />
     <!-- Add syntax highlighting for code blocks -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css"
+    />
   </head>
   <body class="bg-light">
-    
-
     <div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar Container -->
-    <div class="sidebar-container"></div>
-    
-    <!-- Main Content -->
-    <div class="col-lg-9 col-md-8 main-content">
-      <div class="content-wrapper p-4">
-        <div class="row justify-content-center">
-        <div class="col-md-12">
-          <article class="card shadow-sm p-4">
-            
+      <div class="row">
+        <!-- Sidebar Container -->
+        <div class="sidebar-container"></div>
 
-            <div class="d-flex justify-content-center">
-              <img src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image0.png" alt="Day and Night Returns Analysis" class="img-fluid">
-            </div>
+        <!-- Main Content -->
+        <div class="col-lg-9 col-md-8 main-content">
+          <div class="content-wrapper p-4">
+            <div class="row justify-content-center">
+              <div class="col-md-12">
+                <article class="card shadow-sm p-4">
+                  <div class="d-flex justify-content-center">
+                    <img
+                      src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image0.png"
+                      alt="Day and Night Returns Analysis"
+                      class="img-fluid"
+                    />
+                  </div>
 
-            <div class="table-of-contents mb-4">
-              <h2 class="h5 mb-3">Table of Contents</h2>
-              <ul class="list-unstyled">
-                <li><a href="#strategy-details">Strategy Details</a>
-                  <ul class="list-unstyled ms-3">
-                    <li><a href="#reference-paper">Reference Paper</a></li>
-                    <li><a href="#strategy-overview">Strategy Overview</a></li>
-                    <li><a href="#strategy-components">Strategy Components</a></li>
-                  </ul>
-                </li>
-                <li><a href="#analysis-of-results">Analysis of Results</a>
-                  <ul class="list-unstyled ms-3">
-                    <li><a href="#strategy-components">Strategy Components</a></li>
-                    <li><a href="#performance-metrics">Performance Metrics</a></li>
-                    <li><a href="#key-findings">Key Findings</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-            <div>
-              <section class="mb-4">
-                <h2 id="strategy-details" class="h5 mb-3">Strategy Details</h2>
-                
-                <div class="metadata mb-3">
-                  <p><strong>Reference Paper:</strong> Mean-Reverting Statistical Arbitrage Strategies in Crude Oil Markets</p>
-                  <p><strong>Author:</strong> Viviana Fanelli</p>
-                  <p><strong>Journal:</strong> Risks 2024, 12, 106</p>
-                </div>
-
-                <div class="strategy-overview mb-4">
-                  <p>
-                    This strategy implements statistical arbitrage in Crude Oil markets using classical cointegration and Augmented Dickey-Fuller (ADF) tests. The approach focuses on identifying and exploiting mean-reverting relationships between different crude oil futures contracts.
-                  </p>
-                  <p>
-                    The implementation analyzes price relationships between major crude oil futures contracts, including WTI Crude Oil, Brent Crude Oil, and Heating Oil futures. By identifying cointegrated pairs, the strategy aims to capture temporary price divergences and their subsequent mean reversion.
-                  </p>
-                </div>
-
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Key Components</h5>
-                  <p class="mb-0">
-                    <ol>
-                      <li>Data Collection:
-                        <ul>
-                          <li>Uses Yahoo Finance API for historical price data</li>
-                          <li>Focuses on major crude oil futures contracts</li>
-                          <li>Implements efficient data caching mechanism</li>
+                  <div class="table-of-contents mb-4">
+                    <h2 class="h5 mb-3">Table of Contents</h2>
+                    <ul class="list-unstyled">
+                      <li>
+                        <a href="#strategy-details">Strategy Details</a>
+                        <ul class="list-unstyled ms-3">
+                          <li>
+                            <a href="#reference-paper">Reference Paper</a>
+                          </li>
+                          <li>
+                            <a href="#strategy-overview">Strategy Overview</a>
+                          </li>
+                          <li>
+                            <a href="#strategy-components"
+                              >Strategy Components</a
+                            >
+                          </li>
                         </ul>
                       </li>
-                      <li>Analysis Framework:
-                        <ul>
-                          <li>Implements cointegration testing between pairs</li>
-                          <li>Uses ADF test for stationarity analysis</li>
-                          <li>Calculates correlation matrices for relationship analysis</li>
+                      <li>
+                        <a href="#analysis-of-results">Analysis of Results</a>
+                        <ul class="list-unstyled ms-3">
+                          <li>
+                            <a href="#strategy-components"
+                              >Strategy Components</a
+                            >
+                          </li>
+                          <li>
+                            <a href="#performance-metrics"
+                              >Performance Metrics</a
+                            >
+                          </li>
+                          <li><a href="#key-findings">Key Findings</a></li>
                         </ul>
                       </li>
-                    </ol>
-                  </p>
-                </div>
+                    </ul>
+                  </div>
+                  <div>
+                    <section class="mb-4">
+                      <h2 id="strategy-details" class="h5 mb-3">
+                        Strategy Details
+                      </h2>
 
-                <pre><code class="language-python">import os
+                      <div class="metadata mb-3">
+                        <p>
+                          <strong>Reference Paper:</strong> Mean-Reverting
+                          Statistical Arbitrage Strategies in Crude Oil Markets
+                        </p>
+                        <p><strong>Author:</strong> Viviana Fanelli</p>
+                        <p><strong>Journal:</strong> Risks 2024, 12, 106</p>
+                      </div>
+
+                      <div class="strategy-overview mb-4">
+                        <p>
+                          This strategy implements statistical arbitrage in
+                          Crude Oil markets using classical cointegration and
+                          Augmented Dickey-Fuller (ADF) tests. The approach
+                          focuses on identifying and exploiting mean-reverting
+                          relationships between different crude oil futures
+                          contracts.
+                        </p>
+                        <p>
+                          The implementation analyzes price relationships
+                          between major crude oil futures contracts, including
+                          WTI Crude Oil, Brent Crude Oil, and Heating Oil
+                          futures. By identifying cointegrated pairs, the
+                          strategy aims to capture temporary price divergences
+                          and their subsequent mean reversion.
+                        </p>
+                      </div>
+
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Key Components</h5>
+                        <p class="mb-0"></p>
+                        <ol>
+                          <li>
+                            Data Collection:
+                            <ul>
+                              <li>
+                                Uses Yahoo Finance API for historical price data
+                              </li>
+                              <li>
+                                Focuses on major crude oil futures contracts
+                              </li>
+                              <li>
+                                Implements efficient data caching mechanism
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Analysis Framework:
+                            <ul>
+                              <li>
+                                Implements cointegration testing between pairs
+                              </li>
+                              <li>Uses ADF test for stationarity analysis</li>
+                              <li>
+                                Calculates correlation matrices for relationship
+                                analysis
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+
+                      <pre><code class="language-python">import os
 import requests
 import pandas as pd
 import numpy as np
@@ -162,74 +215,118 @@ ax.set_yticks(range(len(tickers)))
 ax.set_xticklabels(tickers)
 ax.set_yticklabels(tickers)
 fig.colorbar(im)
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Code Explanation</h5>
-                  <p class="mb-0">
-                    This code section implements the data collection and initial analysis framework:
-                    <ol>
-                      <li>Data Management:
-                        <ul>
-                          <li>Implements efficient data caching using local storage</li>
-                          <li>Downloads historical data from Yahoo Finance API</li>
-                          <li>Processes and stores data with proper datetime indexing</li>
-                        </ul>
-                      </li>
-                      <li>Visualization Components:
-                        <ul>
-                          <li>Creates time series plots of crude oil prices</li>
-                          <li>Generates correlation matrix heatmap</li>
-                          <li>Implements proper data labeling and formatting</li>
-                        </ul>
-                      </li>
-                    </ol>
-                  </p>
-                </div>
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Code Explanation</h5>
+                        <p class="mb-0">
+                          This code section implements the data collection and
+                          initial analysis framework:
+                        </p>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image1.png" alt="Day and Night Returns Analysis" class="img-fluid">
-                </div>
+                        <ol>
+                          <li>
+                            Data Management:
+                            <ul>
+                              <li>
+                                Implements efficient data caching using local
+                                storage
+                              </li>
+                              <li>
+                                Downloads historical data from Yahoo Finance API
+                              </li>
+                              <li>
+                                Processes and stores data with proper datetime
+                                indexing
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Visualization Components:
+                            <ul>
+                              <li>
+                                Creates time series plots of crude oil prices
+                              </li>
+                              <li>Generates correlation matrix heatmap</li>
+                              <li>
+                                Implements proper data labeling and formatting
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image2.png" alt="Day and Night Returns Analysis" class="img-fluid">
-                </div>
-              </section>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image1.png"
+                          alt="Day and Night Returns Analysis"
+                          class="img-fluid"
+                        />
+                      </div>
 
-              <section>
-                <h2 id="analysis-of-results" class="h5 mb-3">Analysis of Results</h2>
-                
-                <p>
-                  Our analysis reveals promising opportunities for statistical arbitrage trading in the crude oil markets. The high correlation between prices and the common underlying source (oil) suggests potential for profitable trading strategies.
-                </p>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image2.png"
+                          alt="Day and Night Returns Analysis"
+                          class="img-fluid"
+                        />
+                      </div>
+                    </section>
 
-                <p>
-                  We implemented a systematic approach to identify and exploit these opportunities:
-                </p>
+                    <section>
+                      <h2 id="analysis-of-results" class="h5 mb-3">
+                        Analysis of Results
+                      </h2>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Strategy Components</h5>
-                  <p class="mb-0">
-                    <ol>
-                      <li>Signal Generation:
-                        <ul>
-                          <li>Uses a rolling window approach for analysis</li>
-                          <li>Implements Augmented Dickey-Fuller (ADF) test for cointegration</li>
-                          <li>Generates trading signals based on residual analysis</li>
-                        </ul>
-                      </li>
-                      <li>Trading Rules:
-                        <ul>
-                          <li>Opens positions when residuals exceed 2 standard deviations</li>
-                          <li>Implements mean reversion strategy</li>
-                          <li>Manages risk through position sizing</li>
-                        </ul>
-                      </li>
-                    </ol>
-                  </p>
-                </div>
+                      <p>
+                        Our analysis reveals promising opportunities for
+                        statistical arbitrage trading in the crude oil markets.
+                        The high correlation between prices and the common
+                        underlying source (oil) suggests potential for
+                        profitable trading strategies.
+                      </p>
 
-                <pre><code class="language-python"># Get the unique dates
+                      <p>
+                        We implemented a systematic approach to identify and
+                        exploit these opportunities:
+                      </p>
+
+                      <div class="alert alert-info mt-3">
+                        <h5 class="alert-heading">Strategy Components</h5>
+                        <p class="mb-0"></p>
+                        <ol>
+                          <li>
+                            Signal Generation:
+                            <ul>
+                              <li>
+                                Uses a rolling window approach for analysis
+                              </li>
+                              <li>
+                                Implements Augmented Dickey-Fuller (ADF) test
+                                for cointegration
+                              </li>
+                              <li>
+                                Generates trading signals based on residual
+                                analysis
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Trading Rules:
+                            <ul>
+                              <li>
+                                Opens positions when residuals exceed 2 standard
+                                deviations
+                              </li>
+                              <li>Implements mean reversion strategy</li>
+                              <li>Manages risk through position sizing</li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
+
+                      <pre><code class="language-python"># Get the unique dates
 unique_dates = sorted(df.index.unique())
 
 W = 66 # Window size
@@ -332,17 +429,23 @@ for col in portfolio.columns:
 ax.set_title('Cumulative Returns')
 ax.set_ylabel('Cumulative Return')
 ax.legend()
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image3.png" alt="Day and Night Returns Analysis" class="img-fluid">
-                </div>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image3.png"
+                          alt="Day and Night Returns Analysis"
+                          class="img-fluid"
+                        />
+                      </div>
 
-                <p>
-                  The performance metrics reveal interesting insights about the strategy's effectiveness:
-                </p>
+                      <p>
+                        The performance metrics reveal interesting insights
+                        about the strategy's effectiveness:
+                      </p>
 
-                <pre><code class="language-python"># Find the sharpe, max drawdown, and sortino ratio
+                      <pre><code class="language-python"># Find the sharpe, max drawdown, and sortino ratio
 sharpe = portfolio.mean()/portfolio.std()*np.sqrt(252)
 max_drawdown = portfolio.cumsum().cummax() - portfolio.cumsum()
 sortino = portfolio.mean()/portfolio[portfolio<0].std()*np.sqrt(252)
@@ -355,20 +458,24 @@ df = df.T
 # Round to 3 decimal places
 df = df.round(3)
 
-print (df)</code></pre>
+print (df)</code>
+                  </pre>
 
-                <code style="color: #000;">
-                  <pre>CL=F_BZ=F  CL=F_HO=F  BZ=F_HO=F  Portfolio
+                      <code style="color: #000">
+                        <pre>
+CL=F_BZ=F  CL=F_HO=F  BZ=F_HO=F  Portfolio
     Sharpe            0.750      0.074      0.569      0.790
     Max Drawdown      0.063      0.095      0.034      0.117
-    Sortino           0.461      0.027      0.351      0.667</pre>
-                </code>
+    Sortino           0.461      0.027      0.351      0.667</pre
+                        >
+                      </code>
 
-                <p>
-                  We also conducted a weekly analysis to assess the strategy's performance over longer timeframes:
-                </p>
+                      <p>
+                        We also conducted a weekly analysis to assess the
+                        strategy's performance over longer timeframes:
+                      </p>
 
-                <pre><code class="language-python"># First, let's resample the data to weekly
+                      <pre><code class="language-python"># First, let's resample the data to weekly
 data_weekly = {}
 for symbol, df in data.items():
     df.index = pd.to_datetime(df.index)
@@ -516,13 +623,18 @@ for col in portfolio_weekly.columns:
 ax.set_title('Cumulative Returns')
 ax.set_ylabel('Cumulative Return')
 ax.legend()
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image4.png" alt="Day and Night Returns Analysis" class="img-fluid">
-                </div>
+                      <div class="d-flex justify-content-center">
+                        <img
+                          src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image4.png"
+                          alt="Day and Night Returns Analysis"
+                          class="img-fluid"
+                        />
+                      </div>
 
-                <pre><code class="language-python"># Find the sharpe, max drawdown, and sortino ratio
+                      <pre><code class="language-python"># Find the sharpe, max drawdown, and sortino ratio
 sharpe = portfolio_weekly.mean()/portfolio_weekly.std()*np.sqrt(52)
 max_drawdown = portfolio_weekly.cumsum().cummax() - portfolio_weekly.cumsum()
 sortino = portfolio_weekly.mean()/portfolio_weekly[portfolio_weekly<0].std()*np.sqrt(52)
@@ -535,62 +647,81 @@ df = df.T
 # Round to 3 decimal places
 df = df.round(3)
 
-print (df)</code></pre>
+print (df)</code>
+                  </pre>
 
-                <code style="color: #000;">
-                  <pre>CL=F_BZ=F  CL=F_HO=F  BZ=F_HO=F  Portfolio
+                      <code style="color: #000">
+                        <pre>
+CL=F_BZ=F  CL=F_HO=F  BZ=F_HO=F  Portfolio
     Sharpe            0.521      0.353      0.196      0.479
     Max Drawdown      0.003      0.000      0.025      0.050
-    Sortino             NaN        NaN      0.066      0.197</pre>
-                </code>
+    Sortino             NaN        NaN      0.066      0.197</pre
+                        >
+                      </code>
 
-                <div class="alert alert-warning mt-3">
-                  <h5 class="alert-heading">Key Findings</h5>
-                  <p class="mb-0">
-                    <ol>
-                      <li>Daily Trading Performance:
-                        <ul>
-                          <li>Strong Sharpe ratio of 0.790 for the portfolio</li>
-                          <li>Acceptable maximum drawdown of 11.7%</li>
-                          <li>Positive Sortino ratio indicating good risk-adjusted returns</li>
-                        </ul>
-                      </li>
-                      <li>Weekly Trading Results:
-                        <ul>
-                          <li>Lower Sharpe ratio of 0.479</li>
-                          <li>Smaller maximum drawdown of 5.0%</li>
-                          <li>Less consistent performance across pairs</li>
-                        </ul>
-                      </li>
-                      <li>Strategy Limitations:
-                        <ul>
-                          <li>Uses Heating Oil futures instead of Dubai Crude Oil</li>
-                          <li>Transaction costs not considered in the analysis</li>
-                          <li>Potential for improved performance with parameter optimization</li>
-                        </ul>
-                      </li>
-                    </ol>
-                  </p>
-                </div>
+                      <div class="alert alert-warning mt-3">
+                        <h5 class="alert-heading">Key Findings</h5>
+                        <p class="mb-0"></p>
+                        <ol>
+                          <li>
+                            Daily Trading Performance:
+                            <ul>
+                              <li>
+                                Strong Sharpe ratio of 0.790 for the portfolio
+                              </li>
+                              <li>Acceptable maximum drawdown of 11.7%</li>
+                              <li>
+                                Positive Sortino ratio indicating good
+                                risk-adjusted returns
+                              </li>
+                            </ul>
+                          </li>
+                          <li>
+                            Weekly Trading Results:
+                            <ul>
+                              <li>Lower Sharpe ratio of 0.479</li>
+                              <li>Smaller maximum drawdown of 5.0%</li>
+                              <li>Less consistent performance across pairs</li>
+                            </ul>
+                          </li>
+                          <li>
+                            Strategy Limitations:
+                            <ul>
+                              <li>
+                                Uses Heating Oil futures instead of Dubai Crude
+                                Oil
+                              </li>
+                              <li>
+                                Transaction costs not considered in the analysis
+                              </li>
+                              <li>
+                                Potential for improved performance with
+                                parameter optimization
+                              </li>
+                            </ul>
+                        </li>
+                      </ol>
+                      </div>
 
-                <p>
-                  The daily trading implementation of the statistical arbitrage strategy shows promising results, with a Sharpe ratio around 0.5 and acceptable drawdown levels. While the weekly trading approach shows less consistent performance, the daily strategy demonstrates potential for production implementation with further refinement.
-                </p>
-              </section>
-            </div>
-          </article>
-        </div>
-      </main>
-        </div>
-      </div>
-    </div>
+                      <p>
+                        The daily trading implementation of the statistical
+                        arbitrage strategy shows promising results, with a
+                        Sharpe ratio around 0.5 and acceptable drawdown levels.
+                        While the weekly trading approach shows less consistent
+                        performance, the daily strategy demonstrates potential
+                        for production implementation with further refinement.
+                      </p>
+                    </section>
+                  </div>
+                </article>
+              </div>
   </div>
 </div>
-  
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-      
-      <script src="../../components/sidebar.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+
+    <script src="../../components/sidebar.js"></script
 </body>
-  </html>
+</html>

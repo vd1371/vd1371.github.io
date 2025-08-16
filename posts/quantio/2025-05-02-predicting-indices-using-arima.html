@@ -1,13 +1,12 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
+    <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
       content="Analysis of stock market prediction using ARIMA and VAR models"
-    />
-    <meta
+    >
+  <meta
       name="keywords"
       content="ARIMA, VAR, stock prediction, time series analysis, quantitative trading"
     />
@@ -100,7 +99,8 @@ import statsmodels.api as sm
 
 start_date = '2000-11-30' # Same as the paper
 end_date = '2020-11-30' # Same as the paper
-tickers = ['^DJI', '^IXIC', '^NYA']</code></pre>
+tickers = ['^DJI', '^IXIC', '^NYA']</code>
+                  </pre>
     
                   <div class="alert alert-info mt-3">
                     <h5 class="alert-heading">Code Explanation</h5>
@@ -122,7 +122,6 @@ tickers = ['^DJI', '^IXIC', '^NYA']</code></pre>
                           </ul>
                         </li>
                       </ol>
-                    </p>
                   </div>
                 </section>
     
@@ -171,7 +170,8 @@ def process_data(symbol):
 holder = {}
 for i, symbol in enumerate(tickers):
   print (f'Processing data for {symbol} ({i+1}/{len(tickers)})', end='\r')
-  holder[symbol] = process_data(symbol)</code></pre>
+  holder[symbol] = process_data(symbol)</code>
+                  </pre>
     
                   <div class="alert alert-info mt-3">
                     <h5 class="alert-heading">Code Explanation</h5>
@@ -207,7 +207,6 @@ for i, symbol in enumerate(tickers):
                           </ul>
                         </li>
                       </ol>
-                    </p>
                   </div>
                 </section>
     
@@ -240,7 +239,8 @@ for target_lag in [5, 10, 22, 66]:
         if i % 100 == 0:
             print (f'VAR model for {symbol} with target lag {target_lag} ({i}/{len(df)})', end='\r')
 
-holder[symbol] = df</code></pre>
+holder[symbol] = df</code>
+                  </pre>
     
                   <div class="alert alert-info mt-3">
                     <h5 class="alert-heading">Code Explanation</h5>
@@ -269,7 +269,6 @@ holder[symbol] = df</code></pre>
                           </ul>
                         </li>
                       </ol>
-                    </p>
                   </div>
                 </section>
     
@@ -307,7 +306,8 @@ for symbol, df in holder.items():
 
     df['Expected_return_based_on_ARIMA'] = df['ARIMA_pred'] / df['Close'] - 1
 
-    holder[symbol] = df</code></pre>
+    holder[symbol] = df</code>
+                  </pre>
 
                   <div class="alert alert-info mt-3">
                     <h5 class="alert-heading">Code Explanation</h5>
@@ -330,7 +330,6 @@ for symbol, df in holder.items():
                           </ul>
                         </li>
                       </ol>
-                    </p>
                   </div>
     
                 </section>
@@ -391,7 +390,8 @@ for symbol, df in holder.items():
     plt.close()
 
 results_holder = pd.DataFrame(results_holder).T
-print (results_holder)</code></pre>
+print (results_holder)</code>
+                  </pre>
     
                   <div class="alert alert-info mt-3">
                     <h5 class="alert-heading">Code Explanation</h5>
@@ -424,7 +424,6 @@ print (results_holder)</code></pre>
                           </ul>
                         </li>
                       </ol>
-                    </p>
                   </div>
     
                   <div class="d-flex justify-content-center">
@@ -484,18 +483,11 @@ print (results_holder)</code></pre>
             </div>
           </article>
         </div>
-      </div>
-
-    </main>
         </div>
-      </div>
-    </div>
   </div>
 </div>
 
-    
-    
-    <script src="../../data/content.js"></script>
+  <script src="../../data/content.js"></script>
     <script src="../../components/content_menu.js"></script>
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
@@ -505,6 +497,6 @@ print (results_holder)</code></pre>
       document.addEventListener('DOMContentLoaded', function () {
         });
     </script>
-    <script src="../../components/sidebar.js"></script>
+    <script src="../../components/sidebar.js"></script
 </body>
 </html>

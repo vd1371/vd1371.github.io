@@ -1,13 +1,12 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
+    <meta charset="UTF-8" >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
       content="An analysis of an improved momentum strategy that incorporates market panic states"
-    />
-    <meta
+    >
+  <meta
       name="keywords"
       content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
     />
@@ -79,9 +78,8 @@
                           <li>Panic state: Long both winners and losers</li>
                           <li>Dynamic adjustment based on market conditions</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <p>
@@ -106,7 +104,8 @@ html = response.content
 df = pd.read_html(html, header=0)[0]
 
 tickers = df['Symbol'].tolist()
-tickers.append('^GSPC')</code></pre>
+tickers.append('^GSPC')</code>
+                  </pre>
               </section>
 
               <section class="mb-4">
@@ -149,7 +148,8 @@ for symbol in tickers:
 
 tickers = ticker_with_data[:]
 
-print(f'Loaded data for {len(tickers)} companies')</code></pre>
+print(f'Loaded data for {len(tickers)} companies')</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -161,7 +161,6 @@ print(f'Loaded data for {len(tickers)} companies')</code></pre>
                       <li>Filters out invalid or empty datasets</li>
                       <li>Maintains a clean list of valid tickers</li>
                     </ol>
-                  </p>
                 </div>
               </section>
 
@@ -186,7 +185,8 @@ for data in holder:
   df.set_index('date', inplace=True)
   monthly_data.append(df)
   del holder
-</code></pre>
+</code>
+                  </pre>
               </section>
 
               <section class="mb-4">
@@ -203,7 +203,8 @@ market_data['Long_run_std'] = market_data['monthly_log_return'].rolling(120).std
 
 delta = 0.8
 Finding the panic state indicator
-market_data['panic_state_indicator'] = (market_data['Short_run_market_return'] < market_data['Long_run_market_return'] - delta * market_data['Long_run_std']).astype(int)</code></pre>
+market_data['panic_state_indicator'] = (market_data['Short_run_market_return'] < market_data['Long_run_market_return'] - delta * market_data['Long_run_std']).astype(int)</code>
+                  </pre>
 
               </section>
 
@@ -282,7 +283,8 @@ portfolio_return_with_panic_state = portfolio_return_with_panic_state[portfolio_
 plt.plot(portfolio_return_WML.cumsum(), label='WML')
 plt.plot(portfolio_return_with_panic_state.cumsum(), label='WML with Panic State')
 plt.legend()
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
 
                       <div class="d-flex justify-content-center">
                         <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image1.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
@@ -297,7 +299,6 @@ plt.show()</code></pre>
                       <li>Processes individual stock data with panic state indicators</li>
                       <li>Maintains separate holders for different components of the strategy</li>
                     </ol>
-                  </p>
                 </div>
               </section>
 
@@ -311,7 +312,8 @@ plt.plot(result['delta'], result['cumulative_return_with_panic_state'])
 plt.xlabel('Delta')
 plt.ylabel('Cumulative Return')
 plt.title('Cumulative Return vs Delta')
-plt.show()</code></pre>
+plt.show()</code>
+                  </pre>
 
                 <div class="d-flex justify-content-center">
                   <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image2.png" alt="Cumulative Return vs Delta Analysis" class="img-fluid">
@@ -414,7 +416,8 @@ result = pd.DataFrame({
     'annualized_return_with_panic_state': annualized_return_with_panic_state_holder,
     'annualized_volatility_with_panic_state': annualized_volatility_with_panic_state_holder,
     'sharpe_ratio_with_panic_state': sharpe_ratio_with_panic_state_holder
-})</code></pre>
+})</code>
+                  </pre>
 
                 <div class="alert alert-info mt-3">
                   <h5 class="alert-heading">Code Explanation</h5>
@@ -441,9 +444,8 @@ result = pd.DataFrame({
                           <li>Computes annualized returns and volatility</li>
                           <li>Derives Sharpe ratios to measure risk-adjusted performance</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <div class="alert alert-warning mt-3">
@@ -473,7 +475,6 @@ result = pd.DataFrame({
                         </ul>
                       </li>
                     </ul>
-                  </p>
                 </div>
 
                 <h3 class="h5 mb-3">Optimization Results</h3>
@@ -518,7 +519,8 @@ plt.xlabel('Delta')
 plt.ylabel('Cumulative Return')
 plt.title('Cumulative Return vs Delta')
 plt.show()
-                </code></pre>
+                </code>
+                  </pre>
 
                 <div class="d-flex justify-content-center">
                   <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image2.png" alt="Cumulative Return vs Delta" class="img-fluid">
@@ -547,9 +549,8 @@ plt.show()
                           <li>Performance limited by strategy simplicity and S&P 500 universe constraints</li>
                           <li>Potential for improvement through universe expansion and weight optimization</li>
                         </ul>
-                      </li>
-                    </ol>
-                  </p>
+                        </li>
+                      </ol>
                 </div>
 
                 <div class="alert alert-warning mt-3">
@@ -572,24 +573,18 @@ plt.show()
                         </ul>
                       </li>
                     </ul>
-                  </p>
                 </div>
               </section>
             </div>
           </article>
         </div>
-      </div>
-    </main>
         </div>
-      </div>
-    </div>
   </div>
 </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
     
     <script src="../../components/sidebar.js"></script>
-</body>
 </html> 
