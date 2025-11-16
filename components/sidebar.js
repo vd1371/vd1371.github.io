@@ -72,6 +72,18 @@ function loadSidebar() {
             </ul>
           </nav>
 
+          <!-- Book Appointment Button -->
+          <div class="p-3">
+            <a href="https://calendar.app.google/UMZ7JpXbH4V94bMs9" 
+               class="btn btn-outline-light w-100 d-flex align-items-center justify-content-center" 
+               target="_blank"
+               title="Book an Appointment"
+               style="font-weight: 500; padding: 0.75rem;">
+              <i class="bi bi-calendar-check me-2"></i>
+              <span>Book Appointment</span>
+            </a>
+          </div>
+
           <!-- Social Links -->
           <div class="sidebar-footer p-3 mt-auto">
             <h6 class="text-white mb-2 fw-semibold text-center">Connect With Me</h6>
