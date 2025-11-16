@@ -104,12 +104,6 @@
       date: "",
       icon: "bi-graph-up",
     },
-    {
-      title: "Crypto News Sentiment",
-      date: "",
-      link: "posts/projects/2025-05-02-crypto-news-sentiment.html",
-      icon: "bi-chat-square-text",
-    },
   ];
 
   const projects = [];

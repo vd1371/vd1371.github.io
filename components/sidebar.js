@@ -64,12 +64,6 @@ function loadSidebar() {
                 </a>
               </li>
               <li class="nav-item mb-2">
-                <a class="nav-link text-white-50 d-flex align-items-center" href="${basePath}index.html#projects-section">
-                  <i class="bi bi-code-square me-2"></i>
-                  <span>Projects</span>
-                </a>
-              </li>
-              <li class="nav-item mb-2">
                 <a class="nav-link text-white-50 d-flex align-items-center" href="${basePath}index.html#papers">
                   <i class="bi bi-book me-2"></i>
                   <span>Research Papers</span>

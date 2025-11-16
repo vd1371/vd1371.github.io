@@ -54,7 +54,6 @@ function createContentCard(item, sectionType) {
 function getIconClass(sectionType) {
   const iconMap = {
     'quant': 'bi-journal-text',
-    'projects': 'bi-code-square',
     'papers': 'bi-book'
   };
   return iconMap[sectionType] || 'bi-file-text';
@@ -63,7 +62,6 @@ function getIconClass(sectionType) {
 function getIconColor(sectionType) {
   const colorMap = {
     'quant': 'text-primary',
-    'projects': 'text-success',
     'papers': 'text-info'
   };
   return colorMap[sectionType] || 'text-secondary';
@@ -72,18 +70,11 @@ function getIconColor(sectionType) {
 // Function to populate sections
 function populateSections() {
   const quantNotebooksContainer = document.getElementById('quant-notebooks');
-  const projectsContainer = document.getElementById('projects');
   const researchPapersContainer = document.getElementById('research-papers');
 
   if (quantNotebooksContainer && quantNotebooks) {
     quantNotebooks.forEach(item => {
       quantNotebooksContainer.appendChild(createContentCard(item, 'quant'));
-    });
-  }
-
-  if (projectsContainer && projects) {
-    projects.forEach(item => {
-      projectsContainer.appendChild(createContentCard(item, 'projects'));
     });
   }
 
