@@ -1,69 +1,80 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"
-      content="An analysis of an improved momentum strategy that incorporates market panic states"
-    >
-  <meta
-      name="keywords"
-      content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
-    />
-    <meta name="author" content="Vahid Asghari" />
-    <title>Revisiting Momentum</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../styles.css" />
-    <!-- Add syntax highlighting for code blocks -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
-  </head>
-  <body class="bg-light">
-    
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An analysis of an improved momentum strategy that incorporates market panic states">
+  <meta name="keywords" content="momentum investing, factor investing, market panic, portfolio construction, trading strategy">
+  <meta name="author" content="Vahid Asghari">
+  <link rel="icon" type="image/x-icon" href="../../public/favicon.ico">
+  <title>Revisiting Momentum | Vahid Asghari</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Syntax Highlighting - Dark Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
 
-    <div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar Container -->
-    <div class="sidebar-container"></div>
-    
-    <!-- Main Content -->
-    <div class="col-lg-9 col-md-8 main-content">
-      <div class="content-wrapper p-4">
-        <div class="row justify-content-center">
-        <div class="col-md-12">
-          <article class="card shadow-sm p-4">
+  <!-- Navigation -->
+  <div class="sidebar-container"></div>
+
+  <!-- Article -->
+  <article class="post-article">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="post-hero">
+        <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image0.png" alt="Revisiting Momentum" class="post-hero-image">
+        <h1>Revisiting Momentum</h1>
+        <div class="post-meta">
+          <span><i class="bi bi-tag"></i> Quant Notebook</span>
+        </div>
+      </div>
+
+      <!-- Post Body -->
+      <div class="post-body">
+        
             
 
-            <div>
-              <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image0.png" alt="Revisiting Momentum" class="img-fluid">
-            </div>  
+              
       
-            <div class="table-of-contents mb-4">
-              <h5 class="mb-3">Table of Contents</h5>
-              <ol class="list-unstyled">
-                <li class="mb-2"><a href="#strategy-overview">Strategy Overview</a></li>
-                <li class="mb-2"><a href="#data-collection">Data Collection</a></li>
-                <li class="mb-2"><a href="#data-processing">Data Processing</a></li>
-                <li class="mb-2"><a href="#monthly-aggregation">Monthly Data Aggregation</a></li>
-                <li class="mb-2"><a href="#panic-state">Panic State Indicator</a></li>
-                <li class="mb-2"><a href="#strategy-implementation">Strategy Implementation</a></li>
-                <li class="mb-2"><a href="#performance-analysis">Performance Analysis</a></li>
-                <li class="mb-2"><a href="#delta-optimization">Parameter Optimization</a></li>
-                <li class="mb-2"><a href="#conclusion">Conclusion</a></li>
+            <div class="post-toc">
+              <h2>Table of Contents</h2>
+              <ul>
+                <li><a href="#strategy-overview">Strategy Overview</a></li>
+                <li><a href="#data-collection">Data Collection</a></li>
+                <li><a href="#data-processing">Data Processing</a></li>
+                <li><a href="#monthly-aggregation">Monthly Data Aggregation</a></li>
+                <li><a href="#panic-state">Panic State Indicator</a></li>
+                <li><a href="#strategy-implementation">Strategy Implementation</a></li>
+                <li><a href="#performance-analysis">Performance Analysis</a></li>
+                <li><a href="#delta-optimization">Parameter Optimization</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
               </ol>
             </div>
       
             <div>
-              <section class="mb-4">
-                <h2 id="strategy-overview" class="h5 mb-3">Strategy Overview</h2>
+              <section>
+                <h2>Strategy Overview</h2>
                 <p>
                   This strategy is based on the paper "Revisiting (Revitalizing) Momentum" which improves upon traditional momentum strategies by incorporating a panic state indicator. The key innovation is detecting divergent patterns between short-run and long-run market returns to adjust position sizing and direction.
                 </p>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Key Components</h5>
-                  <p class="mb-0">
+                <div class="alert-info">
+                  <h5>Key Components</h5>
+                  <p >
                     <ol>
                       <li>Panic State Detection:
                         <ul>
@@ -87,8 +98,8 @@
                 </p>
               </section>
       
-              <section class="mb-4">
-                <h2 id="data-collection" class="h5 mb-3">Data Collection</h2>
+              <section>
+                <h2>Data Collection</h2>
                 <p>
                   We begin by collecting the S&P 500 company list from Wikipedia and prepare it for data processing:
                 </p>
@@ -108,8 +119,8 @@ tickers.append('^GSPC')</code>
                   </pre>
               </section>
 
-              <section class="mb-4">
-                <h2 id="data-processing" class="h5 mb-3">Data Processing</h2>
+              <section>
+                <h2>Data Processing</h2>
                 <p>
                   We implement an efficient data management system to download and process historical price data:
                 </p>
@@ -151,9 +162,9 @@ tickers = ticker_with_data[:]
 print(f'Loaded data for {len(tickers)} companies')</code>
                   </pre>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Code Explanation</h5>
-                  <p class="mb-0">
+                <div class="alert-info">
+                  <h5>Code Explanation</h5>
+                  <p >
                     This code section:
                     <ol>
                       <li>Implements efficient data management with local caching</li>
@@ -164,8 +175,8 @@ print(f'Loaded data for {len(tickers)} companies')</code>
                 </div>
               </section>
 
-              <section class="mb-4">
-                <h2 id="monthly-aggregation" class="h5 mb-3">Monthly Data Aggregation</h2>
+              <section>
+                <h2>Monthly Data Aggregation</h2>
                 <p>
                   We aggregate daily data into monthly intervals to implement the momentum strategy:
                 </p>
@@ -189,8 +200,8 @@ for data in holder:
                   </pre>
               </section>
 
-              <section class="mb-4">
-                <h2 id="panic-state" class="h5 mb-3">Panic State Indicator</h2>
+              <section>
+                <h2>Panic State Indicator</h2>
                 <p>
                   We calculate the panic state indicator by comparing short-run and long-run market returns:
                 </p>
@@ -208,8 +219,8 @@ market_data['panic_state_indicator'] = (market_data['Short_run_market_return'] <
 
               </section>
 
-              <section class="mb-4">
-                <h2 id="strategy-implementation" class="h5 mb-3">Strategy Implementation</h2>
+              <section>
+                <h2>Strategy Implementation</h2>
                 <p>
                   We implement the momentum strategy with panic state adjustments:
                 </p>
@@ -286,13 +297,11 @@ plt.legend()
 plt.show()</code>
                   </pre>
 
-                      <div class="d-flex justify-content-center">
-                        <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image1.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
-                      </div>
+                      <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image1.png" alt="Predicting Indices Using ARIMA" >
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Code Explanation</h5>
-                  <p class="mb-0">
+                <div class="alert-info">
+                  <h5>Code Explanation</h5>
+                  <p >
                     This code section:
                     <ol>
                       <li>Prepares data structures for strategy implementation</li>
@@ -302,8 +311,8 @@ plt.show()</code>
                 </div>
               </section>
 
-              <section class="mb-4">
-                <h2 id="performance-analysis" class="h5 mb-3">Performance Analysis</h2>
+              <section>
+                <h2>Performance Analysis</h2>
                 <p>
                   We analyze the performance of our strategy by examining the relationship between the delta parameter and various performance metrics:
                 </p>
@@ -315,13 +324,11 @@ plt.title('Cumulative Return vs Delta')
 plt.show()</code>
                   </pre>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image2.png" alt="Cumulative Return vs Delta Analysis" class="img-fluid">
-                </div>
+                <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image2.png" alt="Cumulative Return vs Delta Analysis" >
               </section>
 
-              <section class="mb-4">
-                <h2 id="delta-optimization" class="h5 mb-3">Parameter Optimization</h2>
+              <section>
+                <h2>Parameter Optimization</h2>
                 <p>
                   We optimize the delta parameter to find the optimal threshold for panic state detection:
                 </p>
@@ -419,9 +426,9 @@ result = pd.DataFrame({
 })</code>
                   </pre>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Code Explanation</h5>
-                  <p class="mb-0">
+                <div class="alert-info">
+                  <h5>Code Explanation</h5>
+                  <p >
                     This code section implements a comprehensive parameter optimization:
                     <ol>
                       <li>Parameter Testing:
@@ -448,9 +455,9 @@ result = pd.DataFrame({
                       </ol>
                 </div>
 
-                <div class="alert alert-warning mt-3">
-                  <h5 class="alert-heading">Important Considerations</h5>
-                  <p class="mb-0">
+                <div class="alert-warning">
+                  <h5>Important Considerations</h5>
+                  <p >
                     When optimizing the delta parameter, several factors should be considered:
                     <ul>
                       <li>Market Regime Dependence:
@@ -522,19 +529,17 @@ plt.show()
                 </code>
                   </pre>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image2.png" alt="Cumulative Return vs Delta" class="img-fluid">
-                </div>
+                <img src="../../images/quantio/2025-05-03-revisitingmomentum-Image2.png" alt="Cumulative Return vs Delta" >
               </section>
-              <section class="mb-4">
-                <h2 id="conclusion" class="h5 mb-3">Conclusion</h2>
+              <section>
+                <h2>Conclusion</h2>
                 <p>
                   After implementing and analyzing the improved momentum strategy with panic state detection, we can draw several important conclusions:
                 </p>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Key Takeaways</h5>
-                  <p class="mb-0">
+                <div class="alert-info">
+                  <h5>Key Takeaways</h5>
+                  <p >
                     <ol>
                       <li>Strategy Effectiveness:
                         <ul>
@@ -553,9 +558,9 @@ plt.show()
                       </ol>
                 </div>
 
-                <div class="alert alert-warning mt-3">
-                  <h5 class="alert-heading">Future Improvements</h5>
-                  <p class="mb-0">
+                <div class="alert-warning">
+                  <h5>Future Improvements</h5>
+                  <p >
                     Several avenues for strategy enhancement exist:
                     <ul>
                       <li>Universe Expansion:
@@ -576,15 +581,25 @@ plt.show()
                 </div>
               </section>
             </div>
-          </article>
-        </div>
-        </div>
-  </div>
-</div>
+          
+      </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-    
-    <script src="../../components/sidebar.js"></script>
-</html> 
+        <!-- Post Footer -->
+        <div class="post-footer">
+          <h3>Interested in more research?</h3>
+          <a href="../../index.html" class="btn-primary">
+            <i class="bi bi-arrow-left"></i>
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </article>
+
+  <!-- Syntax Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  
+  <!-- Navigation -->
+  <script src="../../components/sidebar.js"></script>
+</body>
+</html>

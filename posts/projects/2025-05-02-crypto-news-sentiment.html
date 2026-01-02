@@ -1,43 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <meta content="An analysis of crypto news sentiment and its implications for portfolio construction" name="description"/>
-  <meta content="crypto news sentiment, sentiment analysis, cryptocurrency, news, sentiment, analysis" name="keywords"/>
-  <meta content="Vahid Asghari" name="author"/>
-  <title>
-   Crypto News Sentiment
-  </title>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-  <link href="../../styles.css" rel="stylesheet"/>
-  <!-- Add syntax highlighting for code blocks -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet"/>
- </head>
- <body class="bg-light">
-  <div class="container-fluid">
-   <div class="row">
-    <!-- Sidebar Container -->
-    <div class="sidebar-container">
-    </div>
-    <!-- Main Content -->
-    <div class="col-lg-9 col-md-8 main-content">
-     <div class="content-wrapper p-4">
-      <div class="row justify-content-center">
-       <div class="col-md-12">
-        <article class="card shadow-sm p-4">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An analysis of crypto news sentiment and its implications for portfolio construction">
+  <meta name="keywords" content="crypto news sentiment, sentiment analysis, cryptocurrency, news, sentiment, analysis">
+  <meta name="author" content="Vahid Asghari">
+  <link rel="icon" type="image/x-icon" href="../../public/favicon.ico">
+  <title>Crypto News Sentiment | Vahid Asghari</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Syntax Highlighting - Dark Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
+
+  <!-- Navigation -->
+  <div class="sidebar-container"></div>
+
+  <!-- Article -->
+  <article class="post-article">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="post-hero">
+        <img src="../../images/projects/2025-05-02-crypto-news-sentiment-Image2.png" alt="Crypto News Sentiment" class="post-hero-image">
+        <h1>Crypto News Sentiment</h1>
+        <div class="post-meta">
+          <span><i class="bi bi-tag"></i> Project</span>
+        </div>
+      </div>
+
+      <!-- Post Body -->
+      <div class="post-body">
+        
          <div>
-          <h2 class="mb-3">
+          <h2 >
            Latest Cryptocurrency Sentiment
           </h2>
-          <p class="mb-4" id="last-updated">
+          <p  id="last-updated">
            Last updated: 2025-11-16 22:00:06 HK
           </p>
           <div id="crypto-sentiment-table">
           </div>
-          <div class="alert alert-warning" role="alert">
+          <div class="alert-warning">
            <h4 class="alert-heading">
             <i class="bi bi-exclamation-triangle-fill me-2">
             </i>
@@ -67,7 +85,7 @@
                           conditions
             </li>
            </ul>
-           <p class="mb-0">
+           <p >
             Always conduct your own research and consult with
                         qualified financial advisors before making any
                         investment decisions. Past performance is not indicative
@@ -76,37 +94,37 @@
            </p>
           </div>
          </div>
-         <div class="table-of-contents mb-4">
-          <h5 class="mb-3">
+         <div class="post-toc">
+          <h5 >
            Table of Contents
           </h5>
-          <ol class="list-unstyled">
-           <li class="mb-2">
+          <ul>
+           <li>
             <a href="#motivation">
              Motivation
             </a>
            </li>
-           <li class="mb-2">
+           <li>
             <a href="#data-collection">
              Data Collection
             </a>
            </li>
-           <li class="mb-2">
+           <li>
             <a href="#challenges">
              Challenges
             </a>
            </li>
-           <li class="mb-2">
+           <li>
             <a href="#methodology">
              Methodology
             </a>
            </li>
-           <li class="mb-2">
+           <li>
             <a href="#code-structure">
              Code Structure
             </a>
            </li>
-           <li class="mb-2">
+           <li>
             <a href="#next-steps">
              Next Steps
             </a>
@@ -115,8 +133,8 @@
          </div>
          <div>
           <!-- Start with the motivation -->
-          <section class="mb-4" id="motivation">
-           <h1 class="mb-3">
+          <section>
+           <h1 >
             Motivation
            </h1>
            <p>
@@ -166,7 +184,7 @@
           </section>
           <!-- Data Collection -->
           <section class="pt-4 border-top mb-4" id="data-collection">
-           <h1 class="mb-3">
+           <h1 >
             Data Collection
            </h1>
            <p>
@@ -230,7 +248,7 @@
           </section>
           <!-- Challenges -->
           <section class="pt-4 border-top mb-4" id="challenges">
-           <h1 class="mb-3">
+           <h1 >
             Challenges and Lessons Learned
            </h1>
            <p>
@@ -452,8 +470,8 @@
            </ul>
           </section>
           <!-- An example of the dataset -->
-          <section class="mb-4" id="methodology">
-           <h1 class="mb-3">
+          <section>
+           <h1 >
             An example of the dataset
            </h1>
            <p>
@@ -461,9 +479,7 @@
                         collected. To just give you an idea of the type of the
                         data that I am dealing with.
            </p>
-           <div>
-            <img alt="An example of the dataset" class="img-fluid mb-4" src="../../images/projects/2025-05-02-crypto-news-sentiment-Image2.png"/>
-           </div>
+           
            <div class="d-flex justify-content-center">
             <a class="btn btn-primary d-flex align-items-center gap-2" href="../../data/projects/2025-05-02-crypto-news-sentiment-sample-data.csv" target="_blank">
              <i class="bi bi-download">
@@ -473,8 +489,8 @@
            </div>
           </section>
           <!-- Next Steps -->
-          <section class="mb-4" id="next-steps">
-           <h1 class="mb-3">
+          <section>
+           <h1 >
             Next Steps
            </h1>
            <p>
@@ -533,25 +549,33 @@
            </ul>
           </section>
          </div>
-        </article>
-       </div>
+        
       </div>
-     </div>
-     <script src="../../components/sidebar.js">
-     </script>
-     <script src="../../components/crypto_sentiment_table.js">
-     </script>
-     <!-- Bootstrap JS Bundle with Popper -->
-     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
-     </script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js">
-     </script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js">
-     </script>
-     <script>
-     </script>
-    </div>
-   </div>
-  </div>
- </body>
+
+        <!-- Post Footer -->
+        <div class="post-footer">
+          <h3>Interested in more research?</h3>
+          <a href="../../index.html" class="btn-primary">
+            <i class="bi bi-arrow-left"></i>
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </article>
+
+  <!-- Crypto Sentiment Table -->
+  <script src="../../components/crypto_sentiment_table.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      createCryptoSentimentTable('crypto-sentiment-table');
+    });
+  </script>
+
+  <!-- Syntax Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  
+  <!-- Navigation -->
+  <script src="../../components/sidebar.js"></script>
+</body>
 </html>

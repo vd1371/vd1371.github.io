@@ -1,59 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"
-      content="An analysis of technical trading strategies in cryptocurrency markets using EMAC, RSI, Bollinger Bands, and MACD approaches"
-    />
-  <meta
-      name="keywords"
-      content="cryptocurrency trading, technical analysis, EMAC, RSI, Bollinger Bands, MACD, trading strategy"
-    />
-    <meta name="author" content="Vahid Asghari" />
-    <title>Technical Trading Strategies in Crypto</title>
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../styles.css" />
-    <!-- Add syntax highlighting for code blocks -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css"
-    />
-  </head>
-  <body class="bg-light">
-    <div class="container-fluid">
-      <div class="row">
-        <!-- Sidebar Container -->
-        <div class="sidebar-container"></div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An analysis of technical trading strategies in cryptocurrency markets using EMAC, RSI, Bollinger Bands, and MACD approaches">
+  <meta name="keywords" content="cryptocurrency trading, technical analysis, EMAC, RSI, Bollinger Bands, MACD, trading strategy">
+  <meta name="author" content="Vahid Asghari">
+  <link rel="icon" type="image/x-icon" href="../../public/favicon.ico">
+  <title>Technical Trading Strategies in Crypto | Vahid Asghari</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Syntax Highlighting - Dark Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
 
-        <!-- Main Content -->
-        <div class="col-lg-9 col-md-8 main-content">
-          <div class="content-wrapper p-4">
-            <div class="row justify-content-center">
-              <div class="col-md-12">
-                <article class="card shadow-sm p-4">
-                  <div>
-                    <img
-                      src="../../images/quantio/2024-03-20-technical-trading-strategies-in-crypto-Image0.png"
-                      alt="Technical Trading Strategies in Crypto"
-                      class="img-fluid"
-                    />
-                  </div>
+  <!-- Navigation -->
+  <div class="sidebar-container"></div>
 
-                  <div class="table-of-contents mb-4">
-                    <h2 class="h5 mb-3">Table of Contents</h2>
-                    <ul class="list-unstyled">
+  <!-- Article -->
+  <article class="post-article">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="post-hero">
+        <img src="../../images/quantio/2024-03-20-technical-trading-strategies-in-crypto-Image0.png" alt="Technical Trading Strategies in Crypto" class="post-hero-image">
+        <h1>Technical Trading Strategies in Crypto</h1>
+        <div class="post-meta">
+          <span><i class="bi bi-tag"></i> Quant Notebook</span>
+        </div>
+      </div>
+
+      <!-- Post Body -->
+      <div class="post-body">
+        
+                  
+
+                  <div class="post-toc">
+                    <h2>Table of Contents</h2>
+                    <ul>
                       <li>
                         <a href="#strategy-overview">Strategy Overview</a>
-                        <ul class="list-unstyled ms-3">
+                        <ul>
                           <li><a href="#key-components">Key Components</a></li>
                           <li>
                             <a href="#code-explanation">Code Explanation</a>
@@ -65,7 +65,7 @@
                       </li>
                       <li>
                         <a href="#simulation-function">Simulation Function</a>
-                        <ul class="list-unstyled ms-3">
+                        <ul>
                           <li><a href="#key-components">Key Components</a></li>
                           <li>
                             <a href="#code-explanation">Code Explanation</a>
@@ -76,7 +76,7 @@
                         <a href="#strategy-implementation"
                           >Strategy Implementation</a
                         >
-                        <ul class="list-unstyled ms-3">
+                        <ul>
                           <li>
                             <a href="#strategy-components"
                               >Strategy Components</a
@@ -89,7 +89,7 @@
                       </li>
                       <li>
                         <a href="#strategy-selection">Strategy Selection</a>
-                        <ul class="list-unstyled ms-3">
+                        <ul>
                           <li>
                             <a href="#selection-criteria">Selection Criteria</a>
                           </li>
@@ -100,7 +100,7 @@
                       </li>
                       <li>
                         <a href="#best-eth-strategy">Best ETH Strategy</a>
-                        <ul class="list-unstyled ms-3">
+                        <ul>
                           <li>
                             <a href="#strategy-components"
                               >Strategy Components</a
@@ -113,7 +113,7 @@
                       </li>
                       <li>
                         <a href="#statistical-testing">Statistical Testing</a>
-                        <ul class="list-unstyled ms-3">
+                        <ul>
                           <li>
                             <a href="#testing-components">Testing Components</a>
                           </li>
@@ -138,7 +138,7 @@
                         <a href="#thoughts-and-conclusion"
                           >Thoughts and Conclusion</a
                         >
-                        <ul class="list-unstyled ms-3">
+                        <ul>
                           <li><a href="#key-findings">Key Findings</a></li>
                         </ul>
                       </li>
@@ -146,8 +146,8 @@
                   </div>
 
                   <div>
-                    <section id="strategy-overview" class="mb-4">
-                      <h2 class="h5 mb-3">Strategy Overview</h2>
+                    <section>
+                      <h2>Strategy Overview</h2>
 
                       <div class="metadata mb-3">
                         <p><strong>Code Author:</strong> Oscar LI</p>
@@ -174,9 +174,9 @@
                         </p>
                       </div>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Key Components</h5>
-                        <p class="mb-0">
+                      <div class="alert-info">
+                        <h5>Key Components</h5>
+                        <p >
                           The strategy implements four technical trading
                           approaches on cryptocurrency markets:
                         </p>
@@ -222,7 +222,7 @@
                       </ol>
                       </div>
 
-                      <p class="mt-3">
+                      <p >
                         The strategy focuses on BTC/USDT and ETH/USDT pairs,
                         evaluating performance through:
                       </p>
@@ -250,17 +250,17 @@
                       pandas as pd import numpy as np import yfinance as yf from
                       datetime import datetime, timedelta
                     </section>
-                    <section id="date-ranges" class="mb-4">
-                      <h2 class="h5 mb-3">Date Ranges for Analysis</h2>
+                    <section>
+                      <h2>Date Ranges for Analysis</h2>
 
                       <p>
                         The analysis is conducted using two distinct time
                         periods to evaluate the strategies' performance:
                       </p>
 
-                      <div class="alert alert-info">
-                        <h5 class="alert-heading">Time Periods</h5>
-                        <ul class="mb-0">
+                      <div class="alert-info">
+                        <h5>Time Periods</h5>
+                        <ul >
                           <li>
                             <strong>In-Sample Period:</strong> Used for strategy
                             development and initial testing
@@ -278,8 +278,8 @@ out_of_sample_start_date = '2021-12-20'
 out_of_sample_end_date = '2023-10-31'</code>
                   </pre>
                     </section>
-                    <section id="data-preparation" class="mb-4">
-                      <h2 class="h5 mb-3">Data Preparation</h2>
+                    <section>
+                      <h2>Data Preparation</h2>
 
                       <p>
                         The analysis uses daily price data for Bitcoin (BTC) and
@@ -306,8 +306,8 @@ eth_df_full = eth_df.loc[in_sample_start_date:out_of_sample_end_date]
 btc_df_full, eth_df_full</code>
                   </pre>
                     </section>
-                    <section class="mb-4">
-                      <h2 id="data-processing" class="h5 mb-3">
+                    <section>
+                      <h2>
                         Data Processing
                       </h2>
                       <p>
@@ -354,8 +354,8 @@ Date                        close           Volume       Dividends    Stock Spli
                         >
                       </code>
                     </section>
-                    <section class="mb-4">
-                      <h2 id="simulation-function" class="h5 mb-3">
+                    <section>
+                      <h2>
                         Simulation Function
                       </h2>
                       <p>
@@ -392,9 +392,9 @@ def simulation(performance_df,Type):
   return performance_df</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Code Explanation</h5>
-                        <p class="mb-0">
+                      <div class="alert-info">
+                        <h5>Code Explanation</h5>
+                        <p >
                           This code section implements the core simulation
                           functionality:
                         </p>
@@ -416,8 +416,8 @@ def simulation(performance_df,Type):
                       </ol>
                       </div>
                     </section>
-                    <section class="mb-4">
-                      <h2 id="strategy-implementation" class="h5 mb-3">
+                    <section>
+                      <h2>
                         Strategy Implementation
                       </h2>
                       <p>
@@ -425,9 +425,9 @@ def simulation(performance_df,Type):
                         trading strategies on both Bitcoin and Ethereum data:
                       </p>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Strategy Components</h5>
-                        <p class="mb-0"></p>
+                      <div class="alert-info">
+                        <h5>Strategy Components</h5>
+                        <p ></p>
                         <ol>
                           <li>
                             Moving Average Crossover (EMAC):
@@ -537,9 +537,9 @@ for short in range(10, 30, 5):
           record_performance_metrics(eth_result, key, result, btc_df_full['ROC'])</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Code Explanation</h5>
-                        <p class="mb-0">
+                      <div class="alert-info">
+                        <h5>Code Explanation</h5>
+                        <p >
                           This code section implements the strategy testing
                           framework:
                         </p>
@@ -569,8 +569,8 @@ for short in range(10, 30, 5):
                       </ol>
                       </div>
                     </section>
-                    <section class="mb-4">
-                      <h2 id="performance-metrics" class="h5 mb-3">
+                    <section>
+                      <h2>
                         Performance Metrics
                       </h2>
                       <p>
@@ -598,9 +598,9 @@ for short in range(10, 30, 5):
   btc_result[f'{key}_out_of_sample_max_drawdown'] = max_drawdown(out_of_samplereturns)</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Code Explanation</h5>
-                        <p class="mb-0">
+                      <div class="alert-info">
+                        <h5>Code Explanation</h5>
+                        <p >
                           This code section implements a comprehensive
                           performance metrics recording system:
                         </p>
@@ -638,8 +638,8 @@ for short in range(10, 30, 5):
                       </ol>
                       </div>
                     </section>
-                    <section class="mb-4">
-                      <h2 id="strategy-selection" class="h5 mb-3">
+                    <section>
+                      <h2>
                         Strategy Selection
                       </h2>
                       <p>
@@ -691,9 +691,9 @@ best_btc_result = pd.concat([btc_emac, btc_rsi, btc_bband, btc_macd], ignore_ind
 best_btc_result</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Code Explanation</h5>
-                        <p class="mb-0">
+                      <div class="alert-info">
+                        <h5>Code Explanation</h5>
+                        <p >
                           This code section implements the strategy selection
                           process:
                         </p>
@@ -728,8 +728,8 @@ best_btc_result</code>
                         >
                       </code>
                     </section>
-                    <section class="mb-4">
-                      <h2 id="best-eth-strategy" class="h5 mb-3">
+                    <section>
+                      <h2>
                         Best ETH Strategy: Profitability Over the Whole Sample
                       </h2>
 
@@ -756,9 +756,9 @@ best_eth_result = pd.concat([eth_emac, eth_rsi, eth_bband, eth_macd], ignore_ind
 best_eth_result</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Code Explanation</h5>
-                        <p class="mb-0">
+                      <div class="alert-info">
+                        <h5>Code Explanation</h5>
+                        <p >
                           This code section implements the strategy selection
                           process:
                         </p>
@@ -794,8 +794,8 @@ best_eth_result</code>
                         >
                       </code>
                     </section>
-                    <section class="mb-4">
-                      <h2 id="statistical-testing" class="h5 mb-3">
+                    <section>
+                      <h2>
                         Statistical Testing
                       </h2>
                       <p>
@@ -863,9 +863,9 @@ Best MACD_(15, 25, 12)_whole_sample Strategy nominal p-value: 0.0670266902569309
 Best MACD_(15, 25, 12)_whole_sample Strategy reality check p-value: 0.807</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Test Results Analysis</h5>
-                        <p class="mb-0">
+                      <div class="alert-info">
+                        <h5>Test Results Analysis</h5>
+                        <p >
                           The statistical tests reveal several important
                           insights:
                         </p>
@@ -891,8 +891,8 @@ Best MACD_(15, 25, 12)_whole_sample Strategy reality check p-value: 0.807</code>
                       </ol>
                       </div>
                     </section>
-                    <section class="mb-4">
-                      <h2 id="btc-results" class="h5 mb-3">BTC Results</h2>
+                    <section>
+                      <h2>BTC Results</h2>
                       <p>
                         In this section, we analyze the performance of our
                         technical trading strategies on Bitcoin:
@@ -934,9 +934,9 @@ for i in range(len(best_btc_result)):
 all_performance</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Code Explanation</h5>
-                        <p class="mb-0">
+                      <div class="alert-info">
+                        <h5>Code Explanation</h5>
+                        <p >
                           This code section implements the performance analysis:
                         </p>
 
@@ -992,11 +992,11 @@ Best MACD_(25, 40, 9)_whole_sample Strategy nominal p-value: 0.00435547361031840
 Best MACD_(25, 40, 9)_whole_sample Strategy reality check p-value: 0.14</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">
+                      <div class="alert-info">
+                        <h5>
                           Statistical Testing Results
                         </h5>
-                        <p class="mb-0">The statistical tests reveal:</p>
+                        <p >The statistical tests reveal:</p>
 
                         <ol>
                           <li>
@@ -1023,8 +1023,8 @@ Best MACD_(25, 40, 9)_whole_sample Strategy reality check p-value: 0.14</code>
                       </ol>
                       </div>
                     </section>
-                    <section class="mb-4">
-                      <h2 id="eth-results" class="h5 mb-3">ETH Results</h2>
+                    <section>
+                      <h2>ETH Results</h2>
                       <p>
                         In this section, we analyze the performance of our
                         technical trading strategies on Ethereum:
@@ -1040,9 +1040,9 @@ for i in range(len(best_eth_result)):
 all_performance_eth</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Code Explanation</h5>
-                        <p class="mb-0">
+                      <div class="alert-info">
+                        <h5>Code Explanation</h5>
+                        <p >
                           This code section calculates performance metrics for
                           each strategy:
                         </p>
@@ -1090,13 +1090,11 @@ plt.title('BTC Equity Curve with BTC Benchmark')
 plt.show()</code>
                   </pre>
 
-                      <div class="d-flex justify-content-center">
-                        <img
+                      <img
                           src="../../images/quantio/2024-03-20-technical-trading-strategies-in-crypto-Image1.png"
                           alt="Technical Trading Strategies in Crypto"
-                          class="img-fluid"
+                          
                         />
-                      </div>
 
                       <pre><code class="language-python">## plot the equity curve for ETH
 import matplotlib.pyplot as plt
@@ -1113,16 +1111,14 @@ plt.title('ETH Equity Curve with ETH Benchmark')
 plt.show()</code>
                   </pre>
 
-                      <div class="d-flex justify-content-center">
-                        <img
+                      <img
                           src="../../images/quantio/2024-03-20-technical-trading-strategies-in-crypto-Image2.png"
                           alt="Technical Trading Strategies in Crypto"
-                          class="img-fluid"
+                          
                         />
-                      </div>
                     </section>
-                    <section class="mb-4">
-                      <h2 id="thoughts-and-conclusion" class="h5 mb-3">
+                    <section>
+                      <h2>
                         Thoughts and Conclusion
                       </h2>
                       <p>
@@ -1130,9 +1126,9 @@ plt.show()</code>
                         cryptocurrency markets reveals several key findings:
                       </p>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Key Findings</h5>
-                        <p class="mb-0"></p>
+                      <div class="alert-info">
+                        <h5>Key Findings</h5>
+                        <p ></p>
                         <ol>
                           <li>
                             Strategy Performance:
@@ -1179,11 +1175,11 @@ plt.show()</code>
                       </ol>
                       </div>
 
-                      <div class="alert alert-warning mt-3">
-                        <h5 class="alert-heading">
+                      <div class="alert-warning">
+                        <h5>
                           Suggestions for Improvement
                         </h5>
-                        <p class="mb-0"></p>
+                        <p ></p>
                         <ol>
                           <li>
                             Data Quality:
@@ -1230,15 +1226,25 @@ plt.show()</code>
                       </div>
                     </section>
                   </div>
-                </article>
-              </div>
-  </div>
-</div>
+                
+      </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+        <!-- Post Footer -->
+        <div class="post-footer">
+          <h3>Interested in more research?</h3>
+          <a href="../../index.html" class="btn-primary">
+            <i class="bi bi-arrow-left"></i>
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </article>
 
-    <script src="../../components/sidebar.js"></script
+  <!-- Syntax Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  
+  <!-- Navigation -->
+  <script src="../../components/sidebar.js"></script>
 </body>
 </html>

@@ -1,72 +1,305 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="public/favicon.ico" />
-    <title>Vahid Asghari's Blog</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body>
-    <div class="container-fluid">
-      <div class="row">
-        <!-- Sidebar Container -->
-        <div class="sidebar-container"></div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Vahid Asghari - Quant AI Specialist, quantitative research, algorithmic trading, and machine learning.">
+  <meta name="keywords" content="quant, AI, machine learning, algorithmic trading, quantitative research, fintech">
+  <meta name="author" content="Vahid Asghari">
+  <link rel="icon" type="image/x-icon" href="public/favicon.ico">
+  <title>Vahid Asghari | Quant AI Specialist</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
 
-        <!-- Main Content -->
-        <div class="col-lg-9 col-md-8 main-content">
-          <div class="content-wrapper p-4">
-            <!-- Quant Notebooks Section -->
-            <section id="quant" class="mb-5">
-              <div class="section-header d-flex align-items-center mb-4">
-                <div class="section-icon me-3">
-                  <i class="bi bi-journal-text text-primary fs-1"></i>
-                </div>
-                <div>
-                  <h2 class="h3 fw-bold mb-1">Quant Notebooks</h2>
-                  <p class="text-muted mb-0">
-                    Quantitative analysis and trading strategies
-                  </p>
-                </div>
-              </div>
-              <div class="row g-3" id="quant-notebooks">
-                <!-- Content will be populated by JavaScript -->
-              </div>
-            </section>
-
-            <!-- Research Papers Section -->
-            <section id="papers" class="mb-5">
-              <div class="section-header d-flex align-items-center mb-4">
-                <div class="section-icon me-3">
-                  <i class="bi bi-book text-info fs-1"></i>
-                </div>
-                <div>
-                  <h2 class="h3 fw-bold mb-1">Research Papers</h2>
-                  <p class="text-muted mb-0">
-                    Academic publications and research
-                  </p>
-                </div>
-              </div>
-              <div class="row g-3" id="research-papers">
-                <!-- Content will be populated by JavaScript -->
-              </div>
-            </section>
-          </div>
-  </div>
-</div>
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <span class="logo-bracket">[</span>
+        <span class="logo-text">VA</span>
+        <span class="logo-bracket">]</span>
+      </a>
+      
+      <div class="nav-links">
+        <a href="#about" class="nav-link">About</a>
+        <a href="#research" class="nav-link">Research</a>
+        <a href="#notebooks" class="nav-link">Notebooks</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
+  </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="components/sidebar.js"></script>
-    <script src="data/content.js"></script>
-    <script src="components/content-cards.js"></script>
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" class="mobile-link">About</a>
+    <a href="#research" class="mobile-link">Research</a>
+    <a href="#notebooks" class="mobile-link">Notebooks</a>
+    <a href="#contact" class="mobile-link">Contact</a>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <div class="terminal-window">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="terminal-title">vahid@quant:~</span>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-line">
+            <span class="prompt">$</span>
+            <span class="command" id="typewriter"></span>
+            <span class="cursor">|</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hero-info">
+        <div class="hero-avatar">
+          <img src="public/Vahid2024-Square.jpg" alt="Vahid Asghari">
+          <div class="avatar-ring"></div>
+        </div>
+        <h1 class="hero-title">Vahid Asghari</h1>
+        <p class="hero-subtitle">Quant AI Specialist @ Premialab</p>
+        <p class="hero-tagline">Building intelligent systems for financial markets</p>
+        
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-number" data-count="17">0</span>
+            <span class="stat-label">Quant Notebooks</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-count="4">0</span>
+            <span class="stat-label">Research Papers</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number" data-count="5">0</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+        </div>
+        
+        <div class="hero-actions">
+          <a href="#notebooks" class="btn-primary">
+            <i class="bi bi-code-slash"></i>
+            View Notebooks
+          </a>
+          <a href="https://calendar.app.google/UMZ7JpXbH4V94bMs9" target="_blank" class="btn-secondary">
+            <i class="bi bi-calendar-check"></i>
+            Book a Call
+          </a>
+        </div>
+      </div>
+    </div>
+    
+    <div class="scroll-indicator">
+      <span>Scroll to explore</span>
+      <i class="bi bi-chevron-double-down"></i>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">&lt;about&gt;</span>
+        <h2 class="section-title">Who I Am</h2>
+      </div>
+      
+      <div class="about-grid">
+        <div class="about-card">
+          <div class="about-icon">
+            <i class="bi bi-graph-up-arrow"></i>
+          </div>
+          <h3>Quantitative Research</h3>
+          <p>Developing and backtesting trading strategies across equities, derivatives, and crypto markets using advanced statistical methods.</p>
+        </div>
+        
+        <div class="about-card">
+          <div class="about-icon">
+            <i class="bi bi-cpu"></i>
+          </div>
+          <h3>Machine Learning</h3>
+          <p>Applying deep learning and reinforcement learning to solve complex financial problems and enhance trading decisions.</p>
+        </div>
+        
+        <div class="about-card">
+          <div class="about-icon">
+            <i class="bi bi-code-square"></i>
+          </div>
+          <h3>System Building</h3>
+          <p>Creating scalable, efficient quantitative systems that handle large datasets and complex computations in real-time.</p>
+        </div>
+        
+        <div class="about-card">
+          <div class="about-icon">
+            <i class="bi bi-people"></i>
+          </div>
+          <h3>Community</h3>
+          <p>Organizing bi-monthly Hong Kong Machine Learning Meetups, sharing knowledge and connecting with fellow practitioners.</p>
+        </div>
+      </div>
+      
+      <div class="about-text">
+        <p>
+          I'm a quantitative developer and researcher with experience in equity space and equity derivatives. 
+          Currently working as a <strong>Quant AI Specialist at Premialab</strong>, responsible for developing 
+          in-house computational/quantitative tools and enriching the firm's products with AI and ML.
+        </p>
+        <p>
+          In my free time, I replicate academic papers, build full-stack applications, 
+          and cook for my family and friends.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research Section -->
+  <section class="section section-alt" id="research">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">&lt;research&gt;</span>
+        <h2 class="section-title">Research Papers</h2>
+        <p class="section-subtitle">Academic publications and applied research in quantitative finance and machine learning</p>
+      </div>
+      
+      <div class="research-grid" id="research-grid">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Notebooks Section -->
+  <section class="section" id="notebooks">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">&lt;notebooks&gt;</span>
+        <h2 class="section-title">Quant Notebooks</h2>
+        <p class="section-subtitle">Quantitative analysis, trading strategies, and market research</p>
+      </div>
+      
+      <!-- Filter Tabs -->
+      <div class="filter-tabs">
+        <button class="filter-tab active" data-filter="all">
+          <i class="bi bi-grid-3x3-gap"></i>
+          All
+        </button>
+        <button class="filter-tab" data-filter="momentum">
+          <i class="bi bi-arrow-up-right"></i>
+          Momentum
+        </button>
+        <button class="filter-tab" data-filter="statistical">
+          <i class="bi bi-bar-chart-line"></i>
+          Statistical Arb
+        </button>
+        <button class="filter-tab" data-filter="technical">
+          <i class="bi bi-graph-up"></i>
+          Technical
+        </button>
+        <button class="filter-tab" data-filter="forecasting">
+          <i class="bi bi-clock-history"></i>
+          Forecasting
+        </button>
+      </div>
+      
+      <div class="notebooks-grid" id="notebooks-grid">
+        <!-- Populated by JavaScript -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section section-alt" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">&lt;contact&gt;</span>
+        <h2 class="section-title">Let's Connect</h2>
+        <p class="section-subtitle">Interested in collaboration, research, or just want to chat about quant?</p>
+      </div>
+      
+      <div class="contact-grid">
+        <a href="https://linkedin.com/in/asgharivahid" target="_blank" class="contact-card">
+          <i class="bi bi-linkedin"></i>
+          <span>LinkedIn</span>
+        </a>
+        <a href="mailto:contact@vahidasghari.me" class="contact-card">
+          <i class="bi bi-envelope"></i>
+          <span>Email</span>
+        </a>
+        <a href="https://github.com/vd1371" target="_blank" class="contact-card">
+          <i class="bi bi-github"></i>
+          <span>GitHub</span>
+        </a>
+        <a href="https://scholar.google.com/citations?user=eUlLuc8AAAAJ&hl=en" target="_blank" class="contact-card">
+          <i class="bi bi-mortarboard"></i>
+          <span>Scholar</span>
+        </a>
+        <a href="https://www.meetup.com/hong-kong-machine-learning-meetup" target="_blank" class="contact-card">
+          <i class="bi bi-people"></i>
+          <span>Meetup</span>
+        </a>
+        <a href="https://forms.gle/isrRxsD94VtHXNKx5" target="_blank" class="contact-card">
+          <i class="bi bi-newspaper"></i>
+          <span>Subscribe</span>
+        </a>
+      </div>
+      
+      <div class="cta-box">
+        <h3>Ready to discuss your next project?</h3>
+        <a href="https://calendar.app.google/UMZ7JpXbH4V94bMs9" target="_blank" class="btn-primary btn-large">
+          <i class="bi bi-calendar-check"></i>
+          Schedule a Meeting
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-logo">
+          <span class="logo-bracket">[</span>
+          <span class="logo-text">VA</span>
+          <span class="logo-bracket">]</span>
+        </div>
+        <p class="footer-text">
+          &copy; 2025 Vahid Asghari. Building the future of quantitative finance.
+        </p>
+        <div class="footer-links">
+          <a href="https://github.com/vd1371" target="_blank"><i class="bi bi-github"></i></a>
+          <a href="https://linkedin.com/in/asgharivahid" target="_blank"><i class="bi bi-linkedin"></i></a>
+          <a href="mailto:contact@vahidasghari.me"><i class="bi bi-envelope"></i></a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="data/content.js"></script>
+  <script src="components/app.js"></script>
 </body>
 </html>

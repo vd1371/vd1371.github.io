@@ -1,38 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description"
-    content="An analysis of cross-stock momentum strategy based on lead-lag relationships and contemporaneous co-movements in stock markets"
-  >
-  <meta
-    name="keywords"
-    content="cross-stock momentum, factor momentum, lead-lag relationships, stock market analysis, trading strategy"
-  <meta name="author" content="Vahid Asghari" />
-  <title>Dynamic Tactical Asset Allocation</title>
-  <!-- Bootstrap CSS -->
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../styles.css" />
-  <!-- Add syntax highlighting for code blocks -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
-</head>
-<body class="bg-light">
+  <meta name="description" content="An analysis of cross-stock momentum strategy based on lead-lag relationships and contemporaneous co-movements in stock markets">
+  <meta name="keywords" content="Vahid Asghari">
+  <meta name="author" content="Vahid Asghari">
+  <link rel="icon" type="image/x-icon" href="../../public/favicon.ico">
+  <title>Dynamic Tactical Asset Allocation | Vahid Asghari</title>
   
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Syntax Highlighting - Dark Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
 
-  <div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar Container -->
-    <div class="sidebar-container"></div>
-    
-    <!-- Main Content -->
-    <div class="col-lg-9 col-md-8 main-content">
-      <div class="content-wrapper p-4">
-                <div class="row justify-content-center">
-        <div class="col-md-12">
-          <article class="card shadow-sm p-4">
+  <!-- Navigation -->
+  <div class="sidebar-container"></div>
+
+  <!-- Article -->
+  <article class="post-article">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="post-hero">
+        <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image0.png" alt="Dynamic Tactical Asset Allocation" class="post-hero-image">
+        <h1>Dynamic Tactical Asset Allocation</h1>
+        <div class="post-meta">
+          <span><i class="bi bi-tag"></i> Quant Notebook</span>
+        </div>
+      </div>
+
+      <!-- Post Body -->
+      <div class="post-body">
+        
           
 
           <div>
@@ -40,14 +53,12 @@
               Dynamic Tactical Asset Allocation (DTAA) is a strategy that uses a combination of different asset classes to create a portfolio that is optimized for the current market conditions.
             </p>
           </div>
-          <div>
-            <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image0.png" alt="Dynamic Tactical Asset Allocation" class="img-fluid">
-          </div>
+          
 
 
-          <div class="table-of-contents mb-4">
-            <h2 class="h5 mb-3">Table of Contents</h2>
-            <ul class="list-unstyled">
+          <div class="post-toc">
+            <h2>Table of Contents</h2>
+            <ul>
               <li><a href="#strategy-overview">Strategy Overview</a></li>
               <li><a href="#asset-selection">Asset Selection</a></li>
               <li><a href="#data-preparation">Data Preparation</a></li>
@@ -142,8 +153,8 @@
               <p>The analysis covers the period from November 1, 2010, to November 15, 2024, with return calculations starting from November 1, 2011. For simplicity, the analysis excludes dividend reinvestment and corporate actions. All data is sourced from LSEG Workspace.</p>
 
             </section>
-            <section class="mb-4">
-              <h2 id="data-preparation" class="h5 mb-3">Data Preparation</h2>
+            <section>
+              <h2>Data Preparation</h2>
               <p>
                 In this section, we prepare and process the data for implementing the dynamic tactical asset allocation strategy:
               </p>
@@ -176,9 +187,9 @@ data_sma_return["portfolio_daily_return"] =
 data_sma_return</code>
                   </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the core data preparation components:
                   <ol>
                     <li>Data Loading and Initial Setup:
@@ -199,7 +210,7 @@ data_sma_return</code>
               </div>
             </section>
             <section>
-              <h2 id="dynamic-tactical-asset-allocation" class="h5 mb-3">Dynamic Tactical Asset Allocation (DTAA)</h2>
+              <h2>Dynamic Tactical Asset Allocation (DTAA)</h2>
               <p>
                 The Dynamic Tactical Asset Allocation strategy takes a more sophisticated approach by considering both trend and volatility signals across the entire portfolio. This strategy aggregates signals from all assets to make portfolio-wide allocation decisions.
               </p>
@@ -251,7 +262,7 @@ plt.legend()</code>
                   </pre>
 
             <div>
-              <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image1.png" alt="Dynamic Tactical Asset Allocation" class="img-fluid">
+              <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image1.png" alt="Dynamic Tactical Asset Allocation" >
             </div>
 
 <code style="color: #000;"><pre>HKD bond fund	Gold ETF	HSI	Link REIT	Overnight HIBOR	HKD bond fund_250_SMA	HKD bond fund_daily_return	Gold ETF_250_SMA	Gold ETF_daily_return	HSI_250_SMA	HSI_daily_return	Link REIT_250_SMA	Link REIT_daily_return	Cash_daily_return
@@ -292,9 +303,9 @@ data_dtaa=data_dtaa[250:].copy()
 data_dtaa["portfolio_daily_return"]=data_dtaa["HKD bond fund_strategy_return"]+ data_dtaa["Gold ETF_strategy_return"] +data_dtaa["HSI_strategy_return"] +data_dtaa['Link REIT_strategy_return']</code>
                   </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the DTAA strategy with the following key components:
                   <ol>
                     <li>Data Preparation:
@@ -439,9 +450,9 @@ plt.xticks(rotation=45)
 plt.show()</code>
                   </pre>
                           
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Code Explanation</h5>
-                  <p class="mb-0">
+                <div class="alert-info">
+                  <h5>Code Explanation</h5>
+                  <p >
                     This code section implements the signal generation strategy:
                     <ol>
                       <li>Technical Indicators:
@@ -465,12 +476,12 @@ plt.show()</code>
               <section>
 
               <div class="d-flex justify-content-center mb-4">
-                <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image3.png" alt="Dynamic Tactical Asset Allocation" class="img-fluid">
+                <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image3.png" alt="Dynamic Tactical Asset Allocation" >
               </div>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the core strategy components:
                   <ol>
                     <li>Data Processing:
@@ -507,12 +518,12 @@ plt.legend()</code>
                   </pre>
 
               <div class="d-flex justify-content-center mb-4">
-                <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image4.png" alt="Dynamic Tactical Asset Allocation" class="img-fluid">
+                <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image4.png" alt="Dynamic Tactical Asset Allocation" >
               </div>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the portfolio construction:
                   <ol>
                     <li>Portfolio Allocation:
@@ -545,14 +556,14 @@ plt.title("Signal Based Strategy Return")</code>
                   </pre>
 
               <div class="d-flex justify-content-center mb-4">
-                <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image5.png" alt="Dynamic Tactical Asset Allocation" class="img-fluid">
+                <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image5.png" alt="Dynamic Tactical Asset Allocation" >
               </div>
 
 
             </section>
 
             <section>
-              <h2 id="risk-parity-dtaa" class="h5 mb-3">DTAA with Risk Parity</h2>
+              <h2>DTAA with Risk Parity</h2>
               <p>
                 While the previous strategies showed promising results, we can further enhance the portfolio by implementing a risk parity approach. This strategy dynamically adjusts asset allocation based on risk rather than predetermined percentages, with weekly rebalancing and no leverage or short positions.
               </p>
@@ -596,9 +607,9 @@ data_risk_parity['portfolio_daily_return'] = (weights * data_risk_parity[[stock 
 data_risk_parity['portfolio_cumulative_return'] = data_risk_parity['portfolio_daily_return'].cumsum()</code>
                   </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the Risk Parity strategy with the following components:
                   <ol>
                     <li>Data Preparation:
@@ -631,7 +642,7 @@ plt.show()</code>
                   </pre>
 
               <div class="d-flex justify-content-center mb-4">
-                <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image6.png" alt="Risk Parity DTAA Performance" class="img-fluid">
+                <img src="../../images/quantio/2025-05-15-dynamic-tactical-asset-allocation-Image6.png" alt="Risk Parity DTAA Performance" >
               </div>
 
               <pre><code class="language-python">portfolio_return = data_risk_parity["portfolio_daily_return"].cumsum().iloc[-1]
@@ -642,8 +653,8 @@ print("Sharpe Ratio is : ", data_risk_parity["portfolio_daily_return"].mean() / 
 
             </section>
 
-            <section class="mb-4">
-              <h2 id="conclusion" class="h5 mb-3">Conclusion</h2>
+            <section>
+              <h2>Conclusion</h2>
               <p>
                 Risk Parity DTAA can reduce the volatility of the portfolio but has worse return compared with HSI and other strategies.
               </p>
@@ -660,13 +671,13 @@ plt.legend()
 plt.show()</code>
                   </pre>
 
-              <div class="alert alert-warning mt-3">
-                <h5 class="alert-heading">Market Context and Challenges</h5>
-                <p class="mb-0">
+              <div class="alert-warning">
+                <h5>Market Context and Challenges</h5>
+                <p >
                   But when multiple assets fall together from late 2021 to 2023 as the inflation threatened the market led to exponential increase of interest rate along with China policies in COVID-19, everything dropped alot. Since the bond market has been bullish for more than 30 years, having fixed income assets in the portfolio can reduce risk of the portfolio and protect against market crash. Now the long term bond bullish market has ended?? Should we give up the idea of holding fixed income assets into our portfolio to reduce risk as they are very volatile last few years.
                 </p>
-                <h5 class="alert-heading">Strategy Improvements</h5>
-                <p class="mb-0">
+                <h5>Strategy Improvements</h5>
+                <p >
                   I think we can imporve those strategies return by:
                   <ol>
                     <li>Fixed Income Selection:
@@ -705,15 +716,25 @@ plt.show()</code>
               </div>
             </section>
           </div>
-        </article>
+        
       </div>
-        </div>
-  </div>
-</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+        <!-- Post Footer -->
+        <div class="post-footer">
+          <h3>Interested in more research?</h3>
+          <a href="../../index.html" class="btn-primary">
+            <i class="bi bi-arrow-left"></i>
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </article>
+
+  <!-- Syntax Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
   
+  <!-- Navigation -->
   <script src="../../components/sidebar.js"></script>
+</body>
 </html>

@@ -1,59 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"
-      content="An analysis of an improved momentum strategy that incorporates market panic states"
-    />
-  <meta
-      name="keywords"
-      content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
-    />
-    <meta name="author" content="Vahid Asghari" />
-    <title>Stat Arb in Crude Oil Markets</title>
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../styles.css" />
-    <!-- Add syntax highlighting for code blocks -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css"
-    />
-  </head>
-  <body class="bg-light">
-    <div class="container-fluid">
-      <div class="row">
-        <!-- Sidebar Container -->
-        <div class="sidebar-container"></div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An analysis of an improved momentum strategy that incorporates market panic states">
+  <meta name="keywords" content="momentum investing, factor investing, market panic, portfolio construction, trading strategy">
+  <meta name="author" content="Vahid Asghari">
+  <link rel="icon" type="image/x-icon" href="../../public/favicon.ico">
+  <title>Stat Arb in Crude Oil Markets | Vahid Asghari</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Syntax Highlighting - Dark Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
 
-        <!-- Main Content -->
-        <div class="col-lg-9 col-md-8 main-content">
-          <div class="content-wrapper p-4">
-            <div class="row justify-content-center">
-              <div class="col-md-12">
-                <article class="card shadow-sm p-4">
-                  <div class="d-flex justify-content-center">
-                    <img
-                      src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image0.png"
-                      alt="Day and Night Returns Analysis"
-                      class="img-fluid"
-                    />
-                  </div>
+  <!-- Navigation -->
+  <div class="sidebar-container"></div>
 
-                  <div class="table-of-contents mb-4">
-                    <h2 class="h5 mb-3">Table of Contents</h2>
-                    <ul class="list-unstyled">
+  <!-- Article -->
+  <article class="post-article">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="post-hero">
+        <img src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image0.png" alt="Stat Arb in Crude Oil Markets" class="post-hero-image">
+        <h1>Stat Arb in Crude Oil Markets</h1>
+        <div class="post-meta">
+          <span><i class="bi bi-tag"></i> Quant Notebook</span>
+        </div>
+      </div>
+
+      <!-- Post Body -->
+      <div class="post-body">
+        
+                  
+
+                  <div class="post-toc">
+                    <h2>Table of Contents</h2>
+                    <ul>
                       <li>
                         <a href="#strategy-details">Strategy Details</a>
-                        <ul class="list-unstyled ms-3">
+                        <ul>
                           <li>
                             <a href="#reference-paper">Reference Paper</a>
                           </li>
@@ -69,7 +69,7 @@
                       </li>
                       <li>
                         <a href="#analysis-of-results">Analysis of Results</a>
-                        <ul class="list-unstyled ms-3">
+                        <ul>
                           <li>
                             <a href="#strategy-components"
                               >Strategy Components</a
@@ -86,8 +86,8 @@
                     </ul>
                   </div>
                   <div>
-                    <section class="mb-4">
-                      <h2 id="strategy-details" class="h5 mb-3">
+                    <section>
+                      <h2>
                         Strategy Details
                       </h2>
 
@@ -119,9 +119,9 @@
                         </p>
                       </div>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Key Components</h5>
-                        <p class="mb-0"></p>
+                      <div class="alert-info">
+                        <h5>Key Components</h5>
+                        <p ></p>
                         <ol>
                           <li>
                             Data Collection:
@@ -218,9 +218,9 @@ fig.colorbar(im)
 plt.show()</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Code Explanation</h5>
-                        <p class="mb-0">
+                      <div class="alert-info">
+                        <h5>Code Explanation</h5>
+                        <p >
                           This code section implements the data collection and
                           initial analysis framework:
                         </p>
@@ -257,25 +257,21 @@ plt.show()</code>
                       </ol>
                       </div>
 
-                      <div class="d-flex justify-content-center">
-                        <img
+                      <img
                           src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image1.png"
                           alt="Day and Night Returns Analysis"
-                          class="img-fluid"
+                          
                         />
-                      </div>
 
-                      <div class="d-flex justify-content-center">
-                        <img
+                      <img
                           src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image2.png"
                           alt="Day and Night Returns Analysis"
-                          class="img-fluid"
+                          
                         />
-                      </div>
                     </section>
 
                     <section>
-                      <h2 id="analysis-of-results" class="h5 mb-3">
+                      <h2>
                         Analysis of Results
                       </h2>
 
@@ -292,9 +288,9 @@ plt.show()</code>
                         exploit these opportunities:
                       </p>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Strategy Components</h5>
-                        <p class="mb-0"></p>
+                      <div class="alert-info">
+                        <h5>Strategy Components</h5>
+                        <p ></p>
                         <ol>
                           <li>
                             Signal Generation:
@@ -432,13 +428,11 @@ ax.legend()
 plt.show()</code>
                   </pre>
 
-                      <div class="d-flex justify-content-center">
-                        <img
+                      <img
                           src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image3.png"
                           alt="Day and Night Returns Analysis"
-                          class="img-fluid"
+                          
                         />
-                      </div>
 
                       <p>
                         The performance metrics reveal interesting insights
@@ -626,13 +620,11 @@ ax.legend()
 plt.show()</code>
                   </pre>
 
-                      <div class="d-flex justify-content-center">
-                        <img
+                      <img
                           src="../../images/quantio/2025-05-25-stat-arb-in-crude-Oil-markets-Image4.png"
                           alt="Day and Night Returns Analysis"
-                          class="img-fluid"
+                          
                         />
-                      </div>
 
                       <pre><code class="language-python"># Find the sharpe, max drawdown, and sortino ratio
 sharpe = portfolio_weekly.mean()/portfolio_weekly.std()*np.sqrt(52)
@@ -659,9 +651,9 @@ CL=F_BZ=F  CL=F_HO=F  BZ=F_HO=F  Portfolio
                         >
                       </code>
 
-                      <div class="alert alert-warning mt-3">
-                        <h5 class="alert-heading">Key Findings</h5>
-                        <p class="mb-0"></p>
+                      <div class="alert-warning">
+                        <h5>Key Findings</h5>
+                        <p ></p>
                         <ol>
                           <li>
                             Daily Trading Performance:
@@ -713,15 +705,25 @@ CL=F_BZ=F  CL=F_HO=F  BZ=F_HO=F  Portfolio
                       </p>
                     </section>
                   </div>
-                </article>
-              </div>
-  </div>
-</div>
+                
+      </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+        <!-- Post Footer -->
+        <div class="post-footer">
+          <h3>Interested in more research?</h3>
+          <a href="../../index.html" class="btn-primary">
+            <i class="bi bi-arrow-left"></i>
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </article>
 
-    <script src="../../components/sidebar.js"></script
+  <!-- Syntax Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  
+  <!-- Navigation -->
+  <script src="../../components/sidebar.js"></script>
 </body>
 </html>

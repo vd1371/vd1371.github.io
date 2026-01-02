@@ -1,60 +1,59 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="An analysis of day and night returns in asset pricing based on the research paper by Hendershott et al."
-    />
-    <meta
-      name="keywords"
-      content="asset pricing, day returns, night returns, beta investing, trading strategy, market efficiency"
-    />
-    <meta name="author" content="Vahid Asghari" />
-    <title>Asset Pricing: A Tale of Night and Day</title>
-    <!-- Bootstrap CSS -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="../../styles.css" />
-    <!-- Add syntax highlighting for code blocks -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css"
-    />
-  </head>
-  <body class="bg-light">
-    <div class="container-fluid">
-      <div class="row">
-        <!-- Sidebar Container -->
-        <div class="sidebar-container"></div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An analysis of day and night returns in asset pricing based on the research paper by Hendershott et al.">
+  <meta name="keywords" content="asset pricing, day returns, night returns, beta investing, trading strategy, market efficiency">
+  <meta name="author" content="Vahid Asghari">
+  <link rel="icon" type="image/x-icon" href="../../public/favicon.ico">
+  <title>Asset Pricing: A Tale of Night and Day | Vahid Asghari</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Syntax Highlighting - Dark Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
 
-        <!-- Main Content -->
-        <div class="col-lg-9 col-md-8 main-content">
-          <div class="content-wrapper p-4">
-            <div class="row justify-content-center">
-              <div class="col-md-12">
-                <article class="card shadow-sm p-4">
-                  <div>
-                    <img
-                      src="../../images/quantio/2025-05-04-assetpricingaleofnightandday-Image0.png"
-                      alt="Day and Night Returns Analysis"
-                      class="img-fluid"
-                    />
-                  </div>
+  <!-- Navigation -->
+  <div class="sidebar-container"></div>
 
-                  <div class="table-of-contents mb-4">
-                    <h2 class="h5 mb-3">Table of Contents</h2>
-                    <ul class="list-unstyled">
+  <!-- Article -->
+  <article class="post-article">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="post-hero">
+        <img src="../../images/quantio/2025-05-04-assetpricingaleofnightandday-Image0.png" alt="Asset Pricing: A Tale of Night and Day" class="post-hero-image">
+        <h1>Asset Pricing: A Tale of Night and Day</h1>
+        <div class="post-meta">
+          <span><i class="bi bi-tag"></i> Quant Notebook</span>
+        </div>
+      </div>
+
+      <!-- Post Body -->
+      <div class="post-body">
+        
+                  
+
+                  <div class="post-toc">
+                    <h2>Table of Contents</h2>
+                    <ul>
                       <li>
                         <a href="#introduction">Strategy Details</a>
-                        <ul class="list-unstyled ms-3">
+                        <ul>
                           <li>
                             <a href="#strategy-overview">Strategy Overview</a>
                           </li>
@@ -82,7 +81,7 @@
                   </div>
 
                   <div>
-                    <section id="introduction" class="mb-4">
+                    <section>
                       <h2>Strategy Details</h2>
 
                       <div class="metadata mb-3">
@@ -125,8 +124,8 @@
                       </div>
                     </section>
 
-                    <section class="mb-4">
-                      <h2 id="implementation-differences" class="h5 mb-3">
+                    <section>
+                      <h2>
                         Implementation Differences from Original Paper
                       </h2>
                       <p>
@@ -150,7 +149,7 @@
                         </li>
                       </ul>
 
-                      <h2 id="data-collection" class="h5 mb-3">
+                      <h2>
                         Data Collection and Processing
                       </h2>
                       <p>
@@ -218,11 +217,11 @@ tickers = ticker_with_data[:]
 print(f'Successfully loaded data for {len(tickers)} companies')</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">
+                      <div class="alert-info">
+                        <h5>
                           Data Collection Implementation
                         </h5>
-                        <p class="mb-0">
+                        <p >
                           The data collection process is implemented with
                           efficiency and reliability in mind:
                         </p>
@@ -269,8 +268,8 @@ for stocks in holder:
                   </pre>
                     </section>
 
-                    <section class="mb-4">
-                      <h2 id="beta-calculation" class="h5 mb-3">
+                    <section>
+                      <h2>
                         Beta Calculation
                       </h2>
                       <p>
@@ -329,11 +328,11 @@ for ticker_index in range(len(tickers_data)):
     print (tickers[ticker_index], "is about to be processed.")</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">
+                      <div class="alert-info">
+                        <h5>
                           Beta Calculation Implementation
                         </h5>
-                        <p class="mb-0">
+                        <p >
                           This code section implements the beta calculation
                           methodology:
                         </p>
@@ -370,8 +369,8 @@ for ticker_index in range(len(tickers_data)):
                       </div>
                     </section>
 
-                    <section id="results" class="mb-4">
-                      <h2 class="h5 mb-3">Trading Strategy Implementation</h2>
+                    <section>
+                      <h2>Trading Strategy Implementation</h2>
                       <p>
                         In this section, we implement a trading strategy based
                         on the paper's findings about the relationship between
@@ -449,9 +448,9 @@ return Day_returns_holder, Night_returns_holder
 Day_returns_holder, Night_returns_holder = get_daily_return(beta_df)</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Code Explanation</h5>
-                        <p class="mb-0">
+                      <div class="alert-info">
+                        <h5>Code Explanation</h5>
+                        <p >
                           This code section implements the core trading
                           strategy:
                         </p>
@@ -493,8 +492,8 @@ Day_returns_holder, Night_returns_holder = get_daily_return(beta_df)</code>
                       </div>
                     </section>
 
-                    <section id="results" class="mb-4">
-                      <h2 class="h5 mb-3">Results Analysis</h2>
+                    <section>
+                      <h2>Results Analysis</h2>
                       <p>
                         Let's analyze the performance of our day and night
                         trading strategy:
@@ -529,13 +528,11 @@ plt.show()
 plt.close()</code>
                   </pre>
 
-                      <div class="d-flex justify-content-center">
-                        <img
+                      <img
                           src="../../images/quantio/2025-05-04-assetpricingaleofnightandday-Image1.png"
                           alt="Day and Night Returns Analysis"
-                          class="img-fluid"
+                          
                         />
-                      </div>
                       <pre><code class="language-python">
 #plot the returns
 plt.figure(figsize=(10, 5))
@@ -554,25 +551,21 @@ plt.show()
 plt.close()</code>
                   </pre>
 
-                      <div class="d-flex justify-content-center">
-                        <img
+                      <img
                           src="../../images/quantio/2025-05-04-assetpricingaleofnightandday-Image2.png"
                           alt="Day and Night Returns Analysis"
-                          class="img-fluid"
+                          
                         />
-                      </div>
 
-                      <div class="d-flex justify-content-center">
-                        <img
+                      <img
                           src="../../images/quantio/2025-05-04-assetpricingaleofnightandday-Image3.png"
                           alt="Day and Night Returns Analysis"
-                          class="img-fluid"
+                          
                         />
-                      </div>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Performance Analysis</h5>
-                        <p class="mb-0">
+                      <div class="alert-info">
+                        <h5>Performance Analysis</h5>
+                        <p >
                           The results reveal several key insights:
                         </p>
 
@@ -611,17 +604,17 @@ plt.close()</code>
                       </div>
                     </section>
 
-                    <section id="conclusion" class="mb-4">
-                      <h2 class="h5 mb-3">Trading Strategy Overview</h2>
+                    <section>
+                      <h2>Trading Strategy Overview</h2>
                       <p>
                         This strategy implements a sophisticated approach to
                         beta-based trading by distinguishing between day and
                         night returns. The key components are:
                       </p>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Strategy Components</h5>
-                        <p class="mb-0"></p>
+                      <div class="alert-info">
+                        <h5>Strategy Components</h5>
+                        <p ></p>
                         <ol>
                           <li>
                             Day Trading Strategy:
@@ -704,9 +697,9 @@ print(f"Night Sharpe: {Night_Sharpe}")
 print(f"Total Sharpe: {Total_Sharpe}")</code>
                   </pre>
 
-                      <div class="alert alert-info mt-3">
-                        <h5 class="alert-heading">Code Explanation</h5>
-                        <p class="mb-0">
+                      <div class="alert-info">
+                        <h5>Code Explanation</h5>
+                        <p >
                           This code section implements the core trading
                           strategy:
                         </p>
@@ -751,8 +744,8 @@ print(f"Total Sharpe: {Total_Sharpe}")</code>
                       </p>
                     </section>
 
-                    <section class="mb-4">
-                      <h2 id="final-thought" class="h5 mb-3">Final Thought</h2>
+                    <section>
+                      <h2>Final Thought</h2>
                       <p>
                         Our analysis reveals that the Day returns show negative
                         returns, which differs from the paper's observations
@@ -760,9 +753,9 @@ print(f"Total Sharpe: {Total_Sharpe}")</code>
                         consideration of several important factors:
                       </p>
 
-                      <div class="alert alert-warning mt-3">
-                        <h5 class="alert-heading">Key Considerations</h5>
-                        <p class="mb-0"></p>
+                      <div class="alert-warning">
+                        <h5>Key Considerations</h5>
+                        <p ></p>
                         <ul>
                           <li>
                             Trading Costs:
@@ -814,19 +807,25 @@ print(f"Total Sharpe: {Total_Sharpe}")</code>
                       </div>
                     </section>
                   </div>
-                </article>
-              </div>
-            </div>
-          </div>
+                
+      </div>
+
+        <!-- Post Footer -->
+        <div class="post-footer">
+          <h3>Interested in more research?</h3>
+          <a href="../../index.html" class="btn-primary">
+            <i class="bi bi-arrow-left"></i>
+            Back to Home
+          </a>
         </div>
       </div>
-    </div>
+    </article>
 
-    <!-- JavaScript dependencies -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-
-    <script src="../../components/sidebar.js"></script>
-  </body>
+  <!-- Syntax Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  
+  <!-- Navigation -->
+  <script src="../../components/sidebar.js"></script>
+</body>
 </html>

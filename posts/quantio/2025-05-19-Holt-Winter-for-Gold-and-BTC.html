@@ -1,53 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description"
-    content="An analysis of an improved momentum strategy that incorporates market panic states"
-  >
-  <meta
-    name="keywords"
-    content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
-  />
-  <meta name="author" content="Vahid Asghari" />
-  <title>Holt-Winter for Gold and BTC</title>
-  <!-- Bootstrap CSS -->
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../styles.css" />
-  <!-- Add syntax highlighting for code blocks -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
-</head>
-<body class="bg-light">
+  <meta name="description" content="An analysis of an improved momentum strategy that incorporates market panic states">
+  <meta name="keywords" content="momentum investing, factor investing, market panic, portfolio construction, trading strategy">
+  <meta name="author" content="Vahid Asghari">
+  <link rel="icon" type="image/x-icon" href="../../public/favicon.ico">
+  <title>Holt-Winter for Gold and BTC | Vahid Asghari</title>
   
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Syntax Highlighting - Dark Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
 
-  <div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar Container -->
-    <div class="sidebar-container"></div>
-    
-    <!-- Main Content -->
-    <div class="col-lg-9 col-md-8 main-content">
-      <div class="content-wrapper p-4">
-                <div class="row justify-content-center">
-        <div class="col-md-12">
-          <article class="card shadow-sm p-4">
+  <!-- Navigation -->
+  <div class="sidebar-container"></div>
+
+  <!-- Article -->
+  <article class="post-article">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="post-hero">
+        <img src="../../images/quantio/2025-05-19-Holt-Winter-for-Gold-and-BTC-Image0.png" alt="Holt-Winter for Gold and BTC" class="post-hero-image">
+        <h1>Holt-Winter for Gold and BTC</h1>
+        <div class="post-meta">
+          <span><i class="bi bi-tag"></i> Quant Notebook</span>
+        </div>
+      </div>
+
+      <!-- Post Body -->
+      <div class="post-body">
+        
           
           <div class="text-center">
-            <img src="../../images/quantio/2025-05-19-Holt-Winter-for-Gold-and-BTC-Image0.png" alt="Holt-Winter for Gold and BTC" class="img-fluid">
+            
           </div>
-          <div class="table-of-contents mb-4">
-            <h2 class="h5 mb-3">Table of Contents</h2>
-            <ul class="list-unstyled">
+          <div class="post-toc">
+            <h2>Table of Contents</h2>
+            <ul>
               <li><a href="#strategy-details">Strategy Details</a>
-                <ul class="list-unstyled ms-3">
+                <ul>
                   <li><a href="#key-components">Key Components</a></li>
                 </ul>
               </li>
               <li><a href="#data-extraction">Data Extraction</a>
-                <ul class="list-unstyled ms-3">
+                <ul>
                   <li><a href="#code-explanation">Code Explanation</a></li>
                 </ul>
               </li>
@@ -61,8 +73,8 @@
             </ul>
           </div>
           <div>
-            <section class="mb-4">
-              <h2 id="strategy-details" class="h5 mb-3">Strategy Details</h2>
+            <section>
+              <h2>Strategy Details</h2>
               
               <div class="metadata mb-3">
                 <p><strong>Code Author:</strong> Karl Ngan</p>
@@ -76,9 +88,9 @@
                 </p>
               </div>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Key Components</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Key Components</h5>
+                <p >
                   <ol>
                     <li>Holt-Winters Model:
                       <ul>
@@ -111,16 +123,16 @@ end_date = '2024-10-31'</code>
                   </pre>
             </section>
 
-            <section class="mb-4">
-              <h2 id="data-extraction" class="h5 mb-3">Data Extraction</h2>
+            <section>
+              <h2>Data Extraction</h2>
               
               <p>
                 We extract historical price data for Gold and Bitcoin from Yahoo Finance, implementing efficient data management with local caching:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the data extraction functionality:
                   <ol>
                     <li>Data Management:
@@ -173,8 +185,8 @@ btc['daily_return'] = btc['Close'].pct_change()</code>
                   </pre>
             </section>
 
-            <section class="mb-4">
-              <h2 id="seasonal-analysis" class="h5 mb-3">Seasonal Analysis of Returns</h2>
+            <section>
+              <h2>Seasonal Analysis of Returns</h2>
               
               <p>
                 We analyze the daily returns of both Gold and Bitcoin to check for any seasonal patterns:
@@ -191,9 +203,9 @@ plt.legend()
 plt.show()</code>
                   </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the return analysis:
                   <ol>
                     <li>Data Visualization:
@@ -211,8 +223,8 @@ plt.show()</code>
               </p>
             </section>
 
-            <section class="mb-4">
-              <h2 id="holt-winters-model" class="h5 mb-3">Building Holt-Winters Non-Seasonal Model</h2>
+            <section>
+              <h2>Building Holt-Winters Non-Seasonal Model</h2>
               
               <div class="strategy-overview mb-4">
                 <p>
@@ -260,9 +272,9 @@ get_accuracy(gold, "Gold")
 get_accuracy(btc, "BTC")</code>
                   </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the core forecasting components:
                   <ol>
                     <li>Forecast Function:
@@ -276,8 +288,8 @@ get_accuracy(btc, "BTC")</code>
               </div>
             </section>
 
-            <section class="mb-4">
-              <h2 id="trading-strategy" class="h5 mb-3">Trading Strategy Implementation</h2>
+            <section>
+              <h2>Trading Strategy Implementation</h2>
               
               <p>
                 We implement a simple trading strategy based on the Holt-Winter forecast signals. The strategy takes long positions when the predicted return is positive and short positions when negative, with no holding period:
@@ -310,9 +322,9 @@ strategy_1(gold, "Gold", 0.0001)
 strategy_1(btc, "BTC", 0.0005)</code>
                   </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the core trading strategy:
                   <ol>
                     <li>Portfolio Analysis:
@@ -333,8 +345,8 @@ strategy_1(btc, "BTC", 0.0005)</code>
               </div>
             </section>
 
-            <section class="mb-4">
-              <h2 id="strategy-2" class="h5 mb-3">Strategy 2: Threshold-Based Trading</h2>
+            <section>
+              <h2>Strategy 2: Threshold-Based Trading</h2>
               
               <div class="strategy-overview mb-4">
                 <p>
@@ -364,9 +376,9 @@ strategy_2(gold, "Gold", 0.0001)
 strategy_2(btc, "BTC", 0.0005)</code>
                   </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Strategy Analysis</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Strategy Analysis</h5>
+                <p >
                   The threshold-based approach reveals several key insights:
                   <ol>
                     <li>Performance Impact:
@@ -380,8 +392,8 @@ strategy_2(btc, "BTC", 0.0005)</code>
               </div>
             </section>
 
-            <section class="mb-4">
-              <h2 id="trading-strategy-3" class="h5 mb-3">Trading Strategy 3: SMA-Based Trading</h2>
+            <section>
+              <h2>Trading Strategy 3: SMA-Based Trading</h2>
               
               <div class="strategy-overview mb-4">
                 <p>
@@ -415,9 +427,9 @@ strategy_3(gold, "Gold", 0.0001)
 strategy_3(btc, "BTC", 0.0005)</code>
                   </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the SMA-based trading strategy:
                   <ol>
                     <li>Moving Average Calculation:
@@ -431,8 +443,8 @@ strategy_3(btc, "BTC", 0.0005)</code>
               </div>
             </section>
 
-            <section class="mb-4">
-              <h2 id="strategy-4" class="h5 mb-3">Strategy 4: Bollinger Bands with Return Prediction</h2>
+            <section>
+              <h2>Strategy 4: Bollinger Bands with Return Prediction</h2>
               
               <div class="strategy-overview mb-4">
                 <p>
@@ -440,9 +452,9 @@ strategy_3(btc, "BTC", 0.0005)</code>
                 </p>
               </div>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Strategy Components</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Strategy Components</h5>
+                <p >
                   <ol>
                     <li>Signal Generation:
                       <ul>
@@ -485,9 +497,9 @@ strategy_4(gold, "Gold", 0.0001)
 strategy_4(btc, "BTC", 0.0005)</code>
                   </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Implementation Details</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Implementation Details</h5>
+                <p >
                   <ol>
                     <li>Bollinger Bands Configuration:
                       <ul>
@@ -500,16 +512,16 @@ strategy_4(btc, "BTC", 0.0005)</code>
               </div>
             </section>
             
-            <section class="mb-4">
-              <h2 id="result-analysis" class="h5 mb-3">Result Analysis</h2>
+            <section>
+              <h2>Result Analysis</h2>
               
               <p>
                 In this section, we analyze the performance of our Holt-Winters based trading strategies for both Gold and Bitcoin markets:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Analysis Components</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Analysis Components</h5>
+                <p >
                   <ol>
                     <li>Return Analysis:
                       <ul>
@@ -535,14 +547,14 @@ btc_cumulative_returns.plot()</code>
                   </pre>
 
               <div class="text-center">
-                <img src="../../images/quantio/2025-05-19-Holt-Winter-for-Gold-and-BTC-Image1.png" alt="Holt-Winter for Gold and BTC" class="img-fluid">
+                <img src="../../images/quantio/2025-05-19-Holt-Winter-for-Gold-and-BTC-Image1.png" alt="Holt-Winter for Gold and BTC" >
               </div>
 
               <div class="text-center">
-                <img src="../../images/quantio/2025-05-19-Holt-Winter-for-Gold-and-BTC-Image2.png" alt="Holt-Winter for Gold and BTC" class="img-fluid">
+                <img src="../../images/quantio/2025-05-19-Holt-Winter-for-Gold-and-BTC-Image2.png" alt="Holt-Winter for Gold and BTC" >
               </div>
 
-              <div class="alert alert-warning mt-3">
+              <div class="alert-warning">
               <h3 class="h5 mb-3">Final Thoughts and Conclusion</h3>
               <p>
                 The Holt-Winters model, as a popular choice for time series forecasting, might not be perfectly fitted or accurate when predicting the return movement of BTC and Gold. One crucial reason is that the returns are not in stationary distribution.
@@ -562,15 +574,25 @@ btc_cumulative_returns.plot()</code>
             </div>
             </section>
           </div>
-        </article>
+        
       </div>
-        </div>
-  </div>
-</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+        <!-- Post Footer -->
+        <div class="post-footer">
+          <h3>Interested in more research?</h3>
+          <a href="../../index.html" class="btn-primary">
+            <i class="bi bi-arrow-left"></i>
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </article>
+
+  <!-- Syntax Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
   
+  <!-- Navigation -->
   <script src="../../components/sidebar.js"></script>
+</body>
 </html>

@@ -1,49 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"
-      content="Analysis of stock market prediction using ARIMA and VAR models"
-    >
-  <meta
-      name="keywords"
-      content="ARIMA, VAR, stock prediction, time series analysis, quantitative trading"
-    />
-    <meta name="author" content="Vahid Asghari" />
-    <title>Predicting Indices Using ARIMA</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../styles.css" />
-    <!-- Add syntax highlighting for code blocks -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
-  </head>
-  <body class="bg-light">
-    
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Analysis of stock market prediction using ARIMA and VAR models">
+  <meta name="keywords" content="ARIMA, VAR, stock prediction, time series analysis, quantitative trading">
+  <meta name="author" content="Vahid Asghari">
+  <link rel="icon" type="image/x-icon" href="../../public/favicon.ico">
+  <title>Predicting Indices Using ARIMA | Vahid Asghari</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Syntax Highlighting - Dark Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
 
-    <div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar Container -->
-    <div class="sidebar-container"></div>
-    
-    <!-- Main Content -->
-    <div class="col-lg-9 col-md-8 main-content">
-      <div class="content-wrapper p-4">
-        <div class="row justify-content-center">
-        <div class="col-md-12">
-          <article class="card shadow-sm p-4">
+  <!-- Navigation -->
+  <div class="sidebar-container"></div>
+
+  <!-- Article -->
+  <article class="post-article">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="post-hero">
+        <img src="../../images/quantio/2025-05-02-predictingindices-Image0.png" alt="Predicting Indices Using ARIMA" class="post-hero-image">
+        <h1>Predicting Indices Using ARIMA</h1>
+        <div class="post-meta">
+          <span><i class="bi bi-tag"></i> Quant Notebook</span>
+        </div>
+      </div>
+
+      <!-- Post Body -->
+      <div class="post-body">
+        
             <div class="card-body">
               
 
 
-              <div>
-                <img src="../../images/quantio/2025-05-02-predictingindices-Image0.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
-              </div>
+              
     
-              <div class="table-of-contents mb-4">
-                <h5 class="mb-3">Table of Contents</h5>
-                <ul class="list-unstyled">
+              <div class="post-toc">
+                <h2>Table of Contents</h2>
+                <ul>
                   <li><a href="#strategy-details">Strategy Details</a></li>
                   <li><a href="#my-2-cents">My 2 cents on the matter</a></li>
                   <li><a href="#what-i-wont-do">What I won't do as what the paper has done?</a></li>
@@ -57,8 +68,8 @@
               </div>
     
               <div>
-                <section class="mb-4">
-                  <h5 class="mb-3" id="strategy-details">Strategy Details</h5>
+                <section>
+                  <h5  id="strategy-details">Strategy Details</h5>
                   <p>
                     Reference: Sahil Teymurzade & Robert Ślepaczuk, 2023. "Predicting DJIA, NASDAQ and NYSE index prices using ARIMA and VAR models," Working Papers 2023-27, Faculty of Economic Sciences, University of Warsaw.
                   </p>
@@ -68,12 +79,12 @@
                   <p>
                     The main idea: Stock forecasting with ARIMA or VAR models.
                   </p>
-                  <h5 class="mb-3" id="my-2-cents">My 2 cents on the matter</h5>
+                  <h5  id="my-2-cents">My 2 cents on the matter</h5>
                   <p>
                     Personally, I have never seen ARIMA or VAR models work. They usually work on stationary data. But the stock market prices is highly non-stationary and even differencing wouldn't help much. In the lower quality papers, specially the ones in the engineering area, some authors use r-squared, mean squared errors, or similar metrics to claim they have a good model. Well, if you use a simple moving average, you get an r-squared of more than 95% for the prices, not the returns. A more advanced model would be using LSTM to do such thing, but again, the problem
                   </p>
     
-                  <h5 class="mb-3" id="what-i-wont-do">What I won't do as what the paper has done?</h5>
+                  <h5  id="what-i-wont-do">What I won't do as what the paper has done?</h5>
                   <ul>
                     <li>The paper does an optimization on the p, q, d of ARIMA model. I won't do it, because based on my personal experience, it won't change the results that much. I will simply use ARIMA (2,2,2)</li>
                     <li>The paper tries to find the optimal lag by using AIC to find the best VAR model. I will simply use 5 days, 10 days, 22 days, and 66 days. We can see the results for all of them.</li>
@@ -85,8 +96,8 @@
                   </p>
                 </section>
     
-                <section class="mb-4">
-                  <h5 class="mb-3" id="initial-setup">Initial Setup</h5>
+                <section>
+                  <h5  id="initial-setup">Initial Setup</h5>
                   <p>First, let's import the necessary libraries and set up our data parameters:</p>
                   <pre><code class="language-python">import os
 import pandas as pd
@@ -102,9 +113,9 @@ end_date = '2020-11-30' # Same as the paper
 tickers = ['^DJI', '^IXIC', '^NYA']</code>
                   </pre>
     
-                  <div class="alert alert-info mt-3">
-                    <h5 class="alert-heading">Code Explanation</h5>
-                    <p class="mb-0">
+                  <div class="alert-info">
+                    <h5>Code Explanation</h5>
+                    <p >
                       This code section sets up the initial environment:
                       <ol>
                         <li>Imports essential Python libraries:
@@ -125,8 +136,8 @@ tickers = ['^DJI', '^IXIC', '^NYA']</code>
                   </div>
                 </section>
     
-                <section class="mb-4">
-                  <h5 class="mb-3" id="data-download">Data Download and Processing</h5>
+                <section>
+                  <h5  id="data-download">Data Download and Processing</h5>
                   <p>Let's create functions to download and process the data:</p>
                   <pre><code class="language-python"># Load the data
 def download_data(symbol):
@@ -173,9 +184,9 @@ for i, symbol in enumerate(tickers):
   holder[symbol] = process_data(symbol)</code>
                   </pre>
     
-                  <div class="alert alert-info mt-3">
-                    <h5 class="alert-heading">Code Explanation</h5>
-                    <p class="mb-0">
+                  <div class="alert-info">
+                    <h5>Code Explanation</h5>
+                    <p >
                       This code section implements efficient data management:
                       <ol>
                         <li>Data Download Function:
@@ -210,8 +221,8 @@ for i, symbol in enumerate(tickers):
                   </div>
                 </section>
     
-                <section class="mb-4">
-                  <h5 class="mb-3" id="var-model">Vector Autoregression (VAR) Model Implementation</h5>
+                <section>
+                  <h5  id="var-model">Vector Autoregression (VAR) Model Implementation</h5>
                   <p>Now we'll implement the VAR model using different lag periods to analyze their predictive power:</p>
                   <pre><code class="language-python"># Doing the VAR model first
     look_back_period = 500
@@ -242,9 +253,9 @@ for target_lag in [5, 10, 22, 66]:
 holder[symbol] = df</code>
                   </pre>
     
-                  <div class="alert alert-info mt-3">
-                    <h5 class="alert-heading">Code Explanation</h5>
-                    <p class="mb-0">
+                  <div class="alert-info">
+                    <h5>Code Explanation</h5>
+                    <p >
                       This code section implements the Vector Autoregression (VAR) model:
                       <ol>
                         <li>Model Configuration:
@@ -272,8 +283,8 @@ holder[symbol] = df</code>
                   </div>
                 </section>
     
-                <section class="mb-4">
-                  <h5 class="mb-3" id="arima-model">ARIMA Model Implementation</h5>
+                <section>
+                  <h5  id="arima-model">ARIMA Model Implementation</h5>
                   <p>Now we'll implement the ARIMA model to predict future stock prices:</p>
                   <pre><code class="language-python"># Doing the ARIMA model
 import warnings
@@ -309,9 +320,9 @@ for symbol, df in holder.items():
     holder[symbol] = df</code>
                   </pre>
 
-                  <div class="alert alert-info mt-3">
-                    <h5 class="alert-heading">Code Explanation</h5>
-                    <p class="mb-0">
+                  <div class="alert-info">
+                    <h5>Code Explanation</h5>
+                    <p >
                       This code section implements the ARIMA (AutoRegressive Integrated Moving Average) model:
                       <ol>
                         <li>Model Configuration:
@@ -334,8 +345,8 @@ for symbol, df in holder.items():
     
                 </section>
     
-                <section class="mb-4">
-                  <h5 class="mb-3" id="results-analysis">Results Analysis</h5>
+                <section>
+                  <h5  id="results-analysis">Results Analysis</h5>
                   <p>Let's analyze the results of our VAR and ARIMA models:</p>
                   <pre><code class="language-python">
 for symbol, df in holder.items():
@@ -393,9 +404,9 @@ results_holder = pd.DataFrame(results_holder).T
 print (results_holder)</code>
                   </pre>
     
-                  <div class="alert alert-info mt-3">
-                    <h5 class="alert-heading">Code Explanation</h5>
-                    <p class="mb-0">
+                  <div class="alert-info">
+                    <h5>Code Explanation</h5>
+                    <p >
                       This code section implements the trading strategy and analyzes results:
                       <ol>
                         <li>Strategy Implementation:
@@ -426,17 +437,11 @@ print (results_holder)</code>
                       </ol>
                   </div>
     
-                  <div class="d-flex justify-content-center">
-                    <img src="../../images/quantio/2025-05-02-predictingindices-Image1.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
-                  </div>
+                  <img src="../../images/quantio/2025-05-02-predictingindices-Image1.png" alt="Predicting Indices Using ARIMA" >
     
-                  <div class="d-flex justify-content-center">
-                    <img src="../../images/quantio/2025-05-02-predictingindices-Image2.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
-                  </div>
+                  <img src="../../images/quantio/2025-05-02-predictingindices-Image2.png" alt="Predicting Indices Using ARIMA" >
                   
-                  <div class="d-flex justify-content-center">
-                    <img src="../../images/quantio/2025-05-02-predictingindices-Image3.png" alt="Predicting Indices Using ARIMA" class="img-fluid">
-                  </div>
+                  <img src="../../images/quantio/2025-05-02-predictingindices-Image3.png" alt="Predicting Indices Using ARIMA" >
     
                   <h3 class="h5 mb-3">Sharpe Ratios</h3>
                   <code style="color: #000;">
@@ -449,8 +454,8 @@ print (results_holder)</code>
                   </code>
                 </section>
     
-                <section class="mb-4">
-                  <div class="alert alert-warning mt-3">
+                <section>
+                  <div class="alert-warning">
                     <h2 class="alert-heading">Final Thoughts</h2>
                     <p>
                     I don't see anything tradable here. Although we can see some good results on ARIMA for ^DJI, it's still very very unreliable to me. The details of the methodology that I used here is different, the results of the DJI is similar to the results of the paper. But the other results are not similar.
@@ -481,22 +486,25 @@ print (results_holder)</code>
     
               </div>
             </div>
-          </article>
-        </div>
-        </div>
-  </div>
-</div>
+          
+      </div>
 
-  <script src="../../data/content.js"></script>
-    <script src="../../components/content_menu.js"></script>
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        });
-    </script>
-    <script src="../../components/sidebar.js"></script
+        <!-- Post Footer -->
+        <div class="post-footer">
+          <h3>Interested in more research?</h3>
+          <a href="../../index.html" class="btn-primary">
+            <i class="bi bi-arrow-left"></i>
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </article>
+
+  <!-- Syntax Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  
+  <!-- Navigation -->
+  <script src="../../components/sidebar.js"></script>
 </body>
 </html>

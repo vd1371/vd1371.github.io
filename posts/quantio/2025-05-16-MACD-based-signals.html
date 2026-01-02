@@ -1,58 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <meta name="description"
-    content="An analysis of an improved momentum strategy that incorporates market panic states"
-  >
-  <meta
-    name="keywords"
-    content="momentum investing, factor investing, market panic, portfolio construction, trading strategy"
-  />
-  <meta name="author" content="Vahid Asghari" />
-  <title>MACD Based Signals</title>
-  <!-- Bootstrap CSS -->
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../styles.css" />
-  <!-- Add syntax highlighting for code blocks -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
-</head>
-<body class="bg-light">
+  <meta name="description" content="An analysis of an improved momentum strategy that incorporates market panic states">
+  <meta name="keywords" content="momentum investing, factor investing, market panic, portfolio construction, trading strategy">
+  <meta name="author" content="Vahid Asghari">
+  <link rel="icon" type="image/x-icon" href="../../public/favicon.ico">
+  <title>MACD Based Signals | Vahid Asghari</title>
   
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Syntax Highlighting - Dark Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
 
-  <div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar Container -->
-    <div class="sidebar-container"></div>
-    
-    <!-- Main Content -->
-    <div class="col-lg-9 col-md-8 main-content">
-      <div class="content-wrapper p-4">
-                <div class="row justify-content-center">
-        <div class="col-md-12">
-          <article class="card shadow-sm p-4">
+  <!-- Navigation -->
+  <div class="sidebar-container"></div>
+
+  <!-- Article -->
+  <article class="post-article">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="post-hero">
+        <img src="../../images/quantio/2025-05-16-MACD-based-signals-Image0.png" alt="MACD Based Signals" class="post-hero-image">
+        <h1>MACD Based Signals</h1>
+        <div class="post-meta">
+          <span><i class="bi bi-tag"></i> Quant Notebook</span>
+        </div>
+      </div>
+
+      <!-- Post Body -->
+      <div class="post-body">
+        
           
           <div class="text-center">
-            <img src="../../images/quantio/2025-05-16-MACD-based-signals-Image0.png" alt="MACD Based Signals" class="img-fluid">
+            
           </div>
-          <div class="table-of-contents mb-4">
-            <h2 class="h5 mb-3">Table of Contents</h2>
-            <ul class="list-unstyled">
+          <div class="post-toc">
+            <h2>Table of Contents</h2>
+            <ul>
               <li><a href="#strategy-overview">Strategy Overview</a>
-                <ul class="list-unstyled ms-3">
+                <ul>
                   <li><a href="#key-components">Key Components</a></li>
                 </ul>
               </li>
               <li><a href="#code-implementation">Code Implementation</a>
-                <ul class="list-unstyled ms-3">
+                <ul>
                   <li><a href="#code-explanation">Code Explanation</a></li>
                 </ul>
               </li>
               <li><a href="#strategy-performance">Strategy Performance Analysis</a>
-                <ul class="list-unstyled ms-3">
+                <ul>
                   <li><a href="#performance-explanation">Performance Analysis Explanation</a></li>
                 </ul>
               </li>
@@ -60,8 +72,8 @@
             </ul>
           </div>
           <div>
-            <section class="mb-4">
-              <h2 id="strategy-overview" class="h5 mb-3">Strategy Overview</h2>
+            <section>
+              <h2>Strategy Overview</h2>
               
               <div class="metadata mb-3">
                 <p><strong>Code Author:</strong> Vahid Dehghani</p>
@@ -73,9 +85,9 @@
                 This project implements and analyzes four different trading strategies based on MACD (Moving Average Convergence Divergence) and VPVMA (Volume-Price-Volatility Moving Average) indicators. The strategies are tested on weekly market data with VIX integration for volatility awareness.
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Key Components</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Key Components</h5>
+                <p >
                   <ol>
                     <li>Traditional MACD:
                       <ul>
@@ -101,16 +113,16 @@
               </div>
             </section>
 
-            <section class="mb-4">
-              <h2 id="code-implementation" class="h5 mb-3">Code Implementation</h2>
+            <section>
+              <h2>Code Implementation</h2>
               
               <p>
                 The following code implements the core functionality of the trading strategy framework:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the core data collection functionality:
                   <ol>
                     <li>Data Collection:
@@ -152,8 +164,8 @@ return df, None</code>
                   </pre>
             </section>
     
-            <section class="mb-4">
-              <h2 id="strategy-performance" class="h5 mb-3">Strategy Performance Analysis</h2>
+            <section>
+              <h2>Strategy Performance Analysis</h2>
               
               <p>
                 This section implements the performance analysis functionality for comparing different trading strategies:
@@ -193,9 +205,9 @@ with open(performance_file, 'w') as f:
 return best_strategy[0], sharpe_ratios</code>
                   </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the strategy performance analysis:
                   <ol>
                     <li>Strategy Metrics:
@@ -212,15 +224,15 @@ return best_strategy[0], sharpe_ratios</code>
               </div>
             </section>
 
-            <section class="mb-4">
-              <h2 id="etf-processing" class="h5 mb-3">ETF Processing Implementation</h2>
+            <section>
+              <h2>ETF Processing Implementation</h2>
               <p>
                 This section implements the core functionality for processing ETF data and generating trading signals:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the core ETF processing functionality:
                   <ol>
                     <li>Data Management:
@@ -282,15 +294,15 @@ return None</code>
                   </pre>
             </section>
 
-            <section class="mb-4">
-              <h2 id="stop-loss-implementation" class="h5 mb-3">Stop Loss Implementation</h2>
+            <section>
+              <h2>Stop Loss Implementation</h2>
               <p>
                 This section implements a stop loss mechanism to protect against significant drawdowns in the strategy:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Strategy Components</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Strategy Components</h5>
+                <p >
                   <ol>
                     <li>Stop Loss Mechanism:
                       <ul>
@@ -353,9 +365,9 @@ if result_df['Position'].iloc[i] != position and position != 0:
 return result_df</code>
                   </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the stop loss mechanism:
                   <ol>
                     <li>Stop Loss Logic:
@@ -380,15 +392,15 @@ return df</code>
                   </pre>
             </section>
 
-            <section class="mb-4">
-              <h2 id="macd-signals" class="h5 mb-3">MACD Signal Generation</h2>
+            <section>
+              <h2>MACD Signal Generation</h2>
               <p>
                 This section implements the core MACD signal generation functionality with pre-downloaded data option:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the MACD signal generation:
                   <ol>
                     <li>MACD Calculation:
@@ -457,15 +469,15 @@ return weekly_df</code>
                   </pre>
             </section>
 
-            <section class="mb-4">
-              <h2 id="macd-signals-zero-cross" class="h5 mb-3">MACD Zero-Cross Signal Generation</h2>
+            <section>
+              <h2>MACD Zero-Cross Signal Generation</h2>
               <p>
                 This section implements the MACD zero-cross signal generation functionality:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the MACD zero-cross signal generation:
                   <ol>
                     <li>Signal Generation:
@@ -534,15 +546,15 @@ return weekly_df</code>
                   </pre>
             </section>
 
-            <section class="mb-4">
-              <h2 id="vpvma-signals" class="h5 mb-3">VPVMA Signal Generation</h2>
+            <section>
+              <h2>VPVMA Signal Generation</h2>
               <p>
                 This section implements the VPVMA signal generation functionality:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the VPVMA signal generation:
                   <ol>
                     <li>Signal Generation:
@@ -609,15 +621,15 @@ return weekly_df</code>
                   </pre>
             </section>
 
-            <section class="mb-4">
-              <h2 id="vpvma-signals-zero-cross" class="h5 mb-3">VPVMA Zero-Cross Signal Generation</h2>
+            <section>
+              <h2>VPVMA Zero-Cross Signal Generation</h2>
               <p>
                 This section implements the VPVMA zero-cross signal generation functionality:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the VPVMA zero-cross signal generation:
                   <ol>
                     <li>Signal Generation:
@@ -684,15 +696,15 @@ return weekly_df</code>
                   </pre>
             </section>
 
-            <section class="mb-4">
-              <h2 id="performance-metrics" class="h5 mb-3">Performance Metrics Calculation</h2>
+            <section>
+              <h2>Performance Metrics Calculation</h2>
               <p>
                 This section implements comprehensive performance metrics calculation for evaluating trading strategies:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements comprehensive performance metrics:
                   <ol>
                     <li>Trading Statistics:
@@ -762,15 +774,15 @@ return {
                   </pre>
             </section>
 
-            <section class="mb-4">
-              <h2 id="visualization" class="h5 mb-3">Visualization and Analysis</h2>
+            <section>
+              <h2>Visualization and Analysis</h2>
               <p>
                 In this section, we implement visualization functions to analyze MACD signals and strategy performance:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements two key visualization functions:
                   <ol>
                     <li>MACD Signal Visualization:
@@ -846,9 +858,9 @@ plt.tight_layout()
 plt.show()</code>
                   </pre>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Visualization Components</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Visualization Components</h5>
+                <p >
                   The visualization functions provide comprehensive analysis through:
                   <ol>
                     <li>Price and Signal Analysis:
@@ -862,15 +874,15 @@ plt.show()</code>
               </div>
             </section>
 
-            <section class="mb-4">
-              <h2 id="trade-analysis" class="h5 mb-3">Trade Analysis</h2>
+            <section>
+              <h2>Trade Analysis</h2>
               <p>
                 This section implements the core functionality for analyzing and recording trade information from the signals DataFrame:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements comprehensive trade analysis:
                   <ol>
                     <li>Trade Tracking:
@@ -949,15 +961,15 @@ return trades_df</code>
                   </pre>
             </section>
 
-            <section class="mb-4">
-              <h2 id="etf-analysis" class="h5 mb-3">ETF Analysis Implementation</h2>
+            <section>
+              <h2>ETF Analysis Implementation</h2>
               <p>
                 This section implements the core functionality for analyzing multiple ETFs and generating comprehensive trading strategy results:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Code Explanation</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Code Explanation</h5>
+                <p >
                   This code section implements the ETF analysis framework:
                   <ol>
                     <li>ETF Selection:
@@ -1051,15 +1063,15 @@ print("\nAnalysis complete. Results saved in data/summary folder.")
                   </pre>
             </section>
 
-            <section class="mb-4">
-              <h2 id="strategy-results" class="h5 mb-3">Strategy Results</h2>
+            <section>
+              <h2>Strategy Results</h2>
               <p>
                 This section presents the results of the implemented strategies:
               </p>
 
-              <div class="alert alert-info mt-3">
-                <h5 class="alert-heading">Results</h5>
-                <p class="mb-0">
+              <div class="alert-info">
+                <h5>Results</h5>
+                <p >
                   The following table presents the results of the implemented strategies:
                 </p>
               </div>
@@ -1083,14 +1095,14 @@ print("\nAnalysis complete. Results saved in data/summary folder.")
 13	VPL	219	38.81%	254.32%   6.96%   0.47	-36.40%	$1,000,000.00	$3,543,163.12	254.32%   VPVMA_Standard</pre></code>
             </section>
 
-            <section class="mb-4">
-              <div class="alert alert-warning mt-3">
-                <h2 id="key-findings" class="h5 mb-3">Key Findings and Conclusions</h2>
+            <section>
+              <div class="alert-warning">
+                <h2>Key Findings and Conclusions</h2>
                 
-                  <h5 class="alert-heading">Strategy Performance Analysis</h5>
+                  <h5>Strategy Performance Analysis</h5>
                   
                   <h6 class="fw-bold">Strategy Effectiveness</h6>
-                  <ul class="mb-3">
+                  <ul >
                     <li>VPVMA Zero-Cross emerged as the most effective strategy for 7 out of 14 ETFs</li>
                     <li>VPVMA Standard performed best for 4 ETFs</li>
                     <li>MACD Standard showed superior performance for 2 ETFs (EWZ and ERUS)</li>
@@ -1098,7 +1110,7 @@ print("\nAnalysis complete. Results saved in data/summary folder.")
                   </ul>
             
                   <h6 class="fw-bold">Performance Metrics</h6>
-                  <ul class="mb-3">
+                  <ul >
                     <li>Highest returns: EWZ (Brazil) with 4,960% total return</li>
                     <li>Best Sharpe ratio: AAXJ (Asia ex-Japan) at 1.00</li>
                     <li>Most consistent performance: VPVMA-based strategies</li>
@@ -1106,7 +1118,7 @@ print("\nAnalysis complete. Results saved in data/summary folder.")
                   </ul>
             
                   <h6 class="fw-bold">Risk Management</h6>
-                  <ul class="mb-3">
+                  <ul >
                     <li>Maximum drawdowns ranged from -27.81% to -50.91%</li>
                     <li>AAXJ showed the best risk-adjusted performance</li>
                     <li>5% stop-loss protection effectively limited downside risk</li>
@@ -1122,15 +1134,25 @@ print("\nAnalysis complete. Results saved in data/summary folder.")
               </div>
             </section>
           </div>
-        </article>
+        
       </div>
-        </div>
-  </div>
-</div>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
+        <!-- Post Footer -->
+        <div class="post-footer">
+          <h3>Interested in more research?</h3>
+          <a href="../../index.html" class="btn-primary">
+            <i class="bi bi-arrow-left"></i>
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </article>
+
+  <!-- Syntax Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
   
+  <!-- Navigation -->
   <script src="../../components/sidebar.js"></script>
+</body>
 </html>

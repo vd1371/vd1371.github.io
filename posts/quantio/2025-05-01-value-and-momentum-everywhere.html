@@ -1,61 +1,72 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" >
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description"
-      content="An analysis of value and momentum factors across global markets and their implications for portfolio construction"
-    >
-  <meta
-      name="keywords"
-      content="value investing, momentum investing, factor investing, portfolio construction, asset allocation"
-    />
-    <meta name="author" content="Vahid Asghari" />
-    <title>Value and Momentum Everywhere</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet"/>
-    <link rel="stylesheet" href="../../styles.css" />
-    <!-- Add syntax highlighting for code blocks -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" />
-  </head>
-  <body class="bg-light">
-    
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="An analysis of value and momentum factors across global markets and their implications for portfolio construction">
+  <meta name="keywords" content="value investing, momentum investing, factor investing, portfolio construction, asset allocation">
+  <meta name="author" content="Vahid Asghari">
+  <link rel="icon" type="image/x-icon" href="../../public/favicon.ico">
+  <title>Value and Momentum Everywhere | Vahid Asghari</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Syntax Highlighting - Dark Theme -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <!-- Animated Background -->
+  <div class="bg-grid"></div>
+  <div class="bg-glow"></div>
 
-    <div class="container-fluid">
-  <div class="row">
-    <!-- Sidebar Container -->
-    <div class="sidebar-container"></div>
-    
-    <!-- Main Content -->
-    <div class="col-lg-9 col-md-8 main-content">
-      <div class="content-wrapper p-4">
-        <div class="row justify-content-center">
-        <div class="col-md-12">
-          <article class="card shadow-sm p-4">
+  <!-- Navigation -->
+  <div class="sidebar-container"></div>
+
+  <!-- Article -->
+  <article class="post-article">
+    <div class="container">
+      <!-- Hero Section -->
+      <div class="post-hero">
+        <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image0.png" alt="Value and Momentum Everywhere" class="post-hero-image">
+        <h1>Value and Momentum Everywhere</h1>
+        <div class="post-meta">
+          <span><i class="bi bi-tag"></i> Quant Notebook</span>
+        </div>
+      </div>
+
+      <!-- Post Body -->
+      <div class="post-body">
+        
             
 
-            <div>
-              <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image0.png" alt="Value and Momentum Everywhere" class="img-fluid">
-            </div>
+            
 
       
-            <div class="table-of-contents mb-4">
-              <h5 class="mb-3">Table of Contents</h5>
-              <ol class="list-unstyled">
-                <li class="mb-2"><a href="#research-basis">Research Basis</a></li>
-                <li class="mb-2"><a href="#data-collection">Data Collection</a></li>
-                <li class="mb-2"><a href="#momentum-factor">Momentum Factor Analysis</a></li>
-                <li class="mb-2"><a href="#regression-analysis">Regression Analysis</a></li>
-                <li class="mb-2"><a href="#portfolio-construction">Portfolio Construction</a></li>
-                <li class="mb-2"><a href="#post-crisis-analysis">Post-Financial Crisis Analysis</a></li>
-                <li class="mb-2"><a href="#portfolio-optimization">Portfolio Optimization with Modern Portfolio Theory</a></li>
+            <div class="post-toc">
+              <h2>Table of Contents</h2>
+              <ul>
+                <li><a href="#research-basis">Research Basis</a></li>
+                <li><a href="#data-collection">Data Collection</a></li>
+                <li><a href="#momentum-factor">Momentum Factor Analysis</a></li>
+                <li><a href="#regression-analysis">Regression Analysis</a></li>
+                <li><a href="#portfolio-construction">Portfolio Construction</a></li>
+                <li><a href="#post-crisis-analysis">Post-Financial Crisis Analysis</a></li>
+                <li><a href="#portfolio-optimization">Portfolio Optimization with Modern Portfolio Theory</a></li>
               </ol>
             </div>
       
             <div>
-              <section class="mb-4">
-                <h2 id="research-basis" class="h5 mb-3">Research Basis</h2>
+              <section>
+                <h2>Research Basis</h2>
                 <p>
                   This strategy is based on the following paper:
                   <a href="https://doi.org/10.1111/jofi.12021" target="_blank" rel="noopener noreferrer">
@@ -64,9 +75,9 @@
                   </a>
                 </p>
       
-                <p class="mb-3">In which the authors use a classic value and momentum strategy. The idea is that:</p>
+                <p >In which the authors use a classic value and momentum strategy. The idea is that:</p>
       
-                <p class="mb-0">
+                <p >
                   For momentum, we use the common measure of the past 12-month cumulative raw return on the asset,
                   skipping the most recent month's return, MOM2–12. We skip the most recent month, which is standard in
                   the momentum literature, to avoid the 1-month reversal in stock returns, which may be related to
@@ -74,7 +85,7 @@
                 </p>
               </section>
       
-              <section class="mb-4">
+              <section>
                 <p id="data-collection">Collect the list of the S&P 500 companies from Wikipedia and save it to a file</p>
                 <pre><code class="language-python"># Collect the list of the S&P 500 companies
 import os
@@ -91,7 +102,7 @@ tickers = df['Symbol'].tolist()</code>
                   </pre>
               </section>
       
-              <section class="mb-4">
+              <section>
                 <p>Load the data from yahoo finance</p>
                 <pre><code class="language-python"># Load the data from yahoo finance
 import os
@@ -131,9 +142,9 @@ if df is not None:
 tickers = ticker_with_data[:]</code>
                   </pre>
       
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Code Explanation</h5>
-                  <p class="mb-0">
+                <div class="alert-info">
+                  <h5>Code Explanation</h5>
+                  <p >
                     This code section:
                     <ol>
                       <li>Creates a function load_data that efficiently manages stock data by:
@@ -166,7 +177,7 @@ tickers = ticker_with_data[:]</code>
                 </div>
               </section>
       
-              <section class="mb-4">
+              <section>
                 <p>We only need the monthly data, so we will resample the data,
                   Open should be the first day of the month, Close should be the last day of the month
                   High should be the maximum value of the month, Low should be the minimum value of the month</p>
@@ -191,7 +202,7 @@ del holder
                   </pre>
               </section>
       
-              <section class="mb-4">
+              <section>
                 <p>Now we need to add the momentum factor to the data.
                   Assuming the we will open at the monthly open price and will close at the monthly close</p>
       
@@ -216,9 +227,9 @@ monthly_data = p.map(process_data, monthly_data)
 </code>
                   </pre>
       
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Code Explanation</h5>
-                  <p class="mb-0">
+                <div class="alert-info">
+                  <h5>Code Explanation</h5>
+                  <p >
                     This code section calculates various return metrics using parallel processing:
                     <ol>
                       <li>Calculates three types of returns for each stock:
@@ -245,7 +256,7 @@ monthly_data = p.map(process_data, monthly_data)
                 </div>
               </section>
       
-              <section class="mb-4">
+              <section>
                 <p>Next step is to conduct a simple regression to test the hypothesis</p>
       
                 <pre><code class="language-python">import matplotlib.pyplot as plt
@@ -279,9 +290,7 @@ model = sm.OLS(y, X)
 results = model.fit()</code>
                   </pre>
       
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image1.png" alt="Value and Momentum Everywhere" class="img-fluid">
-                </div>
+                <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image1.png" alt="Value and Momentum Everywhere" >
       
                 <code style="color: #000;">
                   <pre>
@@ -312,35 +321,35 @@ Kurtosis:                       3.878   Cond. No.                         4.05
       
                   <h3 id="regression-analysis" class="h5 mb-3">Analysis of the Results</h3>
                   
-                  <ol class="mb-4">
-                    <li class="mb-2">The p-value of the coefficient of the rolling 12 months return is 0.0, which means that the coefficient is statistically significant.</li>
+                  <ol >
+                    <li>The p-value of the coefficient of the rolling 12 months return is 0.0, which means that the coefficient is statistically significant.</li>
                     
-                    <li class="mb-2">The coefficient is negative and is against the momentum effect, which means that the stocks that have performed well in the past 12 months tend to under perform in the next month.</li>
+                    <li>The coefficient is negative and is against the momentum effect, which means that the stocks that have performed well in the past 12 months tend to under perform in the next month.</li>
                   </ol>
       
                   <h4 class="h6 mb-3">Possible reasons for the negative coefficient:</h4>
                   
-                  <ol class="mb-4">
-                    <li class="mb-2">There's a mistake in the code. Please let me know if you find any to make the code correct.</li>
+                  <ol >
+                    <li>There's a mistake in the code. Please let me know if you find any to make the code correct.</li>
                     
-                    <li class="mb-2">Our universe is S&P 500, which is a large-cap index of the time that you run the code. There's a possibility that the momentum effect is not valid for large-cap stocks.</li>
+                    <li>Our universe is S&P 500, which is a large-cap index of the time that you run the code. There's a possibility that the momentum effect is not valid for large-cap stocks.</li>
                     
-                    <li class="mb-2">The time period that we used for the analysis is different from the time period that the momentum effect was found in the literature.</li>
+                    <li>The time period that we used for the analysis is different from the time period that the momentum effect was found in the literature.</li>
                     
-                    <li class="mb-2">Maybe the effect is gone and not tradable anymore.</li>
+                    <li>Maybe the effect is gone and not tradable anymore.</li>
                     
-                    <li class="mb-2">Maybe the effect can be found in the tails.</li>
+                    <li>Maybe the effect can be found in the tails.</li>
                   </ol>
       
-                  <div class="alert alert-info">
-                    <h5 class="alert-heading">Next Steps</h5>
-                    <p class="mb-0">Let's do the regression on the tails for each month. It means, that we may see the effect for the largest growths and largest declines.</p>
+                  <div class="alert-info">
+                    <h5>Next Steps</h5>
+                    <p >Let's do the regression on the tails for each month. It means, that we may see the effect for the largest growths and largest declines.</p>
                   </div>
               </section>
       
-              <section class="mb-4">
+              <section>
                 <h3 id="portfolio-construction" class="h5 mb-3">Creating Long and Short Portfolios</h3>
-                <p class="mb-3">
+                <p >
                   Now we'll create separate dataframes for long and short positions based on the momentum signals.
                   We'll select the top N stocks with positive momentum for long positions and the bottom N stocks
                   with negative momentum for short positions.
@@ -396,9 +405,9 @@ long_df_symbols = long_df.apply(lambda row: row.dropna().index.tolist(), axis=1)
 short_df_symbols = short_df.apply(lambda row: row.dropna().index.tolist(), axis=1)</code>
                   </pre>
       
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Code Explanation</h5>
-                  <p class="mb-0">
+                <div class="alert-info">
+                  <h5>Code Explanation</h5>
+                  <p >
                     This code section:
                     <ol>
                       <li>Creates separate dataframes for different return series</li>
@@ -410,9 +419,9 @@ short_df_symbols = short_df.apply(lambda row: row.dropna().index.tolist(), axis=
                 </div>
               </section>
       
-              <section class="mb-4">
+              <section>
                 <h3 id="post-crisis-analysis" class="h5 mb-3">Analyzing Portfolio Returns</h3>
-                <p class="mb-3">
+                <p >
                   Now we'll analyze the returns of our long and short portfolios by preparing the data for regression analysis.
                 </p>
       
@@ -473,9 +482,9 @@ Kurtosis:                      11.051   Cond. No.                         1.65
                 </pre>
               </code>
       
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Code Explanation</h5>
-                  <p class="mb-0">
+                <div class="alert-info">
+                  <h5>Code Explanation</h5>
+                  <p >
                     This code section prepares and analyzes the portfolio data:
                     <ol>
                       <li>Data Selection and Filtering:
@@ -502,12 +511,12 @@ Kurtosis:                      11.051   Cond. No.                         1.65
                 </div>
               </section>
 
-              <section class="mb-4">
+              <section>
                 <h3 class="h5 mb-3">Analysis of the Results</h3>
-                <p class="mb-3">
+                <p >
                   Although the p-value is not significant statistically, we can see a positive relationship between the rolling 12 months return and next month return on the tails.
                 </p>
-                <p class="mb-3">
+                <p >
                   That's a good sign, it means we can trade momentum factor cross sectionally. At least we can give it a shot.
                 </p>
 
@@ -553,9 +562,9 @@ plt.title('Cumulative return')
 plt.show()</code>
                   </pre>
 
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Code Explanation</h5>
-                  <p class="mb-0">
+                <div class="alert-info">
+                  <h5>Code Explanation</h5>
+                  <p >
                     This code section implements the core momentum trading strategy:
                     <ol>
                       <li>Portfolio Construction:
@@ -568,17 +577,15 @@ plt.show()</code>
                       </ol>
                 </div>
 
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image2.png" alt="Cumulative return" class="img-fluid">
-                </div>
+                <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image2.png" alt="Cumulative return" >
 
 
 
               </section>
       
-              <section class="mb-4">
+              <section>
                 <h3 id="post-crisis-analysis" class="h5 mb-3">Post-Financial Crisis Analysis</h3>
-                <p class="mb-3">To better understand the strategy's performance in more recent market conditions, let's analyze the returns after the 2008 financial crisis, starting from 2010:</p>
+                <p >To better understand the strategy's performance in more recent market conditions, let's analyze the returns after the 2008 financial crisis, starting from 2010:</p>
                 
                 <pre><code class="language-python"># Calculate Sharpe ratio for post-2010 period
 # Find the first date after 2010
@@ -605,13 +612,11 @@ plt.title('Cumulative return after 2010')
 plt.show()</code>
                   </pre>
       
-                <div class="d-flex justify-content-center">
-                  <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image3.png" alt="Post-2010 Momentum Strategy Returns" class="img-fluid">
-                </div>
+                <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image3.png" alt="Post-2010 Momentum Strategy Returns" >
       
-                <div class="alert alert-info mt-3">
-                  <h5 class="alert-heading">Analysis of Post-Crisis Performance</h5>
-                  <p class="mb-0">
+                <div class="alert-info">
+                  <h5>Analysis of Post-Crisis Performance</h5>
+                  <p >
                     This analysis segment focuses on the strategy's modern-era performance:
                     <ul>
                       <li>Isolates returns from 2010 onwards to exclude financial crisis effects</li>
@@ -622,10 +627,10 @@ plt.show()</code>
                 </div>
               </section>
       
-              <section class="mb-4">
+              <section>
                 <h3 id="portfolio-optimization" class="h5 mb-3">Portfolio Optimization with Modern Portfolio Theory</h3>
                 
-                <p class="mb-3">To improve the strategy's performance, we can implement Modern Portfolio Theory (MPT) for optimal portfolio weights instead of using equal weights. This approach should help us better balance risk and return:</p>
+                <p >To improve the strategy's performance, we can implement Modern Portfolio Theory (MPT) for optimal portfolio weights instead of using equal weights. This approach should help us better balance risk and return:</p>
       
                 <pre><code class="language-python"># Import optimization tools
 from scipy.optimize import minimize
@@ -698,13 +703,11 @@ plt.show()
 </code>
                   </pre>
       
-                 <div class="d-flex justify-content-center">
-                   <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image4.png" alt="Post-2010 Momentum Strategy Returns with Optimization" class="img-fluid">
-                 </div>
+                 <img src="../../images/quantio/2025-05-01-ValueAndMomentum-Image4.png" alt="Post-2010 Momentum Strategy Returns with Optimization" >
       
-                 <div class="alert alert-info mt-3">
-                   <h5 class="alert-heading">Portfolio Optimization Methodology</h5>
-                   <p class="mb-0">
+                 <div class="alert-info">
+                   <h5>Portfolio Optimization Methodology</h5>
+                   <p >
                      This implementation uses Modern Portfolio Theory to enhance the strategy:
                      <ol>
                        <li>Risk-Return Framework:
@@ -731,9 +734,9 @@ plt.show()
                       </ol>
                  </div>
       
-                 <div class="alert alert-warning mt-3">
-                   <h5 class="alert-heading">Important Considerations</h5>
-                   <p class="mb-0">
+                 <div class="alert-warning">
+                   <h5>Important Considerations</h5>
+                   <p >
                      <ul>
                        <li>Transaction costs are not included in this analysis</li>
                        <li>The optimization assumes we can perfectly execute at historical prices</li>
@@ -744,22 +747,25 @@ plt.show()
                </section>
       
             </div>
-          </article>
-        </div>
-        </div>
-  </div>
-</div>
+          
+      </div>
 
-  <script src="../../data/content.js"></script>
-    <script src="../../components/content_menu.js"></script>
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-python.min.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        });
-    </script>
-    <script src="../../components/sidebar.js"></script
+        <!-- Post Footer -->
+        <div class="post-footer">
+          <h3>Interested in more research?</h3>
+          <a href="../../index.html" class="btn-primary">
+            <i class="bi bi-arrow-left"></i>
+            Back to Home
+          </a>
+        </div>
+      </div>
+    </article>
+
+  <!-- Syntax Highlighting -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+  
+  <!-- Navigation -->
+  <script src="../../components/sidebar.js"></script>
 </body>
 </html>
