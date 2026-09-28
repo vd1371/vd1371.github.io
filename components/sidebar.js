@@ -30,7 +30,7 @@ function loadSidebar() {
         </a>
         
         <div class="post-nav-links">
-          <a href="${basePath}index.html#notebooks" class="post-nav-link">
+          <a href="${basePath}index.html" class="post-nav-link">
             <i class="bi bi-arrow-left"></i>
             Back to Home
           </a>

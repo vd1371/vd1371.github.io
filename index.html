@@ -3,15 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Vahid Asghari — quantitative developer and researcher.">
+  <meta name="description" content="Vahid Asghari — Quant AI Specialist at Premialab. Cross-asset risk engines, QIS, and ML for markets. Organizer of Hong Kong ML.">
   <meta name="author" content="Vahid Asghari">
+  <link rel="canonical" href="https://vahidasghari.me/">
+  <meta property="og:site_name" content="Vahid Asghari">
+  <meta property="og:title" content="Vahid Asghari — Quant AI &amp; research">
+  <meta property="og:description" content="Risk engines, quantitative research, and Hong Kong's ML community.">
+  <meta property="og:url" content="https://vahidasghari.me/">
+  <meta property="og:type" content="profile">
+  <meta property="og:image" content="https://vahidasghari.me/public/Vahid2024-Square.jpg">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Vahid Asghari">
+  <meta name="twitter:description" content="Quant AI Specialist · Premialab · Hong Kong ML">
+  <meta name="twitter:image" content="https://vahidasghari.me/public/Vahid2024-Square.jpg">
   <link rel="icon" type="image/x-icon" href="public/favicon.ico">
+  <link rel="manifest" href="public/site.webmanifest">
+  <meta name="theme-color" content="#0c0c10">
   <title>Vahid Asghari</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
   <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Vahid Asghari",
+    "url": "https://vahidasghari.me",
+    "image": "https://vahidasghari.me/public/Vahid2024-Square.jpg",
+    "jobTitle": "Quant AI Specialist",
+    "worksFor": { "@type": "Organization", "name": "Premialab" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Hong Kong" },
+    "sameAs": [
+      "https://linkedin.com/in/asgharivahid",
+      "https://github.com/vd1371",
+      "https://scholar.google.com/citations?user=eUlLuc8AAAAJ"
+    ]
+  }
+  </script>
 </head>
 <body>
   <div class="bg-glow" aria-hidden="true"></div>
@@ -19,55 +49,105 @@
   <main class="page">
     <header class="hero">
       <div class="avatar-wrap">
-        <img class="avatar" src="public/Vahid2024-Square.jpg" alt="Vahid Asghari">
+        <img class="avatar" src="public/Vahid2024-Square.jpg" alt="Vahid Asghari" width="108" height="108">
       </div>
       <h1>Vahid Asghari</h1>
-      <p class="tagline">Quantitative developer &amp; researcher</p>
-      <p class="location"><i class="bi bi-geo-alt"></i> Hong Kong</p>
+      <p class="tagline">Quant AI Specialist at <a href="https://www.premialab.com/" target="_blank" rel="noopener">Premialab</a></p>
+      <p class="hero-sub">Cross-asset risk, QIS optimization, and production ML — Ph.D. in Engineering</p>
+      <p class="location"><i class="bi bi-geo-alt" aria-hidden="true"></i> Hong Kong</p>
     </header>
 
-    <section class="card about">
-      <h2>About</h2>
+    <section class="card about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About</h2>
       <p>
-        I build quantitative tools, risk management systems, and AI/ML solutions for financial markets.
+        I build production risk engines, optimization pipelines, and AI tooling for institutional
+        quantitative strategies — from vanilla options and equities to swaps and QIS portfolios.
       </p>
       <p>
-        Outside of work, I organize the
-        <a href="https://www.hkml.ai/" target="_blank" rel="noopener">Hong Kong ML Meetup</a>,
-        read academic papers and philosophy books, run in the nature, and cook for my family and friends.
+        Previously I ran automated trading and ML research at Muziris Research. My academic work
+        spans infrastructure asset management, simulation, and multi-agent reinforcement learning
+        (<a href="https://scholar.google.com/citations?user=eUlLuc8AAAAJ&amp;hl=en" target="_blank" rel="noopener">Google Scholar</a>).
+      </p>
+      <p>
+        Outside of work I organize
+        <a href="https://www.hkml.ai/" target="_blank" rel="noopener">Hong Kong ML</a>
+        — talks that bridge academia and industry — read papers and philosophy, run trails, and cook
+        for family and friends.
       </p>
       <ul class="tags" aria-label="Areas of focus">
-        <li>Quant Research</li>
-        <li>Machine Learning</li>
-        <li>System Building</li>
+        <li>Risk engines</li>
+        <li>QIS &amp; optimization</li>
+        <li>ML systems</li>
+        <li>Factor research</li>
       </ul>
     </section>
 
-    <section class="contact">
-      <h2>Get in touch</h2>
+    <section class="section-work" aria-labelledby="work-heading">
+      <h2 id="work-heading">Selected work</h2>
+      <div id="featured-projects" class="work-grid"></div>
+    </section>
+
+    <section class="card section-block" id="notebooks" aria-labelledby="notebooks-heading">
+      <h2 id="notebooks-heading">Quant notebooks</h2>
+      <p class="section-lead">Exploratory studies in momentum, stat arb, forecasting, and crypto — with charts and methodology notes.</p>
+      <ul id="notebooks-list" class="work-list"></ul>
+      <button type="button" id="notebooks-toggle" class="text-button" aria-expanded="false" hidden>Show all notebooks</button>
+    </section>
+
+    <section class="card section-block" id="papers" aria-labelledby="papers-heading">
+      <h2 id="papers-heading">Research summaries</h2>
+      <p class="section-lead">Longer-form notes on peer-reviewed and systems research from my Ph.D. and collaborations.</p>
+      <ul id="papers-list" class="work-list"></ul>
+    </section>
+
+    <section class="card community" aria-labelledby="community-heading">
+      <h2 id="community-heading">Hong Kong ML</h2>
+      <p>
+        A recurring meetup for researchers and practitioners — main talks, lightning pitches, and
+        open networking. Past seasons covered quant finance, GenAI, NLP, and Web3.
+      </p>
+      <div class="community-actions">
+        <a href="https://www.meetup.com/hong-kong-machine-learning-meetup" target="_blank" rel="noopener" class="community-btn">
+          <i class="bi bi-people" aria-hidden="true"></i> Meetup
+        </a>
+        <a href="https://www.hkml.ai/" target="_blank" rel="noopener" class="community-btn">
+          <i class="bi bi-calendar-event" aria-hidden="true"></i> Event archive
+        </a>
+        <a href="https://forms.gle/isrRxsD94VtHXNKx5" target="_blank" rel="noopener" class="community-btn">
+          <i class="bi bi-envelope-open" aria-hidden="true"></i> Newsletter
+        </a>
+      </div>
+      <p class="community-cta">
+        Interested in speaking or sponsoring?
+        <a href="mailto:contact@vahidasghari.me?subject=HKML%20speaker">Get in touch</a>.
+      </p>
+    </section>
+
+    <section class="contact" aria-labelledby="contact-heading">
+      <h2 id="contact-heading">Get in touch</h2>
       <div class="contact-grid">
         <a href="mailto:contact@vahidasghari.me" class="contact-card">
-          <i class="bi bi-envelope"></i>
+          <i class="bi bi-envelope" aria-hidden="true"></i>
           <span class="contact-label">Email</span>
           <span class="contact-value">contact@vahidasghari.me</span>
         </a>
         <a href="https://linkedin.com/in/asgharivahid" target="_blank" rel="noopener" class="contact-card">
-          <i class="bi bi-linkedin"></i>
+          <i class="bi bi-linkedin" aria-hidden="true"></i>
           <span class="contact-label">LinkedIn</span>
           <span class="contact-value">asgharivahid</span>
         </a>
         <a href="https://github.com/vd1371" target="_blank" rel="noopener" class="contact-card">
-          <i class="bi bi-github"></i>
+          <i class="bi bi-github" aria-hidden="true"></i>
           <span class="contact-label">GitHub</span>
           <span class="contact-value">vd1371</span>
         </a>
-        <a href="https://scholar.google.com/citations?user=eUlLuc8AAAAJ&hl=en" target="_blank" rel="noopener" class="contact-card">
-          <i class="bi bi-mortarboard"></i>
+        <a href="https://scholar.google.com/citations?user=eUlLuc8AAAAJ&amp;hl=en" target="_blank" rel="noopener" class="contact-card">
+          <i class="bi bi-mortarboard" aria-hidden="true"></i>
           <span class="contact-label">Scholar</span>
           <span class="contact-value">Publications</span>
         </a>
         <a href="https://calendar.app.google/UMZ7JpXbH4V94bMs9" target="_blank" rel="noopener" class="contact-card contact-card-wide">
-          <i class="bi bi-calendar-check"></i>
+          <i class="bi bi-calendar-check" aria-hidden="true"></i>
           <span class="contact-label">Calendar</span>
           <span class="contact-value">Schedule a call</span>
         </a>
@@ -79,9 +159,13 @@
         <a href="mailto:contact@vahidasghari.me" aria-label="Email"><i class="bi bi-envelope"></i></a>
         <a href="https://linkedin.com/in/asgharivahid" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
         <a href="https://github.com/vd1371" target="_blank" rel="noopener" aria-label="GitHub"><i class="bi bi-github"></i></a>
+        <a href="https://www.hkml.ai/" target="_blank" rel="noopener" aria-label="Hong Kong ML"><i class="bi bi-people"></i></a>
       </div>
       <p>&copy; 2026 Vahid Asghari</p>
     </footer>
   </main>
+
+  <script src="data/content.js"></script>
+  <script src="components/home.js"></script>
 </body>
 </html>
